@@ -24,7 +24,7 @@ export class FCalculoImpuestoComponent implements OnInit, AfterViewInit, OnDestr
   wizard: any;
 
   constructor(private fCalculoImpuestoService:FCalculoImpuestoService, 
-    private router:Router,private formBuilder:FormBuilder)
+    private router:Router, private formBuilder:FormBuilder)
     {}
 
   ngOnInit() {

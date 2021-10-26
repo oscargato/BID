@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { FAprobacionTramiteService } from './f-aprobacion-tramite.service'
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
-
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-f-aprobacion-tramite',
@@ -15,48 +18,160 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
 
   @ViewChild('wizard', { static: true }) el: ElementRef;
 
-  model: any = {
-    pname: 'Edicion John Wick',
-    dproyecto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed mollis sem, sit amet dictum tortor. Aenean tortor ex, suscipit tempus viverra in, lacinia vel sem.',
-    provincia: '8',
-    distrito: '8',
-    corregimiento: '8',
-    tpropiedad: 'Tipo 2',
-    cubicacion: 'La Floresta',
-    finca: '6',
-    tomo: '10',
-    folio: '6',
-    cresponsable: 'John Wick',
-    pterreno: 'Arrendador',
-    iinspeccion: '',
-    valorobra: '$12,213,456.78',
-    npidonio: 'Mrs Wick',
-    nidoneidad: '456-879-123',
-    npresidente: 'Jose Perez',
-    rpublico: '123-564-789',
-    cidoneo: 'VIC',
-    ccedula: '6-706-1850',
-    pasaporte: '1-231-456',
-    monto: '$12,213,456.78',
-    observaciones: 'John Wick',
-  };
   submitted = false;
   wizard: any;
 
-  constructor() {}
+  public formulario:FormGroup;
+
+  constructor(private fAprobacionTramiteService:FAprobacionTramiteService, 
+    private router:Router, private formBuilder:FormBuilder) {}
 
   ngOnInit() {
+
+    this.formulario = this.formBuilder.group({
+  		nombre:['', Validators.compose([
+          Validators.required
+        ]),
+      ],
+
+  		descripcion:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		provincia:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		distrito:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		corregimiento:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		tipoPropiedad:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		codigoUbicacion:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		finca:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		tomo:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		folio:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		constructor:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		propietarioTerreno:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		iinspeccion:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		valorObra:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		nombreProfesionalIdoneo:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		numeroIdoneidad:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		nombreProfesionalResidente:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		registroPublico:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		certificacionIdoneo:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		ccedula:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		pasaporte:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		fechapago:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		monto:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+
+  		observaciones:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+    });
+
+    this.fAprobacionTramiteService.getRevision(1).subscribe(resp =>{
+      console.log('Respuesta',resp);
+        this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+        this.formulario.controls['descripcion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
+        this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.nomProvincia);
+        this.formulario.controls['distrito'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.distritoProyectoId.nomDistrito);
+        this.formulario.controls['corregimiento'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.corregimientoProyectoId.nomCorregimiento);
+        this.formulario.controls['tipoPropiedad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.descripcion);
+        this.formulario.controls['codigoUbicacion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.codUbicacion);
+        this.formulario.controls['finca'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.finca);
+        this.formulario.controls['tomo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tomo);
+        this.formulario.controls['folio'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.folio);
+        this.formulario.controls['constructor'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreResp);
+        this.formulario.controls['propietarioTerreno'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombrePropietarioTerreno);
+        this.formulario.controls['valorObra'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.valorAproxObra);
+        this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
+        this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
+        this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
+    })
+
   }
 
-  /*openDialog3() {
-    const dialogRef = this.dialog.open(Modal3Component, {
-      height: '350px',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }*/
 
   ngAfterViewInit(): void {
 
