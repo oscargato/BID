@@ -36,6 +36,9 @@ export class FSubsanarpagosComponent implements OnInit, AfterViewInit, OnDestroy
     this.fSubsanarpagosService.getSubsanacion(1).subscribe(resp =>{
       console.log('Respuesta',resp);
     })
+
+
+   
   }
 
 
