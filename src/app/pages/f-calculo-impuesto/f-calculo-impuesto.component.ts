@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 
 
@@ -15,26 +16,37 @@ import { KTUtil } from '../../../assets/js/components/util';
 })
 export class FCalculoImpuestoComponent implements OnInit, AfterViewInit, OnDestroy {
 
-
+  public formulario:FormGroup;
+  
   //@ViewChild('wizard', { static: true }) el: ElementRef;
 
-  model: any = {
-   
-  
-    nombreProyecto: 'Finca los Tucanes',
-    montoc: '$1213,456.70',
-  
-  };
   submitted = false;
   wizard: any;
 
   constructor(private fCalculoImpuestoService:FCalculoImpuestoService, 
-    private router:Router)
+    private router:Router,private formBuilder:FormBuilder)
     {}
 
   ngOnInit() {
+
+
+    this.formulario = this.formBuilder.group({
+  		nombre:['', Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(100)
+        ]),
+      ],
+
+  		impuesto:['', Validators.compose([
+          Validators.required,
+        ]),
+      ],
+    });
+
     this.fCalculoImpuestoService.getRevision(1).subscribe(resp =>{
       console.log('Respuesta',resp);
+      this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
     })
   }
 

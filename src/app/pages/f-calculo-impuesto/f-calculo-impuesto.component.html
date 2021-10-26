@@ -23,22 +23,24 @@
           <div class="row">
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: -->
-              <form class="form" id="kt_form">
+              <form [formGroup]="formulario" class="form" id="kt_form">
         <!--begin: monto Actions -->
-        <div class="d-flex justify-content-between border-bottom py-5">
-            <div   div class="mr-2">
-                <label class="font-weight-bolder">Nombre del Proyectos</label>
-                <input
-                      type="text"
-                      class="form-control"
-                      name="nombreProyecto"
-                      [(ngModel)]="model.nombreProyecto"
-                      placeholder="Finca los Tucanes"
-                      value="" disabled
-                    />
-            </div>
-        <div>
+    <div class="form-group d-flex justify-content-between border-bottom py-5">
+      <div   div class="mr-2">
+        <label>Nombre del Proyecto</label>
+        <input type="text"
+               class="form-control"
+               name="nombre"
+               formControlName="nombre"
+               placeholder="Nombre del Proyecto"
+               value="" disabled
+               />                        
+        <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].dirty || formulario.controls['nombre'].touched)">
+          <div class="d-flex justify-content-end" style="color:#FF0000;">
+            <span>Se requiere Nombre del Proyecto</span> 
+          </div>
         </div>
+      </div>
     </div>
       <!--end: monto Actions -->
         <!--begin: Form -->
@@ -54,7 +56,6 @@
                           type="text"
                           class="form-control"
                           name="montoc"
-                          [(ngModel)]="model.montoc"
                           placeholder="$12,123,456.89"
                           value=""
                         />
@@ -78,7 +79,7 @@
             </div>
         <div>
           <div
-            (click)="onSubmit()"
+            (click)="newRevisonPago()"
             class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
             data-wizard-type="action-submit"
           >
