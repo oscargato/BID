@@ -1,0 +1,133 @@
+<div class="card card-custom gutter-b">
+    <!--begin::Header-->
+    <div class="card-header py-3">
+      <div class="card-title align-items-start flex-column">
+        <h3 class="card-label font-weight-bolder text-dark">Tarea de Inspección </h3>
+        <span class="text-muted font-weight-bold font-size-sm mt-1">Inspector/Topógrafo </span>
+      </div>
+      <div class="card-toolbar">
+        <a
+        routerLink="/dashboard"
+        class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" style="float:right"
+      >
+        Cancelar
+      </a>
+      </div>
+    </div>
+    <!--end::Header-->
+    
+    <div class="card-body">
+      <!--begin: Wizard -->
+  
+        <div class="wizard-body ">
+          <!--begin:  Form-->
+          <div class="row">
+            <div class="offset-xxl-2 col-xxl-8">
+              <!--begin: -->
+              <form class="form" id="kt_form">
+        <!--begin: monto Actions -->
+        <div class="d-flex justify-content-between border-bottom py-3">
+            <div class="mr-2">
+                <label class="font-weight-bolder">Nombre del Proyectos</label>
+                <input
+                      type="text"
+                      class="form-control input-lg"
+                      name="nombreProyecto"
+                      [(ngModel)]="model.nombreProyecto"
+                      placeholder="Finca los Tucanes" disabled
+                      value="" 
+                    />
+            </div>
+         <div>
+      </div>
+    </div>
+      <!--end: monto Actions -->
+        <!--begin: Form -->
+        <div class="py-5" data-wizard-type="step-content">
+                  <h4 class="mb-5 font-weight-bold border-bottom py-2 text-dark">
+                    Tarea de Inspección
+                  </h4>
+              <div class="row">
+                <div class="col-xl-12">
+                  <div class="form-group">
+                    <label >Inspección Aprobada</label><br>
+                    <input type="radio" id="si" name="tareaInspeccion" checked="checked" value="Si">&nbsp;
+                    <label for="si"> Si</label>&nbsp;
+                    <input type="radio" id="no" name="tareaInspeccion" value="No">&nbsp;
+                    <label for="no"> No</label><br>
+                  </div>
+                </div>
+
+            
+              </div> 
+
+              <div class="row">
+                <div class="col-xl-12">
+                  <div class="form-group">
+                    <label>Observaciones</label>
+                    <textarea 
+                              class="form-control"
+                              name="observaciones"
+                              [(ngModel)]="model.observaciones"
+                              placeholder="de que se trata el proyecto">
+                          </textarea>
+                  </div>
+
+                </div>
+
+<!--                 <div class="col-xl-6">
+                  <div class="form-group">
+                   
+                  </div>
+
+                </div> -->
+
+              </div>
+              <div class="row">
+                <div class="col-xl-12">
+                    <div class="form-group">
+                        <label>Informe de Inspección</label>
+                        <input type="file"
+                        class="form-control"
+                        name="inspeccion"
+                        [(ngModel)]="model.inspeccion"
+                        placeholder="Pasaporte"
+                        value="" accept=".png, .jpg, .jpeg, .pdf"  />
+                       
+                      </div>
+
+                </div>
+
+             
+                
+              </div>
+          
+
+        </div>
+                <!--end: Form -->
+    <!--begin: Form Actions -->
+    <div class="d-flex justify-content-between border-top pt-5">
+            <div   div class="mr-2">
+            </div>
+        <div>
+          <div
+            (click)="onSubmit()"
+            class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+            data-wizard-type="action-submit"
+          >
+            Enviar
+          </div>
+    
+        </div>
+    </div>
+      <!--end: Form Actions -->
+    </form>
+    <!--end: Form Wizard Form-->
+            </div>
+          </div>
+        </div>
+    
+      <!--end: Wizard -->
+    </div>
+  </div>
+  

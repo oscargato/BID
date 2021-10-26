@@ -1,0 +1,883 @@
+<div class="card card-custom gutter-b">
+    <div class="card-header py-3">
+      <div class="card-title align-items-start flex-column">
+        <h3 class="card-label font-weight-bolder text-dark">Formulario de Solicitud del Permiso de Construcción</h3>
+        <span class="text-muted font-weight-bold font-size-sm mt-1">Revisión Solicitud</span>
+      </div>
+      <div class="card-toolbar">
+        <a routerLink="/tramites/tramites-a-revisar/tramites-a-revisar"
+           class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" 
+           style="float:right">
+          Cancelar
+        </a>
+      </div>
+    </div>
+
+    
+    <div class="card-body">
+      <!--begin: Wizard -->
+      <div
+        #wizard
+        class="wizard wizard-2"
+        id="kt_wizard_v2"
+        data-wizard-state="step-first"
+      >
+        <div class="wizard-nav border-right py-8 px-8 py-lg-20 px-lg-10">
+          <!--begin: Form Wizard Nav -->
+          <div class="wizard-steps">
+            <a
+              class="wizard-step"
+              href="javascript:;"
+              data-wizard-type="step"
+              data-wizard-state="current"
+            >
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary svg-icon-3x"
+                    [inlineSVG]="'../../../assets/media/svg/icons/General/User.svg'"
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Información del Proyecto</div>
+                  <div class="wizard-desc">Nombre del proyecto, descripción del proyecto</div>
+                </div>
+              </div>
+            </a>
+            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary svg-icon-3x"
+                    [inlineSVG]="'./assets/media/svg/icons/Map/Compass.svg'"
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Ubicación del Proyecto</div>
+                  <div class="wizard-desc">Ubicación del Lote o Inmueble</div>
+                </div>
+              </div>
+            </a>
+            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary svg-icon-3x"
+                    [inlineSVG]="
+                      '../../../assets/media/svg/icons/General/Thunder-move.svg'
+                    "
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Información del Lote o Terreno</div>
+                  <div class="wizard-desc">Tipo de propiedad, código de ubicación, finca, tomo, folio</div>
+                </div>
+              </div>
+            </a>
+            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary  svg-icon-3x"
+                    [inlineSVG]="'./assets/media/svg/icons/Map/Position.svg'"
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Datos de la Obra</div>
+                  <div class="wizard-desc">Constructor, Propietario, Valor, Nombres</div>
+                </div>
+              </div>
+            </a>
+            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary svg-icon-3x"
+                    [inlineSVG]="
+                      './assets/media/svg/icons/Files/File.svg'"
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Adjuntos</div>
+                  <div class="wizard-desc">Registro Público, Cédula, Certificación, Pasaporte</div>
+                </div>
+              </div>
+            </a>
+            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary svg-icon-3x"
+                    [inlineSVG]="'./assets/media/svg/icons/General/Like.svg'"
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Subsanar Solicitud</div>
+                  <div class="wizard-desc">Revisar y Enviar</div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!--end: Form Wizard Nav -->
+        </div>
+        <div class="wizard-body py-8 px-8 py-lg-20 px-lg-10">
+          <!--begin: Wizard Form-->
+          <div class="row">
+            <div class="offset-xxl-2 col-xxl-8">
+              <!--begin: Form Wizard Form-->
+              <form [formGroup]="formulario" class="form" id="kt_form" novalidate>
+              <!--begin: Form Wizard Step 1-->
+
+              <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+              <h4 class="mb-10 font-weight-bold text-dark">
+                Información del Proyecto
+              </h4>
+              <span class="form-text d-flex justify-content-end">Marcar el dato a subsanar</span>
+              <div class="kt-form__section kt-form__section--first">
+                <div class="kt-wizard-v2__form">
+                  <div class="row">
+                    <div class="col-xl-11">
+                      <div class="form-group">
+                        <label>Nombre del Proyecto</label>
+                        <input type="text"
+                               class="form-control"
+                               name="nombre"
+                               formControlName="nombre"
+                               placeholder="Nombre del Proyecto"
+                               value="" readonly/>
+                      </div>
+                    </div>
+                    
+                    <div class="col-xl-1">
+                      <div class="form-group">
+                        <br><br>
+                        <div class="checkbox-inline">
+                          <label class="checkbox checkbox-lg checkbox-danger">
+                            <input type="checkbox" 
+                                   class="form-control" 
+                                   formControlName="checkboxNombre" 
+                                   name="checkboxNombre"/>
+                            <span></span>
+                          </label>
+                        </div> 
+                      </div>
+                    </div>
+                  </div> 
+
+
+                  <div class="row">
+                      <div class="col-xl-11">
+                        <div class="form-group">
+                            <label>Descripción del Proyecto</label>
+                            <textarea class="form-control"
+                                      name="descripcion"
+                                      formControlName="descripcion"
+                                      placeholder="De que se trata el proyecto" readonly>
+                            </textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-1">
+                          <div class="form-group">
+                              <span class="form-text text-muted"></span>
+                              <br>
+                              <br>
+                              <div class="checkbox-inline">
+                                <label class="checkbox checkbox-lg checkbox-danger">
+                                  <input type="checkbox" 
+                                         class="form-control" 
+                                         formControlName="checkboxDescripcion" 
+                                         name="checkboxDescripcion"/>
+                                  <span></span>  
+                                </label>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            
+  
+               
+                <div class="pb-5" data-wizard-type="step-content">
+                  <h4 class="mb-10 font-weight-bold text-dark">
+                    Ubicación del Proyecto
+                  </h4>
+                  <div class="row">
+                    <div class="col-xl-11">
+                      <div class="form-group">
+                        <label>Provincia:</label>
+                        <input type="text"
+                               class="form-control"
+                               name="provincia"
+                               formControlName="provincia"
+                               placeholder="Provincia"
+                               readonly/>
+                      </div>                      
+                    </div>
+
+                    <div class="col-xl-1">
+                        <div class="form-group">
+                            <span class="form-text text-muted"></span><br><br>
+                            <div class="checkbox-inline">
+                            <label class="checkbox checkbox-danger">
+                                <input type="checkbox" class="form-control" formControlName="checkboxProvincia" name="checkboxProvincia"/>
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                  <div class="row">
+                    <div class="col-xl-5">
+                      <div class="form-group">
+                        <label>Distrito:</label>
+                        <input type="text"
+                               class="form-control"
+                               name="distrito"
+                               formControlName="distrito"
+                               placeholder="Distrito"
+                               readonly/>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-1">
+                       <div class="form-group">
+                        <span class="form-text text-muted"></span><br><br>
+                                <div class="checkbox-inline">
+                                    <label class="checkbox  checkbox-danger">
+                                        <input type="checkbox" class="form-control" formControlName="checkboxDistrito" name="checkboxDistrito"/>
+                                        <span></span>
+                                    </label>
+                                </div>
+                        </div>
+                  </div>
+
+                  <div class="col-xl-5">
+                    <div class="form-group">
+                      <label>Corregimiento:</label>
+                      <input type="text"
+                              class="form-control"
+                              name="corregimiento"
+                              formControlName="corregimiento"
+                              placeholder="Corregimiento"
+                              readonly/>
+                    </div>
+                  </div>
+
+                    <div class="col-xl-1">
+                        <div class="form-group"> 
+                            <span class="form-text text-muted"></span><br><br>
+                            <div class="checkbox-inline">
+                            <label class="checkbox checkbox-danger">
+                                
+                                <input type="checkbox" class="form-control" formControlName="checkboxCorregimiento" name="checkboxCorregimiento"/>
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                
+
+                <div class="pb-5" data-wizard-type="step-content">
+                  <h4 class="mb-10 font-weight-bold text-dark">
+                      Información del Lote o Terreno
+                  </h4>
+
+
+              <div class="row">
+                <div class="col-xl-5">
+                  <div class="form-group">
+                    <label>Tipo de Propiedad:</label>
+                    <input type="text"
+                            class="form-control"
+                            name="tipoPropiedad"
+                            formControlName="tipoPropiedad"
+                            placeholder="Tipo Propiedad"
+                            readonly/>
+                  </div>
+                </div>
+
+                <div class="col-xl-1">
+                    <div class="form-group">
+                         <span class="form-text text-muted"></span><br><br>
+                          <div class="checkbox-inline">
+                              <label class="checkbox  checkbox-danger">
+                                  <input type="checkbox" class="form-control" formControlName="checkboxTipoPropiedad" name="checkboxTipoPropiedad"/>
+                                  <span></span>
+                              </label>
+                          </div>
+                     </div>
+                </div>
+
+
+                <div class="col-xl-5">
+                  <div class="form-group">
+                    <label>Código de Ubicación:</label>
+                    <input type="text"
+                            class="form-control"
+                            name="codigoUbicacion"
+                            formControlName="codigoUbicacion"
+                            placeholder="Código de Ubicación"
+                            readonly/>
+                  </div>
+                </div>
+
+
+                <div class="col-xl-1">
+                    <div class="form-group">
+                          <span class="form-text text-muted"></span><br><br>
+                          <div class="checkbox-inline">
+                              <label class="checkbox  checkbox-danger">
+                                  <input type="checkbox" class="form-control" formControlName="checkboxCodigoUbicacion" name="checkboxCodigoUbicacion"/>
+                                  <span></span>
+                              </label>
+                          </div>
+                     </div>
+                </div>
+              </div> 
+
+
+              <div class="row">
+                <div class="col-xl-5">
+                  <div class="form-group">
+                    <label>Finca:</label>
+                    <input type="text"
+                            class="form-control"
+                            name="finca"
+                            formControlName="finca"
+                            placeholder="Finca"
+                            readonly/>
+                  </div>
+                </div>
+
+                <div class="col-xl-1">
+                    <div class="form-group">
+                         <span class="form-text text-muted"></span><br><br>
+                             <div class="checkbox-inline">
+                                 <label class="checkbox  checkbox-danger">
+                                     
+                                     <input type="checkbox" class="form-control" formControlName="checkboxFinca" name="checkboxFinca"/>
+                                     <span></span>
+                                 </label>
+                             </div>
+                     </div>
+               </div>
+                
+               <div class="col-xl-5">
+                  <div class="form-group">
+                    <label>Tomo:</label>
+                    <input type="text"
+                            class="form-control"
+                            name="tomo"
+                            formControlName="tomo"
+                            placeholder="Tomo"
+                            readonly/>
+                  </div>                
+                </div>
+
+                <div class="col-xl-1">
+                    <div class="form-group">
+                         <span class="form-text text-muted"></span><br><br>
+                          <div class="checkbox-inline">
+                              <label class="checkbox  checkbox-danger">
+                                  
+                                  <input type="checkbox" class="form-control" formControlName="checkboxTomo" name="checkboxTomo"/>
+                                  <span></span>
+                              </label>
+                          </div>
+                     </div>
+               </div>
+
+              </div>
+
+
+              <div class="row">
+                <div class="col-xl-5">
+                  <div class="form-group">
+                    <label>Folio:</label>
+                    <input type="text"
+                            class="form-control"
+                            name="folio"
+                            formControlName="folio"
+                            placeholder="Folio"
+                            readonly/>
+                  </div>
+                </div>
+
+                <div class="col-xl-1">
+                    <div class="form-group">
+                        <span class="form-text text-muted"></span><br><br>
+                        <div class="checkbox-inline">
+                            <label class="checkbox  checkbox-danger">
+                                
+                                <input type="checkbox" class="form-control" formControlName="checkboxFolio" name="checkboxFolio"/>
+                                <span></span> 
+                            </label>
+                        </div>
+                     </div>
+                </div>
+                <div class="col-xl-6">
+                </div>
+              </div>
+            </div>
+
+
+                <div class="pb-5" data-wizard-type="step-content">
+                  <h4 class="mb-10 font-weight-bold text-dark">
+                    Datos de la Obra
+                  </h4>
+
+                  <div class="row">
+                    <div class="col-xl-5">
+                      <div class="form-group">
+                        <label>Constructor Responsable:</label>
+                        <input type="text"
+                                class="form-control"
+                                name="constructor"
+                                formControlName="constructor"
+                                placeholder="Constructor/empresa constructora"
+                                readonly/>        
+                      </div>
+                    </div>
+
+                    <div class="col-xl-1">
+                        <div class="form-group">
+                              <span class="form-text text-muted"></span><br><br>
+                              <div class="checkbox-inline">
+                                  <label class="checkbox  checkbox-danger">
+                                      <input type="checkbox" class="form-control" formControlName="checkboxConstructor" name="checkboxConstructor"/>
+                                      <span></span>
+                                  </label>
+                              </div>
+                         </div>
+                    </div>
+
+
+                    <div class="col-xl-5">
+                      <div class="form-group">
+                        <label>Propietario del terreno o Arrendador</label>
+                        <input type="text"
+                                class="form-control"
+                                name="propietarioTerreno"
+                                formControlName="propietarioTerreno"
+                                placeholder="Nombre del propietario del terreno"
+                                readonly/>     
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-1">
+                        <div class="form-group">
+                          <span class="form-text text-muted"></span><br><br>
+                          <div class="checkbox-inline">
+                              <label class="checkbox  checkbox-danger">
+                                  
+                                  <input type="checkbox" class="form-control" formControlName="checkboxPropietarioTerreno" name="checkboxPropietarioTerreno"/>
+                                  <span></span>
+                              </label>
+                          </div>
+                         </div>
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div class="row">
+                    <div class="col-xl-5">
+                      <div class="form-group">
+                        <label>Valor aproximado de la obra:</label>
+                        <input type="text"
+                                class="form-control"
+                                name="valorObra"
+                                formControlName="valorObra"
+                                placeholder="Indica el monto aproximado en Balboa"
+                                readonly/>        
+                      </div>
+                    </div>
+
+                    <div class="col-xl-1">
+                        <div class="form-group">
+                             <span class="form-text text-muted"></span><br><br>
+                                 <div class="checkbox-inline">
+                                     <label class="checkbox  checkbox-danger">
+                                         
+                                         <input type="checkbox" class="form-control" formControlName="checkboxValorObra" name="checkboxValorObra"/>
+                                         <span></span>
+                                     </label>
+                                 </div>
+                         </div>
+                   </div>
+                    <div class="col-xl-5">
+                      <div class="form-group">
+                        <label>Nombre profesional Idóneo:</label>
+                        <input type="text"
+                                class="form-control"
+                                name="nombreProfesionalIdoneo"
+                                formControlName="nombreProfesionalIdoneo"
+                                placeholder="Introduzca el Nombre"
+                                readonly/>        
+                      </div>
+                    </div>
+
+                    <div class="col-xl-1">
+                        <div class="form-group">
+                            <span class="form-text text-muted"></span><br><br>
+                            <div class="checkbox-inline">
+                                <label class="checkbox  checkbox-danger">
+                                    
+                                    <input type="checkbox" class="form-control" formControlName="checkboxNombreProfesional" name="checkboxNombreProfesional"/>
+                                    <span></span>
+                                </label>
+                            </div>
+                         </div>
+                   </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-xl-5">
+                      <div class="form-group">
+                        <label>No. Idoneidad:</label>
+                        <input type="text"
+                                class="form-control"
+                                name="numeroIdoneidad"
+                                formControlName="numeroIdoneidad"
+                                placeholder="Numero Idoneidad"
+                                readonly/>        
+                      </div>
+                    </div>
+
+                    <div class="col-xl-1">
+                        <div class="form-group">
+                            <span class="form-text text-muted"></span><br><br>
+                            <div class="checkbox-inline">
+                                <label class="checkbox  checkbox-danger">
+                                    
+                                    <input type="checkbox" class="form-control" formControlName="checkboxNumeroIdoneidad" name="checkboxNumeroIdoneidad"/>
+                                    <span></span>
+                                </label>
+                            </div>
+                         </div>
+                   </div>
+
+                    <div class="col-xl-5">
+                      <div class="form-group">
+                        <label>Nombre profesional Residente:</label>
+                        <input type="text"
+                                class="form-control"
+                                name="nombreProfesionalResidente"
+                                formControlName="nombreProfesionalResidente"
+                                placeholder="Introduzca Nombre"
+                                readonly/>        
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-1">
+                        <div class="form-group">
+                             <span class="form-text text-muted"></span><br><br>
+                              <div class="checkbox-inline">
+                                  <label class="checkbox  checkbox-danger">
+                                      <input type="checkbox" class="form-control" formControlName="checkboxNombreProfesionalResidente" name="checkboxNombreProfesionalResidente"/>
+                                      <span></span>
+                                  </label>
+                              </div>
+                        </div>
+                   </div>
+                  </div>
+
+                </div>
+                <!--end: Form Wizard Step 4-->
+  
+                <!--begin: Form Wizard Step 5-->
+                <div class="pb-5" data-wizard-type="step-content">
+                  <h4 class="mb-10 font-weight-bold text-dark">Adjuntos</h4>
+
+                  <div class="row">
+                    <div class="col-xl-12">
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <label>Registro Público</label>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <button (click)="fileDownloadRegistro()">Descargar</button>
+                          </div>
+                          <div class="col-md-4 d-flex justify-content-end">
+                            <div class="checkbox-inline">
+                              <label class="checkbox  checkbox-danger">
+                                  <input type="checkbox" class="form-control" formControlName="checkboxRegistroPublico" name="checkboxRegistroPublico"/>
+                                  <span></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-xl-12">
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <label>Certificación del Idóneo </label>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <button (click)="fileDownloadIdoneo()">Descargar</button>
+                          </div>
+                          <div class="col-md-4 d-flex justify-content-end">
+                            <div class="checkbox-inline">
+                              <label class="checkbox  checkbox-danger">
+                                  <input type="checkbox" class="form-control" formControlName="checkboxCertificacionIdoneo" name="checkboxCertificacionIdoneo"/>
+                                  <span></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-12">
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-4">
+                              <label>Planos</label>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <button (click)="fileDownloadPlanos()">Descargar</button>
+                          </div>
+                          <div class="col-md-4 d-flex justify-content-end">
+                            <div class="checkbox-inline">
+                              <label class="checkbox  checkbox-danger">
+                                  <input type="checkbox" class="form-control" formControlName="checkboxPlanos" name="checkboxPlanos"/>
+                                  <span></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <!--end: Form Wizard Step 5-->
+  
+                <!--begin: Form Wizard Step 6-->
+                <div class="pb-5" data-wizard-type="step-content">
+                  <label class="font-weight-bold text-dark">
+                      ¿Trámite es viable?
+                  </label>
+                  
+                  <div class="form-group">
+                     <div class="checkbox-inline border-top">
+                         <label class="checkbox  checkbox-danger">
+                             <input type="checkbox" class="form-control" formControlName="noviable" name="noviable"/>
+                             <span></span>
+                             No es viable
+                         </label>
+                     </div>
+               </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                      
+                  <br>
+                  <br>
+                  <h4 class="mb-3 font-weight-bold text-dark">
+                    Campos a Subsanar
+                  </h4>
+                  <br>
+                  <table class="table table-hover">
+                    <tbody>
+                      
+                      <tr *ngIf="formulario.controls['checkboxNombre'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Nombre del Proyecto 
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxDescripcion'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Descripción del Proyecto 
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxProvincia'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Provincia 
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxDistrito'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Distrito
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxCorregimiento'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Corregimiento 
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxTipoPropiedad'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Tipo de Propiedad
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxCodigoUbicacion'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Código de Ubicación: 
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxFinca'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Finca 
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxTomo'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Tomo
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxFolio'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Folio 
+                        </td>
+                      </tr>                      
+
+                      <tr *ngIf="formulario.controls['checkboxConstructor'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Constructor
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxPropietarioTerreno'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Propietario del terreno o Arrendador
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxValorObra'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Valor aproximado de la obra:  
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxNombreProfesional'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Nombre profesional Idóneo
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxNumeroIdoneidad'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Numero de Idoneidad
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxNombreProfesionalResidente'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Nombre profesional Residente 
+                        </td>
+                      </tr>
+                      
+                      
+
+                      <tr *ngIf="formulario.controls['checkboxRegistroPublico'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Registro Público
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxCertificacionIdoneo'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Certificación del Idóneo 
+                        </td>
+                      </tr>
+
+                      <tr *ngIf="formulario.controls['checkboxPlanos'].value">
+                        <td class="font-weight-bold text-dark">
+                          <span>*</span> Planos
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+
+
+
+                  <br>                  
+                </div>
+                <!--end: Form Wizard Step 6-->
+  
+                
+                <!--begin: Form Actions -->
+                <div class="d-flex justify-content-between border-top pt-10">
+                  <div class="mr-2">
+                    <div
+                      class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
+                      data-wizard-type="action-prev"
+                    >
+                      Anterior
+                    </div>
+                  </div>
+                  <div>
+                    <!--
+                    <div (click)="onSubmit()" class="btn btn-success font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-submit">
+                      Enviar
+                    </div>
+                    -->
+
+                    <button (click)="onSubsanar()"
+                            class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                            data-wizard-type="action-submit">
+                            Enviar
+                    </button>
+
+                    <div
+                      class="btn btn-primary font-weight-bold text-uppercase px-9 py-4"
+                      data-wizard-type="action-next"
+                    >
+                      Siguiente
+                    </div>
+                  </div>
+                </div>
+                <!--end: Form Actions -->
+              </form>
+              <!--end: Form Wizard Form-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end: Wizard -->
+    </div>
+  </div>
+  

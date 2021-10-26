@@ -1,0 +1,342 @@
+<ng-container *ngIf="user">
+  <div class="card card-custom card-stretch" [formGroup]="formGroup">
+    <!-- begin::Loading -->
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="progress progress-modal">
+        <div
+          class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+          role="progressbar"
+          style="width: 100%"
+          aria-valuenow="100"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+    </ng-container>
+    <!-- end::Loading -->
+    <!--begin::Header-->
+    <div class="card-header py-3">
+      <div class="card-title align-items-start flex-column">
+        <h3 class="card-label font-weight-bolder text-dark">Informacion personal </h3>
+        <span class="text-muted font-weight-bold font-size-sm mt-1">Actualice su información personal </span>
+      </div>
+      <div class="card-toolbar">
+        <button type="submit" [disabled]="formGroup.invalid" class="btn btn-success mr-2" (click)="save()">Guardar cambios</button>
+        <button type="reset" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+      </div>
+    </div>
+    <!--end::Header-->
+    <!--begin::Form-->
+    <div class="form">
+      <!--begin::Body-->
+      <div class="card-body">
+        <div class="row">
+          <label class="col-xl-3"></label>
+          <div class="col-lg-9 col-xl-6">
+            <h5 class="font-weight-bold mb-6">Perfil de usuario </h5>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
+          <div class="col-lg-9 col-xl-6">
+            <div class="image-input image-input-outline"
+              id="kt_profile_avatar"
+              [class.image-input-empty]="!user.pic"
+              [style.backgroundImage]="'url(./assets/media/users/blank.png)'"
+            >
+              <div class="image-input-wrapper" [style.backgroundImage]="getPic()"></div>
+              <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                data-action="change"
+                data-toggle="tooltip"
+                title=""
+                data-original-title="Change avatar"
+              >
+                <i class="fa fa-pen icon-sm text-muted"></i>
+                <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg"  />
+                <input type="hidden" name="profile_avatar_remove" formControlName="pic" />
+              </label>
+              <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                data-action="cancel" data-toggle="tooltip" title="" data-original-title="Cancel avatar">
+                <i class="ki ki-bold-close icon-xs text-muted"></i>
+              </span>
+              <span *ngIf="user.pic"
+                class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                (click)="deletePic()"
+                data-action="remove" data-toggle="tooltip" title="" data-original-title="Remove avatar">
+                <i class="ki ki-bold-close icon-xs text-muted"></i>
+              </span>
+            </div>
+            <span class="form-text text-muted">Tipos de archivo permitidos: png, jpg, jpeg.</span>
+          </div>
+        </div>
+                <!--begin::Form Group-->
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Tipo de Identificación</label>
+          <div class="col-lg-9 col-xl-6">
+            <select class="form-control form-control-lg form-control-solid" formControlName="tipoID">
+              <option data-offset="-39600" value="cedula">Cédula</option>
+              <option data-offset="-39600" value="pasaporte">Pasaporte</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Número de Identificación</label>
+          <div class="col-lg-9 col-xl-6">
+            <input class="form-control form-control-lg form-control-solid"
+              type="text"
+              formControlName="numeroID"
+              [class.is-invalid]="isControlInvalid('numeroID')"
+              [class.is-valid]="isControlValid('compnumeroIDanyName')"
+            />
+            <span class="form-text text-muted">Número.</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Nombre</label>
+          <div class="col-lg-9 col-xl-6">
+            <input class="form-control form-control-lg form-control-solid"
+              type="text"
+              formControlName="firstname"
+              [class.is-invalid]="isControlInvalid('firstname')"
+              [class.is-valid]="isControlValid('firstname')"
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Apellido</label>
+          <div class="col-lg-9 col-xl-6">
+            <input class="form-control form-control-lg form-control-solid"
+              type="text"
+              value="Bold"
+              formControlName="lastname"
+              [class.is-invalid]="isControlInvalid('lastname')"
+              [class.is-valid]="isControlValid('lastname')"
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Número de contacto</label>
+          <div class="col-lg-9 col-xl-6">
+            <div class="input-group input-group-lg input-group-solid">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-phone"></i>
+                </span>
+              </div>
+              <input type="text"
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Phone"
+                formControlName="phone"
+                [class.is-invalid]="isControlInvalid('phone')"
+                [class.is-valid]="isControlValid('phone')"
+              />
+            </div>
+            <span class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie más. </span>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Dirección de correo electrónico </label>
+          <div class="col-lg-9 col-xl-6">
+            <div class="input-group input-group-lg input-group-solid">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-at"></i>
+                </span>
+              </div>
+              <input type="email"
+                class="form-control form-control-lg form-control-solid"
+                placeholder="Email"
+                formControlName="email"
+                [class.is-invalid]="isControlInvalid('email')"
+                [class.is-valid]="isControlValid('email')"
+              />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!--end::Body-->
+
+      <div class="card-body">
+        <!--begin::Alert-->
+       <!--  <div class="alert alert-custom alert-light-danger fade show mb-10" role="alert">
+          <div class="alert-icon">
+            <span class="svg-icon svg-icon-3x svg-icon-danger"
+              [inlineSVG]="'./assets/media/svg/icons/Code/Info-circle.svg'"
+              cacheSVG="true"
+            >
+            </span>
+          </div>
+          <div class="alert-text font-weight-bold">Configure user passwords to expire periodically. Users will need
+            warning that their passwords are going to expire,
+            <br>or they might inadvertently get locked out of the system!
+          </div> 
+          <div class="alert-close">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">
+                <i class="ki ki-close"></i>
+              </span>
+            </button>
+          </div>
+        </div>-->
+        <!--end::Alert-->
+        
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label text-alert">Contraseña actual </label>
+          <div class="col-lg-9 col-xl-6">
+            <input type="password"
+              class="form-control form-control-lg form-control-solid mb-2"
+              placeholder="Current password"
+              autocomplete="off"
+              formControlName="currentPassword"
+              [class.is-invalid]="isControlInvalid('currentPassword')"
+              [class.is-valid]="isControlValid('currentPassword')" 
+            />
+            <div class="valid-feedback" *ngIf="isControlValid('currentPassword')">La contraseña actual se ingresó correctamente </div>
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'currentPassword')">Se requiere el primer nombre </div>
+            <a class="text-sm font-weight-bold cursor-pointer">¿ Se te olvidó tu contraseña ? </a>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label text-alert">Nueva contraseña</label>
+          <div class="col-lg-9 col-xl-6">
+            <input type="password"
+              class="form-control form-control-lg form-control-solid"
+              placeholder="New password"
+              autocomplete="off"
+              formControlName="password"
+              [class.is-invalid]="isControlInvalid('password')"
+              [class.is-valid]="isControlValid('password')" 
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label text-alert">Verificar contraseña </label>
+          <div class="col-lg-9 col-xl-6">
+            <input type="password"
+              class="form-control form-control-lg form-control-solid"
+              placeholder="Confirm password"
+              autocomplete="off"
+              formControlName="cPassword"
+              [class.is-invalid]="isControlInvalid('cPassword')"
+              [class.is-valid]="isControlValid('cPassword')" 
+            />
+            <div class="valid-feedback" *ngIf="isControlValid('cPassword')">La confirmación de la contraseña se ingresó correctamente </div>
+            <div class="invalid-feedback" *ngIf="controlHasError('ConfirmPassword', 'cPassword')">'Contraseña' y 'Confirmar contraseña' no coinciden.</div> 
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-xl-3"></label>
+          <div class="col-lg-9 col-xl-6">
+            <h5 class="font-weight-bold mt-10 mb-6">Datos de contacto </h5>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Dirección</label>
+          <div class="col-lg-9 col-xl-6">
+            <div class="input-group input-group-lg input-group-solid">
+              <input type="text"
+                class="form-control form-control-lg form-control-solid"
+                placeholder="ejem:Brisas del Golfo"
+                formControlName="website"
+                [class.is-invalid]="isControlInvalid('website')"
+                [class.is-valid]="isControlValid('website')"
+                />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Provincia</label>
+          <div class="col-lg-9 col-xl-6">
+            <div class="input-group input-group-lg input-group-solid">
+              <input type="text"
+                class="form-control form-control-lg form-control-solid"
+                placeholder="ejem: Panamá"
+                formControlName="website"
+                [class.is-invalid]="isControlInvalid('website')"
+                [class.is-valid]="isControlValid('website')"
+                />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Distrito</label>
+          <div class="col-lg-9 col-xl-6">
+            <div class="input-group input-group-lg input-group-solid">
+              <input type="text"
+                class="form-control form-control-lg form-control-solid"
+                placeholder="ejem: San Miguelito"
+                formControlName="website"
+                [class.is-invalid]="isControlInvalid('website')"
+                [class.is-valid]="isControlValid('website')"
+                />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Corregimiento</label>
+          <div class="col-lg-9 col-xl-6">
+            <div class="input-group input-group-lg input-group-solid">
+              <input type="text"
+                class="form-control form-control-lg form-control-solid"
+                placeholder="ejem: Bellisario Porras"
+                formControlName="website"
+                [class.is-invalid]="isControlInvalid('website')"
+                [class.is-valid]="isControlValid('website')"
+                />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Residencia</label>
+          <div class="col-lg-9 col-xl-6">
+            <div class="input-group input-group-lg input-group-solid">
+              <input type="text"
+                class="form-control form-control-lg form-control-solid"
+                placeholder="ejem: Avenida 2da"
+                formControlName="website"
+                [class.is-invalid]="isControlInvalid('website')"
+                [class.is-valid]="isControlValid('website')"
+                />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Calle</label>
+          <div class="col-lg-9 col-xl-6">
+            <div class="input-group input-group-lg input-group-solid">
+              <input type="text"
+                class="form-control form-control-lg form-control-solid"
+                placeholder="ejem: Calle 17"
+                formControlName="website"
+                [class.is-invalid]="isControlInvalid('website')"
+                [class.is-valid]="isControlValid('website')"
+                />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Casa</label>
+          <div class="col-lg-9 col-xl-6">
+            <div class="input-group input-group-lg input-group-solid">
+              <input type="text"
+                class="form-control form-control-lg form-control-solid"
+                placeholder="ejem: Casa 1234"
+                formControlName="website"
+                [class.is-invalid]="isControlInvalid('website')"
+                [class.is-valid]="isControlValid('website')"
+                />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <!--end::Form-->
+  </div>
+  
+</ng-container>

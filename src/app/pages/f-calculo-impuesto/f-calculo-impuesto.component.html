@@ -1,0 +1,100 @@
+<div class="card card-custom gutter-b">
+    <!--begin::Header-->
+    <div class="card-header py-3">
+      <div class="card-title align-items-start flex-column">
+        <h3 class="card-label font-weight-bolder text-dark">Cálculo del impuesto </h3>
+        <span class="text-muted font-weight-bold font-size-sm mt-1">Pantalla Arquitecto </span>
+      </div>
+      <div class="card-toolbar">
+        <a
+        routerLink="/dashboard"
+        class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" style="float:right"
+      >
+        Cancelar
+      </a>
+      </div>
+    </div>
+    <!--end::Header-->
+    <div class="card-body">
+      <!--begin: Wizard -->
+  
+        <div class="wizard-body">
+          <!--begin:  Form-->
+          <div class="row">
+            <div class="offset-xxl-2 col-xxl-8">
+              <!--begin: -->
+              <form class="form" id="kt_form">
+        <!--begin: monto Actions -->
+        <div class="d-flex justify-content-between border-bottom py-5">
+            <div   div class="mr-2">
+                <label class="font-weight-bolder">Nombre del Proyectos</label>
+                <input
+                      type="text"
+                      class="form-control"
+                      name="nombreProyecto"
+                      [(ngModel)]="model.nombreProyecto"
+                      placeholder="Finca los Tucanes"
+                      value="" disabled
+                    />
+            </div>
+        <div>
+        </div>
+    </div>
+      <!--end: monto Actions -->
+        <!--begin: Form -->
+        <div class="py-5" data-wizard-type="step-content">
+                  <h4 class="mb-5 font-weight-bold border-bottom py-2 text-dark">
+                    Impuesto a Pagar
+                  </h4>
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class="form-group">
+                    <label >Ingrese el monto que debe pagar el contribuyente</label><br>
+                    <input
+                          type="text"
+                          class="form-control"
+                          name="montoc"
+                          [(ngModel)]="model.montoc"
+                          placeholder="$12,123,456.89"
+                          value=""
+                        />
+                  </div>
+                </div>
+
+                <div class="col-xl-6">
+                  <div class="form-group">
+                    <label ></label>
+    
+                  </div>
+                </div>
+
+              </div> 
+
+        </div>
+                <!--end: Form -->
+    <!--begin: Form Actions -->
+    <div class="d-flex justify-content-between border-top pt-5">
+            <div   div class="mr-2">
+            </div>
+        <div>
+          <div
+            (click)="onSubmit()"
+            class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+            data-wizard-type="action-submit"
+          >
+            Enviar
+          </div>
+    
+        </div>
+    </div>
+      <!--end: Form Actions -->
+    </form>
+    <!--end: Form Wizard Form-->
+            </div>
+          </div>
+        </div>
+    
+      <!--end: Wizard -->
+    </div>
+  </div>
+  

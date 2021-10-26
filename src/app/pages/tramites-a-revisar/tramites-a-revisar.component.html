@@ -1,0 +1,40 @@
+<h1>Tramites a Revisar</h1>
+
+<div class="example-preview">
+  <div class="example-header">
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter7($event.target.value)" placeholder="Buscar"/>
+    </mat-form-field>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Solicitante</th>
+        <th scope="col">ID Trámites</th>
+        <th scope="col">Trámite</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Fecha Creación</th>
+        <th scope="col">Acción</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+        <tr *ngFor="let item of tramitesRevisar | slice:desde:hasta">
+            <td>{{ item.nombreSolicitante }}</td>
+            <td>{{ item.clasificador }}</td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.nombreEstado }}</td>
+            <td>{{ item.fechaInicio }}</td>
+            <td>
+              <button (click)="revisarTramite(item.estadoTramiteId,item.revisionId)" class="btn btn-primary font-weight-bold text-uppercase px-4 py-2">
+                Revisar
+              </button>
+            </td>
+        </tr>         
+    </tbody>
+  </table>
+
+  <mat-paginator [length]="tramitesRevisar.length" [pageSize]="pageSize" (page)="cambiarpagina($event)">
+  </mat-paginator>  
+</div>

@@ -1,0 +1,767 @@
+<div class="card card-custom gutter-b">
+    <div class="card-header py-3">
+      <div class="card-title align-items-start flex-column">
+          <h3 class="card-label font-weight-bolder text-dark">Pantalla Formulario de Solicitud del Permiso de Construcción</h3>
+          <span class="text-muted font-weight-bold font-size-sm mt-1"></span>
+      </div>
+
+      <div class="card-toolbar">
+        <a routerLink="/tramites/tramites-disponibles/tramites-disponibles"
+           class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" 
+           style="float:right">
+           Cancelar
+        </a>
+      </div>
+    </div>
+
+
+    <div class="card-body">
+      <div #wizard class="wizard wizard-2" id="kt_wizard_v2" data-wizard-state="step-first">
+        <div class="wizard-nav border-right py-8 px-8 py-lg-20 px-lg-10">
+          <div class="wizard-steps">
+            <a
+              class="wizard-step"
+              href="javascript:;"
+              data-wizard-type="step"
+              data-wizard-state="current">
+
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary svg-icon-3x"
+                    [inlineSVG]="'../../../assets/media/svg/icons/General/User.svg'"
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Información del Proyecto</div>
+                  <div class="wizard-desc">Nombre del proyecto, descripción del proyecto</div>
+                </div>
+              </div>
+            </a>
+            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary svg-icon-3x"
+                    [inlineSVG]="'./assets/media/svg/icons/Map/Compass.svg'"
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Ubicación del Proyecto</div>
+                  <div class="wizard-desc">Ubicación del Lote o Inmueble</div>
+                </div>
+              </div>
+            </a>
+            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary svg-icon-3x"
+                    [inlineSVG]="
+                      './assets/media/svg/icons/General/Thunder-move.svg'
+                    "
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Información del Lote o Terreno</div>
+                  <div class="wizard-desc">Tipo de propiedad, código de ubicación, finca, tomo, folio</div>
+                </div>
+              </div>
+            </a>
+            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary svg-icon-3x"
+                    [inlineSVG]="'./assets/media/svg/icons/Map/Position.svg'"
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Datos de la Obra</div>
+                  <div class="wizard-desc">Constructor, Propietario, Valor, Nombres</div>
+                </div>
+              </div>
+            </a>
+            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary svg-icon-3x"
+                    [inlineSVG]="
+                      './assets/media/svg/icons/Files/File.svg'"
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Adjuntos</div>
+                  <div class="wizard-desc">Registro Público, Cédula, Certificación, Pasaporte</div>
+                </div>
+              </div>
+            </a>
+            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+              <div class="wizard-wrapper">
+                <div class="wizard-icon">
+                  <span
+                    class="svg-icon svg-icon-primary svg-icon-3x"
+                    [inlineSVG]="'./assets/media/svg/icons/General/Like.svg'"
+                  ></span>
+                </div>
+                <div class="wizard-label">
+                  <div class="wizard-title">Información Completa</div>
+                  <div class="wizard-desc">Revisar y Enviar</div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!--end: Form Wizard Nav -->
+        </div>
+        <div class="wizard-body py-8 px-8 py-lg-20 px-lg-10">
+          <!--begin: Wizard Form-->
+          <div class="row">
+            <div class="offset-xxl-2 col-xxl-8">
+              <!--begin: Form Wizard Form-->
+
+
+
+
+              <form [formGroup]="formulario" class="form" id="kt_form" novalidate>
+                <!--begin: Form Wizard Step 1-->
+                <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                  <h4 class="mb-10 font-weight-bold text-dark">
+                    Información del Proyecto
+                  </h4>
+                  <div class="kt-form__section kt-form__section--first">
+                    <div class="kt-wizard-v2__form">
+
+
+                      <div class="form-group">
+                        <label>Nombre del Proyecto</label>
+                        <input type="text"
+                               class="form-control"
+                               name="nombre"
+                               formControlName="nombre"
+                               placeholder="Nombre del Proyecto"/>                        
+                        <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].dirty || formulario.controls['nombre'].touched)">
+                          <div class="d-flex justify-content-end" style="color:#FF0000;">
+                            <span>Se requiere Nombre del Proyecto</span> 
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-xl-12">
+                          <div class="form-group">
+                            <label>Descripción del Proyecto</label>
+                            <textarea class="form-control"
+                                      name="descripcion"
+                                      formControlName="descripcion"
+                                      placeholder="De que se trata el proyecto">
+                            </textarea>
+                            <div *ngIf="formulario.controls['descripcion'].invalid && (formulario.controls['descripcion'].dirty || formulario.controls['descripcion'].touched)">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Se requiere Descripción del Proyecto</span> 
+                              </div>
+                            </div>
+
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--end: Form Wizard Step 1-->
+  
+
+
+
+
+
+
+
+                <!--begin: Form Wizard Step 2-->
+                <div class="pb-5" data-wizard-type="step-content">
+                  <h4 class="mb-10 font-weight-bold text-dark">
+                    Ubicación del Proyecto
+                  </h4>
+
+
+                  <div class="row">
+                    <div class="col-xl-12">
+                      <div class="form-group">
+                        <label>Provincia:</label>
+                        <select name="provincia"
+                                formControlName="provincia"
+                                class="form-control"
+                                [(ngModel)]="indexProv"
+                                #mySelectProv
+                                (change)='getCargaDistritos(mySelectProv.value)'
+                                >
+                          <option selected value="">Seleccione una opción</option>
+                          <option   [value]="i" *ngFor="let item of provincias;let i = index">
+                                  {{ item.nomProvincia }}
+                          </option>
+                        </select>
+                      </div>
+                      <div *ngIf="formulario.controls['provincia'].invalid && (formulario.controls['provincia'].dirty || formulario.controls['provincia'].touched)">
+                        <div class="d-flex justify-content-end" style="color:#FF0000;">
+                          <span>Se requiere la Provincia</span> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label>Distrito</label>
+                        <select name="distrito"
+                                formControlName="distrito"
+                                class="form-control"
+                                [(ngModel)]="indexDist"
+                                #mySelectDist
+                                (change)='getCargaCorregimientos(mySelectDist.value)'
+                                >
+                            <option selected value="">Seleccione una opción</option>
+                            <option [value]="i" *ngFor="let item of distritos;let i = index">
+                              {{ item.nomDistrito }}
+                            </option>                      
+                        </select>
+                      </div>
+                      <div *ngIf="formulario.controls['distrito'].invalid && (formulario.controls['distrito'].dirty || formulario.controls['distrito'].touched)">
+                        <div class="d-flex justify-content-end" style="color:#FF0000;">
+                          <span>Se requiere el Distrito</span> 
+                        </div>
+                      </div>                     
+                    </div>
+
+
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label>Corregimiento:</label>
+                        <select name="corregimiento"
+                                formControlName="corregimiento"
+                                class="form-control"
+                                [(ngModel)]="indexCorr"
+                                #mySelectCorr
+                                (change)='getCarga(mySelectCorr.value)'                                
+                                >
+                            <option selected value="">Seleccione una opción</option>
+                            <option [value]="i" *ngFor="let item of corregimientos;let i = index">
+                              {{ item.nomCorregimiento }}
+                            </option>                      
+                        </select>
+                      </div>
+                      <div *ngIf="formulario.controls['corregimiento'].invalid && (formulario.controls['corregimiento'].dirty || formulario.controls['corregimiento'].touched)">
+                        <div class="d-flex justify-content-end" style="color:#FF0000;">
+                          <span>Se requiere el Distrito</span> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                
+                <div class="pb-5" data-wizard-type="step-content">
+                  <h4 class="mb-10 font-weight-bold text-dark">
+                    Información del Lote o Terreno
+                  </h4>
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class="form-group">
+                    <label>Tipo de Propiedad</label>
+                    <select formControlName="tipoPropiedad"
+                            name="tipoPropiedad"
+                            class="form-control"                            
+                            [(ngModel)]="tipoProp"
+                            (change)='getTipoPropiedad()'
+                            >
+                      <option selected value="">Seleccione una opción</option>
+                      <option [value]="i" *ngFor="let item of tipoPropiedad; let i = index">
+                          {{ item.nombre }}
+                      </option> 
+                    </select>
+                  </div>
+                  <div *ngIf="formulario.controls['tipoPropiedad'].invalid && (formulario.controls['tipoPropiedad'].dirty || formulario.controls['tipoPropiedad'].touched)">
+                    <div class="d-flex justify-content-end" style="color:#FF0000;">
+                      <span>Se requiere el Tipo de Propiedad</span> 
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6">
+                  <div class="form-group">
+                    <label>Código de Ubicación</label>
+                    <input
+                          type="text"
+                          class="form-control"
+                          formControlName="codigoUbicacion"
+                          name="codigoUbicacion"
+                          placeholder="123a"/>
+                          <div *ngIf="formulario.controls['codigoUbicacion'].invalid && (formulario.controls['codigoUbicacion'].dirty || formulario.controls['codigoUbicacion'].touched)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Se requiere el Código de Ubicación</span> 
+                            </div>
+                          </div>                          
+                  </div>
+                </div>
+              </div> 
+
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class="form-group">
+                    <label>Finca</label>
+                    <input
+                          type="text"
+                          class="form-control"
+                          formControlName="finca"
+                          name="finca"
+                          placeholder="456-123-789"/>
+                          <div *ngIf="formulario.controls['finca'].invalid && (formulario.controls['finca'].dirty || formulario.controls['finca'].touched)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Se requiere el campo Finca</span> 
+                            </div>
+                          </div> 
+                  </div>
+
+                </div>
+                <div class="col-xl-6">
+                  <div class="form-group">
+                    <label>Tomo</label>
+                    <input
+                    type="text"
+                    class="form-control"
+                    formControlName="tomo"
+                    name="tomo"
+                    placeholder="0-9"
+                    maxlength="1"/>
+                    <div *ngIf="formulario.controls['tomo'].invalid && (formulario.controls['tomo'].dirty || formulario.controls['tomo'].touched)">
+                      <div class="d-flex justify-content-end" style="color:#FF0000;">
+                        <span>Se requiere el campo Tomo</span> 
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                
+              </div>
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class="form-group">
+                    <label>Folio</label>
+                    <input
+                          type="text"
+                          class="form-control"
+                          formControlName="folio"
+                          name="folio"
+                          placeholder="0-9"
+                          maxlength="1"/>
+                          <div *ngIf="formulario.controls['folio'].invalid && (formulario.controls['folio'].dirty || formulario.controls['folio'].touched)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Se requiere el campo Folio</span> 
+                            </div>
+                          </div>
+                  </div>
+
+                </div>
+                <div class="col-xl-6">
+
+                </div>
+                
+              </div>
+
+
+                </div>
+                <!--end: Form Wizard Step 3-->
+  
+                <!--begin: Form Wizard Step 4-->
+                <div class="pb-5" data-wizard-type="step-content">
+                  <h4 class="mb-10 font-weight-bold text-dark">
+                    Datos de la Obra
+                  </h4>
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label>Constructor responsable</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="constructor"
+                          name="constructor"
+                          placeholder="Constructor/empresa constructora"/>
+                          <div *ngIf="formulario.controls['constructor'].invalid && (formulario.controls['constructor'].dirty || formulario.controls['constructor'].touched)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Se requiere el campo Constructor</span> 
+                            </div>
+                          </div>                        
+                      </div>
+                    </div>
+
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label>Propietario del terreno o Arrendador</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="propietarioTerreno"
+                          name="propietarioTerreno"                          
+                          placeholder="Nombre del propietario del terreno"/>
+                          <div *ngIf="formulario.controls['propietarioTerreno'].invalid && (formulario.controls['propietarioTerreno'].dirty || formulario.controls['propietarioTerreno'].touched)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Se requiere el campo Propietario</span> 
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label>Valor aproximado de la obra</label>
+                        <input type="text"
+                               class="form-control"
+                               formControlName="valorObra"
+                               name="valorObra"
+                               placeholder="Indica el monto aproximado en Balboas"/>
+                               <div *ngIf="formulario.controls['valorObra'].invalid && (formulario.controls['valorObra'].dirty || formulario.controls['valorObra'].touched)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Se requiere el campo Valor</span> 
+                                </div>
+                              </div>                            
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label>Nombre profesional Idóneo</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="nombreProfesionalIdoneo"
+                          name="nombreProfesionalIdoneo"
+                          placeholder="Introduzca el nombre"/>
+                          <div *ngIf="formulario.controls['nombreProfesionalIdoneo'].invalid && (formulario.controls['nombreProfesionalIdoneo'].dirty || formulario.controls['nombreProfesionalIdoneo'].touched)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Se requiere el campo Nombre</span> 
+                            </div>
+                          </div>                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label>No. Idoneidad</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="numeroIdoneidad"
+                          name="numeroIdoneidad"
+                          placeholder="Número de Idoneidad"/>
+                          <div *ngIf="formulario.controls['numeroIdoneidad'].invalid && (formulario.controls['numeroIdoneidad'].dirty || formulario.controls['numeroIdoneidad'].touched)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Se requiere el campo Numero</span> 
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label>Nombre profesional Residente:</label>
+                        <input
+                        type="text"
+                        class="form-control"
+                        formControlName="nombreProfesionalResidente"
+                        name="nombreProfesionalResidente"
+                        placeholder="Introduzca el Nombre"/>
+                        <div *ngIf="formulario.controls['nombreProfesionalResidente'].invalid && (formulario.controls['nombreProfesionalResidente'].dirty || formulario.controls['nombreProfesionalResidente'].touched)">
+                          <div class="d-flex justify-content-end" style="color:#FF0000;">
+                            <span>Se requiere el campo Nombre</span> 
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--end: Form Wizard Step 4-->
+  
+              
+                  
+                <div class="pb-5" data-wizard-type="step-content">
+                  <h4 class="mb-10 font-weight-bold text-dark">
+                      Adjuntos
+                  </h4>
+
+                  
+                  <div class="row" *ngFor="let item of documentosAdjuntar;let i = index">
+                    <div class="col-xl-12">
+
+                      <div *ngIf="item.tipoDocumentoId.tipoDocumentoId === 1">
+                        <div class="form-group">
+                          <label>{{ item.tipoDocumentoId.nombre }}</label>
+
+                          <div>
+                            <input type="file"
+                                   class="form-control"
+                                   [ngStyle]="loadRegistro && {'background-color': '#e8f0fe'}"
+                                   formControlName="registroPublico"
+                                   name="registroPublico"
+                                   placeholder="Registro Público"
+                                   (change)="fileChangeRegistro($event)"                              
+                                   value="" accept=".png, .jpg, .jpeg, .pdf"/>
+                          </div>
+                                 
+                          <span class="form-text text-muted">
+                            Copia de Certificado de Registro Público vigente. Subir el archivo en formato imagen o pdf 
+                          </span>
+                        </div>
+
+                        <div *ngIf="formulario.controls['registroPublico'].invalid && (formulario.controls['registroPublico'].dirty || formulario.controls['registroPublico'].touched)">
+                          <div class="d-flex justify-content-end" style="color:#FF0000;">
+                            <span>Se requiere el Registro Público</span> 
+                          </div>
+                        </div>
+                      </div> 
+
+                      <div *ngIf="item.tipoDocumentoId.tipoDocumentoId === 2">
+                        <div class="row">
+                          <div class="col-xl-12">
+                            <div class="form-group">
+                              <label>{{ item.tipoDocumentoId.nombre }}</label>                        
+                              <input type="file"
+                                     class="form-control"
+                                     [ngStyle]="loadIdoneidad && {'background-color': '#e8f0fe'}"
+                                     formControlName="certificacionIdoneo"
+                                     name="certificacionIdoneo"
+                                     placeholder="Certificación del Idóneo"
+                                     (change)="fileChangeIdoneo($event)"
+                                     value="" accept=".png, .jpg, .jpeg, .pdf"  />
+                              <span class="form-text text-muted">
+                                Copia del certificado original. Subir el archivo en formato imagen o pdf
+                              </span>
+                            </div>
+                            <div *ngIf="formulario.controls['certificacionIdoneo'].invalid && (formulario.controls['certificacionIdoneo'].dirty || formulario.controls['certificacionIdoneo'].touched)">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Se requiere la Certificación del Idóneo</span> 
+                              </div>
+                            </div>                       
+                          </div>
+                        </div>
+                      </div>
+
+                      <div *ngIf="item.tipoDocumentoId.tipoDocumentoId === 5">
+                        <div class="row">
+                          <div class="col-xl-12">
+                            <div class="form-group">
+                              <label>{{ item.tipoDocumentoId.nombre }}</label>                        
+                              <input type="file"
+                                     class="form-control"
+                                     [ngStyle]="loadPLanos && {'background-color': '#e8f0fe'}"
+                                     formControlName="planos"
+                                     name="planos"
+                                     placeholder="Planos"
+                                     (change)="fileChangePlanos($event)"
+                                     value="" accept=".png, .jpg, .jpeg, .pdf"  />
+                              <span class="form-text text-muted">
+                                Planos. Subir el archivo en formato imagen o pdf
+                              </span>
+                            </div>
+                            <div *ngIf="formulario.controls['planos'].invalid && (formulario.controls['planos'].dirty || formulario.controls['planos'].touched)">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>
+                                  Se requiere el campo Planos
+                                </span> 
+                              </div>
+                            </div>                       
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+                  <!--
+                  <div class="row">
+                    <div class="col-xl-12">
+                      <div class="form-group">
+                        <label>Cédula</label>
+                        <input type="file"
+                               class="form-control"
+                               formControlName="cedula"
+                               name="cedula"
+                               placeholder="Cédula"
+                               value="" accept=".png, .jpg, .jpeg, .pdf"/>
+                        <span class="form-text text-muted">
+                          Copia de la cédula del representante legal. Subir el archivo en formato imagen o pdf
+                        </span>
+                      </div>
+                      <div *ngIf="formulario.controls['cedula'].invalid && (formulario.controls['cedula'].dirty || formulario.controls['cedula'].touched)">
+                        <div class="d-flex justify-content-end" style="color:#FF0000;">
+                          <span>Se requiere la Cédula</span> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-12">
+                      <div class="form-group">
+                        <label>Pasaporte</label>
+                        <input type="file"
+                               class="form-control"
+                               formControlName="pasaporte"
+                               name="pasaporte"
+                               placeholder="Pasaporte"
+                               accept=".png, .jpg, .jpeg, .pdf"  />                        
+                        <span class="form-text text-muted">
+                          Copia del pasaporte del representante legal. Subir el archivo en formato imagen o pdf
+                        </span>
+                      </div>
+                      <div *ngIf="formulario.controls['pasaporte'].invalid && (formulario.controls['pasaporte'].dirty || formulario.controls['pasaporte'].touched)">
+                        <div class="d-flex justify-content-end" style="color:#FF0000;">
+                          <span>Se requiere el Pasaporte</span> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                -->    
+                </div>
+                
+
+
+
+
+
+
+                <div class="pb-5" data-wizard-type="step-content">
+                  <h4 class="mb-10 font-weight-bold text-dark">
+                    Revise sus detalles y envíe
+                  </h4>
+                  <div class="border-bottom mb-5 pb-5">
+                    <div class="font-weight-bolder mb-3">Información del Proyecto:</div>
+                    <div class="line-height-xl">
+                      <label>Nombre del Proyecto: </label> {{ formulario.controls['nombre'].value }} 
+                      <br/>
+                      <label>Descripción del proyecto: </label> {{ formulario.controls['descripcion'].value }} 
+                       <br/>
+                    </div>
+                  </div>
+                  <div class="border-bottom mb-5 pb-5">
+                    <div class="font-weight-bolder mb-3">
+                      <label>Ubicación del Proyecto: </label>
+                    </div>
+                    <div class="line-height-xl">
+                      <label>Provincia: </label> {{ provincia }}                       
+                      <br/>
+                      <label>Distrito: </label>  {{ distrito }}
+                      <br/>
+                      <label>Corregimiento: </label>  {{ corregimiento }}                     
+                    </div>
+                  </div>
+                  <div class="border-bottom mb-5 pb-5">
+                    <div class="font-weight-bolder mb-3">Información del Lote o Terreno:</div>
+                    <div class="line-height-xl">
+                      <label>Tipo de Propiedad: </label> {{ tipoP }}             
+                      <br/>
+                      <label>Código de ubicación: </label> {{ formulario.controls['codigoUbicacion'].value }}                      
+                      <br/>
+                      <label>Finca: </label> {{ formulario.controls['finca'].value }}
+                      <br/>
+                      <label>Tomo: </label> {{ formulario.controls['tomo'].value }}
+                      <br />
+                      <label>Folio: </label> {{ formulario.controls['folio'].value }}
+                      <br />
+                    </div>
+                  </div>
+                  <div class="border-bottom mb-5 pb-5">
+                    <div class="font-weight-bolder mb-3">Datos de la Obra:</div>
+                    <div class="line-height-xl">
+                      <label>Constructor responsable: </label> {{ formulario.controls['constructor'].value }}
+                      <br/>
+                      <label>Propietario del terreno o Arrendador: </label> {{ formulario.controls['propietarioTerreno'].value }}
+                      <br/>
+                      <label>Valor aproximado de la obra: </label> {{ formulario.controls['valorObra'].value }}
+                      <br/>
+                      <label>Nombre profesional Idóneo: </label> {{ formulario.controls['nombreProfesionalIdoneo'].value }}
+                      <br/>
+                      <label>No. Idoneidad: </label> {{ formulario.controls['numeroIdoneidad'].value }}
+                      <br/>
+                      <label>Nombre profesional Residente: </label> {{ formulario.controls['nombreProfesionalResidente'].value }}
+                      <br/>
+                    </div>
+                  </div>
+
+                  <div class="mb-5">
+                    <div class="font-weight-bolder mb-3">Adjuntos:</div>
+                    <div class="line-height-xl">
+                      <label>Registro Público: </label> {{ adjuntoRegistroPublico }}
+                      <br/>
+                      <label>Certificación de Idóneidad: </label> {{ adjuntoCertificacionIdoneo }}
+                      <br/>
+                      <label>Planos: </label> {{ adjuntoPlanos }}
+                      <br/>
+                    </div>
+                  </div>
+                </div>
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="d-flex justify-content-between border-top pt-10">
+                  <div class="mr-2">
+                    <div class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
+                         data-wizard-type="action-prev">
+                         Anterior
+                    </div>
+                  </div>
+
+                  <div>
+                    
+                    <!--
+                    <div (click)="onRegistrar()"
+                         class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                         data-wizard-type="action-submit">
+                         Enviar
+                    </div>
+                    
+                    -->
+                    
+                    <button (click)="onRegistrar()"
+                            class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                            data-wizard-type="action-submit"
+                            [disabled]="formulario.invalid"
+                            >
+                            Enviar
+                    </button>
+                    
+
+
+                    <div class="btn btn-primary font-weight-bold text-uppercase px-9 py-4"
+                         data-wizard-type="action-next">
+                         Siguiente
+                    </div>
+                  </div>
+                </div>
+
+
+                <!--end: Form Actions -->
+              </form>
+              <!--end: Form Wizard Form-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end: Wizard -->
+    </div>
+  </div>
+  

@@ -1,0 +1,248 @@
+<div class="card card-custom gutter-b">
+  <!--begin::Header-->
+  <div class="card-header py-3">
+    <div class="card-title align-items-start flex-column">
+      <h3 class="card-label font-weight-bolder text-dark">Revisión de pago</h3>
+      <span class="text-muted font-weight-bold font-size-sm mt-1"
+        >*(Funcionario Tesorería)
+      </span>
+    </div>
+    <div class="card-toolbar">
+      <a
+        routerLink="/dashboard"
+        class="
+          btn btn-light-danger
+          font-weight-bold
+          mr-2
+          text-uppercase
+          px-9
+          py-4
+        "
+        style="float: right"
+      >
+        Cancelar
+      </a>
+    </div>
+  </div>
+  <!--end::Header-->
+  <div class="card-body">
+    <!--begin: Wizard -->
+
+    <div class="wizard-body">
+      <!--begin:  Form-->
+      <div class="row">
+        <div class="offset-xxl-2 col-xxl-8">
+          <!--begin: -->
+          <form class="form" id="kt_form">
+            <!--begin: monto Actions -->
+            <div class="py-5  border-bottom py-5">
+              <div class="row">
+                <div class="col-xl-10">
+                  <div class="form-group">
+               
+                  <label class="font-weight-bolder">Nombre del Proyectos</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="nombreProyecto"
+                    [(ngModel)]="model.nombreProyecto"
+                    placeholder="Finca los Tucanes"
+                    value="" disabled
+                  />
+             
+              </div> </div> </div>
+
+              </div>
+            <div class="py-5 border-bottom py-5">
+              <div class="row">
+                <div class="col-xl-10">
+                  <div class="form-group">
+                <label class="font-weight-bolder">Monto total</label>
+                <input
+                      type="text"
+                      class="form-control"
+                      name="montototal"
+                      [(ngModel)]="model.montototal"
+                      placeholder="$12,123,456.78"
+                      value="" disabled
+                    />
+              </div></div></div>
+            </div>
+            <!--end: monto Actions -->
+
+            <!--begin: Form -->
+            <div class="py-5" data-wizard-type="step-content">
+              <h4 class="mb-10 font-weight-bold text-dark">Datos del pago</h4>
+              <div class="row">
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label>Número de recibo / depósito</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="nrecibo"
+                      [(ngModel)]="model.nrecibo"
+                      placeholder="123a"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div class="col-xl-2">
+                  <div class="form-group">
+                       <span class="form-text text-muted"></span><br><br>
+                           <div class="checkbox-inline">
+                               <label class="checkbox  checkbox-danger">
+                                   <input type="checkbox" name="Checkboxes1"/>
+                                   <span></span>
+                                   
+                               </label>
+                       
+                           </div>
+                   </div>
+             </div>
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label>Fecha de pago</label>
+                    <input
+                      type="datetime-local"
+                      class="form-control"
+                      name="fechapago"
+                      [(ngModel)]="model.fechapago"
+                      id="Test_DatetimeLocal"
+                    />
+                  </div>
+                </div>
+                <div class="col-xl-2">
+                  <div class="form-group">
+                       <span class="form-text text-muted"></span><br><br>
+                           <div class="checkbox-inline">
+                               <label class="checkbox  checkbox-danger">
+                                   <input type="checkbox" name="Checkboxes1"/>
+                                   <span></span>
+                                   
+                               </label>
+                       
+                           </div>
+                   </div>
+             </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label>Monto del pago</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="montopago"
+                      [(ngModel)]="model.montopago"
+                      placeholder="456-123-789"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div class="col-xl-2">
+                  <div class="form-group">
+                       <span class="form-text text-muted"></span><br><br>
+                           <div class="checkbox-inline">
+                               <label class="checkbox  checkbox-danger">
+                                   <input type="checkbox" name="Checkboxes1"/>
+                                   <span></span>
+                                   
+                               </label>
+                       
+                           </div>
+                   </div>
+             </div>
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label>Nombre de la entidad o banco donde pagó</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="banco"
+                      [(ngModel)]="model.banco"
+                      placeholder="12354-123132"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div class="col-xl-2">
+                  <div class="form-group">
+                       <span class="form-text text-muted"></span><br><br>
+                           <div class="checkbox-inline">
+                               <label class="checkbox  checkbox-danger">
+                                   <input type="checkbox" name="Checkboxes1"/>
+                                   <span></span>
+                                   
+                               </label>
+                       
+                           </div>
+                   </div>
+             </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-10">
+                  <div class="form-group">
+                    <label>Comprobante de Pago</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="pasaporte"
+                      [(ngModel)]="model.pasaporte"
+                      placeholder="Pasaporte"
+                      value=""
+                      accept=".png, .jpg, .jpeg, .pdf"
+                    />
+                    <span class="form-text text-muted"
+                      >Copia del comprobante de pago. Subir el
+                      archivo en formato imagen o pdf</span
+                    >
+                  </div>
+                </div>
+
+                <div class="col-xl-2">
+                  <div class="form-group">
+                       <span class="form-text text-muted"></span><br><br>
+                           <div class="checkbox-inline">
+                               <label class="checkbox  checkbox-danger">
+                                   <input type="checkbox" name="Checkboxes1"/>
+                                   <span></span>
+                                   
+                               </label>
+                       
+                           </div>
+                   </div>
+             </div>
+              </div>
+            </div>
+            <!--end: Form -->
+            <!--begin: Form Actions -->
+            <div class="d-flex justify-content-between border-top pt-10">
+              <div div class="mr-2"></div>
+              <div>
+                <div
+                  (click)="onSubmit()"
+                  class="
+                    btn btn-success
+                    font-weight-bold
+                    text-uppercase
+                    px-9
+                    py-4
+                  "
+                  data-wizard-type="action-submit"
+                >
+                  Enviar
+                </div>
+              </div>
+            </div>
+            <!--end: Form Actions -->
+          </form>
+          <!--end: Form Wizard Form-->
+        </div>
+      </div>
+    </div>
+
+    <!--end: Wizard -->
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<h1>Tramites Pendientes</h1>
+<div class="example-preview">
+    <div class="example-header">
+      <mat-form-field>
+        <input
+          matInput
+          (keyup)="applyFilter7($event.target.value)"
+          placeholder="Buscar"
+        />
+      </mat-form-field>
+    </div>
+    <div class="example-container mat-elevation-z8">
+      <mat-table #sort7="matSort" [dataSource]="dataSource7" matSort>
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Id 
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+        </ng-container>
+        <!-- Progress Column -->
+        <ng-container matColumnDef="tramite">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Trámites
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> <a href="{{ row.urls }}">{{ row.tramite }}</a> </mat-cell>
+        </ng-container>
+
+        <!-- Ffinal Column -->
+        <ng-container matColumnDef="fcreacion">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Fecha Creación
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.fcreacion }} </mat-cell>
+        </ng-container>
+        <!-- Estado Column -->
+        <ng-container matColumnDef="estado">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Estado
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" [style.color]="row.color">
+            {{ row.estado }}
+          </mat-cell>
+        </ng-container>
+     
+        <mat-header-row *matHeaderRowDef="displayedColumns7"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns7"></mat-row>
+      </mat-table>
+      <mat-paginator
+      #matPaginator7
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 20]"
+      [showFirstLastButtons]="true"
+    >
+    </mat-paginator>
+    </div>
+  </div>
