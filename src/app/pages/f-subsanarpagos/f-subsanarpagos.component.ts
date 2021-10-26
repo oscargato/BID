@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { FSubsanarpagosService } from './f-subsanarpagos.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
@@ -26,20 +29,11 @@ export class FSubsanarpagosComponent implements OnInit, AfterViewInit, OnDestroy
   submitted = false;
   wizard: any;
 
-  constructor() {}
+  constructor(private fSubsanarpagosService:FSubsanarpagosService, 
+    private router:Router) {}
 
   ngOnInit() {
   }
-
-  /*openDialog3() {
-    const dialogRef = this.dialog.open(Modal3Component, {
-      height: '350px',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }*/
 
   ngAfterViewInit(): void {}
 
