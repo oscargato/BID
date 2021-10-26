@@ -33,7 +33,53 @@ export class FSubsanarpagosComponent implements OnInit, AfterViewInit, OnDestroy
     private router:Router) {}
 
   ngOnInit() {
+    this.fSubsanarpagosService.getSubsanacion(1).subscribe(resp =>{
+      console.log('Respuesta',resp);
+    })
   }
+
+
+
+
+
+  newSubsanacion(){
+
+    const data = {}
+  
+    this.fSubsanarpagosService.newSubsanacion(data).subscribe(resp=>{
+  
+      if(resp.codigo === 0){
+        this.registerAlert();
+      }
+      else{
+        this.failSubsanar()
+      }
+    })
+   }
+  
+  
+  
+  
+    registerAlert(){  
+      Swal.fire(  
+        'Subsanacion de Tramite Exitosa!',
+        'Haga click para continuar',
+        'success',
+      ).then((result) => {
+        this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+      });  
+    }
+  
+    failSubsanar(){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Subsanacion Fallida!'
+      })
+    }
+  
+
+
 
   ngAfterViewInit(): void {}
 
