@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { FRegistrarpagoService } from './f-registrarpago.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
@@ -26,20 +29,54 @@ export class FRegistrarpagoComponent implements OnInit, AfterViewInit, OnDestroy
   submitted = false;
   wizard: any;
 
-  constructor() {}
+  constructor(private fRegistrarpagoService:FRegistrarpagoService, 
+    private router:Router) {}
 
   ngOnInit() {
+    this.fRegistrarpagoService.getSubsanacion(1).subscribe(resp =>{
+      console.log('Respuesta',resp);
+    })
+
   }
 
-  /*openDialog3() {
-    const dialogRef = this.dialog.open(Modal3Component, {
-      height: '350px',
-    });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }*/
+  newSubsanacion(){
+
+    const data = {}
+  
+    this.fRegistrarpagoService.newSubsanacion(data).subscribe(resp=>{
+  
+      if(resp.codigo === 0){
+        this.registerAlert();
+      }
+      else{
+        this.failSubsanar()
+      }
+    })
+   }
+  
+  
+  
+  
+    registerAlert(){  
+      Swal.fire(  
+        'Subsanacion de Tramite Exitosa!',
+        'Haga click para continuar',
+        'success',
+      ).then((result) => {
+        this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+      });  
+    }
+  
+    failSubsanar(){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Subsanacion Fallida!'
+      })
+    }
+  
+  
 
   ngAfterViewInit(): void {}
 
