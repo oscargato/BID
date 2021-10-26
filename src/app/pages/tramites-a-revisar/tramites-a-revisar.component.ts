@@ -431,10 +431,10 @@ export class TramitesARevisarComponent implements OnInit {
   }
 
   revisarTramite(estadoTramiteId:number, revisionId:number){
-
+    console.log('estadoTramiteId',estadoTramiteId)
     switch (estadoTramiteId) 
     {   case 2:
-        this.router.navigate([`/form/f-permiso-construccion/${revisionId}`]);     
+          this.router.navigate([`/form/f-permiso-construccion/${revisionId}`]);     
         break;
 
         case 3:
@@ -462,6 +462,7 @@ export class TramitesARevisarComponent implements OnInit {
         break;
 
         case 11:
+          this.router.navigate([`/form/f-revision-pago`]);     
         break;
 
         case 12:
