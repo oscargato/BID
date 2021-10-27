@@ -29,7 +29,7 @@ const routes: Routes = [
         component: FDisponiblesComponent,
       },
      {
-        path: 'f-subsanarsolicitud',
+        path: 'f-subsanarsolicitud/:idSolicitud',
         component: FSubsanarsolicitudComponent,
       },
       {

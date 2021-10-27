@@ -126,7 +126,7 @@
           <div class="row">
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: Form Wizard Form-->
-              <form class="form" id="kt_form">
+              <form [formGroup]="formulario" class="form" id="kt_form">
               <!--begin: Form Wizard Step 1-->
               <div
               class="pb-5"
@@ -145,10 +145,10 @@
                           <input
                           type="text"
                           class="form-control"
-                          name="pname"
-                          [(ngModel)]="model.pname"
+                          name="nombreProyecto"
+                          formControlName="nombreProyecto"
                           placeholder="Finca del Montillelo"
-                          value="" disabled
+                          readonly
                         />
                         
                       </div>
@@ -159,7 +159,7 @@
                               <div class="checkbox-inline">
                               
                               <label class="checkbox checkbox-lg checkbox-danger">
-                                  <input type="checkbox" name="Checkboxes1"/>
+                                  <input type="checkbox" name="checkboxNombreProyecto" formControlName="checkboxNombreProyecto"/>
                                   <span></span>
                                   
                               </label>
@@ -175,9 +175,9 @@
                             <label>Descripción del Proyecto</label>
                             <textarea 
                             class="form-control"
-                            name="dproyecto"
-                            [(ngModel)]="model.dproyecto"
-                            placeholder="de que se trata el proyecto" disabled>
+                            name="descripcionProyecto"
+                            formControlName="descripcionProyecto"
+                            readonly>
                             </textarea>  
                      
                         </div>
@@ -188,7 +188,7 @@
                                 <div class="checkbox-inline">
                             
                                 <label class="checkbox checkbox-lg checkbox-danger">
-                                    <input type="checkbox" checked="checked" name="Checkboxes2"/>
+                                    <input type="checkbox" checked="checked" name="checkboxDescripcionProyecto" formControlName="checkboxDescripcionProyecto"/>
                                     <span></span>
                                     
                                 </label>
@@ -213,27 +213,12 @@
                     <div class="col-xl-10">
                       <div class="form-group">
                         <label>Provincia:</label>
-                        <select
-                          name="provincia"
-                          [(ngModel)]="model.provincia"
-                          class="form-control" disabled
-                        >
-                        <option value="">Seleccione una opción</option>
-                          <option value="1">Bocas del Toro</option>
-                          <option value="2">Coclé</option>
-                          <option value="3">Colón</option>
-                          <option value="4">Chiriquí</option>
-                          <option value="5">Darién</option>
-                          <option value="6">Herrera</option>
-                          <option value="7">Los Santos</option>
-                          <option value="8">Panamá</option>
-                          <option value="9">Veraguas</option>
-                          <option value="10">Comarca Guna</option>
-                          <option value="11">Comarca Nobe Bugle</option>
-                          <option value="12">Panamá Oeste</option>
-                          
-                       
-                        </select>
+                        <input type="text"
+                        class="form-control"
+                        name="provincia"
+                        formControlName="provincia"
+                        placeholder="Provincia"
+                        readonly/>
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -241,7 +226,7 @@
                             <span class="form-text text-muted"></span><br><br>
                             <div class="checkbox-inline">
                             <label class="checkbox checkbox-danger">
-                                <input type="checkbox" name="Checkboxes1"/>
+                                <input type="checkbox" name="checkboxProvincia" formControlName="checkboxProvincia"/>
                                 <span></span>
                               
                             </label>
@@ -256,26 +241,12 @@
                     <div class="col-xl-4">
                       <div class="form-group">
                         <label>Distrito</label>
-                        <select
-                          name="distrito"
-                          [(ngModel)]="model.distrito"
-                          class="form-control" disabled
-                        >
-                        <option value="">Seleccione una opción</option>
-                        <option value="1">Bocas del Toro</option>
-                        <option value="2">Coclé</option>
-                        <option value="3">Colón</option>
-                        <option value="4">Chiriquí</option>
-                        <option value="5">Darién</option>
-                        <option value="6">Herrera</option>
-                        <option value="7">Los Santos</option>
-                        <option value="8">Panamá</option>
-                        <option value="9">Veraguas</option>
-                        <option value="10">Comarca Guna</option>
-                        <option value="11">Comarca Nobe Bugle</option>
-                        <option value="12">Panamá Oeste</option>
-                       
-                        </select>
+                        <input type="text"
+                               class="form-control"
+                               name="distrito"
+                               formControlName="distrito"
+                               placeholder="Distrito"
+                               readonly/>
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -283,7 +254,7 @@
                         <span class="form-text text-muted"></span><br><br>
                                 <div class="checkbox-inline">
                                     <label class="checkbox  checkbox-danger">
-                                        <input type="checkbox" checked="checked" name="Checkboxes1"/>
+                                        <input type="checkbox" checked="checked" name="checkboxDistrito" formControlName="checkboxDistrito"/>
                                         <span></span>
                                     </label>
                             
@@ -293,27 +264,12 @@
                     <div class="col-xl-4">
                       <div class="form-group">
                         <label>Corregimiento:</label>
-                        <select
-                          name="corregimiento"
-                          [(ngModel)]="model.corregimiento"
-                          class="form-control" disabled
-                        >
-                        <option value="">Seleccione una opción</option>
-                          <option value="1">Bocas del Toro</option>
-                          <option value="2">Coclé</option>
-                          <option value="3">Colón</option>
-                          <option value="4">Chiriquí</option>
-                          <option value="5">Darién</option>
-                          <option value="6" selected>Herrera</option>
-                          <option value="7">Los Santos</option>
-                          <option value="8">Panamá</option>
-                          <option value="9">Veraguas</option>
-                          <option value="10">Comarca Guna</option>
-                          <option value="11">Comarca Nobe Bugle</option>
-                          <option value="12">Panamá Oeste</option>
-                          
-                       
-                        </select>
+                        <input type="text"
+                        class="form-control"
+                        name="corregimiento"
+                        formControlName="corregimiento"
+                        placeholder="Corregimiento"
+                        readonly/>
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -321,7 +277,7 @@
                             <span class="form-text text-muted"></span><br><br>
                             <div class="checkbox-inline">
                             <label class="checkbox checkbox-danger">
-                                <input type="checkbox" checked="checked" name="Checkboxes1"/>
+                                <input type="checkbox" checked="checked" name="checkboxCorregimiento" formControlName="checkboxCorregimiento"/>
                                 <span></span>
                                 
                             </label>
@@ -343,22 +299,12 @@
                 <div class="col-xl-4">
                   <div class="form-group">
                     <label>Tipo de Propiedad</label>
-                    <select
-                      name="tpropiedad"
-                      [(ngModel)]="model.tpropiedad"
-                      class="form-control" disabled
-                    >
-                      <option value="">Seleccione una opción/option>
-                      <option value="tipo1" selected>
-                        Tipo 1
-                      </option>
-                      <option value="express">
-                        Tipo 2
-                      </option>
-                      <option value="basic">
-                        Tipo 2
-                      </option>
-                    </select>
+                    <input type="text"
+                            class="form-control"
+                            name="tipoPropiedad"
+                            formControlName="tipoPropiedad"
+                            placeholder="Tipo Propiedad"
+                            readonly/>
                   </div>
                 </div>
                 <div class="col-xl-2">
@@ -366,7 +312,7 @@
                          <span class="form-text text-muted"></span><br><br>
                              <div class="checkbox-inline">
                                  <label class="checkbox  checkbox-danger">
-                                     <input type="checkbox" name="Checkboxes1"/>
+                                     <input type="checkbox" name="checkboxTipoPropiedad"  formControlName="checkboxTipoPropiedad"/>
                                      <span></span>
                                      
                                  </label>
@@ -377,14 +323,12 @@
                 <div class="col-xl-4">
                   <div class="form-group">
                     <label>Código de Ubicación</label>
-                    <input
-                          type="text"
-                          class="form-control"
-                          name="cubicacion"
-                          [(ngModel)]="model.cubicacion"
-                          placeholder="123a"
-                          value="" disabled
-                        />
+                    <input type="text"
+                            class="form-control"
+                            name="codigoUbicacion"
+                            formControlName="codigoUbicacion"
+                            placeholder="Código de Ubicación"
+                            readonly/>
                   </div>
                 </div>
                 <div class="col-xl-2">
@@ -392,7 +336,7 @@
                          <span class="form-text text-muted"></span><br><br>
                              <div class="checkbox-inline">
                                  <label class="checkbox  checkbox-danger">
-                                     <input type="checkbox" checked="checked" name="Checkboxes1"/>
+                                     <input type="checkbox" checked="checked" name="checkboxCodigoUbicacion" formControlName="checkboxCodigoUbicacion"/>
                                      <span></span>
                                      
                                  </label>
@@ -406,14 +350,12 @@
                 <div class="col-xl-4">
                   <div class="form-group">
                     <label>Finca</label>
-                    <input
-                          type="text"
-                          class="form-control"
-                          name="finca"
-                          [(ngModel)]="model.finca"
-                          placeholder="456-123-789"
-                          value="" disabled
-                        />
+                    <input type="text"
+                            class="form-control"
+                            name="finca"
+                            formControlName="finca"
+                            placeholder="Finca"
+                            readonly/>
                   </div>
 
                 </div>
@@ -422,7 +364,7 @@
                          <span class="form-text text-muted"></span><br><br>
                              <div class="checkbox-inline">
                                  <label class="checkbox  checkbox-danger">
-                                     <input type="checkbox" name="Checkboxes1"/>
+                                     <input type="checkbox" name="checkboxFinca" formControlName="checkboxFinca"/>
                                      <span></span>
                                      
                                  </label>
@@ -433,14 +375,12 @@
                 <div class="col-xl-4">
                   <div class="form-group">
                     <label>Tomo</label>
-                    <input
-                    type="text"
-                    class="form-control"
-                    name="tomo"
-                    [(ngModel)]="model.tomo"
-                    placeholder="12354-123132"
-                    value="" disabled
-                  />
+                    <input type="text"
+                            class="form-control"
+                            name="tomo"
+                            formControlName="tomo"
+                            placeholder="Tomo"
+                            readonly/>
                   </div>
 
                 </div>
@@ -449,7 +389,7 @@
                          <span class="form-text text-muted"></span><br><br>
                              <div class="checkbox-inline">
                                  <label class="checkbox  checkbox-danger">
-                                     <input type="checkbox" name="Checkboxes1"/>
+                                     <input type="checkbox" name="checkboxTomo" formControlName="checkboxTomo"/>
                                      <span></span>
                                      
                                  </label>
@@ -462,14 +402,12 @@
                 <div class="col-xl-4">
                   <div class="form-group">
                     <label>Folio</label>
-                    <input
-                          type="text"
-                          class="form-control"
-                          name="folio"
-                          [(ngModel)]="model.folio"
-                          placeholder="456789-789465"
-                          value="" disabled
-                        />
+                    <input type="text"
+                            class="form-control"
+                            name="folio"
+                            formControlName="folio"
+                            placeholder="Folio"
+                            readonly/>
                   </div>
 
                 </div>
@@ -478,7 +416,7 @@
                          <span class="form-text text-muted"></span><br><br>
                              <div class="checkbox-inline">
                                  <label class="checkbox  checkbox-danger">
-                                     <input type="checkbox" name="Checkboxes1"/>
+                                     <input type="checkbox" name="checkboxFolio" formControlName="checkboxFolio"/>
                                      <span></span>
                                      
                                  </label>
@@ -505,19 +443,12 @@
                     <div class="col-xl-4">
                       <div class="form-group">
                         <label>Constructor responsable</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="cresponsable"
-                          [(ngModel)]="model.cresponsable"
-                          placeholder="Nombre del constructor"
-                          value="" disabled
-                        />
-                        <span class="form-text text-muted"
-                          >Nombre del
-                          constructor/empres
-                          a constructora</span
-                        >
+                        <input type="text"
+                                class="form-control"
+                                name="constructor"
+                                formControlName="constructor"
+                                placeholder="Constructor/empresa constructora"
+                                readonly/> 
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -525,7 +456,7 @@
                              <span class="form-text text-muted"></span><br><br>
                                  <div class="checkbox-inline">
                                      <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" checked="checked" name="Checkboxes1"/>
+                                         <input type="checkbox" checked="checked" name="checkboxConstructor" formControlName="checkboxConstructor"/>
                                          <span></span>
                                          
                                      </label>
@@ -536,19 +467,12 @@
                     <div class="col-xl-4">
                       <div class="form-group">
                         <label>Propietario del terreno o Arrendador</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="pterreno"
-                          [(ngModel)]="model.pterreno"
-                          placeholder="Viggo Tarasov"
-                          value="" disabled
-                        />
-                        <span class="form-text text-muted"
-                          >Nombre del
-                          propietario del
-                          terreno</span
-                        >
+                        <input type="text"
+                                class="form-control"
+                                name="propietarioTerreno"
+                                formControlName="propietarioTerreno"
+                                placeholder="Nombre del propietario del terreno"
+                                readonly/>  
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -556,7 +480,7 @@
                              <span class="form-text text-muted"></span><br><br>
                                  <div class="checkbox-inline">
                                      <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="Checkboxes1"/>
+                                         <input type="checkbox" name="checkboxPropietarioTerreno" formControlName="checkboxPropietarioTerreno"/>
                                          <span></span>
                                          
                                      </label>
@@ -569,19 +493,12 @@
                     <div class="col-xl-4">
                       <div class="form-group">
                         <label>Valor aproximado de la obra</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="valorobra"
-                          [(ngModel)]="model.valorobra"
-                          placeholder="$2,458,456.12"
-                          value="" disabled
-                        />
-                        <span class="form-text text-muted"
-                          >Indica el monto
-                          aproximado en
-                          Balboas de la obra</span
-                        >
+                        <input type="text"
+                                class="form-control"
+                                name="valorObra"
+                                formControlName="valorObra"
+                                placeholder="Valor aproximado de la obra"
+                                readonly/>  
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -589,7 +506,7 @@
                              <span class="form-text text-muted"></span><br><br>
                                  <div class="checkbox-inline">
                                      <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="Checkboxes1"/>
+                                         <input type="checkbox" name="checkboxValorObra" formControlName="checkboxValorObra"/>
                                          <span></span>
                                          
                                      </label>
@@ -600,17 +517,12 @@
                     <div class="col-xl-4">
                       <div class="form-group">
                         <label>Nombre profesional Idóneo</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="npidonio"
-                          [(ngModel)]="model.npidonio"
-                          placeholder="Mrs Wick"
-                          value="" disabled
-                        />
-                        <span class="form-text text-muted"
-                        >Por favor introduzca el dato</span
-                        >
+                        <input type="text"
+                                class="form-control"
+                                name="nombreProfesionalIdoneo"
+                                formControlName="nombreProfesionalIdoneo"
+                                placeholder="Nombre del Profesional Idoneo"
+                                readonly/>  
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -618,7 +530,7 @@
                              <span class="form-text text-muted"></span><br><br>
                                  <div class="checkbox-inline">
                                      <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="Checkboxes1"/>
+                                         <input type="checkbox" name="checkboxNombreProfesionalIdoneo" formControlName="checkboxNombreProfesionalIdoneo"/>
                                          <span></span>
                                          
                                      </label>
@@ -631,17 +543,12 @@
                     <div class="col-xl-4">
                       <div class="form-group">
                         <label>No. Idoneidad</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="nidoneidad"
-                          [(ngModel)]="model.nidoneidad"
-                          placeholder="Número de Idoneidad: 213456789"
-                          value="" disabled
-                        />
-                        <span class="form-text text-muted"
-                        >Por favor introduzca el dato</span
-                        >
+                        <input type="text"
+                                class="form-control"
+                                name="numeroIdoneidad"
+                                formControlName="numeroIdoneidad"
+                                placeholder="Numero Idoneidad"
+                                readonly/> 
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -649,7 +556,7 @@
                              <span class="form-text text-muted"></span><br><br>
                                  <div class="checkbox-inline">
                                      <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="Checkboxes1"/>
+                                         <input type="checkbox" name="checkboxNumeroIdoneidad" formControlName="checkboxNumeroIdoneidad"/>
                                          <span></span>
                                          
                                      </label>
@@ -660,17 +567,12 @@
                     <div class="col-xl-4">
                       <div class="form-group">
                         <label>Nombre profesional Residente:</label>
-                        <input
-                        type="text"
-                        class="form-control"
-                        name="npresidente"
-                        [(ngModel)]="model.npresidente"
-                        placeholder="Nombre profesional Residente: 213456789"
-                        value="" disabled
-                      />
-                      <span class="form-text text-muted"
-                      >Por favor introduzca el dato</span
-                      >
+                        <input type="text"
+                                class="form-control"
+                                name="nombreProfesionalResidente"
+                                formControlName="nombreProfesionalResidente"
+                                placeholder="Nombre del Profesional Residente"
+                                readonly/>   
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -678,7 +580,7 @@
                              <span class="form-text text-muted"></span><br><br>
                                  <div class="checkbox-inline">
                                      <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="Checkboxes1"/>
+                                         <input type="checkbox" name="checkboxNombreProfesionalResidente" formControlName="checkboxNombreProfesionalResidente"/>
                                          <span></span>
                                          
                                      </label>
@@ -701,15 +603,10 @@
                         <label>Registro Público</label>
                         <input type="file"
                         class="form-control"
-                        name="rpublico"
-                        [(ngModel)]="model.rpublico"
+                        name="registroPublico"
+                        formControlName="registroPublico"
                         placeholder="Registro Público"
-                        value="" accept=".png, .jpg, .jpeg, .pdf" disabled />
-                        <span class="form-text text-muted"
-                          >Copia de Certificado
-                          de Registro Público
-                          vigente. Subir el archivo en formato imagen o pdf</span
-                        >
+                        accept=".png, .jpg, .jpeg, .pdf" readonly />
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -717,7 +614,7 @@
                              <span class="form-text text-muted"></span><br><br>
                                  <div class="checkbox-inline">
                                      <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="Checkboxes1"/>
+                                         <input type="checkbox" name="checkboxRegistroPublico" formControlName="checkboxRegistroPublico"/>
                                          <span></span>
                                          
                                      </label>
@@ -732,14 +629,10 @@
                         <label>Certificación del Idóneo </label>
                         <input type="file"
                         class="form-control"
-                        name="cidoneo"
-                        [(ngModel)]="model.cidoneo"
+                        name="certificacion"
+                        formControlName="certificacion"
                         placeholder="Certificación del Idóneo"
-                        value="" accept=".png, .jpg, .jpeg, .pdf" disabled />
-                        <span class="form-text text-muted"
-                          >Copia del certificado
-                          original. Subir el archivo en formato imagen o pdf</span
-                        >
+                        accept=".png, .jpg, .jpeg, .pdf" readonly />
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -747,7 +640,7 @@
                              <span class="form-text text-muted"></span><br><br>
                                  <div class="checkbox-inline">
                                      <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="Checkboxes1"/>
+                                         <input type="checkbox" name="checkboxCertificacion" formControlName="checkboxCertificacion"/>
                                          <span></span>
                                          
                                      </label>
@@ -759,18 +652,13 @@
                   <div class="row">
                     <div class="col-xl-10">
                       <div class="form-group">
-                        <label>Cédula</label>
+                        <label>Planos</label>
                         <input type="file"
                         class="form-control"
-                        name="ccedula"
-                        [(ngModel)]="model.ccedula"
-                        placeholder="Cédula"
-                        value="" accept=".png, .jpg, .jpeg, .pdf" disabled />
-                        <span class="form-text text-muted"
-                          >Copia de la cédula
-                          del representante
-                          legal. Subir el archivo en formato imagen o pdf</span
-                        >
+                        name="planos"
+                        formControlName="certificacion"
+                        placeholder="Planos"
+                        accept=".png, .jpg, .jpeg, .pdf" readonly />
                       </div>
                     </div>
                     <div class="col-xl-2">
@@ -778,38 +666,7 @@
                              <span class="form-text text-muted"></span><br><br>
                                  <div class="checkbox-inline">
                                      <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="Checkboxes1"/>
-                                         <span></span>
-                                         
-                                     </label>
-                             
-                                 </div>
-                         </div>
-                   </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-xl-10">
-                      <div class="form-group">
-                        <label>Pasaporte</label>
-                        <input type="file"
-                        class="form-control"
-                        name="pasaporte"
-                        [(ngModel)]="model.pasaporte"
-                        placeholder="Pasaporte"
-                        value="" accept=".png, .jpg, .jpeg, .pdf" disabled />
-                        <span class="form-text text-muted"
-                          >Copia del pasaporte
-                          del representante
-                          legal. Subir el archivo en formato imagen o pdf</span
-                        >
-                      </div>
-                    </div>
-                    <div class="col-xl-2">
-                        <div class="form-group">
-                             <span class="form-text text-muted"></span><br><br>
-                                 <div class="checkbox-inline">
-                                     <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="Checkboxes1"/>
+                                         <input type="checkbox" name="checkboxPlanos" formControlName="checkboxPlanos"/>
                                          <span></span>
                                          
                                      </label>
@@ -826,125 +683,131 @@
                   <h4 class="mb-10 font-weight-bold text-dark">
                     Subsanar Solicitud
                   </h4>
-                  <div class="border-bottom mb-5 pb-5">
-                    <div class="form-group">
-                        <label class="font-weight-bolder">Campos a subsanar</label>
-                          <div class="border-bottom mb-5 pb-5">
-                            <div class="font-weight-bolder mb-3">Información del Proyecto</div>
-                            <div class="line-height-xl">
-                             Descripción del proyecto: <textarea 
-                              class="form-control"
-                              name="dproyecto"
-                              [(ngModel)]="model.dproyecto"
-                              placeholder="de que se trata el proyecto" disabled>
-                              </textarea>  
-                            </div>
-                          </div>
-                          <div class="border-bottom mb-5 pb-5">
-                            <div class="font-weight-bolder mb-3">
-                              Ubicación del Proyecto:
-                            </div>
-                            <div class="line-height-xl">
-                              Distrito: <select
-                              name="distrito"
-                              [(ngModel)]="model.distrito"
-                              class="form-control" disabled
-                            >
-                            <option value="">Seleccione una opción</option>
-                            <option value="1">Bocas del Toro</option>
-                            <option value="2">Coclé</option>
-                            <option value="3">Colón</option>
-                            <option value="4">Chiriquí</option>
-                            <option value="5">Darién</option>
-                            <option value="6">Herrera</option>
-                            <option value="7">Los Santos</option>
-                            <option value="8">Panamá</option>
-                            <option value="9">Veraguas</option>
-                            <option value="10">Comarca Guna</option>
-                            <option value="11">Comarca Nobe Bugle</option>
-                            <option value="12">Panamá Oeste</option>
-                           
-                            </select><br />
-                              Corregimiento: <select
-                              name="corregimiento"
-                              [(ngModel)]="model.corregimiento"
-                              class="form-control" disabled
-                            >
-                            <option value="">Seleccione una opción</option>
-                              <option value="1">Bocas del Toro</option>
-                              <option value="2">Coclé</option>
-                              <option value="3">Colón</option>
-                              <option value="4">Chiriquí</option>
-                              <option value="5">Darién</option>
-                              <option value="6" selected>Herrera</option>
-                              <option value="7">Los Santos</option>
-                              <option value="8">Panamá</option>
-                              <option value="9">Veraguas</option>
-                              <option value="10">Comarca Guna</option>
-                              <option value="11">Comarca Nobe Bugle</option>
-                              <option value="12">Panamá Oeste</option>
-                              
-                           
-                            </select>
-                            </div>
-                          </div>
-                          <div class="border-bottom mb-5 pb-5">
-                            <div class="font-weight-bolder mb-3">Información del Lote o Terreno:</div>
-                            <div class="line-height-xl">
-                              Tipo de Propiedad: Hotel
-                              <br />
-                              Código de ubicación: pb-132
-                              <br />
-                              Finca: 8
-                              <br />
-                              Tomo: 123
-                              <br />
-                              Folio: 321
-                              <br />
-                            </div>
-                          </div>
-                          <div class="border-bottom mb-5 pb-5">
-                            <div class="font-weight-bolder mb-3">Datos de la Obra:</div>
-                            <div class="line-height-xl">
-                              Constructor Responsable: <input
-                              type="text"
-                              class="form-control"
-                              name="cresponsable"
-                              [(ngModel)]="model.cresponsable"
-                              placeholder="Nombre del constructor" 
-                              value="" disabled
-                            />
-                         
-                            </div>
-                          </div>
-                          <div class="mb-5">
-                            <div class="font-weight-bolder mb-3">Adjuntos:</div>
-                            <div class="line-height-xl">
-                              Registro Publico: xxxx-xxxx-xxxx-xxxx.pdf
-                              <br />
-                             Cédula: xxxx-xxxx-xxxx-xxxx.jpg 
-                             <br />
-                             Certificado de idoneidad:xxxx-xxxx-xxxx-xxxx.pdf
-                             <br />
-                            </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xl-12">
-                          <div class="form-group">
-                            <h4 class="mb-10 font-weight-bold text-dark">
-                              Observaciones
-                            </h4>
-                            <textarea 
-                              class="form-control"
-                              name="observaciones"
-                              [(ngModel)]="model.observaciones"
-                              placeholder="Información general">
-                          </textarea>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <br>
+                    <table class="table table-hover">
+                      <tbody>
+                        
+                        <tr *ngIf="formulario.controls['checkboxNombreProyecto'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Nombre del Proyecto 
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxDescripcionProyecto'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Descripción del Proyecto 
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxProvincia'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Provincia 
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxDistrito'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Distrito
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxCorregimiento'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Corregimiento 
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxTipoPropiedad'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Tipo de Propiedad
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxCodigoUbicacion'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Código de Ubicación: 
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxFinca'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Finca 
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxTomo'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Tomo
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxFolio'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Folio 
+                          </td>
+                        </tr>                      
+  
+                        <tr *ngIf="formulario.controls['checkboxConstructor'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Constructor
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxPropietarioTerreno'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Propietario del terreno o Arrendador
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxValorObra'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Valor aproximado de la obra:  
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxNombreProfesionalIdoneo'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Nombre profesional Idóneo
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxNumeroIdoneidad'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Numero de Idoneidad
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxNombreProfesionalResidente'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Nombre profesional Residente 
+                          </td>
+                        </tr>
+                        
+                        
+  
+                        <tr *ngIf="formulario.controls['checkboxRegistroPublico'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Registro Público
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxCertificacion'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Certificación del Idóneo 
+                          </td>
+                        </tr>
+  
+                        <tr *ngIf="formulario.controls['checkboxPlanos'].value">
+                          <td class="font-weight-bold text-dark">
+                            <span>*</span> Planos
+                          </td>
+                        </tr>
+  
+                      </tbody>
+                    </table>
+
+                    <br>                    
+                    <br>                    
                 </div>
                 <!--end: Form Wizard Step 6-->
   
@@ -959,13 +822,11 @@
                     </div>
                   </div>
                   <div>
-                    <div
-                      (click)="onSubmit()"
-                      class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-                      data-wizard-type="action-submit"
-                    >
-                      Enviar
-                    </div>
+                    <button (click)="newSubsanacion()"
+                            class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                            data-wizard-type="action-submit">
+                            Enviar
+                    </button>
                     <div
                       class="btn btn-primary font-weight-bold text-uppercase px-9 py-4"
                       data-wizard-type="action-next"
