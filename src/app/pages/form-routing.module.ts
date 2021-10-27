@@ -33,7 +33,7 @@ const routes: Routes = [
         component: FSubsanarsolicitudComponent,
       },
       {
-        path: 'f-registrarpago',
+        path: 'f-registrarpago/:idSolicitud',
         component: FRegistrarpagoComponent,
       },
      {
