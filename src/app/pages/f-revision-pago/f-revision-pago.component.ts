@@ -102,73 +102,8 @@ export class FRevisionPagoComponent implements OnInit {
 
  newRevisonPago(){
   const data = {
-      "incorrecto": false,
-        "t01_Rev_PermisoConstruccionMun": {
-            "codUbicacion": true,
-            "comentarios": "string",
-            "comentariosCierre": "string",
-            "comentariosInternos": "string",
-            "comprobacionNegada": true,
-            "corregimientoProyectoId": true,
-            "descripcionProyecto": true,
-            "distritoProyectoId": true,
-            "fechaRevision": "2021-09-09T15:13:32.947Z",
-            "fechaRevisionInspeccion": null,
-            "fechaRevisionPlanos": null,
-            "finca": true,
-            "folio": true,
-            "montoPagar": true,
-            "montoPagarFunc": true,
-            "montoTotal": true,
-            "noViable": false,
-            "nombreEntidadEvaluadora": true,
-            "nombreEntidadEvaluadoraFunc": true,
-            "nombreProfesionalIdoneo": true,
-            "nombreProfesionalResidente": true,
-            "nombrePropietarioTerreno": true,
-            "nombreProyecto": true,
-            "nombreResp": true,
-            "numIdoneidad": true,
-            "observacionComprobacion": "string",
-            "observaciones": "string",
-            "pagoElectronico": true,
-            "pagoManual": true,
-            "provinciaProyectoId": true,
-            "revisionId": 1,
-            "revisionNegada": true,
-            "revisorId": {
-                "revisorId": 2,
-                "tipoRevisorId": {
-                    "descripcion": "Secretaria Municipio",
-                    "tipoRevisorId": 2
-                }
-            },
-            "solicitudConfirmada": true,
-            "solicitudId": {
-          "solicitudId": 1
-        },
-            "tipoPropiedadId": true,
-            "tomo": true,
-            "valorAproxObra": true
-        },
-      "lstAdjuntos": [
-        {
-          "adjuntoId": 1,
-          "fecha": "2021-09-09T15:13:32.947Z",
-          "fechaRevision": "2021-09-09T15:13:32.947Z",
-          "nombre": "Registro Público",
-          "rechazado": true,
-          "tipoDocumentoId": {
-          "diasVigencia": 0,
-          "nombre": "Registro Público",
-          "tipoDocumentoId": 1
-          },
-          "urlAdjunto": "RegistroPublico1.pdf",
-               "solicitanteId": {
-                   "solicitanteId":1
-               }
-        }
-        ]
+      
+  
   }
 
   this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{

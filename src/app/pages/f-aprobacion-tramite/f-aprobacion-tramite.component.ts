@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-f-aprobacion-tramite',
@@ -24,7 +25,9 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   public formulario:FormGroup;
 
   constructor(private fAprobacionTramiteService:FAprobacionTramiteService, 
-    private router:Router, private formBuilder:FormBuilder) {}
+              private router:Router, 
+              private formBuilder:FormBuilder,
+              private activatedRoute:ActivatedRoute) {}
 
   ngOnInit() {
 
@@ -150,7 +153,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
       ],
     });
 
-    this.fAprobacionTramiteService.getRevision(1).subscribe(resp =>{
+    this.fAprobacionTramiteService.getRevision(this.activatedRoute.snapshot.params.tramiteId).subscribe(resp =>{
       console.log('Respuesta',resp);
         this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
         this.formulario.controls['descripcion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
@@ -173,9 +176,18 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   }
 
 
+
+
+
+
+
+
+
+
+
+  
   ngAfterViewInit(): void {
 
-   
     // Initialize form wizard
     this.wizard = new KTWizard(this.el.nativeElement, {
       startStep: 1,
