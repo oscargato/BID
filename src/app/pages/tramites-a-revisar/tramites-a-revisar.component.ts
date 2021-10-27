@@ -413,7 +413,7 @@ export class TramitesARevisarComponent implements OnInit {
 
   getPendienteSecretariaMunicipal(){
     this.tramitesRevisarService.getPendienteSecretariaMunicipal(Number(localStorage.getItem('id'))).subscribe(resp =>{
-      
+      console.log('Secretaria',resp);
       let i = 0;
       resp.forEach(element => {
         this.tramitesRevisar[i] = { nombreSolicitante:element.nombreSolicitante, 
@@ -462,7 +462,7 @@ export class TramitesARevisarComponent implements OnInit {
         break;
 
         case 11:
-          this.router.navigate([`/form/f-revision-pago`]);     
+          this.router.navigate([`/form/f-revision-pago/${revisionId}`]);     
           //this.router.navigate([`/form/f-aprobacion-tramite`]);       
         break;
 

@@ -65,7 +65,7 @@ const routes: Routes = [
         component: FRevisionDocumentosSellosComponent,
       },
       {
-        path: 'f-revision-pago',
+        path: 'f-revision-pago/:tramiteId',
         component: FRevisionPagoComponent,
       },
      {
