@@ -1,12 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FRevisionPagoService } from './f-revision-pago.service'
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
-import KTWizard from '../../../assets/js/components/wizard';
-import { KTUtil } from '../../../assets/js/components/util';
-
-
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-f-revision-pago',
@@ -14,37 +11,96 @@ import { KTUtil } from '../../../assets/js/components/util';
   styleUrls: ['./f-revision-pago.component.scss']
 })
 
-export class FRevisionPagoComponent implements OnInit, AfterViewInit, OnDestroy {
 
+export class FRevisionPagoComponent implements OnInit {
 
-  //@ViewChild('wizard', { static: true }) el: ElementRef;
-
-  model: any = {
-    nombreProyecto: 'Banco Nacional de Panamá',
-    banco: 'Banco Nacional de Panamá',
-    nrecibo: '123a-456b',
-    montototal: '$12,213,456.78',
-    montopago: '$1213,456.70',
-  
-  };
-  submitted = false;
-  wizard: any;
+  public formulario:FormGroup;
 
   constructor(private fRevisionPagoService:FRevisionPagoService, 
-              private router:Router)
-              {}
+              private router:Router,
+              private formBuilder:FormBuilder,
+              private activatedRoute:ActivatedRoute){}
 
   ngOnInit(){
-    this.fRevisionPagoService.getRevision(1).subscribe(resp =>{
-      console.log('Respuesta',resp);
-    })
-
+    this.iniciarFormulario();
+    this.getRevision();
   }
 
 
+  iniciarFormulario(){
+    this.formulario = this.formBuilder.group({
+  		nombre:['', Validators.compose([
+                  Validators.required
+                ]),
+              ],
+
+      montototal:['', Validators.compose([
+                      Validators.required
+                    ]),
+                 ],              
+
+      numRecibo:['', Validators.compose([
+                     Validators.required
+                    ]),  
+                  ],
+
+      checkboxNumRecibo:[false, Validators.compose([
+                                Validators.required
+                          ]),
+                        ],                  
+
+      fechaPago:['', Validators.compose([
+                     Validators.required
+                  ]),
+                ],
+
+      checkboxFechaPago:['', Validators.compose([
+                             Validators.required
+                          ]),
+                        ],                
+                       
+      metodoPago:['', Validators.compose([
+                      Validators.required
+                    ]),    
+                 ],
+
+      checkboxMetodoPago:['', Validators.compose([
+                      Validators.required
+                   ]),    
+                 ],                 
+                
+      nombreEntidad:['', Validators.compose([
+                         Validators.required
+                      ]),
+                    ],
+
+      checkboxNombreEntidad:['', Validators.compose([
+                                 Validators.required
+                              ]),
+                            ],
+
+      comprobantePago:['', Validators.compose([
+                         Validators.required
+                      ]),
+                    ],
+                    
+      checkboxComprobantePago:['', Validators.compose([
+                                   Validators.required
+                                ]),
+                              ],
+    });
+  }
+
+
+  getRevision(){
+    this.fRevisionPagoService.getRevision(this.activatedRoute.snapshot.params.id).subscribe(resp =>{
+      console.log('Respuesta',resp);
+      this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+    })
+  }
+
 
  newRevisonPago(){
-
   const data = {
       "incorrecto": false,
         "t01_Rev_PermisoConstruccionMun": {
@@ -139,6 +195,7 @@ export class FRevisionPagoComponent implements OnInit, AfterViewInit, OnDestroy 
     });  
   }
 
+
   failSubsanar(){
     Swal.fire({
       icon: 'error',
@@ -146,21 +203,4 @@ export class FRevisionPagoComponent implements OnInit, AfterViewInit, OnDestroy 
       text: 'Subsanacion Fallida!'
     })
   }
-
-
-
-
-
-
-
-
-
-
-  ngAfterViewInit(): void {}
-
-  ngOnDestroy() {
-    this.wizard = undefined;
-  }
 }
-
-
