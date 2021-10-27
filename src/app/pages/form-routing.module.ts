@@ -57,7 +57,7 @@ const routes: Routes = [
         component: FTareaInspeccionComponent,
       },
       {
-        path: 'f-calculo-impuesto',
+        path: 'f-calculo-impuesto/:tramiteId',
         component: FCalculoImpuestoComponent,
       },
      {

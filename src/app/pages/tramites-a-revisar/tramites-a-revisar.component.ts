@@ -462,8 +462,8 @@ export class TramitesARevisarComponent implements OnInit {
         break;
 
         case 11:
-          //this.router.navigate([`/form/f-revision-pago`]);     
-          this.router.navigate([`/form/f-aprobacion-tramite`]);       
+          this.router.navigate([`/form/f-revision-pago`]);     
+          //this.router.navigate([`/form/f-aprobacion-tramite`]);       
         break;
 
         case 12:
