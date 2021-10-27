@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } fr
 import { FAprobacionTramiteService } from './f-aprobacion-tramite.service'
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
 import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -33,7 +32,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
 
     this.formulario = this.formBuilder.group({
   		nombre:['', Validators.compose([
-          Validators.required
+                  Validators.required
         ]),
       ],
 
@@ -92,11 +91,6 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         ]),
       ],
 
-  		iinspeccion:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
   		valorObra:['', Validators.compose([
           Validators.required,
         ]),
@@ -127,15 +121,12 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         ]),
       ],
 
-  		ccedula:['', Validators.compose([
+  		planos:['', Validators.compose([
           Validators.required,
         ]),
       ],
 
-  		pasaporte:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
+      
 
   		fechapago:['', Validators.compose([
           Validators.required,
@@ -180,12 +171,48 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
 
 
 
-
-
-
-
-
+  newRevisonPago(){
+    const data = {
+        
+    
+    }
   
+    this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
+      console.log(resp)
+      if(resp.codigo === 0){
+        this.succes();
+      }
+      else{
+        this.fail()
+      }
+    })
+   }
+
+
+
+
+
+
+  succes(){  
+    Swal.fire(  
+      'Subsanacion de Tramite Exitosa!',
+      'Haga click para continuar',
+      'success',
+    ).then((result) => {
+      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+    });  
+  }
+
+
+  fail(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Subsanacion Fallida!'
+    })
+  }
+
+
   ngAfterViewInit(): void {
 
     // Initialize form wizard
@@ -223,8 +250,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
 
   ngOnDestroy() {
     this.wizard = undefined;
-  }
-  
+  } 
 }
 
 

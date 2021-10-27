@@ -107,7 +107,7 @@ export class FRevisionPagoComponent implements OnInit {
   }
 
   this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
-
+    console.log(resp)
     if(resp.codigo === 0){
       this.registerAlert();
     }

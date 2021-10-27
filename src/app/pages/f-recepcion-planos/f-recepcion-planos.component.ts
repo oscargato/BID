@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
 import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 
@@ -9,6 +8,7 @@ import { KTUtil } from '../../../assets/js/components/util';
   templateUrl: './f-recepcion-planos.component.html',
   styleUrls: ['./f-recepcion-planos.component.scss']
 })
+
 
 export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -39,40 +39,27 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
     campos: 'John Wick',
     observaciones: 'John Wick',
   };
+
   submitted = false;
   wizard: any;
 
-  constructor() {}
+  constructor(){}
 
-  ngOnInit() {
-  }
+  ngOnInit(){}
 
-  /*openDialog3() {
-    const dialogRef = this.dialog.open(Modal3Component, {
-      height: '350px',
-    });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }*/
+
+
+  onSubmit(){}
 
   ngAfterViewInit(): void {
-
-   
-    // Initialize form wizard
     this.wizard = new KTWizard(this.el.nativeElement, {
       startStep: 1,
       clickableSteps: true
     });
 
-    // Validation before going to next page
     this.wizard.on('beforeNext', (wizardObj) => {
-      // https://angular.io/guide/forms
-      // https://angular.io/guide/form-validation
-
-      // validate the form and use below function to stop the wizard's step
-      // wizardObj.stop();
+      
       if (wizardObj.currentStep === 1) {
         if (this.wizard.invalid) {
             this.wizard.markAllAsTouched();
@@ -81,7 +68,6 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       }
     });
 
-    // Change event
     this.wizard.on('change', () => {
       setTimeout(() => {
         KTUtil.scrollTop();
@@ -89,15 +75,6 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
     });
   }
 
-  onSubmit() {
-    this.submitted = true;
-  }
-
-  ngOnDestroy() {
-    this.wizard = undefined;
-  }
-  
+  ngOnDestroy() 
+  { this.wizard = undefined; } 
 }
-
-
-

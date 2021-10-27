@@ -1,10 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { FCalculoImpuestoService } from './f-calculo-impuesto.service'
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
-import KTWizard from '../../../assets/js/components/wizard';
-import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,12 +11,12 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './f-calculo-impuesto.component.html',
   styleUrls: ['./f-calculo-impuesto.component.scss']
 })
+
+
 export class FCalculoImpuestoComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public formulario:FormGroup;
   
-  //@ViewChild('wizard', { static: true }) el: ElementRef;
-
   submitted = false;
   wizard: any;
 
