@@ -69,7 +69,7 @@ const routes: Routes = [
         component: FRevisionPagoComponent,
       },
      {
-        path: 'f-aprobacion-tramite',
+        path: 'f-aprobacion-tramite/:tramiteId',
         component: FAprobacionTramiteComponent,
       },
       { path: '', redirectTo: 'f-disponibles', pathMatch: 'full' },
