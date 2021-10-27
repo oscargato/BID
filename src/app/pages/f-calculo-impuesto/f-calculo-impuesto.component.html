@@ -6,8 +6,7 @@
         <span class="text-muted font-weight-bold font-size-sm mt-1">Pantalla Arquitecto </span>
       </div>
       <div class="card-toolbar">
-        <a
-        routerLink="/dashboard"
+        <a routerLink="/tramites/tramites-a-revisar/tramites-a-revisar"
         class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" style="float:right"
       >
         Cancelar
@@ -33,7 +32,7 @@
                name="nombre"
                formControlName="nombre"
                placeholder="Nombre del Proyecto"
-               value="" disabled
+               readonly
                />                        
         <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].dirty || formulario.controls['nombre'].touched)">
           <div class="d-flex justify-content-end" style="color:#FF0000;">
@@ -55,10 +54,15 @@
                     <input
                           type="text"
                           class="form-control"
-                          name="montoc"
+                          name="impuesto"
+                          formControlName="impuesto"
                           placeholder="$12,123,456.89"
-                          value=""
                         />
+                        <div *ngIf="formulario.controls['impuesto'].invalid && (formulario.controls['impuesto'].dirty || formulario.controls['impuesto'].touched)">
+                          <div class="d-flex justify-content-end" style="color:#FF0000;">
+                            <span>Se requiere el monto</span> 
+                          </div>
+                        </div>
                   </div>
                 </div>
 
@@ -78,13 +82,21 @@
             <div   div class="mr-2">
             </div>
         <div>
-          <div
-            (click)="newRevisonPago()"
+         <!--  <div
+            (click)="newCalculoImpuesto()"
             class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
             data-wizard-type="action-submit"
           >
             Enviar
-          </div>
+          </div> -->
+
+          <button (click)="newCalculoImpuesto()"
+            class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+            data-wizard-type="action-submit"
+            [disabled]="formulario.invalid"
+            >
+            Enviar
+          </button>
     
         </div>
     </div>

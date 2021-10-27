@@ -45,30 +45,36 @@ export class FCalculoImpuestoComponent implements OnInit, AfterViewInit, OnDestr
     });
 
     this.fCalculoImpuestoService.getRevision(this.activatedRoute.snapshot.params.tramiteId ).subscribe(resp =>{
-      console.log('Respuesta',resp);
+      //console.log('Respuesta',resp);
       this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
     })
   }
 
 
-  newRevisonPago(){
+  newCalculoImpuesto() 
+  { 
+    const data = {  
+      "t01_Sol_PermisoConstruccionMun": {
+        "solicitudId": 1,
+        "montoPagar": this.formulario.controls.impuesto.value
+      }
+    }
 
-    const data = {}
-  
     this.fCalculoImpuestoService.newCalculoImpuesto(data).subscribe(resp=>{
-  
+      console.log('respuesta:', resp)
       if(resp.codigo === 0){
+
         this.registerAlert();
       }
       else{
-        this.failSubsanar()
+        this.failCalculo()
       }
     })
-   }
+  }
 
    registerAlert(){  
     Swal.fire(  
-      'Subsanacion de Tramite Exitosa!',
+      'Calculo de Impuesto Exitoso!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -76,11 +82,11 @@ export class FCalculoImpuestoComponent implements OnInit, AfterViewInit, OnDestr
     });  
   }
 
-  failSubsanar(){
+  failCalculo(){
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Subsanacion Fallida!'
+      text: 'Calculo Fallido!'
     })
   }
 
