@@ -37,7 +37,7 @@ const routes: Routes = [
         component: FRegistrarpagoComponent,
       },
      {
-        path: 'f-subsanarpagos',
+        path: 'f-subsanarpagos/:idSolicitud',
         component: FSubsanarpagosComponent,
       },
       {

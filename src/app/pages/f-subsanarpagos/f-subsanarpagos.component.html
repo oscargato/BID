@@ -6,8 +6,7 @@
         <span class="text-muted font-weight-bold font-size-sm mt-1">*(Solo para del contribuyente) </span>
       </div>
       <div class="card-toolbar">
-        <a
-        routerLink="/dashboard"
+        <a routerLink="/tramites/tramites-a-revisar/tramites-a-revisar"
         class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" style="float:right"
       >
         Cancelar
@@ -23,7 +22,7 @@
           <div class="row">
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: -->
-              <form class="form" id="kt_form">
+              <form [formGroup]="formulario" class="form" id="kt_form">
         <!--begin: monto Actions -->
         <div class="d-flex justify-content-between border-bottom py-2">
             <div   div class="mr-2">
@@ -31,10 +30,10 @@
                 <input
                       type="text"
                       class="form-control"
-                      name="montototal"
-                      [(ngModel)]="model.montototal"
+                      name="montoTotal"
+                      formControlName="montoTotal"
                       placeholder="$12,123,456.78"
-                      value="" disabled
+                      readonly
                     />
             </div>
         <div>
@@ -54,9 +53,9 @@
                           type="text"
                           class="form-control"
                           name="nrecibo"
-                          [(ngModel)]="model.nrecibo"
+                          formControlName="numeroRecibo"
                           placeholder="123a"
-                          value="" disabled
+                          readonly
                         />
                   </div>
                 </div>
@@ -65,7 +64,7 @@
                          <span class="form-text text-muted"></span><br><br>
                              <div class="checkbox-inline">
                                  <label class="checkbox  checkbox-danger">
-                                     <input type="checkbox" name="Checkboxes1"/>
+                                     <input type="checkbox" name="checkboxNumeroRecibo"/>
                                      <span></span>
                                      
                                  </label>
@@ -79,9 +78,9 @@
                     <input 
                     type="datetime-local"  
                     class="form-control"
-                    name="fechapago"
-                    [(ngModel)]="model.fechapago" 
-                    id="Test_DatetimeLocal" disabled>
+                    name="fechaPago"
+                    formControlName="fechaPago"
+                    id="Test_DatetimeLocal" readonly>
                   </div>
                 </div>
                 <div class="col-xl-2">
@@ -89,7 +88,7 @@
                          <span class="form-text text-muted"></span><br><br>
                              <div class="checkbox-inline">
                                  <label class="checkbox  checkbox-danger">
-                                     <input type="checkbox" checked="checked" name="Checkboxes1"/>
+                                     <input type="checkbox" checked="checked" name="checkboxFechaPago"/>
                                      <span></span>
                                      
                                  </label>
@@ -106,10 +105,10 @@
                     <input
                           type="text"
                           class="form-control"
-                          name="montopago"
-                          [(ngModel)]="model.montopago"
+                          name="montoPago"
+                          formControlName="montoPago"
                           placeholder="456-123-789"
-                          value="" disabled
+                          readonly
                         />
                   </div>
 
@@ -119,7 +118,7 @@
                          <span class="form-text text-muted"></span><br><br>
                              <div class="checkbox-inline">
                                  <label class="checkbox  checkbox-danger">
-                                     <input type="checkbox" name="Checkboxes1"/>
+                                     <input type="checkbox" name="checkboxMontoPago"/>
                                      <span></span>
                                      
                                  </label>
@@ -133,10 +132,10 @@
                     <input
                     type="text"
                     class="form-control"
-                    name="banco"
-                    [(ngModel)]="model.banco"
+                    name="bancoPago"
+                    formControlName="bancoPago"
                     placeholder="12354-123132"
-                    value="" disabled
+                    readonly
                   />
                   </div>
 
@@ -146,7 +145,7 @@
                          <span class="form-text text-muted"></span><br><br>
                              <div class="checkbox-inline">
                                  <label class="checkbox  checkbox-danger">
-                                     <input type="checkbox" name="Checkboxes1"/>
+                                     <input type="checkbox" name="checkboxBancoPago"/>
                                      <span></span>
                                      
                                  </label>
@@ -163,7 +162,6 @@
                         <input type="file"
                         class="form-control"
                         name="pasaporte"
-                        [(ngModel)]="model.pasaporte"
                         placeholder="Pasaporte"
                         value="" accept=".png, .jpg, .jpeg, .pdf" disabled />
                         <span class="form-text text-muted"
