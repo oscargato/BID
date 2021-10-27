@@ -25,7 +25,7 @@ const routes: Routes = [
     component: FormComponent,
     children: [
       {
-        path: 'f-disponibles/:tramiteId',
+        path: 'f-disponibles/:tramiteId ',
         component: FDisponiblesComponent,
       },
      {
