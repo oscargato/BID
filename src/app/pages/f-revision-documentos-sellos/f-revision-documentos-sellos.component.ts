@@ -23,31 +23,6 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
 
   @ViewChild('wizard', { static: true }) el: ElementRef;
 
-  model: any = {
-    pname: 'Edicion John Wick',
-    dproyecto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed mollis sem, sit amet dictum tortor. Aenean tortor ex, suscipit tempus viverra in, lacinia vel sem.',
-    provincia: '8',
-    distrito: '8',
-    corregimiento: '8',
-    tpropiedad: 'Tipo 2',
-    cubicacion: 'La Floresta',
-    finca: '6',
-    tomo: '10',
-    folio: '6',
-    cresponsable: 'John Wick',
-    pterreno: 'Propietario',
-    iinspeccion: 'Viggo Tarasov',
-    valorobra: '$12,213,456.78',
-    npidonio: 'Mrs Wick',
-    nidoneidad: '456-879-123',
-    npresidente: 'Jose Perez',
-    rpublico: '123-564-789',
-    cidoneo: 'VIC',
-    ccedula: '6-706-1850',
-    pasaporte: '1-231-456',
-    campos: 'John Wick',
-    observaciones: 'John Wick',
-  };
   submitted = false;
   wizard: any;
 
