@@ -61,7 +61,7 @@ const routes: Routes = [
         component: FCalculoImpuestoComponent,
       },
      {
-        path: 'f-revision-documentos-sellos',
+        path: 'f-revision-documentos-sellos/:idRevision',
         component: FRevisionDocumentosSellosComponent,
       },
       {
