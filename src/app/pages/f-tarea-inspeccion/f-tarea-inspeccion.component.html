@@ -6,8 +6,7 @@
         <span class="text-muted font-weight-bold font-size-sm mt-1">Inspector/Topógrafo </span>
       </div>
       <div class="card-toolbar">
-        <a
-        routerLink="/dashboard"
+        <a routerLink="/tramites/tramites-a-revisar/tramites-a-revisar"
         class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" style="float:right"
       >
         Cancelar
@@ -24,19 +23,19 @@
           <div class="row">
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: -->
-              <form class="form" id="kt_form">
+              <form [formGroup]="formulario" class="form" id="kt_form">
         <!--begin: monto Actions -->
         <div class="d-flex justify-content-between border-bottom py-3">
             <div class="mr-2">
-                <label class="font-weight-bolder">Nombre del Proyectos</label>
+                <label class="font-weight-bolder">Nombre del Proyecto</label>
                 <input
-                      type="text"
-                      class="form-control input-lg"
-                      name="nombreProyecto"
-                      [(ngModel)]="model.nombreProyecto"
-                      placeholder="Finca los Tucanes" disabled
-                      value="" 
-                    />
+                type="text"
+                class="form-control"
+                name="nombreProyecto"
+                formControlName="nombreProyecto"
+                placeholder="Finca del Montillelo"
+                readonly
+              />
             </div>
          <div>
       </div>
@@ -51,9 +50,9 @@
                 <div class="col-xl-12">
                   <div class="form-group">
                     <label >Inspección Aprobada</label><br>
-                    <input type="radio" id="si" name="tareaInspeccion" checked="checked" value="Si">&nbsp;
+                    <input type="radio" id="si" name="tareaInspeccion" formControlName="tareaInspeccion" checked="checked" value="Si">&nbsp;
                     <label for="si"> Si</label>&nbsp;
-                    <input type="radio" id="no" name="tareaInspeccion" value="No">&nbsp;
+                    <input type="radio" id="no" name="tareaInspeccion" formControlName="tareaInspeccion" value="No">&nbsp;
                     <label for="no"> No</label><br>
                   </div>
                 </div>
@@ -68,7 +67,7 @@
                     <textarea 
                               class="form-control"
                               name="observaciones"
-                              [(ngModel)]="model.observaciones"
+                              formControlName="observaciones"
                               placeholder="de que se trata el proyecto">
                           </textarea>
                   </div>
@@ -89,9 +88,8 @@
                         <label>Informe de Inspección</label>
                         <input type="file"
                         class="form-control"
-                        name="inspeccion"
-                        [(ngModel)]="model.inspeccion"
-                        placeholder="Pasaporte"
+                        name="informe"
+                        formControlName="informe"
                         value="" accept=".png, .jpg, .jpeg, .pdf"  />
                        
                       </div>
@@ -110,13 +108,12 @@
             <div   div class="mr-2">
             </div>
         <div>
-          <div
-            (click)="onSubmit()"
-            class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-            data-wizard-type="action-submit"
-          >
-            Enviar
-          </div>
+          <button (click)="newRevisionInspeccion()"
+          class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+          [disabled]="formulario.invalid"
+          data-wizard-type="action-submit">
+          Enviar
+          </button>
     
         </div>
     </div>

@@ -43,7 +43,7 @@ export class FTareaInspeccionComponent implements OnInit, AfterViewInit, OnDestr
         ]),
       ],
 
-      radioInspeccionAprobada:[true, Validators.compose([
+      radioTareaInspeccion:[true, Validators.compose([
         Validators.required
         ]),
       ], 
@@ -54,7 +54,7 @@ export class FTareaInspeccionComponent implements OnInit, AfterViewInit, OnDestr
         ]),
       ],
 
-      informe:[false, Validators.compose([
+      informe:['', Validators.compose([
         Validators.required
         ]),
       ], 
@@ -65,6 +65,40 @@ export class FTareaInspeccionComponent implements OnInit, AfterViewInit, OnDestr
       console.log('Respuesta',resp);
 
       this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+    })
+  }
+
+
+  newRevisionInspeccion(){
+
+    const data = {}
+  
+    this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
+  
+      if(resp.codigo === 0){
+        this.registerAlert();
+      }
+      else{
+        this.failRevision()
+      }
+    })
+  }
+
+  registerAlert(){  
+    Swal.fire(  
+      'Revision de Tramite Exitosa!',
+      'Haga click para continuar',
+      'success',
+    ).then((result) => {
+      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+    });  
+  }
+
+  failRevision(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Revision Fallida!'
     })
   }
 
