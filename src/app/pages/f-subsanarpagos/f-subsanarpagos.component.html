@@ -52,7 +52,7 @@
                     <input
                           type="text"
                           class="form-control"
-                          name="nrecibo"
+                          name="numeroRecibo"
                           formControlName="numeroRecibo"
                           placeholder="123a"
                           readonly
@@ -198,13 +198,13 @@
             <div   div class="mr-2">
             </div>
         <div>
-          <div
-            (click)="onSubmit()"
+          <button (click)="newSubsanacion()"
             class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
             data-wizard-type="action-submit"
-          >
+            [disabled]="formulario.invalid"
+            >
             Enviar
-          </div>
+          </button>
     
         </div>
     </div>

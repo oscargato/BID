@@ -23,18 +23,18 @@
           <div class="row">
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: -->
-              <form class="form" id="kt_form">
+              <form [formGroup]="formulario" class="form" id="kt_form">
         <!--begin: monto Actions -->
         <div class="d-flex justify-content-between border-bottom py-5">
             <div class="mr-2">
                 <label class="font-weight-bolder">Monto total</label>
                 <input
                       type="text"
-                      class="form-control input-lg"
-                      name="montototal"
-                      [(ngModel)]="model.montototal"
+                      class="form-control"
+                      name="montoTotal"
+                      formControlName="montoTotal"
                       placeholder="$12,123,456.78"
-                      value="" 
+                      readonly
                     />
             </div>
         <div>
@@ -53,10 +53,10 @@
                     <input
                           type="text"
                           class="form-control"
-                          name="nrecibo"
-                          [(ngModel)]="model.nrecibo"
+                          name="numeroRecibo"
+                          formControlName="numeroRecibo"
                           placeholder="123a"
-                          value="" 
+                          readonly
                         />
                   </div>
                 </div>
@@ -67,9 +67,9 @@
                     <input 
                     type="datetime-local"  
                     class="form-control"
-                    name="fechapago"
-                    [(ngModel)]="model.fechapago" 
-                    id="Test_DatetimeLocal">
+                    name="fechaPago"
+                    formControlName="fechaPago"
+                    id="Test_DatetimeLocal" readonly>
                   </div>
                 </div>
 
@@ -82,10 +82,10 @@
                     <input
                           type="text"
                           class="form-control"
-                          name="montopago"
-                          [(ngModel)]="model.montopago"
+                          name="montoPago"
+                          formControlName="montoPago"
                           placeholder="456-123-789"
-                          value="" 
+                          readonly
                         />
                   </div>
 
@@ -97,10 +97,10 @@
                     <input
                     type="text"
                     class="form-control"
-                    name="banco"
-                    [(ngModel)]="model.banco"
+                    name="bancoPago"
+                    formControlName="bancoPago"
                     placeholder="12354-123132"
-                    value="" 
+                    readonly
                   />
                   </div>
 
@@ -114,13 +114,12 @@
                             de Pago</label>
                         <input type="file"
                         class="form-control"
-                        name="pasaporte"
-                        [(ngModel)]="model.pasaporte"
+                        name="comprobantePago"
+                        formControlName="comprobantePago"
                         placeholder="Pasaporte"
-                        value="" accept=".png, .jpg, .jpeg, .pdf"  />
+                        accept=".png, .jpg, .jpeg, .pdf"  />
                         <span class="form-text text-muted"
-                          >Copia del pasaporte
-                          del comprobante
+                          >Copia del comprobante
                           de pago. Subir el archivo en formato imagen o pdf</span
                         >
                       </div>
@@ -138,13 +137,13 @@
             <div   div class="mr-2">
             </div>
         <div>
-          <div
-            (click)="onSubmit()"
+          <button (click)="newSubsanacion()"
             class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
             data-wizard-type="action-submit"
-          >
+            [disabled]="formulario.invalid"
+            >
             Enviar
-          </div>
+          </button>
     
         </div>
     </div>
