@@ -36,11 +36,7 @@ export class FTareaInspeccionComponent implements OnInit, AfterViewInit, OnDestr
 
   ngOnInit() {
 
-    this.formulario = this.formBuilder.group({
-  		montoTotal:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
+    this.formulario = this.formBuilder.group({  
 
   		nombreProyecto:['', Validators.compose([
           Validators.required,
@@ -57,6 +53,7 @@ export class FTareaInspeccionComponent implements OnInit, AfterViewInit, OnDestr
           Validators.required,
         ]),
       ],
+
       informe:[false, Validators.compose([
         Validators.required
         ]),
@@ -64,17 +61,12 @@ export class FTareaInspeccionComponent implements OnInit, AfterViewInit, OnDestr
 
     });
 
+    this.fTareaInspeccionService.getRevision(this.activatedRoute.snapshot.params.idRevision ).subscribe(resp =>{
+      console.log('Respuesta',resp);
+
+      this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+    })
   }
-
-  /*openDialog3() {
-    const dialogRef = this.dialog.open(Modal3Component, {
-      height: '350px',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }*/
 
   ngAfterViewInit(): void {}
 
