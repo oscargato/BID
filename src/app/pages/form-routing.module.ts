@@ -53,7 +53,7 @@ const routes: Routes = [
         component: FRecepcionPlanosComponent,
       },
      {
-        path: 'f-tarea-inspeccion',
+        path: 'f-tarea-inspeccion/:idRevision',
         component: FTareaInspeccionComponent,
       },
       {

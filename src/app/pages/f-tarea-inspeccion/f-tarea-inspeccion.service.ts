@@ -15,7 +15,7 @@ export class FTareaInspeccionService {
 
   constructor(private httpClient: HttpClient){}
 
-  newRevisionPago(user: any):Observable<any>{
+  newRevisionInspeccion(user: any):Observable<any>{
     return this.httpClient.post<any>(`${API_USERS_URL}/T01/newRevisionInspeccion`,user);
   }  
   
