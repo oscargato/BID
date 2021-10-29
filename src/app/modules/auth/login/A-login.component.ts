@@ -21,10 +21,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     
     //email: 'oscar.mejia@silice.si',
     //password: 'May17782404*.',
+<<<<<<< HEAD
     email: 'siliceContribuyente1@hotmail.com',
     password: 'Silice2021*',
     //email:'secretariaMunicipio@gmail.com',
     //password:'Silice2021*',
+=======
+
+    email:'siliceContribuyente1@hotmail.com',
+    password:'Silice2021*',
+
+    /* email:'secretariaMunicipio@gmail.com',
+    password:'Silice2021*', */
+>>>>>>> 84fbcdcd2497d6e2b9ee15919c1969473c4eb007
     
   };
 

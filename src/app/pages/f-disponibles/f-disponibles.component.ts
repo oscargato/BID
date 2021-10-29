@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } fr
 import  KTWizard  from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { DisponiblesService } from './disponibles.service';
+import { TramitesDisponiblesService } from '../tramites-disponibles/tramites-disponibles.service';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -61,13 +62,13 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit, OnDestroy
   public adjuntoRegistroPublico:string;
   public adjuntoCertificacionIdoneo:string;
   public adjuntoPlanos:string;
-
+  public parametro:number;
+  //public listsuscripcion$:Array<Subscription>; 
 
   constructor(private disponiblesService:DisponiblesService, 
               private router: Router, 
               private formBuilder:FormBuilder,
-              private activatedRoute:ActivatedRoute)
-            {}
+              private activatedRoute:ActivatedRoute){}
 
 
   ngOnInit(){
@@ -213,8 +214,7 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit, OnDestroy
     this.loadPLanos = false;
     
     
-    //this.solicitantesTramites(Number(localStorage.getItem('id')), Number(localStorage.getItem('tramiteId'))); 
-    this.solicitantesTramites(Number(localStorage.getItem('id')),this.activatedRoute.snapshot.params.tramiteId );
+    this.solicitantesTramites(); 
   }
 
 
@@ -261,8 +261,10 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit, OnDestroy
   } 
   
 
-  solicitantesTramites(solicId:number,tramId:number){
-    this.disponiblesService.solicitantesTramites(solicId,tramId).subscribe(resp=>{
+  solicitantesTramites(){
+    console.log('URL',this.activatedRoute.snapshot.params.Id);
+    console.log('LocalStorage',Number(localStorage.getItem('id')));
+    this.disponiblesService.solicitantesTramites(Number(localStorage.getItem('id')), this.activatedRoute.snapshot.params.Id).subscribe(resp=>{
       console.log('solicitantesTramites',resp);
       this.solicitanteTramiteId = resp.solicitanteTramiteId;
       this.getSolicitud(this.solicitanteTramiteId);
@@ -454,19 +456,22 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit, OnDestroy
         }]    
     };
 
-
+    console.log('Datos!!!',data)
+    
     this.disponiblesService.registrarSolicitud(data).subscribe(resp=>{
       if(resp.codigo === 0)
       { this.registerExitoso();}
       else
       { this.failRegister();  }
     })
+    
   }
 
 
 
   ngOnDestroy(){
     this.wizard = undefined;
+    //this.listsuscripcion$.forEach(u=> u.unsubscribe());
   }
 
 

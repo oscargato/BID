@@ -8,7 +8,6 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { HttpClient } from '@angular/common/http';
 import { MisTramitesService } from './mis-tramites.service';
 import { MisTramites } from './mis-tramites';
 import { PageEvent } from '@angular/material/paginator';

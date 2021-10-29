@@ -142,14 +142,12 @@
                   <div class="col-xl-12">
                     <div class="form-group">
                       <label>Nombre del Proyecto</label>
-                        <input
-                        type="text"
-                        class="form-control"
-                        name="pname"
-                        [(ngModel)]="model.pname"
-                        placeholder="Finca del Montillelo"
-                        value="" 
-                      />
+                      <input type="text"
+                      class="form-control"
+                      name="nombre"
+                      formControlName="nombre"
+                      placeholder="Nombre del Proyecto"
+                      value="" readonly/>
                       
                     </div>
                   </div>
@@ -159,13 +157,11 @@
                     <div class="col-xl-12">
                       <div class="form-group">
                           <label>Descripción del Proyecto</label>
-                          <textarea 
-                          class="form-control"
-                          name="dproyecto"
-                          [(ngModel)]="model.dproyecto"
-                          placeholder="de que se trata el proyecto" >
-                          </textarea>  
-                   
+                          <textarea class="form-control"
+                                      name="descripcion"
+                                      formControlName="descripcion"
+                                      placeholder="De que se trata el proyecto" readonly>
+                            </textarea>
                       </div>
                     </div>
 
@@ -185,27 +181,12 @@
                   <div class="col-xl-12">
                     <div class="form-group">
                       <label>Provincia:</label>
-                      <select
-                        name="provincia"
-                        [(ngModel)]="model.provincia"
-                        class="form-control" 
-                      >
-                      <option value="">Seleccione una opción</option>
-                        <option value="1">Bocas del Toro</option>
-                        <option value="2">Coclé</option>
-                        <option value="3">Colón</option>
-                        <option value="4">Chiriquí</option>
-                        <option value="5">Darién</option>
-                        <option value="6">Herrera</option>
-                        <option value="7">Los Santos</option>
-                        <option value="8">Panamá</option>
-                        <option value="9">Veraguas</option>
-                        <option value="10">Comarca Guna</option>
-                        <option value="11">Comarca Nobe Bugle</option>
-                        <option value="12">Panamá Oeste</option>
-                        
-                     
-                      </select>
+                      <input type="text"
+                               class="form-control"
+                               name="provincia"
+                               formControlName="provincia"
+                               placeholder="Provincia"
+                               readonly/>
                     </div>
                   </div>
 
@@ -215,53 +196,24 @@
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>Distrito</label>
-                      <select
-                        name="distrito"
-                        [(ngModel)]="model.distrito"
-                        class="form-control" 
-                      >
-                      <option value="">Seleccione una opción</option>
-                      <option value="1">Bocas del Toro</option>
-                      <option value="2">Coclé</option>
-                      <option value="3">Colón</option>
-                      <option value="4">Chiriquí</option>
-                      <option value="5">Darién</option>
-                      <option value="6">Herrera</option>
-                      <option value="7">Los Santos</option>
-                      <option value="8">Panamá</option>
-                      <option value="9">Veraguas</option>
-                      <option value="10">Comarca Guna</option>
-                      <option value="11">Comarca Nobe Bugle</option>
-                      <option value="12">Panamá Oeste</option>
-                     
-                      </select>
+                      <input type="text"
+                               class="form-control"
+                               name="distrito"
+                               formControlName="distrito"
+                               placeholder="Distrito"
+                               readonly/>
                     </div>
                   </div>
 
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>Corregimiento:</label>
-                      <select
-                        name="corregimiento"
-                        [(ngModel)]="model.corregimiento"
-                        class="form-control" 
-                      >
-                      <option value="">Seleccione una opción</option>
-                        <option value="1">Bocas del Toro</option>
-                        <option value="2">Coclé</option>
-                        <option value="3">Colón</option>
-                        <option value="4">Chiriquí</option>
-                        <option value="5">Darién</option>
-                        <option value="6" selected>Herrera</option>
-                        <option value="7">Los Santos</option>
-                        <option value="8">Panamá</option>
-                        <option value="9">Veraguas</option>
-                        <option value="10">Comarca Guna</option>
-                        <option value="11">Comarca Nobe Bugle</option>
-                        <option value="12">Panamá Oeste</option>
-                        
-                     
-                      </select>
+                      <input type="text"
+                              class="form-control"
+                              name="corregimiento"
+                              formControlName="corregimiento"
+                              placeholder="Corregimiento"
+                              readonly/>
                     </div>
                   </div>
 
@@ -278,36 +230,24 @@
               <div class="col-xl-6">
                 <div class="form-group">
                   <label>Tipo de Propiedad</label>
-                  <select
-                    name="tpropiedad"
-                    [(ngModel)]="model.tpropiedad"
-                    class="form-control" 
-                  >
-                    <option value="">Seleccione una opción/option>
-                    <option value="tipo1" selected>
-                      Tipo 1
-                    </option>
-                    <option value="express">
-                      Tipo 2
-                    </option>
-                    <option value="basic">
-                      Tipo 2
-                    </option>
-                  </select>
+                  <input type="text"
+                            class="form-control"
+                            name="tipoPropiedad"
+                            formControlName="tipoPropiedad"
+                            placeholder="Tipo Propiedad"
+                            readonly/>
                 </div>
               </div>
 
               <div class="col-xl-6">
                 <div class="form-group">
                   <label>Código de Ubicación</label>
-                  <input
-                        type="text"
-                        class="form-control"
-                        name="cubicacion"
-                        [(ngModel)]="model.cubicacion"
-                        placeholder="123a"
-                        value="" 
-                      />
+                  <input type="text"
+                            class="form-control"
+                            name="codigoUbicacion"
+                            formControlName="codigoUbicacion"
+                            placeholder="Código de Ubicación"
+                            readonly/>
                 </div>
               </div>
 
@@ -317,14 +257,12 @@
               <div class="col-xl-6">
                 <div class="form-group">
                   <label>Finca</label>
-                  <input
-                        type="text"
-                        class="form-control"
-                        name="finca"
-                        [(ngModel)]="model.finca"
-                        placeholder="456-123-789"
-                        value="" 
-                      />
+                  <input type="text"
+                            class="form-control"
+                            name="finca"
+                            formControlName="finca"
+                            placeholder="Finca"
+                            readonly/>
                 </div>
 
               </div>
@@ -332,14 +270,12 @@
               <div class="col-xl-6">
                 <div class="form-group">
                   <label>Tomo</label>
-                  <input
-                  type="text"
-                  class="form-control"
-                  name="tomo"
-                  [(ngModel)]="model.tomo"
-                  placeholder="12354-123132"
-                  value="" 
-                />
+                  <input type="text"
+                            class="form-control"
+                            name="tomo"
+                            formControlName="tomo"
+                            placeholder="Tomo"
+                            readonly/>
                 </div>
 
               </div>
@@ -349,14 +285,12 @@
               <div class="col-xl-4">
                 <div class="form-group">
                   <label>Folio</label>
-                  <input
-                        type="text"
-                        class="form-control"
-                        name="folio"
-                        [(ngModel)]="model.folio"
-                        placeholder="456789-789465"
-                        value="" 
-                      />
+                  <input type="text"
+                            class="form-control"
+                            name="folio"
+                            formControlName="folio"
+                            placeholder="Folio"
+                            readonly/>
                 </div>
 
               </div>
@@ -380,14 +314,12 @@
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>Constructor responsable</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="cresponsable"
-                        [(ngModel)]="model.cresponsable"
-                        placeholder="Nombre del constructor"
-                        value="" 
-                      />
+                      <input type="text"
+                                class="form-control"
+                                name="constructor"
+                                formControlName="constructor"
+                                placeholder="Constructor/empresa constructora"
+                                readonly/>
                       <span class="form-text text-muted"
                         >Nombre del
                         constructor/empres
@@ -399,14 +331,12 @@
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>Propietario del terreno o Arrendador</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="pterreno"
-                        [(ngModel)]="model.pterreno"
-                        placeholder="Viggo Tarasov"
-                        value="" 
-                      />
+                      <input type="text"
+                                class="form-control"
+                                name="propietarioTerreno"
+                                formControlName="propietarioTerreno"
+                                placeholder="Nombre del propietario del terreno"
+                                readonly/>
                       <span class="form-text text-muted"
                         >Nombre del
                         propietario del
@@ -420,14 +350,12 @@
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>Valor aproximado de la obra</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="valorobra"
-                        [(ngModel)]="model.valorobra"
-                        placeholder="$2,458,456.12"
-                        value="" 
-                      />
+                      <input type="text"
+                                class="form-control"
+                                name="valorObra"
+                                formControlName="valorObra"
+                                placeholder="Indica el monto aproximado en Balboa"
+                                readonly/>
                       <span class="form-text text-muted"
                         >Indica el monto
                         aproximado en
@@ -439,14 +367,12 @@
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>Nombre profesional Idóneo</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="npidonio"
-                        [(ngModel)]="model.npidonio"
-                        placeholder="Mrs Wick"
-                        value="" 
-                      />
+                      <input type="text"
+                                class="form-control"
+                                name="nombreProfesionalIdoneo"
+                                formControlName="nombreProfesionalIdoneo"
+                                placeholder="Introduzca el Nombre"
+                                readonly/>
                       <span class="form-text text-muted"
                       >Por favor introduzca el dato</span
                       >
@@ -458,14 +384,12 @@
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>No. Idoneidad</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="nidoneidad"
-                        [(ngModel)]="model.nidoneidad"
-                        placeholder="Número de Idoneidad: 213456789"
-                        value="" 
-                      />
+                      <input type="text"
+                                class="form-control"
+                                name="numeroIdoneidad"
+                                formControlName="numeroIdoneidad"
+                                placeholder="Numero Idoneidad"
+                                readonly/>
                       <span class="form-text text-muted"
                       >Por favor introduzca el dato</span
                       >
@@ -475,14 +399,12 @@
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>Nombre profesional Residente:</label>
-                      <input
-                      type="text"
-                      class="form-control"
-                      name="npresidente"
-                      [(ngModel)]="model.npresidente"
-                      placeholder="Nombre profesional Residente: 213456789"
-                      value="" 
-                    />
+                      <input type="text"
+                                class="form-control"
+                                name="nombreProfesionalResidente"
+                                formControlName="nombreProfesionalResidente"
+                                placeholder="Introduzca Nombre"
+                                readonly/>
                     <span class="form-text text-muted"
                     >Por favor introduzca el dato</span
                     >
@@ -505,7 +427,7 @@
                       <input type="file"
                       class="form-control"
                       name="rpublico"
-                      [(ngModel)]="model.rpublico"
+                      
                       placeholder="Registro Público"
                       value="" accept=".png, .jpg, .jpeg, .pdf"  />
                       <span class="form-text text-muted"
@@ -522,7 +444,7 @@
                       <input type="file"
                       class="form-control"
                       name="cidoneo"
-                      [(ngModel)]="model.cidoneo"
+                      
                       placeholder="Certificación del Idóneo"
                       value="" accept=".png, .jpg, .jpeg, .pdf"  />
                       <span class="form-text text-muted"
@@ -540,7 +462,7 @@
                       <input type="file"
                       class="form-control"
                       name="ccedula"
-                      [(ngModel)]="model.ccedula"
+                      
                       placeholder="Cédula"
                       value="" accept=".png, .jpg, .jpeg, .pdf"  />
                       <span class="form-text text-muted"
@@ -556,7 +478,7 @@
                       <input type="file"
                       class="form-control"
                       name="pasaporte"
-                      [(ngModel)]="model.pasaporte"
+                      
                       placeholder="Pasaporte"
                       value="" accept=".png, .jpg, .jpeg, .pdf"  />
                       <span class="form-text text-muted"
@@ -619,7 +541,7 @@
                               type="datetime-local"  
                               class="form-control"
                               name="fechapago"
-                              [(ngModel)]="model.fechapago" 
+                              
                               id="Test_DatetimeLocal">
                
                             </div>
@@ -633,7 +555,7 @@
                           <textarea 
                             class="form-control"
                             name="observaciones"
-                            [(ngModel)]="model.observaciones"
+                            
                             placeholder="Información general">
                         </textarea>
                         </div>

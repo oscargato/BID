@@ -25,7 +25,7 @@ const routes: Routes = [
     component: FormComponent,
     children: [
       {
-        path: 'f-disponibles/:tramiteId ',
+        path: 'f-disponibles/:Id',
         component: FDisponiblesComponent,
       },
      {
@@ -69,7 +69,7 @@ const routes: Routes = [
         component: FRevisionPagoComponent,
       },
      {
-        path: 'f-aprobacion-tramite/:tramiteId ',
+        path: 'f-aprobacion-tramite/:tramiteId',
         component: FAprobacionTramiteComponent,
       },
       { path: '', redirectTo: 'f-disponibles', pathMatch: 'full' },

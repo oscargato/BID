@@ -1,3 +1,4 @@
+import { TramitesRevisarService } from './../tramites-a-revisar/tramites-revisar.service';
 import {
   Component,
   OnInit,
@@ -10,8 +11,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { HttpClient } from '@angular/common/http';
 import { KTUtil } from '../../../assets/js/components/util';
-
-
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 //Tramites Finalizados
 const main = {
@@ -312,7 +315,9 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {}
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, 
+    private router:Router, 
+    private tramitesFinalizadosService:TramitesRevisarService) {
     const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
 
     // Assign the data to the data source for the table to render
@@ -326,6 +331,16 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
     // Example 7
     this.dataSource7.paginator = this.paginator7;
     this.dataSource7.sort = this.sort7;
+
+    this.tramitesFinalizadosService.getTramitesFinalizados(this.activatedRoute.snapshot.params.usuarioId).subscribe(resp =>{
+      console.log('Respuesta',resp);
+
+      /* this.formulario.controls['montoTotal'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+      this.formulario.controls['numeroRecibo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+      this.formulario.controls['fechaPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+      this.formulario.controls['montoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+      this.formulario.controls['bancoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto); */
+    })
   }
 
 

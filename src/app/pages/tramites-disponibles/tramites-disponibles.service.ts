@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable, of } from 'rxjs';
@@ -11,6 +11,8 @@ const API_USERS_URL = `${environment.apiUrl}`;
 })
 
 export class TramitesDisponiblesService{
+
+  callback:EventEmitter<any> = new EventEmitter<any>()
 
   constructor(private httpClient:HttpClient){}
 
