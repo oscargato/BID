@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     
     //email: 'oscar.mejia@silice.si',
     //password: 'May17782404*.',
-    email: 'siliceContribuyente1@hotmail.com',
-    password: 'Silice2021*',
-    //email:'secretariaMunicipio@gmail.com',
-    //password:'Silice2021*',    
+    //email: 'siliceContribuyente1@hotmail.com',
+    //password: 'Silice2021*',
+    email:'secretariaMunicipio@gmail.com',
+    password:'Silice2021*',    
   };
 
   loginForm: FormGroup;
@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           { let token = 'autenticado'
             localStorage.setItem("token", token);
             localStorage.setItem("rol", us.objeto.rol);
-            
+            localStorage.setItem("nombre", us.objeto.nombreCompleto);
             if(us.objeto.rol === 'SOL')
             { localStorage.setItem("id", us.objeto.solicitante.solicitanteId);              
               this.router.navigate(['/tramites/tramites-disponibles/tramites-disponibles']); 
