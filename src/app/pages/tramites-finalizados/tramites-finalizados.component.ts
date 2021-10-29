@@ -1,4 +1,3 @@
-import { TramitesRevisarService } from './../tramites-a-revisar/tramites-revisar.service';
 import {
   Component,
   OnInit,
@@ -15,6 +14,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { TramitesFinalizadosService } from './tramites-finalizados.service'
 
 //Tramites Finalizados
 const main = {
@@ -317,7 +317,8 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
 
   constructor(private http: HttpClient, 
     private router:Router, 
-    private tramitesFinalizadosService:TramitesRevisarService) {
+    private tramitesFinalizadosService:TramitesFinalizadosService,
+    private activatedRoute:ActivatedRoute) {
     const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
 
     // Assign the data to the data source for the table to render

@@ -337,7 +337,8 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
 
   constructor(private http: HttpClient, 
     private router:Router, 
-    private tramitesPendientesService:TramitesPendientesService) {
+    private tramitesPendientesService:TramitesPendientesService,
+    private activatedRoute:ActivatedRoute) {
     const users = Array.from({ length: 3 }, (_, k) => createNewUser(k + 1));
 
     // Assign the data to the data source for the table to render
