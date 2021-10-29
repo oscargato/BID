@@ -375,7 +375,7 @@ export class TramitesARevisarComponent implements OnInit {
 
   getPendientesInspector(){
     this.tramitesRevisarService.getPendientesInspector(Number(localStorage.getItem('id'))).subscribe(resp =>{
-      
+      console.log('Inspector',resp);
       let i = 0;
       resp.forEach(element => {
         this.tramitesRevisar[i] = { nombreSolicitante:element.nombreSolicitante, 
@@ -394,7 +394,7 @@ export class TramitesARevisarComponent implements OnInit {
 
   getPendientesArquitecto(){
     this.tramitesRevisarService.getPendientesArquitecto(Number(localStorage.getItem('id'))).subscribe(resp =>{
-      
+      console.log('Arquitecto',resp);
       let i = 0;
       resp.forEach(element => {
         this.tramitesRevisar[i] = { nombreSolicitante:element.nombreSolicitante, 
@@ -441,6 +441,7 @@ export class TramitesARevisarComponent implements OnInit {
         break;
 
         case 4:
+          this.router.navigate([`/form/f-permiso-construccion-planos/${revisionId}`]);
         break;
 
         case 5:

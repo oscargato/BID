@@ -45,7 +45,7 @@ const routes: Routes = [
         component: FPermisoConstruccionComponent,
       },
      {
-        path: 'f-permiso-construccion-planos',
+        path: 'f-permiso-construccion-planos/:idRevision',
         component: FPermisoConstruccionPlanosComponent,
       },
       {

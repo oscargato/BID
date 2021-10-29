@@ -272,7 +272,6 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit, OnD
 
   getRevision(){
     this.permisoConstruccionService.getRevision(this.activatedRoute.snapshot.params.id).subscribe(resp=>{
-        console.log('AAAAA',resp);
         this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
         this.formulario.controls['descripcion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
         this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.nomProvincia);
