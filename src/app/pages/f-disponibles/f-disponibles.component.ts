@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } fr
 import  KTWizard  from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { DisponiblesService } from './disponibles.service';
-import { TramitesDisponiblesService } from '../tramites-disponibles/tramites-disponibles.service';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -22,7 +21,7 @@ interface DatosI{
 })
 
 
-export class FDisponiblesComponent implements OnInit, AfterViewInit, OnDestroy 
+export class FDisponiblesComponent implements OnInit, AfterViewInit 
 {
   @ViewChild('wizard', { static: true }) el: ElementRef;
 
@@ -63,7 +62,6 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit, OnDestroy
   public adjuntoCertificacionIdoneo:string;
   public adjuntoPlanos:string;
   public parametro:number;
-  //public listsuscripcion$:Array<Subscription>; 
 
   constructor(private disponiblesService:DisponiblesService, 
               private router: Router, 
@@ -191,18 +189,6 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit, OnDestroy
                             ]), 
                           ],
 
-      /*                    
-      cedula:['', Validators.compose([
-                  Validators.required
-                  ]),
-             ],
-
-      pasaporte:['', Validators.compose([
-                     Validators.required
-                  ]), 
-                ],
-      */          
-     
       planos:['', Validators.compose([
                   Validators.required
                ]), 
@@ -465,13 +451,6 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit, OnDestroy
       { this.failRegister();  }
     })
     
-  }
-
-
-
-  ngOnDestroy(){
-    this.wizard = undefined;
-    //this.listsuscripcion$.forEach(u=> u.unsubscribe());
   }
 
 

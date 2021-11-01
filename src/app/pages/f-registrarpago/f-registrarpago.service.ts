@@ -10,6 +10,8 @@ const API_FILE_URL = `${environment.apiFILE}`;
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class FRegistrarpagoService {
 
   constructor(private httpClient: HttpClient) { }

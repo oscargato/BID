@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -16,7 +16,7 @@ import { saveAs } from 'file-saver';
 })
 
 
-export class FPermisoConstruccionComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
 
   @ViewChild('wizard', { static: true }) el: ElementRef;
 
@@ -537,7 +537,4 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit, OnD
       }, 500);
     });
   }
-
-  ngOnDestroy()
-  { this.wizard = undefined;  }
 }

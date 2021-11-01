@@ -1,8 +1,8 @@
 <div class="card card-custom gutter-b">
   <div class="card-header py-3">
-    <div class="card-title align-items-start flex-column">
-      <h3 class="card-label font-weight-bolder text-dark">Formulario de Solicitud del Permiso de Construcción</h3>
-      <span class="text-muted font-weight-bold font-size-sm mt-1">Revisión Solicitud</span>
+    <div class="card-title align-items-start flex-column">      
+      <h3 class="card-label font-weight-bolder text-dark">Revisión Formulario de Solicitud del Permiso de Construcción y Planos</h3>
+      <span class="text-muted font-weight-bold font-size-sm mt-1">Pantalla Arquitecto</span>
     </div>
     <div class="card-toolbar">
       <a routerLink="/tramites/tramites-a-revisar/tramites-a-revisar"
@@ -850,23 +850,15 @@
                   </div>
                 </div>
                 <div>
-                  <!--
-                  <div (click)="onSubmit()" class="btn btn-success font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-submit">
-                    Enviar
-                  </div>
-                  -->
-
                   <button (click)="newRevision()"
                           class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
                           data-wizard-type="action-submit">
                           Enviar
                   </button>
 
-                  <div
-                    class="btn btn-primary font-weight-bold text-uppercase px-9 py-4"
-                    data-wizard-type="action-next"
-                  >
-                    Siguiente
+                  <div class="btn btn-primary font-weight-bold text-uppercase px-9 py-4"
+                       data-wizard-type="action-next">
+                       Siguiente
                   </div>
                 </div>
               </div>

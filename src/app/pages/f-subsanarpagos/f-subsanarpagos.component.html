@@ -66,9 +66,7 @@
                                  <label class="checkbox  checkbox-danger">
                                      <input type="checkbox" name="checkboxNumeroRecibo"/>
                                      <span></span>
-                                     
                                  </label>
-                         
                              </div>
                      </div>
                </div>
@@ -88,7 +86,7 @@
                          <span class="form-text text-muted"></span><br><br>
                              <div class="checkbox-inline">
                                  <label class="checkbox  checkbox-danger">
-                                     <input type="checkbox" checked="checked" name="checkboxFechaPago"/>
+                                     <input type="checkbox" name="checkboxFechaPago"/>
                                      <span></span>
                                      
                                  </label>
@@ -155,35 +153,26 @@
                </div>
               </div>
               <div class="row">
-                <div class="col-xl-10">
+                <div class="col-xl-4">
                     <div class="form-group">
-                        <label>Comprobante
-                            de Pago</label>
-                        <input type="file"
-                        class="form-control"
-                        name="pasaporte"
-                        placeholder="Pasaporte"
-                        value="" accept=".png, .jpg, .jpeg, .pdf" disabled />
-                        <span class="form-text text-muted"
-                          >Copia del comprobante
-                          de pago. Subir el archivo en formato imagen o pdf</span
-                        >
+                        <label>Comprobante de Pago</label>
+                        <div class="col-md-10">
+                          <button (click)="fileDownloadComprobante()">Descargar</button>
+                        </div>
                       </div>
-
                 </div>
-                <div class="col-xl-2">
-                    <div class="form-group">
-                         <span class="form-text text-muted"></span><br><br>
-                             <div class="checkbox-inline">
-                                 <label class="checkbox  checkbox-danger">
-                                     <input type="checkbox" name="Checkboxes1"/>
-                                     <span></span>
-                                     
-                                 </label>
-                         
-                             </div>
-                     </div>
-               </div>
+
+                <div class="col-xl-8">
+                  <div class="form-group">
+                    <span class="form-text text-muted"></span><br><br>
+                    <div class="checkbox-inline">
+                      <label class="checkbox  checkbox-danger">
+                        <input type="checkbox" class="form-control" formControlName="checkboxComprobantePago" name="checkboxComprobantePago" />                          
+                        <span></span>
+                      </label>
+                    </div>
+                    </div>
+                </div>
                 <div class="col-xl-6">
                    
                 </div>

@@ -1,10 +1,7 @@
 import { FTareaInspeccionService } from './f-tarea-inspeccion.service';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
-import KTWizard from '../../../assets/js/components/wizard';
-import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,25 +11,16 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './f-tarea-inspeccion.component.html',
   styleUrls: ['./f-tarea-inspeccion.component.scss']
 })
-export class FTareaInspeccionComponent implements OnInit, AfterViewInit, OnDestroy {
+
+
+export class FTareaInspeccionComponent implements OnInit {
 
   public formulario:FormGroup;
-  //@ViewChild('wizard', { static: true }) el: ElementRef;
-
-  model: any = {
-   
-    tareaInspeccion: 'Si',
-    observaciones: 'Por favor agregar información',
-    nombreProyecto: 'Finca los Tucanes',
-    inspeccion: '$1213,456.70',
-  
-  };
-  submitted = false;
-  wizard: any;
 
   constructor(private fTareaInspeccionService:FTareaInspeccionService, 
-    private router:Router, private formBuilder:FormBuilder, 
-    private activatedRoute:ActivatedRoute) {}
+              private router:Router, 
+              private formBuilder:FormBuilder, 
+              private activatedRoute:ActivatedRoute){}
 
   ngOnInit() {
 
@@ -43,11 +31,10 @@ export class FTareaInspeccionComponent implements OnInit, AfterViewInit, OnDestr
         ]),
       ],
 
-      radioTareaInspeccion:[true, Validators.compose([
-        Validators.required
-        ]),
-      ], 
-
+      inspeccion:[true, Validators.compose([
+                        Validators.required
+                  ]),
+                 ], 
 
   		observaciones:['', Validators.compose([
           Validators.required,
@@ -72,7 +59,7 @@ export class FTareaInspeccionComponent implements OnInit, AfterViewInit, OnDestr
   newRevisionInspeccion(){
 
     const data = {}
-  
+    
     this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
   
       if(resp.codigo === 0){
@@ -82,6 +69,7 @@ export class FTareaInspeccionComponent implements OnInit, AfterViewInit, OnDestr
         this.failRevision()
       }
     })
+    
   }
 
   registerAlert(){  
@@ -101,17 +89,4 @@ export class FTareaInspeccionComponent implements OnInit, AfterViewInit, OnDestr
       text: 'Revision Fallida!'
     })
   }
-
-  ngAfterViewInit(): void {}
-
-  onSubmit() {
-    this.submitted = true;
-  }
-
-  ngOnDestroy() {
-    this.wizard = undefined;
-  }
-  
 }
-
-

@@ -13,19 +13,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 
-export class FCalculoImpuestoComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FCalculoImpuestoComponent implements OnInit {
 
   public formulario:FormGroup;
-  
-  submitted = false;
-  wizard: any;
 
   constructor(private fCalculoImpuestoService:FCalculoImpuestoService, 
-    private router:Router, private formBuilder:FormBuilder, private activatedRoute:ActivatedRoute)
-    {}
+              private router:Router, 
+              private formBuilder:FormBuilder, 
+              private activatedRoute:ActivatedRoute){}
 
-  ngOnInit() {
-
+    ngOnInit(){
 
     this.formulario = this.formBuilder.group({
   		nombre:['', Validators.compose([
@@ -42,7 +39,7 @@ export class FCalculoImpuestoComponent implements OnInit, AfterViewInit, OnDestr
     });
 
     this.fCalculoImpuestoService.getRevision(this.activatedRoute.snapshot.params.tramiteId ).subscribe(resp =>{
-      //console.log('Respuesta',resp);
+      console.log('Respuesta',resp);
       this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
     })
   }
@@ -53,19 +50,16 @@ export class FCalculoImpuestoComponent implements OnInit, AfterViewInit, OnDestr
     const data = {  
       "t01_Sol_PermisoConstruccionMun": {
         "solicitudId": 1,
-        "montoPagar": this.formulario.controls.impuesto.value
+        "montoPagar": this.formulario.controls['impuesto'].value
       }
     }
 
     this.fCalculoImpuestoService.newCalculoImpuesto(data).subscribe(resp=>{
       console.log('respuesta:', resp)
-      if(resp.codigo === 0){
-
-        this.registerAlert();
-      }
-      else{
-        this.failCalculo()
-      }
+      if(resp.codigo === 0)
+      { this.registerAlert(); }
+      else
+      { this.failCalculo()  }
     })
   }
 
@@ -86,23 +80,4 @@ export class FCalculoImpuestoComponent implements OnInit, AfterViewInit, OnDestr
       text: 'Calculo Fallido!'
     })
   }
-
-
-
-
-
-
-
-  ngAfterViewInit(): void {}
-
-  onSubmit() {
-    this.submitted = true;
-  }
-
-  ngOnDestroy() {
-    this.wizard = undefined;
-  }
-  
 }
-
-

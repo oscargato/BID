@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } fr
 import { FSubsanarsolicitudService } from './f-subsanarsolicitud.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
 import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-f-subsanarsolicitud',
@@ -15,23 +15,29 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 
-
-export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit {
 
   public formulario:FormGroup;
-  public registroPublico:string;
-  public certificacion:string;
-  public planos:string;
+  public archivoRegistroPublico:string;
+  public tramiteIdRegistroPublico:number;
+  public archivoIdoneo:string;
+  public tramiteIdIdoneo:number;
+  public archivoPlanos:string;
+  public tramiteIdPlanos:number;
+  public adjuntos: Array<any>
+
+
+
 
   
   @ViewChild('wizard', { static: true }) el: ElementRef;
 
-  submitted = false;
   wizard: any;
 
   constructor(private fSubsanarsolicitudService:FSubsanarsolicitudService, 
-    private router:Router, private formBuilder:FormBuilder, 
-    private activatedRoute:ActivatedRoute) {}
+              private router:Router, 
+              private formBuilder:FormBuilder, 
+              private activatedRoute:ActivatedRoute) {}
 
   ngOnInit() {
 
@@ -228,9 +234,12 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
       this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
-      this.registroPublico = resp.lstAdjuntos[0].urlAdjunto;
-      this.certificacion = resp.lstAdjuntos[1].urlAdjunto;
-      this.planos = resp.lstAdjuntos[2].urlAdjunto; 
+   
+      let i = 0;
+      resp.lstAdjuntos.forEach(element => {
+        this.adjuntos[i] = element
+        i++;
+      });
     })
   }
 
@@ -248,6 +257,37 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
       }
     })
   }
+
+
+
+
+
+
+
+  fileDownloadRegistro(){
+    console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
+    console.log('Nombre Archivo',this.archivoRegistroPublico);
+    this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
+      saveAs(resp,this.archivoRegistroPublico),
+      error => console.error(error)
+    });
+  }
+
+  fileDownloadIdoneo(){
+    this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdIdoneo,this.archivoIdoneo).subscribe(resp=>{
+      saveAs(resp,this.archivoIdoneo),
+      error => console.error(error)      
+    });
+  } 
+
+  fileDownloadPlanos(){
+    this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdPlanos,this.archivoPlanos).subscribe(resp=>{
+      saveAs(resp,this.archivoPlanos),
+      error => console.error(error)      
+    });    
+  }  
+
+
 
   registerAlert(){  
     Swal.fire(  
@@ -267,22 +307,20 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     })
   }
 
+
+
+
+
+
+
   ngAfterViewInit(): void {
 
-   
-    // Initialize form wizard
     this.wizard = new KTWizard(this.el.nativeElement, {
       startStep: 1,
       clickableSteps: true
     });
 
-    // Validation before going to next page
     this.wizard.on('beforeNext', (wizardObj) => {
-      // https://angular.io/guide/forms
-      // https://angular.io/guide/form-validation
-
-      // validate the form and use below function to stop the wizard's step
-      // wizardObj.stop();
       if (wizardObj.currentStep === 1) {
         if (this.wizard.invalid) {
             this.wizard.markAllAsTouched();
@@ -291,21 +329,10 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
       }
     });
 
-    // Change event
     this.wizard.on('change', () => {
       setTimeout(() => {
         KTUtil.scrollTop();
       }, 500);
     });
   }
-
-  onSubmit() {
-    this.submitted = true;
-  }
-
-  ngOnDestroy() {
-    this.wizard = undefined;
-  }
-  
 }
-

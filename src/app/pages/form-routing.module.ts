@@ -49,7 +49,7 @@ const routes: Routes = [
         component: FPermisoConstruccionPlanosComponent,
       },
       {
-        path: 'f-recepcion-planos',
+        path: 'f-recepcion-planos/:idRevision',
         component: FRecepcionPlanosComponent,
       },
      {

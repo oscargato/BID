@@ -7,10 +7,9 @@
       </div>
       <div class="card-toolbar">
         <a routerLink="/tramites/tramites-a-revisar/tramites-a-revisar"
-        class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" style="float:right"
-      >
-        Cancelar
-      </a>
+        class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" style="float:right">
+          Cancelar
+        </a>
       </div>
     </div>
     <!--end::Header-->
@@ -24,106 +23,92 @@
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: -->
               <form [formGroup]="formulario" class="form" id="kt_form">
-        <!--begin: monto Actions -->
-        <div class="d-flex justify-content-between border-bottom py-3">
-            <div class="mr-2">
-                <label class="font-weight-bolder">Nombre del Proyecto</label>
-                <input
-                type="text"
-                class="form-control"
-                name="nombreProyecto"
-                formControlName="nombreProyecto"
-                placeholder="Finca del Montillelo"
-                readonly
-              />
-            </div>
-         <div>
-      </div>
-    </div>
-      <!--end: monto Actions -->
-        <!--begin: Form -->
-        <div class="py-5" data-wizard-type="step-content">
-                  <h4 class="mb-5 font-weight-bold border-bottom py-2 text-dark">
-                    Tarea de Inspección
-                  </h4>
-              <div class="row">
-                <div class="col-xl-12">
-                  <div class="form-group">
-                    <label >Inspección Aprobada</label><br>
-                    <input type="radio" id="si" name="tareaInspeccion" formControlName="tareaInspeccion" checked="checked" value="Si">&nbsp;
-                    <label for="si"> Si</label>&nbsp;
-                    <input type="radio" id="no" name="tareaInspeccion" formControlName="tareaInspeccion" value="No">&nbsp;
-                    <label for="no"> No</label><br>
-                  </div>
-                </div>
-
-            
-              </div> 
-
-              <div class="row">
-                <div class="col-xl-12">
-                  <div class="form-group">
-                    <label>Observaciones</label>
-                    <textarea 
-                              class="form-control"
-                              name="observaciones"
-                              formControlName="observaciones"
-                              placeholder="de que se trata el proyecto">
-                          </textarea>
-                  </div>
-
-                </div>
-
-<!--                 <div class="col-xl-6">
-                  <div class="form-group">
-                   
-                  </div>
-
-                </div> -->
-
-              </div>
-              <div class="row">
-                <div class="col-xl-12">
-                    <div class="form-group">
-                        <label>Informe de Inspección</label>
-                        <input type="file"
-                        class="form-control"
-                        name="informe"
-                        formControlName="informe"
-                        value="" accept=".png, .jpg, .jpeg, .pdf"  />
-                       
+                  <!--begin: monto Actions -->
+                  <div class="d-flex justify-content-between border-bottom py-3">
+                      <div class="mr-2">
+                          <label class="font-weight-bolder">Nombre del Proyecto</label>
+                          <input  type="text"
+                                  class="form-control"
+                                  name="nombreProyecto"
+                                  formControlName="nombreProyecto"
+                                  placeholder="Nombre del Proyecto"
+                                  readonly/>
                       </div>
+                  </div>
+                  <!--end: monto Actions -->
+                  
+                  <!--begin: Form -->
+                  <div class="py-5" data-wizard-type="step-content">
+                      <h4 class="mb-5 font-weight-bold border-bottom py-2 text-dark">
+                        Tarea de Inspección
+                      </h4>
+                      <div class="row">
+                        <div class="col-xl-12">
+                          <div class="form-group">
+                            <label >Inspección Aprobada</label><br>
+                            <input type="radio" id="si" name="inspeccion" formControlName="inspeccion" checked="checked" [value]=true >&nbsp;
+                            <label for="si"> Si</label>&nbsp;
+                            <input type="radio" id="no" name="inspeccion" formControlName="inspeccion" [value]=false >&nbsp;
+                            <label for="no"> No</label><br>
+                          </div>
+                        </div>
+                      </div> 
 
-                </div>
+                      <div class="row">
+                        <div class="col-xl-12">
+                          <div class="form-group">
+                            <label>Observaciones</label>
+                            <textarea 
+                                      class="form-control"
+                                      name="observaciones"
+                                      formControlName="observaciones"
+                                      placeholder="Observaciones">
+                            </textarea>
+                          </div>
+                        </div>
+                      </div>
+              
 
-             
-                
-              </div>
-          
-
-        </div>
+                      <div class="row">
+                        <div class="col-xl-12">
+                            <div class="form-group">
+                                <label>Informe de Inspección</label>
+                                <input type="file"
+                                      class="form-control"
+                                      name="informe"
+                                      formControlName="informe"
+                                      value="" accept=".png, .jpg, .jpeg, .pdf"  />
+                                <div *ngIf="formulario.controls['informe'].invalid && (formulario.controls['informe'].dirty || formulario.controls['informe'].touched)">
+                                  <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                    <span>Se requiere el Informe de Inspeccion</span> 
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
                 <!--end: Form -->
-    <!--begin: Form Actions -->
-    <div class="d-flex justify-content-between border-top pt-5">
-            <div   div class="mr-2">
-            </div>
-        <div>
-          <button (click)="newRevisionInspeccion()"
-          class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-          [disabled]="formulario.invalid"
-          data-wizard-type="action-submit">
-          Enviar
-          </button>
-    
-        </div>
-    </div>
-      <!--end: Form Actions -->
-    </form>
+
+                <!--begin: Form Actions -->
+                <div class="d-flex justify-content-between border-top pt-5">
+                  <div class="mr-2">
+                  </div>
+
+                  <div>
+                      <button (click)="newRevisionInspeccion()"
+                              class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                              
+                              data-wizard-type="action-submit">
+                              Enviar
+                      </button>
+                  </div>
+                </div>
+     
+              </form>
     <!--end: Form Wizard Form-->
             </div>
           </div>
         </div>
-    
       <!--end: Wizard -->
     </div>
   </div>

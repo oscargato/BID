@@ -408,42 +408,49 @@
                   <div class="row">
                     <div class="col-xl-12">
                       <div class="form-group">
-                        <label>Registro Público</label>
-                        <input type="file"
-                        class="form-control"
-                        name="registroPublico"
-                        formControlName="registroPublico"
-                        accept=".png, .jpg, .jpeg, .pdf"  readonly/>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <label>Registro Público</label>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <button (click)="fileDownloadRegistro()">Descargar</button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-
+                    </div>                    
                   </div>
+
+
                   <div class="row">
                     <div class="col-xl-12">
                       <div class="form-group">
-                        <label>Certificación del Idóneo </label>
-                        <input type="file"
-                        class="form-control"
-                        name="certificacionIdoneo"
-                        formControlName="certificacionIdoneo"
-                        accept=".png, .jpg, .jpeg, .pdf"  readonly/>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <label>Certificación del Idóneo </label>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <button (click)="fileDownloadIdoneo()">Descargar</button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    </div>                    
+                  </div>                  
 
-                  </div>
+
                   <div class="row">
                     <div class="col-xl-12">
                       <div class="form-group">
-                        <label>Planos</label>
-                        <input type="file"
-                        class="form-control"
-                        name="planos"
-                        formControlName="planos"
-                        accept=".png, .jpg, .jpeg, .pdf"  readonly/>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <label>Planos </label>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <button (click)="fileDownloadPlanos()">Descargar</button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-        
-                  </div>
+                    </div>                    
+                  </div>                   
                 </div>
                 <!--end: Form Wizard Step 5-->
   

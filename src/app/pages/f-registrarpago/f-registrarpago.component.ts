@@ -2,9 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } fr
 import { FRegistrarpagoService } from './f-registrarpago.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
-import KTWizard from '../../../assets/js/components/wizard';
-import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,84 +11,54 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./f-registrarpago.component.scss']
 })
 
-export class FRegistrarpagoComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FRegistrarpagoComponent implements OnInit {
 
   public formulario:FormGroup;
   public comprobantePago:string;
-  //@ViewChild('wizard', { static: true }) el: ElementRef;
-
-  model: any = {
-   
-    banco: 'Banco Nacional de Panamá',
-    nrecibo: '123a-456b',
-    montototal: '$12,213,456.78',
-    montopago: '$1213,456.70',
   
-  };
-  submitted = false;
-  wizard: any;
 
   constructor(private fRegistrarpagoService:FRegistrarpagoService, 
-    private router:Router, private formBuilder:FormBuilder, 
-    private activatedRoute:ActivatedRoute) {}
+              private router:Router, 
+              private formBuilder:FormBuilder, 
+              private activatedRoute:ActivatedRoute) {}
 
   ngOnInit() {
 
     this.formulario = this.formBuilder.group({
   		montoTotal:['', Validators.compose([
-          Validators.required,
+                      Validators.required,
         ]),
       ],  
 
   		numeroRecibo:['', Validators.compose([
-          Validators.required,
+                        Validators.required,
         ]),
       ],
-      checkboxNumeroRecibo:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		fechaPago:['', Validators.compose([
-          Validators.required,
+                     Validators.required,
         ]),
       ],
-      checkboxFechaPago:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
-
 
   		montoPago:['', Validators.compose([
-          Validators.required,
+                     Validators.required,
         ]),
       ],
-      checkboxMontoPago:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
-
+ 
   		bancoPago:['', Validators.compose([
-          Validators.required,
+                     Validators.required,
         ]),
       ],
-      checkboxBancoPago:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
-
+ 
       comprobantePago:['', Validators.compose([
-          Validators.required,
+                          Validators.required,
           ]),
       ],  
-      checkboxComprobantePago:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
+
 
   });
 
-    this.fRegistrarpagoService.getSubsanacion(1).subscribe(resp =>{
+    this.fRegistrarpagoService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
       console.log('Respuesta',resp);
       /* this.formulario.controls['montoTotal'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['numeroRecibo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
@@ -138,19 +105,6 @@ export class FRegistrarpagoComponent implements OnInit, AfterViewInit, OnDestroy
         title: 'Error',
         text: 'Subsanacion Fallida!'
       })
-    }
-  
-  
-
-  ngAfterViewInit(): void {}
-
-  onSubmit() {
-    this.submitted = true;
-  }
-
-  ngOnDestroy() {
-    this.wizard = undefined;
-  }
-  
+    }  
 }
 

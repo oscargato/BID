@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FPermisoConstruccionPlanosService } from './f-permiso-construccion-planos.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 
-export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewInit {
 
   @ViewChild('wizard', { static: true }) el: ElementRef;
 
@@ -273,7 +274,9 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
 
   getRevision(){
     this.fPermisoConstruccionPlanosService.getRevision(this.activatedRoute.snapshot.params.idRevision).subscribe(resp =>{
+      
       console.log('Respuesta',resp);
+      /*
       this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['descripcion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
       this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.nomProvincia);
@@ -309,6 +312,7 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
         this.adjuntos[i] = element
         i++;
       });
+      */
     })
   }
 
@@ -534,7 +538,4 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
       }, 500);
     });
   }
-
-  ngOnDestroy() 
-  { this.wizard = undefined;  }
 }

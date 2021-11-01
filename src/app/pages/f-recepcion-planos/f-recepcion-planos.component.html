@@ -2,7 +2,7 @@
   <!--begin::Header-->
   <div class="card-header py-3">
     <div class="card-title align-items-start flex-column">
-      <h3 class="card-label font-weight-bolder text-dark">Recepción física de Planos</h3>
+      <h3 class="card-label font-weight-bolder text-dark">Recepción Física de Planos</h3>
       <span class="text-muted font-weight-bold font-size-sm mt-1">Pantalla Arquitecto</span>
     </div>
     <div class="card-toolbar">
@@ -559,13 +559,12 @@
                   </div>
                 </div>
                 <div>
-                  <div
-                    (click)="onSubmit()"
-                    class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-                    data-wizard-type="action-submit"
-                  >
-                    Enviar
-                  </div>
+                  <button (click)="recibirPlanos()"
+                            class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                            data-wizard-type="action-submit">
+                            Enviar
+                  </button>
+
                   <div
                     class="btn btn-primary font-weight-bold text-uppercase px-9 py-4"
                     data-wizard-type="action-next"

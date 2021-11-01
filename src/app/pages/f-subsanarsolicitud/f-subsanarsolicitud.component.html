@@ -597,83 +597,78 @@
                    Adjuntos
                   </h4>
                   <div class="row">
-                    <div class="col-xl-10">
+                    <div class="col-xl-12">
                       <div class="form-group">
-                        <label>Registro Público</label>
-                        <input type="file"
-                        class="form-control"
-                        name="registroPublico"
-                        formControlName="registroPublico"
-                        placeholder="Registro Público"
-                        accept=".png, .jpg, .jpeg, .pdf" readonly />
+                        <div class="row">
+                          <div class="col-md-4">
+                            <label>Registro Público</label>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <button (click)="fileDownloadRegistro()">Descargar</button>
+                          </div>
+                          <div class="col-md-4 d-flex justify-content-end">
+                            <div class="checkbox-inline">
+                              <label class="checkbox  checkbox-danger">
+                                  <input type="checkbox" class="form-control" formControlName="checkboxRegistroPublico" name="checkboxRegistroPublico"/>
+                                  <span></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-xl-2">
-                        <div class="form-group">
-                             <span class="form-text text-muted"></span><br><br>
-                                 <div class="checkbox-inline">
-                                     <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="checkboxRegistroPublico" formControlName="checkboxRegistroPublico"/>
-                                         <span></span>
-                                         
-                                     </label>
-                             
-                                 </div>
-                         </div>
-                   </div>
                   </div>
+
+
                   <div class="row">
-                    <div class="col-xl-10">
+                    <div class="col-xl-12">
                       <div class="form-group">
-                        <label>Certificación del Idóneo </label>
-                        <input type="file"
-                        class="form-control"
-                        name="certificacion"
-                        formControlName="certificacion"
-                        placeholder="Certificación del Idóneo"
-                        accept=".png, .jpg, .jpeg, .pdf" readonly />
+                        <div class="row">
+                          <div class="col-md-4">
+                            <label>Certificación del Idóneo </label>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <button (click)="fileDownloadIdoneo()">Descargar</button>
+                          </div>
+                          <div class="col-md-4 d-flex justify-content-end">
+                            <div class="checkbox-inline">
+                              <label class="checkbox  checkbox-danger">
+                                  <input type="checkbox" class="form-control" formControlName="checkboxCertificacionIdoneo" name="checkboxCertificacionIdoneo"/>
+                                  <span></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-xl-2">
-                        <div class="form-group">
-                             <span class="form-text text-muted"></span><br><br>
-                                 <div class="checkbox-inline">
-                                     <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="checkboxCertificacion" formControlName="checkboxCertificacion"/>
-                                         <span></span>
-                                         
-                                     </label>
-                             
-                                 </div>
-                         </div>
-                   </div>
-                  </div>
+                  </div>                  
+
+                  
                   <div class="row">
-                    <div class="col-xl-10">
+                    <div class="col-xl-12">
                       <div class="form-group">
-                        <label>Planos</label>
-                        <input type="file"
-                        class="form-control"
-                        name="planos"
-                        formControlName="certificacion"
-                        placeholder="Planos"
-                        accept=".png, .jpg, .jpeg, .pdf" readonly />
+                        <div class="row">
+                          <div class="col-md-4">
+                              <label>Planos</label>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <button (click)="fileDownloadPlanos()">Descargar</button>
+                          </div>
+                          <div class="col-md-4 d-flex justify-content-end">
+                            <div class="checkbox-inline">
+                              <label class="checkbox  checkbox-danger">
+                                  <input type="checkbox" class="form-control" formControlName="checkboxPlanos" name="checkboxPlanos"/>
+                                  <span></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-xl-2">
-                        <div class="form-group">
-                             <span class="form-text text-muted"></span><br><br>
-                                 <div class="checkbox-inline">
-                                     <label class="checkbox  checkbox-danger">
-                                         <input type="checkbox" name="checkboxPlanos" formControlName="checkboxPlanos"/>
-                                         <span></span>
-                                         
-                                     </label>
-                             
-                                 </div>
-                         </div>
-                   </div>
                   </div>
+                  
+
+
                 </div>
                 <!--end: Form Wizard Step 5-->
   

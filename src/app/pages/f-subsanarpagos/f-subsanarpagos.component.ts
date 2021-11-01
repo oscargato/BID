@@ -1,10 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { FSubsanarpagosService } from './f-subsanarpagos.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
-import KTWizard from '../../../assets/js/components/wizard';
-import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,19 +12,19 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./f-subsanarpagos.component.scss']
 })
 
-export class FSubsanarpagosComponent implements OnInit, AfterViewInit, OnDestroy {
+
+export class FSubsanarpagosComponent implements OnInit {
 
   public formulario:FormGroup;
-  //@ViewChild('wizard', { static: true }) el: ElementRef;
-
-  submitted = false;
-  wizard: any;
-
+  public archivoRegistroPublico:string;
+  public tramiteIdRegistroPublico:number;
+  
   constructor(private fSubsanarpagosService:FSubsanarpagosService, 
-    private router:Router, private formBuilder:FormBuilder, 
-    private activatedRoute:ActivatedRoute) {}
+              private router:Router, 
+              private formBuilder:FormBuilder, 
+              private activatedRoute:ActivatedRoute){}
 
-  ngOnInit() {
+    ngOnInit() {
 
     this.formulario = this.formBuilder.group({
   		montoTotal:['', Validators.compose([
@@ -72,6 +69,17 @@ export class FSubsanarpagosComponent implements OnInit, AfterViewInit, OnDestroy
         ]),
       ], 
 
+      comprobantePago:['', Validators.compose([
+        Validators.required
+       ]),
+   ],
+
+      checkboxComprobantePago:[false, 
+          Validators.compose([
+                Validators.required
+             ]),
+           ],       
+
     });
     
     this.fSubsanarpagosService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud ).subscribe(resp =>{
@@ -87,7 +95,14 @@ export class FSubsanarpagosComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
 
-
+  fileDownloadComprobante(){
+    console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
+    console.log('Nombre Archivo',this.archivoRegistroPublico);
+    this.fSubsanarpagosService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
+      saveAs(resp,this.archivoRegistroPublico),
+      error => console.error(error)
+    });
+  }
 
 
   newSubsanacion(){
@@ -125,19 +140,5 @@ export class FSubsanarpagosComponent implements OnInit, AfterViewInit, OnDestroy
         text: 'Subsanacion Fallida!'
       })
     }
-  
-
-
-
-  ngAfterViewInit(): void {}
-
-  onSubmit() {
-    this.submitted = true;
-  }
-
-  ngOnDestroy() {
-    this.wizard = undefined;
-  }
-  
 }
 

@@ -6,6 +6,7 @@ import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-f-aprobacion-tramite',
@@ -22,6 +23,12 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   wizard: any;
 
   public formulario:FormGroup;
+  public archivoRegistroPublico:string;
+  public tramiteIdRegistroPublico:number;
+  public archivoIdoneo:string;
+  public tramiteIdIdoneo:number;
+  public archivoPlanos:string;
+  public tramiteIdPlanos:number;
 
   constructor(private fAprobacionTramiteService:FAprobacionTramiteService, 
               private router:Router, 
@@ -166,16 +173,35 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
 
   }
 
+  
+  fileDownloadRegistro(){
+    console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
+    console.log('Nombre Archivo',this.archivoRegistroPublico);
+    this.fAprobacionTramiteService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
+      saveAs(resp,this.archivoRegistroPublico),
+      error => console.error(error)
+    });
+  }
 
+  fileDownloadIdoneo(){
+    this.fAprobacionTramiteService.getDownloadFile(this.tramiteIdIdoneo,this.archivoIdoneo).subscribe(resp=>{
+      saveAs(resp,this.archivoIdoneo),
+      error => console.error(error)      
+    });
+  } 
+
+  fileDownloadPlanos(){
+    this.fAprobacionTramiteService.getDownloadFile(this.tramiteIdPlanos,this.archivoPlanos).subscribe(resp=>{
+      saveAs(resp,this.archivoPlanos),
+      error => console.error(error)      
+    });    
+  }
 
 
 
 
   newRevisonPago(){
-    const data = {
-        
-    
-    }
+    const data = { }
   
     this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
       console.log(resp)
@@ -187,11 +213,6 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
       }
     })
    }
-
-
-
-
-
 
   succes(){  
     Swal.fire(  
@@ -213,21 +234,20 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   }
 
 
-  ngAfterViewInit(): void {
 
-    // Initialize form wizard
+
+
+
+  onSubmit(){}
+
+  ngAfterViewInit(): void {
     this.wizard = new KTWizard(this.el.nativeElement, {
       startStep: 1,
       clickableSteps: true
     });
 
-    // Validation before going to next page
     this.wizard.on('beforeNext', (wizardObj) => {
-      // https://angular.io/guide/forms
-      // https://angular.io/guide/form-validation
-
-      // validate the form and use below function to stop the wizard's step
-      // wizardObj.stop();
+      
       if (wizardObj.currentStep === 1) {
         if (this.wizard.invalid) {
             this.wizard.markAllAsTouched();
@@ -236,7 +256,6 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
       }
     });
 
-    // Change event
     this.wizard.on('change', () => {
       setTimeout(() => {
         KTUtil.scrollTop();
@@ -244,13 +263,6 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
-  onSubmit() {
-    this.submitted = true;
-  }
-
-  ngOnDestroy() {
-    this.wizard = undefined;
-  } 
+  ngOnDestroy()
+  { this.wizard = undefined; } 
 }
-
-
