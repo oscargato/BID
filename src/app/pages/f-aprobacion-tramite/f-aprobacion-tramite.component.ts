@@ -238,7 +238,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
 
 
 
-  onSubmit(){}
+  onAprobacion(){}
 
   ngAfterViewInit(): void {
     this.wizard = new KTWizard(this.el.nativeElement, {
