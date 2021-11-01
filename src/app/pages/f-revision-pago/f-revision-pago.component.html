@@ -61,10 +61,9 @@
                     <input
                       type="text"
                       class="form-control"
-                      name="nrecibo"
-                      
-                      placeholder="123a"
-                      value=""
+                      name="numRecibo"
+                      formControlName="numRecibo"
+                      readonly
                     />
                   </div>
                 </div>
@@ -73,7 +72,7 @@
                        <span class="form-text text-muted"></span><br><br>
                            <div class="checkbox-inline">
                                <label class="checkbox  checkbox-danger">
-                                   <input type="checkbox" name="Checkboxes1"/>
+                                   <input type="checkbox" name="checkboxNumRecibo" formControlName="checkboxNumRecibo"/>
                                    <span></span>
                                    
                                </label>
@@ -87,8 +86,10 @@
                     <input
                       type="datetime-local"
                       class="form-control"
-                      name="fechapago"
+                      name="fechaPago"
+                      formControlName="fechaPago"
                       id="Test_DatetimeLocal"
+                      readonly
                     />
                   </div>
                 </div>
@@ -97,7 +98,7 @@
                        <span class="form-text text-muted"></span><br><br>
                            <div class="checkbox-inline">
                                <label class="checkbox  checkbox-danger">
-                                   <input type="checkbox" name="Checkboxes1"/>
+                                   <input type="checkbox" name="checkboxFechaPago" formControlName="checkboxFechaPago"/>
                                    <span></span>
                                    
                                </label>
@@ -114,10 +115,9 @@
                     <input
                       type="text"
                       class="form-control"
-                      name="montopago"
-                      
-                      placeholder="456-123-789"
-                      value=""
+                      name="montoPago"
+                      formControlName="montoPago"
+                      readonly
                     />
                   </div>
                 </div>
@@ -126,7 +126,7 @@
                        <span class="form-text text-muted"></span><br><br>
                            <div class="checkbox-inline">
                                <label class="checkbox  checkbox-danger">
-                                   <input type="checkbox" name="Checkboxes1"/>
+                                   <input type="checkbox" name="checkboxMontoPago" formControlName="checkboxMontoPago"/>
                                    <span></span>
                                    
                                </label>
@@ -140,10 +140,9 @@
                     <input
                       type="text"
                       class="form-control"
-                      name="banco"
-                      
-                      placeholder="12354-123132"
-                      value=""
+                      name="nombreEntidad"
+                      formControlName="nombreEntidad"
+                      readonly
                     />
                   </div>
                 </div>
@@ -152,7 +151,7 @@
                        <span class="form-text text-muted"></span><br><br>
                            <div class="checkbox-inline">
                                <label class="checkbox  checkbox-danger">
-                                   <input type="checkbox" name="Checkboxes1"/>
+                                   <input type="checkbox" name="checkboxNombreEntidad" formControlName="checkboxNombreEntidad"/>
                                    <span></span>
                                    
                                </label>
@@ -162,31 +161,21 @@
              </div>
               </div>
               <div class="row">
-                <div class="col-xl-10">
+
+                <div class="col-xl-4">
                   <div class="form-group">
                     <label>Comprobante de Pago</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="pasaporte"
-                      
-                      placeholder="Pasaporte"
-                      value=""
-                      accept=".png, .jpg, .jpeg, .pdf"
-                    />
-                    <span class="form-text text-muted"
-                      >Copia del comprobante de pago. Subir el
-                      archivo en formato imagen o pdf</span
-                    >
+                    <div class="col-md-10">
+                      <button (click)="fileDownloadComprobante()">Descargar</button>
+                    </div>
                   </div>
                 </div>
-
-                <div class="col-xl-2">
+                <div class="col-md-2">
                   <div class="form-group">
                        <span class="form-text text-muted"></span><br><br>
                            <div class="checkbox-inline">
                                <label class="checkbox  checkbox-danger">
-                                   <input type="checkbox" name="Checkboxes1"/>
+                                   <input type="checkbox" name="checkboxComprobantePago" formControlName="checkboxComprobantePago" />
                                    <span></span>
                                    
                                </label>
@@ -194,6 +183,7 @@
                            </div>
                    </div>
              </div>
+
               </div>
             </div>
             <!--end: Form -->

@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-f-revision-pago',
@@ -15,6 +16,9 @@ import { ActivatedRoute } from '@angular/router';
 export class FRevisionPagoComponent implements OnInit {
 
   public formulario:FormGroup;
+  public archivoRegistroPublico:string;
+  public tramiteIdRegistroPublico:number;
+
 
   constructor(private fRevisionPagoService:FRevisionPagoService, 
               private router:Router,
@@ -59,12 +63,12 @@ export class FRevisionPagoComponent implements OnInit {
                           ]),
                         ],                
                        
-      metodoPago:['', Validators.compose([
+      montoPago:['', Validators.compose([
                       Validators.required
                     ]),    
                  ],
 
-      checkboxMetodoPago:['', Validators.compose([
+      checkboxMontoPago:['', Validators.compose([
                       Validators.required
                    ]),    
                  ],                 
@@ -118,7 +122,14 @@ export class FRevisionPagoComponent implements OnInit {
  }
 
 
-
+ fileDownloadComprobante(){
+  console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
+  console.log('Nombre Archivo',this.archivoRegistroPublico);
+  this.fRevisionPagoService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
+    saveAs(resp,this.archivoRegistroPublico),
+    error => console.error(error)
+  });
+}
 
   registerAlert(){  
     Swal.fire(  
