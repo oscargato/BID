@@ -438,6 +438,7 @@ export class TramitesARevisarComponent implements OnInit {
         break;
 
         case 3:
+          this.router.navigate([`/form/f-subsanarsolicitud/${revisionId}`]);
         break;
 
         case 4:
@@ -448,32 +449,38 @@ export class TramitesARevisarComponent implements OnInit {
         break;
         
         case 6:
+          this.router.navigate([`/form/f-tarea-inspeccion/${revisionId}`]);
         break;
 
         case 7:
         break;
 
         case 8:
+          this.router.navigate([`/form/f-calculo-impuesto/${revisionId}`]);
         break;
 
         case 9:
+          this.router.navigate([`/form/f-revision-documentos-sellos/${revisionId}`]);
         break;
 
         case 10:
+          this.router.navigate([`/form/f-registrarpago/${revisionId}`]);
         break;
 
         case 11:
           this.router.navigate([`/form/f-revision-pago/${revisionId}`]);     
-          //this.router.navigate([`/form/f-aprobacion-tramite`]);       
         break;
 
         case 12:
+          this.router.navigate([`/form/f-subsanarpagos/${revisionId}`]);
         break;
 
         case 13:
+          this.router.navigate([`/form/f-aprobacion-tramite/${revisionId}`]);
         break;
 
         case 17:
+          this.router.navigate([`/form/f-recepcion-planos/${revisionId}`]);
         break;
     }
   }
