@@ -20,5 +20,10 @@ export class FRevisionDocumentosSellosService {
 
   newRevision(data: any):Observable<any>{
     return this.httpClient.post<any>(`${API_USERS_URL}/T01/newRevisionIncluirDocOtrasEntidades`,data);
-  }  
+  } 
+  
+  getDownloadFile(idSolicitante:number, nameFile:string):Observable<Blob>{
+    return this.httpClient.get(`${API_FILE_URL}/fileManager/download/${idSolicitante}/${nameFile}`,{responseType: 'blob'});
+  }
+  
 }

@@ -403,13 +403,10 @@
                   <div class="row">
                     <div class="col-xl-12">
                       <div class="form-group">
-                        <label>Registro Público</label>
-                        <input type="file"
-                        class="form-control"
-                        name="registroPublico"
-                        formControlName="registroPublico"
-                        placeholder="Registro Público"
-                        accept=".png, .jpg, .jpeg, .pdf" readonly />
+                        <label>Registro Publico</label>
+                        <div class="col-md-10">
+                          <button (click)="fileDownloadRegistro()">Descargar</button>
+                        </div>
                       </div>
                     </div>
 
@@ -417,13 +414,10 @@
                   <div class="row">
                     <div class="col-xl-12">
                       <div class="form-group">
-                        <label>Certificación del Idóneo </label>
-                        <input type="file"
-                        class="form-control"
-                        name="certificacion"
-                        formControlName="certificacion"
-                        placeholder="Certificación del Idóneo"
-                        accept=".png, .jpg, .jpeg, .pdf" readonly />
+                        <label>Certificación del Idóneo</label>
+                        <div class="col-md-10">
+                          <button (click)="fileDownloadIdoneo()">Descargar</button>
+                        </div>
                       </div>
                     </div>
 
@@ -432,12 +426,9 @@
                     <div class="col-xl-12">
                       <div class="form-group">
                         <label>Planos</label>
-                        <input type="file"
-                        class="form-control"
-                        name="planos"
-                        formControlName="certificacion"
-                        placeholder="Planos"
-                        accept=".png, .jpg, .jpeg, .pdf" readonly />
+                        <div class="col-md-10">
+                          <button (click)="fileDownloadPlanos()">Descargar</button>
+                        </div>
                       </div>
                     </div>
         
@@ -507,20 +498,14 @@
                                 Adjuntos
                                </h6>
                                <div class="row">
-                                 <div class="col-xl-12">
-                                   <div class="form-group">
-                                     <label> Informe de Inspección</label>
-                                     <input type="file"
-                                     class="form-control"
-                                     name="rpublico"
-                                     placeholder=" informe de inspección"
-                                     value="" accept=".png, .jpg, .jpeg, .pdf"  />
-                                     <span class="form-text text-muted"
-                                       >Copia de  Informe de Inspección
-                                       vigente. Subir el archivo en formato imagen o pdf</span
-                                     >
-                                   </div>
-                                 </div>
+                                <div class="col-xl-12">
+                                  <div class="form-group">
+                                    <label>Informe de Inspección</label>
+                                    <div class="col-md-10">
+                                      <button (click)="fileDownloadInformeInspeccion()">Descargar</button>
+                                    </div>
+                                  </div>
+                                </div>
              
                                </div>          
                     <div class="row">

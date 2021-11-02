@@ -21,6 +21,15 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   public certificacion:string;
   public planos:string;
 
+  public archivoRegistroPublico:string;
+  public tramiteIdRegistroPublico:number;
+  public archivoIdoneo:string;
+  public tramiteIdIdoneo:number;
+  public archivoPlanos:string;
+  public tramiteIdPlanos:number;
+  public archivoInformeInspeccion:string;
+  public tramiteIdInformeInspeccion:number;
+
   @ViewChild('wizard', { static: true }) el: ElementRef;
 
   submitted = false;
@@ -155,6 +164,39 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       this.planos = resp.lstAdjuntos[2].urlAdjunto; 
     })
 
+  }
+
+
+  fileDownloadRegistro(){
+    //console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
+    //console.log('Nombre Archivo',this.archivoRegistroPublico);
+    this.fRevisionDocumentosSellosService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
+      saveAs(resp,this.archivoRegistroPublico),
+      error => console.error(error)
+    });
+  }
+  
+  fileDownloadIdoneo(){
+    this.fRevisionDocumentosSellosService.getDownloadFile(this.tramiteIdIdoneo,this.archivoIdoneo).subscribe(resp=>{
+      saveAs(resp,this.archivoIdoneo),
+      error => console.error(error)      
+    });
+  } 
+
+  fileDownloadPlanos(){
+    this.fRevisionDocumentosSellosService.getDownloadFile(this.tramiteIdPlanos,this.archivoPlanos).subscribe(resp=>{
+      saveAs(resp,this.archivoPlanos),
+      error => console.error(error)      
+    });    
+  }
+
+  fileDownloadInformeInspeccion(){
+    //console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
+    //console.log('Nombre Archivo',this.archivoRegistroPublico);
+    this.fRevisionDocumentosSellosService.getDownloadFile(this.tramiteIdInformeInspeccion,this.archivoInformeInspeccion).subscribe(resp=>{
+      saveAs(resp,this.archivoRegistroPublico),
+      error => console.error(error)
+    });
   }
 
 

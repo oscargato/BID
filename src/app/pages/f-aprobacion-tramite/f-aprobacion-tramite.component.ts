@@ -197,7 +197,23 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
     });    
   }
 
+  fileDownloadInformeInspeccion(){
+    console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
+    console.log('Nombre Archivo',this.archivoRegistroPublico);
+    this.fAprobacionTramiteService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
+      saveAs(resp,this.archivoRegistroPublico),
+      error => console.error(error)
+    });
+  }
 
+  fileDownloadComprobante(){
+    console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
+    console.log('Nombre Archivo',this.archivoRegistroPublico);
+    this.fAprobacionTramiteService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
+      saveAs(resp,this.archivoRegistroPublico),
+      error => console.error(error)
+    });
+  }
 
 
   newRevisonPago(){

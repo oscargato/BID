@@ -485,21 +485,14 @@
                    
                                 </div>
                               </div>
-                                 <div class="col-xl-12">
-                                   <div class="form-group">
-                                     <label>Informe de Inspección</label>
-                                     <input type="file"
-                                     class="form-control"
-                                     name="iinspeccion"
-                                     formControlName="iinspeccion"
-                                     placeholder="Registro Público"
-                                     value="" accept=".png, .jpg, .jpeg, .pdf" disabled/>
-                                     <span class="form-text text-muted"
-                                       >Copia de Informe de Inspección
-                                       vigente. Subir el archivo en formato imagen o pdf</span
-                                     >
-                                   </div>
-                               </div>
+                              <div class="col-xl-12">
+                                <div class="form-group">
+                                  <label>Informe de Inspeccion</label>
+                                  <div class="col-md-10">
+                                    <button (click)="fileDownloadInformeInspeccion()">Descargar</button>
+                                  </div>
+                                </div>
+                              </div>
           
                             </div>
                             <label class="font-weight-bold text-dark">
@@ -549,20 +542,14 @@
                          
                           </div>
                           <div class="row">
-                          <div class="col-xl-12">
-                            <div class="form-group">
-                              <label>Comprobante</label>
-                              <input type="file"
-                              class="form-control"
-                              name="iinspeccion"
-                              formControlName="iinspeccion"
-                              placeholder="Registro Público"
-                              value="" accept=".png, .jpg, .jpeg, .pdf" disabled/>
-                              <span class="form-text text-muted"
-                                >Copia de Informe de Inspección
-                                vigente. Subir el archivo en formato imagen o pdf</span
-                              >
-                            </div> </div>
+                            <div class="col-xl-12">
+                              <div class="form-group">
+                                <label>Comprobante</label>
+                                <div class="col-md-10">
+                                  <button (click)="fileDownloadInformeInspeccion()">Descargar</button>
+                                </div>
+                              </div>
+                            </div>
                         </div>
                       <div class="row">
                         <div class="col-xl-12">
