@@ -41,7 +41,9 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
   constructor(private fPermisoConstruccionPlanosService:FPermisoConstruccionPlanosService,
               private formBuilder:FormBuilder,
               private activatedRoute:ActivatedRoute,
-              private router:Router) {}
+              private router:Router) {
+                this.adjuntos = [];
+              }
 
   ngOnInit() {
     this.formulario = this.formBuilder.group({
@@ -275,8 +277,8 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
   getRevision(){
     this.fPermisoConstruccionPlanosService.getRevision(this.activatedRoute.snapshot.params.idRevision).subscribe(resp =>{
       
-      console.log('Respuesta',resp);
-      /*
+      console.log('Respuesta A',resp);
+
       this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['descripcion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
       this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.nomProvincia);
@@ -312,7 +314,7 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
         this.adjuntos[i] = element
         i++;
       });
-      */
+
     })
   }
 
@@ -471,11 +473,8 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
       ]
   }
            
-          
-       
-  
-    /*
     this.fPermisoConstruccionPlanosService.newRevisionPlanos(data).subscribe(resp=>{
+      console.log('resp A', resp)
       if(resp.codigo === 0){
         this.register();
       }
@@ -483,7 +482,7 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
         this.fail()
       }
     })
-    */
+
    }
   
     register(){  

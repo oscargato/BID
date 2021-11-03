@@ -443,7 +443,7 @@
                   Planos de construcción</label>
                       <div class="checkbox-inline border-top py-3">
                           <label class="checkbox  checkbox-danger">
-                              <input type="checkbox" name="Checkboxes1"/>
+                              <input type="checkbox" name="checkboxDocRecibido" formControlName="checkboxDocRecibido"/>
                               <span></span>
                               Recibidos
                           </label>
@@ -461,7 +461,8 @@
                               <input 
                               type="datetime-local"  
                               class="form-control"
-                              name="fechapago"
+                              name="fechaInspeccion"
+                              formControlName="fechaInspeccion"
                               id="Test_DatetimeLocal">
                
                             </div>
@@ -487,7 +488,7 @@
                           Documentos y Sellos otras etidades  </label>
                               <div class="checkbox-inline border-top py-3">
                                   <label class="checkbox  checkbox-danger">
-                                      <input type="checkbox" checked="checked" name="Checkboxes1"/>
+                                      <input type="checkbox" checked="checked" name="checkboxSellos" formControlName="checkboxSellos"/>
                                       <span></span>
                                       ¿Completo?
                                   </label>
@@ -515,6 +516,7 @@
                           <textarea 
                             class="form-control"
                             name="observaciones"
+                            formControlName="observaciones"
                             placeholder="Información general">
                         </textarea>
                         </div>

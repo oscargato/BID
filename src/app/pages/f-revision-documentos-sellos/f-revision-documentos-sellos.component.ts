@@ -21,6 +21,11 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   public certificacion:string;
   public planos:string;
 
+  public checkboxDocRecibido:boolean;
+  public checkboxSellos:boolean;
+  public fechaInspeccion:string;
+  public observaciones:string;
+
   public archivoRegistroPublico:string;
   public tramiteIdRegistroPublico:number;
   public archivoIdoneo:string;
@@ -159,6 +164,13 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
+
+
+      this.formulario.controls['checkboxDocRecibido'].setValue(resp.docRecibido);
+      this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);
+      this.formulario.controls['checkboxSellos'].setValue(resp.sellosCompletos);
+      this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
+      
       this.registroPublico = resp.lstAdjuntos[0].urlAdjunto;
       this.certificacion = resp.lstAdjuntos[1].urlAdjunto;
       this.planos = resp.lstAdjuntos[2].urlAdjunto; 
