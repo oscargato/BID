@@ -20,7 +20,7 @@ export class FTareaInspeccionService {
   }  
   
   getRevision(idRevision:number):Observable<any>{
-    return this.httpClient.get<any>(`${API_USERS_URL}/T01/getRevision/${idRevision}`).pipe(map(resp => resp.objeto));
+    return this.httpClient.get<any>(`${API_USERS_URL}/T01/getRevisionInspeccion/${idRevision}`).pipe(map(resp => resp.objeto));
   }
 
   uploadArchivo(formData:FormData,id:number): Observable<any>{

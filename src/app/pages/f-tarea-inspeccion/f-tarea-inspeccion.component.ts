@@ -24,6 +24,8 @@ export class FTareaInspeccionComponent implements OnInit {
   public revisionId:number;
   public revisionNegada:boolean;
   public solicitudId:number;
+  public solicitanteId:number;
+  public adjunto: Array<any> = [];
 
   constructor(private fTareaInspeccionService:FTareaInspeccionService, 
               private router:Router, 
@@ -32,14 +34,14 @@ export class FTareaInspeccionComponent implements OnInit {
 
   ngOnInit() {
 
-    this.formulario = this.formBuilder.group({  
+  this.formulario = this.formBuilder.group({  
 
   		nombreProyecto:['', Validators.compose([
                           Validators.required,
                         ]),
                      ],
 
-      inspeccion:[true, Validators.compose([
+      inspeccion:['', Validators.compose([
                         Validators.required
                     ]),
                  ], 
@@ -63,13 +65,12 @@ export class FTareaInspeccionComponent implements OnInit {
   getTareaInspeccion()
   { this.fTareaInspeccionService.getRevision(this.activatedRoute.snapshot.params.idRevision ).subscribe(resp =>{
       console.log('Respuesta',resp);
-      this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['inspeccion'].setValue(resp.t01_Rev_PermisoConstruccionMun.inspeccionAprobada);
-      this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observacionInspeccion);
-      this.solicitanteTramiteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteTramiteId;      
-      this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
-      this.revisionNegada = resp.t01_Rev_PermisoConstruccionMun.revisionNegada;
-      this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId
+      this.formulario.controls['nombreProyecto'].setValue(resp.nmProyecto);
+      this.solicitanteTramiteId = resp.solicitanteTramite.solicitanteTramiteId;
+      this.adjunto[0] = resp.lstDocumentos[0];
+      this.revisionId = resp.revisionId;
+      this.solicitudId = resp.solicitudId;
+      this.solicitanteId = resp.solicitanteTramite.solicitanteId.solicitanteId;
     })
   }
 
@@ -114,7 +115,7 @@ export class FTareaInspeccionComponent implements OnInit {
             "pagoManual": true,
             "provinciaProyectoId": true,
             "revisionId": this.revisionId,
-            "revisionNegada": this.revisionNegada,
+            "revisionNegada": true,
             "revisorId": null,
             "revisorInspeccionId": {
                 "revisorId": 4,
@@ -125,7 +126,7 @@ export class FTareaInspeccionComponent implements OnInit {
             },
             "solicitudConfirmada": true,
             "solicitudId": {
-          "solicitudId": this.solicitudId
+          "solicitudId": this.solicitudId,
         },
             "tipoPropiedadId": true,
             "tomo": true,
@@ -136,30 +137,31 @@ export class FTareaInspeccionComponent implements OnInit {
           "adjuntoId": 1,
           "fecha": hoy.toISOString(),
           "fechaRevision": hoy.toISOString(),
-          "nombre": 1,
+          "nombre": this.adjunto[0].tipoDocumentoId.nombre,
           "rechazado": true,
           "tipoDocumentoId": {
-          "diasVigencia": 0,
-          "nombre": "Registro Público",
-          "tipoDocumentoId": 1
+          "diasVigencia": this.adjunto[0].tipoDocumentoId.diasVigencia,///////////
+          "nombre": "Registro Público",///////
+          "tipoDocumentoId": this.adjunto[0].tramiteTipoDocumentoId,//////////////
           },
-          "urlAdjunto": "RegistroPublico1.pdf",
+          "urlAdjunto": this.urlInforme,
                "solicitanteId": {
-                   "solicitanteId":1
+                   "solicitanteId": this.solicitanteId,
                }
         }
         ]
     }
 
-    console.log('data',data);
-    /*
     this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
+      console.log('Carga',resp)
+      /*
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failRevision()   }
+      */
     })
-    */  
+     
   }
 
 
