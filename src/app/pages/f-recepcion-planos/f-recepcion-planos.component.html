@@ -126,7 +126,7 @@
         <div class="row">
           <div class="offset-xxl-2 col-xxl-8">
             <!--begin: Form Wizard Form-->
-            <form class="form" id="kt_form">
+            <form [formGroup]="formulario" class="form" id="kt_form">
             <!--begin: Form Wizard Step 1-->
             <div
             class="pb-5"
@@ -146,8 +146,7 @@
                       class="form-control"
                       name="nombre"
                       formControlName="nombre"
-                      placeholder="Nombre del Proyecto"
-                      value="" readonly/>
+                      readonly/>
                       
                     </div>
                   </div>
@@ -421,55 +420,32 @@
                  Adjuntos
                 </h4>
                 <div class="row">
-                  <div class="col-xl-6">
+                  <div class="col-xl-12">
                     <div class="form-group">
-                      <label>Registro Público</label>
-                      <input type="file"
-                      class="form-control"
-                      name="rpublico"
-                      
-                      placeholder="Registro Público"
-                      value="" accept=".png, .jpg, .jpeg, .pdf"  />
-                      <span class="form-text text-muted"
-                        >Copia de Certificado
-                        de Registro Público
-                        vigente. Subir el archivo en formato imagen o pdf</span
-                      >
+                      <label>Registro Publico</label>
+                      <div class="col-md-10">
+                        <button (click)="fileDownloadRegistro()">Descargar</button>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="col-xl-6">
+                  <div class="col-xl-12">
                     <div class="form-group">
-                      <label>Certificación del Idóneo </label>
-                      <input type="file"
-                      class="form-control"
-                      name="cidoneo"
-                      
-                      placeholder="Certificación del Idóneo"
-                      value="" accept=".png, .jpg, .jpeg, .pdf"  />
-                      <span class="form-text text-muted"
-                        >Copia del certificado
-                        original. Subir el archivo en formato imagen o pdf</span
-                      >
+                      <label>Certificación del Idóneo</label>
+                      <div class="col-md-10">
+                        <button (click)="fileDownloadIdoneo()">Descargar</button>
+                      </div>
                     </div>
                   </div>
       
                 </div>
                 <div class="row">
-                  <div class="col-xl-6">
+                  <div class="col-xl-12">
                     <div class="form-group">
-                      <label>Cédula</label>
-                      <input type="file"
-                      class="form-control"
-                      name="ccedula"
-                      
-                      placeholder="Cédula"
-                      value="" accept=".png, .jpg, .jpeg, .pdf"  />
-                      <span class="form-text text-muted"
-                        >Copia de la cédula
-                        del representante
-                        legal. Subir el archivo en formato imagen o pdf</span
-                      >
+                      <label>Planos</label>
+                      <div class="col-md-10">
+                        <button (click)="fileDownloadPlanos()">Descargar</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -483,12 +459,29 @@
                   Planos de construcción</label>
                       <div class="checkbox-inline border-top py-3">
                           <label class="checkbox  checkbox-danger">
-                              <input type="checkbox" name="Checkboxes1"/>
+                              <input type="checkbox" name="checkboxPlanosRecibidos" formControlName="checkboxPlanosRecibidos" />
                               <span></span>
                               Recibidos
                           </label>
                   
                       </div>
+                      <div *ngIf="formulario.controls['checkboxPlanosRecibidos'].value" class="row py-3">
+                        <div class="col-xl-4">
+                           
+                          <div class="form-group ">
+                            <label>Fecha de Inspeccion</label>
+                            <input 
+                            type="datetime-local"  
+                            class="form-control"
+                            name="fechaInspeccion"
+                            formControlName="fechaInspeccion"
+                            id="Test_DatetimeLocal">
+             
+                          </div>
+                        </div>
+                      </div>
+
+
                       <br>
                       <label class="font-weight-bold text-dark">
                           ¿Trámite es viable?</label>
@@ -500,7 +493,7 @@
                             
                               <div class="checkbox-inline py-3">
                                 <label class="checkbox  checkbox-danger">
-                                    <input type="checkbox" name="Checkboxes1"/>
+                                    <input type="checkbox" name="checkboxViable" formControlName="checkboxViable"/>
                                     <span></span>
                                     No es viable
                                 </label>
@@ -512,25 +505,7 @@
       
                         </div>
              
-                        <label class="font-weight-bold text-dark">
-                          Fecha de inspección</label>
-                      <div class="row  border-top py-3">
-                        
-                          <div class="col-xl-4">
-                             
-                            <div class="form-group ">
-                              <label>Fecha</label>
-                              <input 
-                              type="datetime-local"  
-                              class="form-control"
-                              name="fechapago"
-                              
-                              id="Test_DatetimeLocal">
-               
-                            </div>
-                          </div>
 
-                        </div>
                     <div class="row">
                       <div class="col-xl-12">
                         <div class="form-group">
@@ -538,7 +513,7 @@
                           <textarea 
                             class="form-control"
                             name="observaciones"
-                            
+                            formControlName="observaciones"
                             placeholder="Información general">
                         </textarea>
                         </div>
