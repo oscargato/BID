@@ -353,8 +353,10 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
     this.dataSource7.paginator = this.paginator7;
     this.dataSource7.sort = this.sort7;
 
+    console.log('Bandera 1',this.activatedRoute.snapshot.params.usuarioId);
+
     this.tramitesPendientesService.getTramitesPendientes(this.activatedRoute.snapshot.params.usuarioId).subscribe(resp =>{
-      console.log('Respuesta',resp);
+      console.log('Resp',resp);
 
       /* this.formulario.controls['montoTotal'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['numeroRecibo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);

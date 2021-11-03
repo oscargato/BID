@@ -15,8 +15,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 
-export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit {
+export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  @ViewChild('wizard', { static: true }) el: ElementRef;
+
+
+  submitted = false;
+  wizard: any;
+  
   public formulario:FormGroup;
   public archivoRegistroPublico:string;
   public tramiteIdRegistroPublico:number;
@@ -24,20 +30,22 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit {
   public tramiteIdIdoneo:number;
   public archivoPlanos:string;
   public tramiteIdPlanos:number;
+  public revisionId:number;
+  public montoPagar:boolean;
+  public montoTotal:boolean;
+  public pagoElectronico:boolean;
+  public pagoManual:boolean;
+  public revisionNegada:boolean;
+  public solicitudId:number;
   public adjuntos: Array<any>
 
-
-
-
   
-  @ViewChild('wizard', { static: true }) el: ElementRef;
-
-  wizard: any;
-
   constructor(private fSubsanarsolicitudService:FSubsanarsolicitudService, 
               private router:Router, 
               private formBuilder:FormBuilder, 
-              private activatedRoute:ActivatedRoute) {}
+              private activatedRoute:ActivatedRoute){
+                this.adjuntos = [];
+              }
 
   ngOnInit() {
 
@@ -199,7 +207,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit {
           Validators.required,
         ]),
       ],  
-      checkboxCertificacion:[false, Validators.compose([
+      checkboxCertificacionIdoneo:[false, Validators.compose([
         Validators.required
         ]),
       ], 
@@ -215,47 +223,107 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit {
 
     });
 
-    this.fSubsanarsolicitudService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud ).subscribe(resp =>{
-      console.log('Respuesta',resp);
 
-      this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['descripcionProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
-      this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.nomProvincia);
-      this.formulario.controls['distrito'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.distritoProyectoId.nomDistrito);
-      this.formulario.controls['corregimiento'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.corregimientoProyectoId.nomCorregimiento);
-      this.formulario.controls['tipoPropiedad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.descripcion);
-      this.formulario.controls['codigoUbicacion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.codUbicacion);
-      this.formulario.controls['finca'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.finca);
-      this.formulario.controls['tomo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tomo);
-      this.formulario.controls['folio'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.folio);
-      this.formulario.controls['constructor'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreResp);
-      this.formulario.controls['propietarioTerreno'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombrePropietarioTerreno);
-      this.formulario.controls['valorObra'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.valorAproxObra);
-      this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
-      this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
-      this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
-   
-      let i = 0;
-      resp.lstAdjuntos.forEach(element => {
-        this.adjuntos[i] = element
-        i++;
-      });
-    })
+
+    this.getSubsanacion();
   }
+
+
+ getSubsanacion()
+ {
+  this.fSubsanarsolicitudService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud ).subscribe(resp =>{
+    console.log('Respuesta AAA',resp);
+    
+    this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+    this.formulario.controls['descripcionProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
+    this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.nomProvincia);
+    this.formulario.controls['distrito'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.distritoProyectoId.nomDistrito);
+    this.formulario.controls['corregimiento'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.corregimientoProyectoId.nomCorregimiento);
+    this.formulario.controls['tipoPropiedad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.descripcion);
+    this.formulario.controls['codigoUbicacion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.codUbicacion);
+    this.formulario.controls['finca'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.finca);
+    this.formulario.controls['tomo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tomo);
+    this.formulario.controls['folio'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.folio);
+    this.formulario.controls['constructor'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreResp);
+    this.formulario.controls['propietarioTerreno'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombrePropietarioTerreno);
+    this.formulario.controls['valorObra'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.valorAproxObra);
+    this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
+    this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
+    this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
+ 
+
+    this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
+    this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;
+    this.archivoIdoneo = resp.lstAdjuntos[1].urlAdjunto;
+    this.tramiteIdIdoneo = resp.lstAdjuntos[1].solicitanteTramiteId.solicitanteTramiteId;
+    this.archivoPlanos = resp.lstAdjuntos[2].urlAdjunto;
+    this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
+    this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
+    this.montoPagar = resp.t01_Rev_PermisoConstruccionMun.montoPagar;
+    this.montoTotal = resp.t01_Rev_PermisoConstruccionMun.montoTotal;
+    this.pagoElectronico = resp.t01_Rev_PermisoConstruccionMun.pagoElectronico;
+    this.pagoManual = resp.t01_Rev_PermisoConstruccionMun.pagoManual;
+    this.revisionNegada = resp.t01_Rev_PermisoConstruccionMun.revisionNegada;
+    this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId
+
+
+
+
+    let i = 0;
+    resp.lstAdjuntos.forEach(element => {
+      this.adjuntos[i] = element
+      i++;
+    });
+    
+  })
+ }
+
+
+
+
 
   newSubsanacion(){
 
+    const hoy = new Date();
+
+    let incorrecto:boolean;
+
+    if(this.formulario.controls['checkboxNombreProyecto'].value === false &&
+       this.formulario.controls['checkboxDescripcionProyecto'].value === false &&
+       this.formulario.controls['checkboxProvincia'].value === false &&
+       this.formulario.controls['checkboxDistrito'].value === false &&
+       this.formulario.controls['checkboxCorregimiento'].value === false &&
+       this.formulario.controls['checkboxTipoPropiedad'].value === false &&
+       this.formulario.controls['checkboxCodigoUbicacion'].value === false &&
+       this.formulario.controls['checkboxFinca'].value === false &&
+       this.formulario.controls['checkboxTomo'].value === false &&
+       this.formulario.controls['checkboxFolio'].value === false &&
+       this.formulario.controls['checkboxConstructor'].value === false &&
+       this.formulario.controls['checkboxPropietarioTerreno'].value === false &&
+       this.formulario.controls['checkboxValorObra'].value === false &&
+       this.formulario.controls['checkboxNombreProfesionalIdoneo'].value === false &&
+       this.formulario.controls['checkboxNumeroIdoneidad'].value === false &&
+       this.formulario.controls['checkboxNombreProfesionalResidente'].value === false &&
+       this.formulario.controls['checkboxRegistroPublico'].value === false &&
+       this.formulario.controls['checkboxCertificacionIdoneo'].value === false &&
+       this.formulario.controls['checkboxPlanos'].value === false)
+      { incorrecto = false; }
+      else
+      { incorrecto = true; }
+
+   
+
     const data = {}
-  
+    
+    /*
     this.fSubsanarsolicitudService.newSubsanacion(data).subscribe(resp=>{
-  
-      if(resp.codigo === 0){
-        this.registerAlert();
-      }
-      else{
-        this.failSubsanar()
-      }
+      console.log('newSubsanacion',resp)
+      if(resp.codigo === 0)
+      { this.registerAlert(); }
+      else
+      { this.failSubsanar() }
     })
+    */
   }
 
 
@@ -288,9 +356,8 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit {
   }  
 
 
-
-  registerAlert(){  
-    Swal.fire(  
+  registerAlert()
+  { Swal.fire(  
       'Subsanacion de Tramite Exitosa!',
       'Haga click para continuar',
       'success',
@@ -299,8 +366,8 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit {
     });  
   }
 
-  failSubsanar(){
-    Swal.fire({
+  failSubsanar()
+  { Swal.fire({
       icon: 'error',
       title: 'Error',
       text: 'Subsanacion Fallida!'
@@ -313,8 +380,12 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit {
 
 
 
-  ngAfterViewInit(): void {
 
+
+
+
+
+  ngAfterViewInit(): void {
     this.wizard = new KTWizard(this.el.nativeElement, {
       startStep: 1,
       clickableSteps: true
@@ -335,4 +406,10 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit {
       }, 500);
     });
   }
+
+  onSubmit() 
+  { this.submitted = true;  }
+
+  ngOnDestroy() 
+  { this.wizard = undefined;  }
 }

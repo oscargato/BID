@@ -46,7 +46,7 @@
                         <div class="col-xl-12">
                           <div class="form-group">
                             <label >Inspección Aprobada</label><br>
-                            <input type="radio" id="si" name="inspeccion" formControlName="inspeccion" checked="checked" [value]=true >&nbsp;
+                            <input type="radio" id="si" name="inspeccion" formControlName="inspeccion" [value]=true >&nbsp;
                             <label for="si"> Si</label>&nbsp;
                             <input type="radio" id="no" name="inspeccion" formControlName="inspeccion" [value]=false >&nbsp;
                             <label for="no"> No</label><br>
@@ -64,6 +64,11 @@
                                       formControlName="observaciones"
                                       placeholder="Observaciones">
                             </textarea>
+                            <div *ngIf="formulario.controls['observaciones'].invalid && (formulario.controls['observaciones'].dirty || formulario.controls['observaciones'].touched)">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Se requiere la Observacion de la Inspeccion</span> 
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -74,10 +79,13 @@
                             <div class="form-group">
                                 <label>Informe de Inspección</label>
                                 <input type="file"
-                                      class="form-control"
-                                      name="informe"
-                                      formControlName="informe"
-                                      value="" accept=".png, .jpg, .jpeg, .pdf"  />
+                                       class="form-control"
+                                       [ngStyle]="loadInforme && {'background-color': '#e8f0fe'}"
+                                       formControlName="informe"
+                                       name="informe"
+                                       placeholder="Informe de Inspección"
+                                       (change)="fileChangeInforme($event)"                              
+                                       value="" accept=".png, .jpg, .jpeg, .pdf"  />
                                 <div *ngIf="formulario.controls['informe'].invalid && (formulario.controls['informe'].dirty || formulario.controls['informe'].touched)">
                                   <div class="d-flex justify-content-end" style="color:#FF0000;">
                                     <span>Se requiere el Informe de Inspeccion</span> 
