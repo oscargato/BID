@@ -203,6 +203,12 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
       
+      this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
+      this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;
+      this.archivoIdoneo = resp.lstAdjuntos[1].urlAdjunto;
+      this.tramiteIdIdoneo = resp.lstAdjuntos[1].solicitanteTramiteId.solicitanteTramiteId;
+      this.archivoPlanos = resp.lstAdjuntos[2].urlAdjunto;
+      this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
       this.registroPublico = resp.lstAdjuntos[0].urlAdjunto;
       this.certificacion = resp.lstAdjuntos[1].urlAdjunto;
       this.planos = resp.lstAdjuntos[2].urlAdjunto; 
@@ -218,8 +224,6 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   fileDownloadRegistro(){
-    //console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
-    //console.log('Nombre Archivo',this.archivoRegistroPublico);
     this.fRecepcionPlanosService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
       saveAs(resp,this.archivoRegistroPublico),
       error => console.error(error)
