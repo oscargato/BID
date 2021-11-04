@@ -29,11 +29,14 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   public tramiteIdIdoneo:number;
   public archivoPlanos:string;
   public tramiteIdPlanos:number;
+  public adjuntos: Array<any>
 
   constructor(private fAprobacionTramiteService:FAprobacionTramiteService, 
               private router:Router, 
               private formBuilder:FormBuilder,
-              private activatedRoute:ActivatedRoute) {}
+              private activatedRoute:ActivatedRoute) {
+                this.adjuntos = [];
+              }
 
   ngOnInit() {
 
@@ -169,6 +172,19 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
         this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
         this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
+        this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
+        this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;
+        this.archivoIdoneo = resp.lstAdjuntos[1].urlAdjunto;
+        this.tramiteIdIdoneo = resp.lstAdjuntos[1].solicitanteTramiteId.solicitanteTramiteId;
+        this.archivoPlanos = resp.lstAdjuntos[2].urlAdjunto;
+        this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
+
+        let i = 0;
+        resp.lstAdjuntos.forEach(element => {
+          this.adjuntos[i] = element
+          i++;
+        });
+    
     })
 
   }
@@ -216,8 +232,8 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   }
 
 
-  newRevisonPago(){
-    const data = { }
+  newAprobacion(){
+    const data = {}
   
     this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
       console.log(resp)

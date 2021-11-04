@@ -313,7 +313,9 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
    
 
-    const data = {}
+    const data = {
+      
+    }
     
     /*
     this.fSubsanarsolicitudService.newSubsanacion(data).subscribe(resp=>{
