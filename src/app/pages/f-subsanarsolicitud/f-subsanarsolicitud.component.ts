@@ -54,172 +54,96 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
           Validators.required,
         ]),
       ],  
-      checkboxNombreProyecto:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		descripcionProyecto:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxDescripcionProyecto:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		provincia:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxProvincia:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		distrito:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxDistrito:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		corregimiento:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxCorregimiento:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		tipoPropiedad:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxTipoPropiedad:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		codigoUbicacion:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxCodigoUbicacion:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		finca:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxFinca:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		tomo:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxTomo:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		folio:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxFolio:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		constructor:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxConstructor:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		propietarioTerreno:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxPropietarioTerreno:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		valorObra:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxValorObra:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		nombreProfesionalIdoneo:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxNombreProfesionalIdoneo:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		numeroIdoneidad:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxNumeroIdoneidad:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		nombreProfesionalResidente:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxNombreProfesionalResidente:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		registroPublico:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxRegistroPublico:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		certificacion:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxCertificacionIdoneo:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
   		planos:['', Validators.compose([
           Validators.required,
         ]),
       ],  
-      checkboxPlanos:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
 
     });
 
