@@ -41,7 +41,7 @@ export class FTareaInspeccionComponent implements OnInit {
                         ]),
                      ],
 
-      inspeccion:['', Validators.compose([
+      inspeccion:[false, Validators.compose([
                         Validators.required
                     ]),
                  ], 
@@ -71,6 +71,7 @@ export class FTareaInspeccionComponent implements OnInit {
       this.revisionId = resp.revisionId;
       this.solicitudId = resp.solicitudId;
       this.solicitanteId = resp.solicitanteTramite.solicitanteId.solicitanteId;
+      
     })
   }
 
@@ -78,7 +79,7 @@ export class FTareaInspeccionComponent implements OnInit {
   newRevisionInspeccion(){
 
     const hoy = new Date();
-    
+/*    
     const data = 
     {
       "incorrecto": false,
@@ -106,7 +107,7 @@ export class FTareaInspeccionComponent implements OnInit {
             "nombreProfesionalIdoneo": true,
             "nombreProfesionalResidente": true,
             "nombrePropietarioTerreno": true,
-            "nombreProyecto": this.formulario.controls['nombreProyecto'].value,
+            "nombreProyecto": true,//this.formulario.controls['nombreProyecto'].value,
             "nombreResp": true,
             "numIdoneidad": true,
             "observacionComprobacion": "string",
@@ -141,7 +142,7 @@ export class FTareaInspeccionComponent implements OnInit {
           "rechazado": true,
           "tipoDocumentoId": {
           "diasVigencia": this.adjunto[0].tipoDocumentoId.diasVigencia,///////////
-          "nombre": "Registro Público",///////
+          "nombre": this.adjunto[0].tipoDocumentoId.nombre,
           "tipoDocumentoId": this.adjunto[0].tramiteTipoDocumentoId,//////////////
           },
           "urlAdjunto": this.urlInforme,
@@ -151,17 +152,40 @@ export class FTareaInspeccionComponent implements OnInit {
         }
         ]
     }
+*/
 
+const data = 
+    { "solicitudId": this.solicitudId,
+      "revisionId": this.revisionId,
+      "revisorId": 4,
+      "inspeccionAprobada": this.formulario.controls['inspeccion'].value,
+      "observaciones": this.formulario.controls['observaciones'].value,
+      "lstAdjuntos": [{
+          "solicitanteTramiteId": { 
+              "solicitanteTramiteId": this.solicitanteTramiteId,
+          },
+          "tipoDocumentoId": { 
+              "tipoDocumentoId": this.adjunto[0].tramiteTipoDocumentoId,
+          },
+          "solicitanteId": {
+              "solicitanteId": this.solicitanteId,
+          },
+          "nombre": this.adjunto[0].tipoDocumentoId.nombre,
+          "urlAdjunto": this.urlInforme,
+      }]
+  }
+
+    console.log('data',data)
+    
+    
     this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
       console.log('Carga',resp)
-      /*
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failRevision()   }
-      */
     })
-     
+    
   }
 
 
