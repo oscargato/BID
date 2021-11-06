@@ -77,6 +77,16 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   public adjuntoCertificacionIdoneo:string;
   public adjuntoPlanos:string;
   public solicitanteTramiteId:number;
+  public provincias:Array<any> = [];
+  public distritos:Array<any> = [];
+  public corregimientos:Array<any> = [];
+  public indexProv:number;
+  public indexDist:number;
+  public indexCorr:number;
+  public provincia:string;  
+  public distrito:string;
+  public corregimiento:string;
+  public tipoP:string;
 
 
   constructor(private fSubsanarsolicitudService:FSubsanarsolicitudService, 
@@ -89,101 +99,25 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
     this.formulario = this.formBuilder.group({
       
-  		nombreProyecto:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		descripcionProyecto:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		provincia:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		distrito:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		corregimiento:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		tipoPropiedad:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		codigoUbicacion:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		finca:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		tomo:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		folio:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		constructor:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		propietarioTerreno:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		valorObra:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		nombreProfesionalIdoneo:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		numeroIdoneidad:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		nombreProfesionalResidente:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		registroPublico:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		certificacionIdoneo:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		planos:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
+  		nombreProyecto:['', Validators.compose([Validators.required,]),],  
+  		descripcionProyecto:['', Validators.compose([Validators.required,]),],  
+  		provincia:['', Validators.compose([Validators.required,]),],  
+  		distrito:['', Validators.compose([Validators.required,]),],  
+  		corregimiento:['', Validators.compose([Validators.required,]),],  
+  		tipoPropiedad:['', Validators.compose([Validators.required,]),],  
+  		codigoUbicacion:['', Validators.compose([Validators.required,]),],  
+  		finca:['', Validators.compose([Validators.required,]),],  
+  		tomo:['', Validators.compose([Validators.required,]),],  
+  		folio:['', Validators.compose([Validators.required,]),],  
+  		constructor:['', Validators.compose([Validators.required,]),],  
+  		propietarioTerreno:['', Validators.compose([Validators.required,]),],  
+  		valorObra:['', Validators.compose([Validators.required,]),],  
+  		nombreProfesionalIdoneo:['', Validators.compose([Validators.required,]),],  
+  		numeroIdoneidad:['', Validators.compose([Validators.required,]),],  
+  		nombreProfesionalResidente:['', Validators.compose([Validators.required,]),],  
+  		registroPublico:['', Validators.compose([Validators.required,]),],  
+  		certificacionIdoneo:['', Validators.compose([Validators.required,]),],  
+  		planos:['', Validators.compose([Validators.required,]),],  
     });
 
     this.getSubsanacion();
@@ -228,10 +162,10 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
     this.subsanarNombreProyecto = resp.t01_Rev_PermisoConstruccionMun.nombreProyecto;
     this.subsanarDescripcionProyecto = resp.t01_Rev_PermisoConstruccionMun.descripcionProyecto;
-    this.subsanarProvincia = resp.t01_Rev_PermisoConstruccionMun.provinciaProyectoId;
-    this.subsanarDistrito = resp.t01_Rev_PermisoConstruccionMun.distritoProyectoId;
-    this.subsanarCorregimiento = resp.t01_Rev_PermisoConstruccionMun.corregimientoProyectoId;    
-    this.subsanarTipoPropiedad = resp.t01_Rev_PermisoConstruccionMun.tipoPropiedadId;
+    this.subsanarProvincia = true;//resp.t01_Rev_PermisoConstruccionMun.provinciaProyectoId;
+    this.subsanarDistrito = true;//resp.t01_Rev_PermisoConstruccionMun.distritoProyectoId;
+    this.subsanarCorregimiento = true;//resp.t01_Rev_PermisoConstruccionMun.corregimientoProyectoId;    
+    this.subsanarTipoPropiedad = true;//resp.t01_Rev_PermisoConstruccionMun.tipoPropiedadId;
     this.subsanarCodigoUbicacion = resp.t01_Rev_PermisoConstruccionMun.codUbicacion;
     this.subsanarFinca = resp.t01_Rev_PermisoConstruccionMun.finca;
     this.subsanarTomo = resp.t01_Rev_PermisoConstruccionMun.tomo;
@@ -250,17 +184,23 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.loadIdoneidad = false;
     this.loadPLanos = false;
 
+
     let i = 0;
     resp.lstAdjuntos.forEach(element => {
       this.adjuntos[i] = element
       i++;
     });
 
-
     let j = 0;
     resp.lstTiposPropiedad.forEach(element => {
       this.tipoPropiedad[j] = { id:element.tipoPropiedadId, nombre:element.descripcion  };
       j++;
+    });
+
+    let k= 0;
+    resp.lstProvincias.forEach(element => {
+      this.provincias[k] = element;
+      k++;
     });
   })
  }
@@ -283,6 +223,39 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   }
 
   getTipoPropiedad(){}
+
+  getCarga(idCorregimiento:number){
+    this.corregimiento = this.corregimientos[idCorregimiento].nomCorregimiento
+  }
+
+  getCargaDistritos(idProvincia:number){
+    if(idProvincia >= 0){
+      this.distritos = [];
+      this.corregimientos = [];
+      const id = this.provincias[idProvincia].provinciaId
+      this.provincia = this.provincias[idProvincia].nomProvincia
+      this.fSubsanarsolicitudService.getDistritos(id).subscribe(resp=>{
+        let i = 0;
+        resp.forEach(element => {
+          this.distritos[i] = element;
+          i++;
+        });
+      })
+    }
+  }
+  
+  getCargaCorregimientos(idDistrito:number){
+    this.corregimientos = [];
+    const id = this.distritos[idDistrito].distritoId
+    this.distrito = this.distritos[idDistrito].nomDistrito
+    this.fSubsanarsolicitudService.getCorregimientos(id).subscribe(resp=>{
+      let i = 0;
+      resp.forEach(element => {
+        this.corregimientos[i] = element;
+        i++;
+      });
+    })
+  }  
 
   fileChangeRegistro(element){
     this.uploadRegistroPublico = element.target.files[0];

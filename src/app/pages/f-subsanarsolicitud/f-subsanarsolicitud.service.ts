@@ -12,6 +12,7 @@ const API_FILE_URL = `${environment.apiFILE}`;
 })
 export class FSubsanarsolicitudService {
 
+  
   constructor(private httpClient: HttpClient){}
 
 
@@ -26,7 +27,20 @@ export class FSubsanarsolicitudService {
   getSubsanacion(idSolicitud:number):Observable<any>{
     return this.httpClient.get<any>(`${API_USERS_URL}/T01/getSubsanacion/${idSolicitud}`).pipe(map(resp => resp.objeto));
   }
+
   newSubsanacion(data: any):Observable<any>{
     return this.httpClient.post<any>(`${API_USERS_URL}/T01/newSubsanacion`,data);
-  }  
+  }
+  
+  getSolicitud(idSolicitud:number):Observable<any>{
+    return this.httpClient.get<any>(`${API_USERS_URL}/T01/getSolicitud/${idSolicitud}`).pipe(map(resp => resp.objeto));
+  }
+
+  getDistritos(idProvincia:number):Observable<any>{
+    return this.httpClient.get<any>(`${API_USERS_URL}/distritos/getByProvinciaId/${idProvincia}`).pipe(map(resp => resp.objeto));
+  }
+
+  getCorregimientos(id:number):Observable<any>{
+    return this.httpClient.get<any>(`${API_USERS_URL}/corregimientos/getByDistritoId/${id}`).pipe(map(resp => resp.objeto));    
+  }
 }

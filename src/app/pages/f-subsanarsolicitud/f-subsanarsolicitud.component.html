@@ -188,38 +188,71 @@
                   <div class="col-xl-12">
                     <div class="form-group">
                       <label>Provincia:</label>
-                      <input type="text"
-                      class="form-control"
-                      name="provincia"
-                      formControlName="provincia"
-                      placeholder="Provincia"
-                      readonly/>
+                      <select name="provincia"
+                              formControlName="provincia"
+                              class="form-control"
+                              [ngStyle]="subsanarProvincia && (!formulario.controls['provincia'].touched || !formulario.controls['provincia'].dirty || !formulario.controls['provincia'].valid) && {'border-color': '#FF0000'}"
+                              [(ngModel)]="indexProv"
+                              #mySelectProv
+                              (change)='getCargaDistritos(mySelectProv.value)'>
+                          <option selected value="">Seleccione una opción</option>
+                          <option   [value]="i" *ngFor="let item of provincias;let i = index">
+                                {{ item.nomProvincia }}
+                          </option>
+                      </select>
+                      <div *ngIf="subsanarProvincia && (!formulario.controls['provincia'].touched || !formulario.controls['provincia'].dirty || !formulario.controls['provincia'].valid)">
+                        <div class="d-flex justify-content-end" style="color:#FF0000;">
+                          <span>Subsanar Provincia</span> 
+                        </div>
+                      </div>
                     </div>
                   </div>
-              </div>
-                <div class="row">
+                </div>
 
+                <div class="row">
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>Distrito</label>
-                      <input type="text"
-                             class="form-control"
-                             name="distrito"
-                             formControlName="distrito"
-                             placeholder="Distrito"
-                             readonly/>
+                      <select name="distrito"
+                              formControlName="distrito"
+                              class="form-control"
+                              [ngStyle]="subsanarDistrito && (!formulario.controls['distrito'].touched || !formulario.controls['distrito'].dirty || !formulario.controls['distrito'].valid) && {'border-color': '#FF0000'}"
+                              [(ngModel)]="indexDist"
+                              #mySelectDist
+                              (change)='getCargaCorregimientos(mySelectDist.value)'>
+                          <option selected value="">Seleccione una opción</option>
+                          <option [value]="i" *ngFor="let item of distritos;let i = index">
+                              {{ item.nomDistrito }}
+                          </option>                      
+                        </select>
+                        <div *ngIf="subsanarDistrito && (!formulario.controls['distrito'].touched || !formulario.controls['distrito'].dirty || !formulario.controls['distrito'].valid)">
+                          <div class="d-flex justify-content-end" style="color:#FF0000;">
+                            <span>Subsanar Distrito</span> 
+                          </div>
+                        </div>
                     </div>
                   </div>
 
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>Corregimiento:</label>
-                      <input type="text"
-                      class="form-control"
-                      name="corregimiento"
-                      formControlName="corregimiento"
-                      placeholder="Corregimiento"
-                      readonly/>
+                      <select name="corregimiento"
+                              formControlName="corregimiento"
+                              class="form-control"
+                              [ngStyle]="subsanarCorregimiento && (!formulario.controls['corregimiento'].touched || !formulario.controls['corregimiento'].dirty || !formulario.controls['corregimiento'].valid) && {'border-color': '#FF0000'}"
+                              [(ngModel)]="indexCorr"
+                              #mySelectCorr
+                              (change)='getCarga(mySelectCorr.value)'>
+                          <option selected value="">Seleccione una opción</option>
+                          <option [value]="i" *ngFor="let item of corregimientos;let i = index">
+                              {{ item.nomCorregimiento }}
+                          </option>                      
+                        </select>
+                        <div *ngIf="subsanarCorregimiento && (!formulario.controls['corregimiento'].touched || !formulario.controls['corregimiento'].dirty || !formulario.controls['corregimiento'].valid)">
+                          <div class="d-flex justify-content-end" style="color:#FF0000;">
+                            <span>Subsanar Distrito</span> 
+                          </div>
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -238,8 +271,7 @@
                   <select formControlName="tipoPropiedad"
                             name="tipoPropiedad"
                             class="form-control"
-                            
-                            readonly="subsanarTipoPropiedad"                          
+                            [ngStyle]="subsanarTipoPropiedad && (!formulario.controls['tipoPropiedad'].touched || !formulario.controls['tipoPropiedad'].dirty || !formulario.controls['tipoPropiedad'].valid) && {'border-color': '#FF0000'}"
                             [(ngModel)]="tipoProp"
                             (change)='getTipoPropiedad()'>
                       <option>Seleccione una opción</option>
@@ -247,6 +279,11 @@
                               {{ item.nombre }}
                       </option> 
                   </select>
+                  <div *ngIf="subsanarTipoPropiedad && (!formulario.controls['tipoPropiedad'].touched || !formulario.controls['tipoPropiedad'].dirty || !formulario.controls['tipoPropiedad'].valid)">
+                    <div class="d-flex justify-content-end" style="color:#FF0000;">
+                      <span>Subsanar Tipo de Propiedad</span> 
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col-xl-6">
