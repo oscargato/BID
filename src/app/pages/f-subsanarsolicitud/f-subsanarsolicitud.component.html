@@ -7,10 +7,10 @@
     </div>
     <div class="card-toolbar">
       <a routerLink="/tramites/tramites-a-revisar/tramites-a-revisar"
-      class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" style="float:right"
-    >
-      Cancelar
-    </a>
+         class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" 
+         style="float:right">
+         Cancelar
+      </a>
     </div>
   </div>
   <!--end::Header-->
@@ -141,15 +141,18 @@
                   <div class="col-xl-12">
                     <div class="form-group">
                       <label>Nombre del Proyecto</label>
-                        <input
-                        type="text"
-                        class="form-control"
-                        name="nombreProyecto"
-                        formControlName="nombreProyecto"
-                        placeholder="Finca del Montillelo"
-                        readonly
-                      />
-                      
+                        <input type="text"
+                               class="form-control"
+                               name="nombreProyecto"
+                               formControlName="nombreProyecto"
+                               placeholder="Nombre del Proyecto"
+                               [ngStyle]="subsanarNombreProyecto && (!formulario.controls['nombreProyecto'].touched || !formulario.controls['nombreProyecto'].dirty || !formulario.controls['nombreProyecto'].valid) && {'border-color': '#FF0000'}"
+                               [readonly]="!subsanarNombreProyecto"/>
+                        <div *ngIf="subsanarNombreProyecto && (!formulario.controls['nombreProyecto'].touched || !formulario.controls['nombreProyecto'].dirty || !formulario.controls['nombreProyecto'].valid)">
+                          <div class="d-flex justify-content-end" style="color:#FF0000;">
+                            <span>Subsanar Nombre del Proyecto</span> 
+                          </div>
+                        </div>
                     </div>
                   </div>
               </div>                  
@@ -157,17 +160,20 @@
                     <div class="col-xl-12">
                       <div class="form-group">
                           <label>Descripción del Proyecto</label>
-                          <textarea 
-                          class="form-control"
-                          name="descripcionProyecto"
-                          formControlName="descripcionProyecto"
-                          readonly>
-                          </textarea>  
-                   
+                          <textarea class="form-control"
+                                    name="descripcionProyecto"
+                                    formControlName="descripcionProyecto"
+                                    [ngStyle]="subsanarDescripcionProyecto && (!formulario.controls['descripcionProyecto'].touched || !formulario.controls['descripcionProyecto'].dirty || !formulario.controls['descripcionProyecto'].valid) && {'border-color': '#FF0000'}"
+                                    [readonly]="!subsanarDescripcionProyecto">
+                          </textarea>
+                          <div *ngIf="subsanarDescripcionProyecto && (!formulario.controls['descripcionProyecto'].touched || !formulario.controls['descripcionProyecto'].dirty || !formulario.controls['descripcionProyecto'].valid)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Subsanar Descripción del Proyecto</span> 
+                            </div>
+                          </div>
                       </div>
                     </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -229,23 +235,34 @@
               <div class="col-xl-6">
                 <div class="form-group">
                   <label>Tipo de Propiedad</label>
-                  <input type="text"
-                          class="form-control"
-                          name="tipoPropiedad"
-                          formControlName="tipoPropiedad"
-                          placeholder="Tipo Propiedad"
-                          readonly/>
+                  <select formControlName="tipoPropiedad"
+                            name="tipoPropiedad"
+                            class="form-control"
+                            readonly="subsanarTipoPropiedad"                            
+                            [(ngModel)]="tipoProp"
+                            (change)='getTipoPropiedad()'>
+                      <option>Seleccione una opción</option>
+                      <option [value]="i" *ngFor="let item of tipoPropiedad; let i = index">
+                              {{ item.nombre }}
+                      </option> 
+                  </select>
                 </div>
               </div>
               <div class="col-xl-6">
                 <div class="form-group">
                   <label>Código de Ubicación</label>
                   <input type="text"
-                          class="form-control"
-                          name="codigoUbicacion"
-                          formControlName="codigoUbicacion"
-                          placeholder="Código de Ubicación"
-                          readonly/>
+                         class="form-control"
+                         name="codigoUbicacion"
+                         formControlName="codigoUbicacion"
+                         placeholder="Código de Ubicación"
+                         [ngStyle]="subsanarCodigoUbicacion && (!formulario.controls['codigoUbicacion'].touched || !formulario.controls['codigoUbicacion'].dirty || !formulario.controls['codigoUbicacion'].valid) && {'border-color': '#FF0000'}"
+                         [readonly]="!subsanarCodigoUbicacion"/>
+                         <div *ngIf="subsanarCodigoUbicacion && (!formulario.controls['codigoUbicacion'].touched || !formulario.controls['codigoUbicacion'].dirty || !formulario.controls['codigoUbicacion'].valid)">
+                          <div class="d-flex justify-content-end" style="color:#FF0000;">
+                            <span>Subsanar Codigo de Ubicacion</span> 
+                          </div>
+                        </div>
                 </div>
               </div>
             </div> 
@@ -259,7 +276,13 @@
                           name="finca"
                           formControlName="finca"
                           placeholder="Finca"
-                          readonly/>
+                          [ngStyle]="subsanarFinca && (!formulario.controls['finca'].touched || !formulario.controls['finca'].dirty || !formulario.controls['finca'].valid) && {'border-color': '#FF0000'}"
+                          [readonly]="!subsanarFinca"/>
+                          <div *ngIf="subsanarFinca && (!formulario.controls['finca'].touched || !formulario.controls['finca'].dirty || !formulario.controls['finca'].valid)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Subsanar Finca</span> 
+                            </div>
+                          </div>        
                 </div>
 
               </div>
@@ -271,13 +294,19 @@
                           name="tomo"
                           formControlName="tomo"
                           placeholder="Tomo"
-                          readonly/>
+                          [ngStyle]="subsanarTomo && (!formulario.controls['tomo'].touched || !formulario.controls['tomo'].dirty || !formulario.controls['tomo'].valid) && {'border-color': '#FF0000'}"
+                          [readonly]="!subsanarTomo"/>
+                          <div *ngIf="subsanarTomo && (!formulario.controls['tomo'].touched || !formulario.controls['tomo'].dirty || !formulario.controls['tomo'].valid)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Subsanar Tomo</span> 
+                            </div>
+                          </div> 
                 </div>
 
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-12">
+              <div class="col-xl-6">
                 <div class="form-group">
                   <label>Folio</label>
                   <input type="text"
@@ -285,7 +314,13 @@
                           name="folio"
                           formControlName="folio"
                           placeholder="Folio"
-                          readonly/>
+                          [ngStyle]="subsanarFolio && (!formulario.controls['folio'].touched || !formulario.controls['folio'].dirty || !formulario.controls['folio'].valid) && {'border-color': '#FF0000'}"
+                          [readonly]="!subsanarFolio"/>
+                          <div *ngIf="subsanarFolio && (!formulario.controls['folio'].touched || !formulario.controls['folio'].dirty || !formulario.controls['folio'].valid)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Subsanar Folio</span> 
+                            </div>
+                          </div>
                 </div>
 
               </div>
@@ -310,7 +345,13 @@
                               name="constructor"
                               formControlName="constructor"
                               placeholder="Constructor/empresa constructora"
-                              readonly/> 
+                              [ngStyle]="subsanarConstructor && (!formulario.controls['constructor'].touched || !formulario.controls['constructor'].dirty || !formulario.controls['constructor'].valid) && {'border-color': '#FF0000'}"
+                              [readonly]="!subsanarConstructor"/>
+                              <div *ngIf="subsanarConstructor && (!formulario.controls['constructor'].touched || !formulario.controls['constructor'].dirty || !formulario.controls['constructor'].valid)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Subsanar Constructor Responsable</span> 
+                                </div>
+                              </div>
                     </div>
                   </div>
                   <div class="col-xl-6">
@@ -321,7 +362,13 @@
                               name="propietarioTerreno"
                               formControlName="propietarioTerreno"
                               placeholder="Nombre del propietario del terreno"
-                              readonly/>  
+                              [ngStyle]="subsanarPropietarioTerreno && (!formulario.controls['propietarioTerreno'].touched || !formulario.controls['propietarioTerreno'].dirty || !formulario.controls['propietarioTerreno'].valid) && {'border-color': '#FF0000'}"
+                              [readonly]="!subsanarPropietarioTerreno"/>
+                              <div *ngIf="subsanarPropietarioTerreno && (!formulario.controls['propietarioTerreno'].touched || !formulario.controls['propietarioTerreno'].dirty || !formulario.controls['propietarioTerreno'].valid)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Subsanar Folio</span> 
+                                </div>
+                              </div>
                     </div>
                   </div>
                 </div>
@@ -334,7 +381,13 @@
                               name="valorObra"
                               formControlName="valorObra"
                               placeholder="Valor aproximado de la obra"
-                              readonly/>  
+                              [ngStyle]="subsanarValorObra && (!formulario.controls['valorObra'].touched || !formulario.controls['valorObra'].dirty || !formulario.controls['valorObra'].valid) && {'border-color': '#FF0000'}"
+                              [readonly]="!subsanarValorObra"/>
+                              <div *ngIf="subsanarValorObra && (!formulario.controls['valorObra'].touched || !formulario.controls['valorObra'].dirty || !formulario.controls['valorObra'].valid)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Subsanar Valor aproximado de la obra</span> 
+                                </div>
+                              </div>
                     </div>
                   </div>
                   <div class="col-xl-6">
@@ -345,7 +398,13 @@
                               name="nombreProfesionalIdoneo"
                               formControlName="nombreProfesionalIdoneo"
                               placeholder="Nombre del Profesional Idoneo"
-                              readonly/>  
+                              [ngStyle]="subsanarNombreProfesionalIdoneo && (!formulario.controls['nombreProfesionalIdoneo'].touched || !formulario.controls['nombreProfesionalIdoneo'].dirty || !formulario.controls['nombreProfesionalIdoneo'].valid) && {'border-color': '#FF0000'}"
+                              [readonly]="!subsanarNombreProfesionalIdoneo"/>
+                              <div *ngIf="subsanarNombreProfesionalIdoneo && (!formulario.controls['nombreProfesionalIdoneo'].touched || !formulario.controls['nombreProfesionalIdoneo'].dirty || !formulario.controls['nombreProfesionalIdoneo'].valid)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Subsanar Nombre profesional Idóneo</span> 
+                                </div>
+                              </div>
                     </div>
                   </div>
 
@@ -359,7 +418,13 @@
                               name="numeroIdoneidad"
                               formControlName="numeroIdoneidad"
                               placeholder="Numero Idoneidad"
-                              readonly/> 
+                              [ngStyle]="subsanarnumeroIdoneidad && (!formulario.controls['numeroIdoneidad'].touched || !formulario.controls['numeroIdoneidad'].dirty || !formulario.controls['numeroIdoneidad'].valid) && {'border-color': '#FF0000'}"
+                              [readonly]="!subsanarnumeroIdoneidad"/>
+                              <div *ngIf="subsanarnumeroIdoneidad && (!formulario.controls['numeroIdoneidad'].touched || !formulario.controls['numeroIdoneidad'].dirty || !formulario.controls['numeroIdoneidad'].valid)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Subsanar No. Idoneidad</span> 
+                                </div>
+                              </div>
                     </div>
                   </div>
 
@@ -371,7 +436,13 @@
                               name="nombreProfesionalResidente"
                               formControlName="nombreProfesionalResidente"
                               placeholder="Nombre del Profesional Residente"
-                              readonly/>   
+                              [ngStyle]="subsanarNombreProfesionalResidente && (!formulario.controls['nombreProfesionalResidente'].touched || !formulario.controls['nombreProfesionalResidente'].dirty || !formulario.controls['nombreProfesionalResidente'].valid) && {'border-color': '#FF0000'}"
+                              [readonly]="!subsanarNombreProfesionalResidente"/>
+                              <div *ngIf="subsanarNombreProfesionalResidente && (!formulario.controls['nombreProfesionalResidente'].touched || !formulario.controls['nombreProfesionalResidente'].dirty || !formulario.controls['nombreProfesionalResidente'].valid)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Subsanar Nombre profesional Residente</span> 
+                                </div>
+                              </div>
                     </div>
                   </div>
 
@@ -384,7 +455,9 @@
                 <h4 class="mb-10 font-weight-bold text-dark">
                  Adjuntos
                 </h4>
-                <div class="row">
+
+
+                <div *ngIf="!subsanarRegistroPublico" class="row">
                   <div class="col-xl-12">
                     <div class="form-group">
                       <div class="row">
@@ -394,14 +467,40 @@
                         <div class="col-md-4 text-center">
                           <button (click)="fileDownloadRegistro()">Descargar</button>
                         </div>
-
                       </div>
                     </div>
                   </div>
                 </div>
 
+                <div *ngIf="subsanarRegistroPublico" class="row">
+                    <div class="col-xl-12">
+                      <div class="form-group">
+                        <label>Registro Público</label>
+                        <div>
+                          <input type="file"
+                                 class="form-control"
+                                 [ngStyle]="loadRegistro && {'background-color': '#e8f0fe'}"
+                                 [ngStyle]="!loadRegistro && {'border-color': '#FF0000'}"
+                                 formControlName="registroPublico"
+                                 name="registroPublico"
+                                 placeholder="Registro Público"
+                                 (change)="fileChangeRegistro($event)"                              
+                                 value="" accept=".png, .jpg, .jpeg, .pdf"/>
+                                 <div *ngIf="subsanarRegistroPublico && !loadRegistro">
+                                  <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                    <span>Subsanar Registro Público</span> 
+                                  </div>
+                                </div>
+                        </div>  
+                        <span class="form-text text-muted">
+                          Copia de Certificado de Registro Público vigente. Subir el archivo en formato imagen o pdf 
+                        </span>
+                      </div>
+                    </div>
+                </div>
 
-                <div class="row">
+
+                <div *ngIf="!subsanarCertificacionIdonea" class="row">
                   <div class="col-xl-12">
                     <div class="form-group">
                       <div class="row">
@@ -411,14 +510,38 @@
                         <div class="col-md-4 text-center">
                           <button (click)="fileDownloadIdoneo()">Descargar</button>
                         </div>
-
                       </div>
                     </div>
                   </div>
-                </div>                  
-
+                </div>
                 
-                <div class="row">
+                <div *ngIf="subsanarCertificacionIdonea" class="row"> 
+                  <div class="col-xl-12">
+                    <div class="form-group">
+                      <label>Certificación del Idóneo </label>                        
+                      <input type="file"
+                             class="form-control"
+                             [ngStyle]="loadIdoneidad && {'background-color': '#e8f0fe'}"
+                             [ngStyle]="!loadIdoneidad && {'border-color': '#FF0000'}"
+                             formControlName="certificacionIdoneo"
+                             name="certificacionIdoneo"
+                             placeholder="Certificación del Idóneo"
+                             (change)="fileChangeIdoneo($event)"
+                             value="" accept=".png, .jpg, .jpeg, .pdf"/>
+                             <div *ngIf="subsanarCertificacionIdonea && !loadIdoneidad">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Subsanar Certificación del Idóneo</span> 
+                              </div>
+                            </div>
+                      <span class="form-text text-muted">
+                        Copia del certificado original. Subir el archivo en formato imagen o pdf
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div *ngIf="!subsanarPlanos" class="row">
                   <div class="col-xl-12">
                     <div class="form-group">
                       <div class="row">
@@ -428,26 +551,47 @@
                         <div class="col-md-4 text-center">
                           <button (click)="fileDownloadPlanos()">Descargar</button>
                         </div>
-
                       </div>
                     </div>
                   </div>
                 </div>
-                
+
+                <div *ngIf="subsanarPlanos" class="row">
+                  <div class="col-xl-12">
+                    <div class="form-group">
+                      <label>Planos</label>                        
+                      <input type="file"
+                             class="form-control"
+                             [ngStyle]="loadPLanos && {'background-color': '#e8f0fe'}"
+                             [ngStyle]="!loadPLanos && {'border-color': '#FF0000'}"
+                             formControlName="planos"
+                             name="planos"
+                             placeholder="Planos"
+                             (change)="fileChangePlanos($event)"
+                             value="" accept=".png, .jpg, .jpeg, .pdf"/>
+                             <div *ngIf="subsanarPlanos && !loadPLanos">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Subsanar Planos</span> 
+                              </div>
+                            </div>
+                      <span class="form-text text-muted">
+                        Planos. Subir el archivo en formato imagen o pdf
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
 
 
               </div>
-              <!--end: Form Wizard Step 5-->
 
-              <!--begin: Form Wizard Step 6-->
               <div class="pb-5" data-wizard-type="step-content">
                 <h4 class="mb-10 font-weight-bold text-dark">
-                  Subsanar Solicitud
+                    Subsanar Solicitud
                 </h4>
                 <br>
-
-                  <br>                    
-                  <br>                    
+                <br>                    
+                <br>                    
               </div>
               <!--end: Form Wizard Step 6-->
 

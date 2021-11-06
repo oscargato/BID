@@ -8,6 +8,12 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 
+interface DatosI{
+  id:number;
+  nombre:string;
+}
+
+
 @Component({
   selector: 'app-f-subsanarsolicitud',
   templateUrl: './f-subsanarsolicitud.component.html',
@@ -18,7 +24,6 @@ import { ActivatedRoute } from '@angular/router';
 export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('wizard', { static: true }) el: ElementRef;
-
 
   submitted = false;
   wizard: any;
@@ -37,19 +42,53 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   public pagoManual:boolean;
   public revisionNegada:boolean;
   public solicitudId:number;
-  public adjuntos: Array<any>
+  public adjuntos: Array<any>;
+  public tipoProp:string;
+  public tipoPropiedad:Array<DatosI> = [];
+  public subsanarNombreProyecto:boolean = false;
+  public subsanarDescripcionProyecto:boolean = false;
+  public subsanarProvincia:boolean = false;
+  public subsanarDistrito:boolean = false;
+  public subsanarCorregimiento:boolean = false;
+  public subsanarTipoPropiedad:boolean = false;
+  public subsanarCodigoUbicacion:boolean = false;
+  public subsanarFinca:boolean = false;
+  public subsanarTomo:boolean = false;
+  public subsanarFolio:boolean = false;  
+  public subsanarConstructor:boolean = false;
+  public subsanarPropietarioTerreno:boolean = false;
+  public subsanarValorObra:boolean = false;
+  public subsanarNombreProfesionalIdoneo:boolean = false;
+  public subsanarnumeroIdoneidad:boolean = false;
+  public subsanarNombreProfesionalResidente:boolean = false;
+  public subsanarRegistroPublico:boolean = false;
+  public subsanarCertificacionIdonea:boolean = false;
+  public subsanarPlanos:boolean = false;
+  public loadRegistro:boolean = false;
+  public loadIdoneidad: boolean;
+  public loadPLanos: boolean;
+  public uploadRegistroPublico:File;
+  public uploadIdoneidad:File;
+  public uploadPLanos:File;
+  public urlRegistroPublico:string;
+  public urlIdoneidad:string;
+  public urlPLanos:string;
+  public adjuntoRegistroPublico:string;
+  public adjuntoCertificacionIdoneo:string;
+  public adjuntoPlanos:string;
+  public solicitanteTramiteId:number;
 
-  
+
   constructor(private fSubsanarsolicitudService:FSubsanarsolicitudService, 
               private router:Router, 
               private formBuilder:FormBuilder, 
-              private activatedRoute:ActivatedRoute){
-                this.adjuntos = [];
-              }
+              private activatedRoute:ActivatedRoute)
+              { this.adjuntos = []; }
 
-  ngOnInit() {
+  ngOnInit(){
 
     this.formulario = this.formBuilder.group({
+      
   		nombreProyecto:['', Validators.compose([
           Validators.required,
         ]),
@@ -135,7 +174,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
         ]),
       ],  
 
-  		certificacion:['', Validators.compose([
+  		certificacionIdoneo:['', Validators.compose([
           Validators.required,
         ]),
       ],  
@@ -147,17 +186,39 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
     });
 
-
-
     this.getSubsanacion();
+    this.subsanarNombreProyecto = false;
+    this.subsanarDescripcionProyecto = true;
+    this.subsanarProvincia = true;
+    this.subsanarDistrito = true;
+    this.subsanarCorregimiento = true;    
+    this.subsanarTipoPropiedad = true;
+    this.subsanarCodigoUbicacion = true;
+    this.subsanarFinca = true;
+    this.subsanarTomo = true;
+    this.subsanarFolio = true;
+    this.subsanarConstructor = true;
+    this.subsanarPropietarioTerreno = true;
+    this.subsanarValorObra = true;
+    this.subsanarNombreProfesionalIdoneo = true;
+    this.subsanarnumeroIdoneidad = true;
+    this.subsanarNombreProfesionalResidente = true;
+
+    this.subsanarRegistroPublico = false;
+    this.subsanarCertificacionIdonea = false;
+    this.subsanarPlanos = false;
+
+
+    this.loadRegistro = false;
+    this.loadIdoneidad = false;
+    this.loadPLanos = false;
   }
 
 
  getSubsanacion()
  {
   this.fSubsanarsolicitudService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud ).subscribe(resp =>{
-    console.log('Respuesta AAA',resp);
-    
+    console.log('Resp AAA',resp);
     this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
     this.formulario.controls['descripcionProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
     this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.nomProvincia);
@@ -189,57 +250,34 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.pagoManual = resp.t01_Rev_PermisoConstruccionMun.pagoManual;
     this.revisionNegada = resp.t01_Rev_PermisoConstruccionMun.revisionNegada;
     this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId
+    this.solicitanteTramiteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteTramiteId
 
-
-
+    /*
+    this.subsanarNombreProyecto
+    this.subsanarDescripcionProyecto
+    this.subsanarCodigoUbicacion
+    */
 
     let i = 0;
     resp.lstAdjuntos.forEach(element => {
       this.adjuntos[i] = element
       i++;
     });
-    
+
+
+    let j = 0;
+    resp.lstTiposPropiedad.forEach(element => {
+      this.tipoPropiedad[j] = { id:element.tipoPropiedadId, nombre:element.descripcion  };
+      j++;
+    });
   })
  }
 
 
-
-
-
   newSubsanacion(){
-
     const hoy = new Date();
-
     let incorrecto:boolean;
-
-    if(this.formulario.controls['checkboxNombreProyecto'].value === false &&
-       this.formulario.controls['checkboxDescripcionProyecto'].value === false &&
-       this.formulario.controls['checkboxProvincia'].value === false &&
-       this.formulario.controls['checkboxDistrito'].value === false &&
-       this.formulario.controls['checkboxCorregimiento'].value === false &&
-       this.formulario.controls['checkboxTipoPropiedad'].value === false &&
-       this.formulario.controls['checkboxCodigoUbicacion'].value === false &&
-       this.formulario.controls['checkboxFinca'].value === false &&
-       this.formulario.controls['checkboxTomo'].value === false &&
-       this.formulario.controls['checkboxFolio'].value === false &&
-       this.formulario.controls['checkboxConstructor'].value === false &&
-       this.formulario.controls['checkboxPropietarioTerreno'].value === false &&
-       this.formulario.controls['checkboxValorObra'].value === false &&
-       this.formulario.controls['checkboxNombreProfesionalIdoneo'].value === false &&
-       this.formulario.controls['checkboxNumeroIdoneidad'].value === false &&
-       this.formulario.controls['checkboxNombreProfesionalResidente'].value === false &&
-       this.formulario.controls['checkboxRegistroPublico'].value === false &&
-       this.formulario.controls['checkboxCertificacionIdoneo'].value === false &&
-       this.formulario.controls['checkboxPlanos'].value === false)
-      { incorrecto = false; }
-      else
-      { incorrecto = true; }
-
-   
-
-    const data = {
-      
-    }
+    const data = {}
     
     /*
     this.fSubsanarsolicitudService.newSubsanacion(data).subscribe(resp=>{
@@ -257,11 +295,72 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
 
 
+  getTipoPropiedad(){
+    //this.tipoPropiedad = resp.
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  fileChangeRegistro(element){
+    this.uploadRegistroPublico = element.target.files[0];
+    const formData = new FormData();
+    formData.append('file', this.uploadRegistroPublico);
+    this.fSubsanarsolicitudService.uploadArchivo(formData,this.solicitanteTramiteId).subscribe((resp) => { 
+      console.log('D',resp);
+      this.urlRegistroPublico = resp.name;
+      this.loadRegistro = true;
+      let adjunto = this.formulario.controls['registroPublico'].value
+      this.adjuntoRegistroPublico = adjunto.substring(adjunto.indexOf("h",10) + 2)
+      this.archivoCargado();
+
+    });
+  }
+  
+
+  fileChangeIdoneo(element){
+    this.uploadIdoneidad = element.target.files[0];
+    const formData = new FormData();
+    formData.append('file', this.uploadIdoneidad);
+    this.fSubsanarsolicitudService.uploadArchivo(formData,this.solicitanteTramiteId).subscribe((resp) => {
+      console.log('D',resp);
+      this.urlIdoneidad = resp.name;
+      this.loadIdoneidad = true;
+      let adjunto = this.formulario.controls['certificacionIdoneo'].value
+      this.adjuntoCertificacionIdoneo = adjunto.substring(adjunto.indexOf("h",10) + 2)
+      this.archivoCargado();
+    });
+  }  
+
+
+  fileChangePlanos(element){
+    this.uploadPLanos = element.target.files[0];
+    const formData = new FormData();
+    formData.append('file', this.uploadPLanos);
+    this.fSubsanarsolicitudService.uploadArchivo(formData,this.solicitanteTramiteId).subscribe((resp) => {      
+      console.log('D',resp);
+      this.urlPLanos = resp.name;
+      this.loadPLanos = true;
+      let adjunto = this.formulario.controls['planos'].value
+      this.adjuntoPlanos = adjunto.substring(adjunto.indexOf("h",10) + 2)
+      this.archivoCargado();
+    });
+  }
 
   fileDownloadRegistro(){
-    console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
-    console.log('Nombre Archivo',this.archivoRegistroPublico);
+    console.log(this.tramiteIdRegistroPublico)
+    console.log(this.archivoRegistroPublico)
     this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
+      console.log('DownloadRegistro',resp);
       saveAs(resp,this.archivoRegistroPublico),
       error => console.error(error)
     });
@@ -281,10 +380,9 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     });    
   }  
 
-
   registerAlert()
   { Swal.fire(  
-      'Subsanacion de Tramite Exitosa!',
+      'Subsanacion de Solicitud Exitosa!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -301,14 +399,14 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   }
 
 
-
-
-
-
-
-
-
-
+  archivoCargado(){
+    Swal.fire({ position: 'center',
+                icon: 'success',
+                title: 'Archivo Cargado Exitosamente',
+                showConfirmButton: false,
+                timer: 1500
+              })
+  }
 
 
   ngAfterViewInit(): void {

@@ -275,8 +275,7 @@
                             name="tipoPropiedad"
                             class="form-control"                            
                             [(ngModel)]="tipoProp"
-                            (change)='getTipoPropiedad()'
-                            >
+                            (change)='getTipoPropiedad()'>
                       <option selected value="">Seleccione una opción</option>
                       <option [value]="i" *ngFor="let item of tipoPropiedad; let i = index">
                           {{ item.nombre }}
@@ -498,7 +497,6 @@
                       <div *ngIf="item.tipoDocumentoId.tipoDocumentoId === 1">
                         <div class="form-group">
                           <label>{{ item.tipoDocumentoId.nombre }}</label>
-
                           <div>
                             <input type="file"
                                    class="form-control"
@@ -541,9 +539,9 @@
                             </div>
                             <div *ngIf="formulario.controls['certificacionIdoneo'].invalid && (formulario.controls['certificacionIdoneo'].dirty || formulario.controls['certificacionIdoneo'].touched)">
                               <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                <span>Se requiere la Certificación del Idóneo</span> 
+                                <span>Se requiere la Certificación del Idóneo</span>
                               </div>
-                            </div>                       
+                            </div>                            
                           </div>
                         </div>
                       </div>
@@ -565,13 +563,15 @@
                                 Planos. Subir el archivo en formato imagen o pdf
                               </span>
                             </div>
+
                             <div *ngIf="formulario.controls['planos'].invalid && (formulario.controls['planos'].dirty || formulario.controls['planos'].touched)">
                               <div class="d-flex justify-content-end" style="color:#FF0000;">
                                 <span>
                                   Se requiere el campo Planos
                                 </span> 
                               </div>
-                            </div>                       
+                            </div>
+
                           </div>
                         </div>
                       </div>
