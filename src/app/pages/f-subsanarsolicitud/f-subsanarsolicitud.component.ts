@@ -187,31 +187,6 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     });
 
     this.getSubsanacion();
-    this.subsanarNombreProyecto = false;
-    this.subsanarDescripcionProyecto = true;
-    this.subsanarProvincia = true;
-    this.subsanarDistrito = true;
-    this.subsanarCorregimiento = true;    
-    this.subsanarTipoPropiedad = true;
-    this.subsanarCodigoUbicacion = true;
-    this.subsanarFinca = true;
-    this.subsanarTomo = true;
-    this.subsanarFolio = true;
-    this.subsanarConstructor = true;
-    this.subsanarPropietarioTerreno = true;
-    this.subsanarValorObra = true;
-    this.subsanarNombreProfesionalIdoneo = true;
-    this.subsanarnumeroIdoneidad = true;
-    this.subsanarNombreProfesionalResidente = true;
-
-    this.subsanarRegistroPublico = false;
-    this.subsanarCertificacionIdonea = false;
-    this.subsanarPlanos = false;
-
-
-    this.loadRegistro = false;
-    this.loadIdoneidad = false;
-    this.loadPLanos = false;
   }
 
 
@@ -235,7 +210,6 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
     this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
     this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
- 
 
     this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
     this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;
@@ -252,11 +226,29 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId
     this.solicitanteTramiteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteTramiteId
 
-    /*
-    this.subsanarNombreProyecto
-    this.subsanarDescripcionProyecto
-    this.subsanarCodigoUbicacion
-    */
+    this.subsanarNombreProyecto = resp.t01_Rev_PermisoConstruccionMun.nombreProyecto;
+    this.subsanarDescripcionProyecto = resp.t01_Rev_PermisoConstruccionMun.descripcionProyecto;
+    this.subsanarProvincia = resp.t01_Rev_PermisoConstruccionMun.provinciaProyectoId;
+    this.subsanarDistrito = resp.t01_Rev_PermisoConstruccionMun.distritoProyectoId;
+    this.subsanarCorregimiento = resp.t01_Rev_PermisoConstruccionMun.corregimientoProyectoId;    
+    this.subsanarTipoPropiedad = resp.t01_Rev_PermisoConstruccionMun.tipoPropiedadId;
+    this.subsanarCodigoUbicacion = resp.t01_Rev_PermisoConstruccionMun.codUbicacion;
+    this.subsanarFinca = resp.t01_Rev_PermisoConstruccionMun.finca;
+    this.subsanarTomo = resp.t01_Rev_PermisoConstruccionMun.tomo;
+    this.subsanarFolio = resp.t01_Rev_PermisoConstruccionMun.folio;
+    this.subsanarConstructor = resp.t01_Rev_PermisoConstruccionMun.nombreResp;
+    this.subsanarPropietarioTerreno = resp.t01_Rev_PermisoConstruccionMun.nombrePropietarioTerreno;
+    this.subsanarValorObra = resp.t01_Rev_PermisoConstruccionMun.valorAproxObra;
+    this.subsanarNombreProfesionalIdoneo = resp.t01_Rev_PermisoConstruccionMun.nombreProfesionalIdoneo;
+    this.subsanarnumeroIdoneidad = resp.t01_Rev_PermisoConstruccionMun.numIdoneidad;
+    this.subsanarNombreProfesionalResidente = resp.t01_Rev_PermisoConstruccionMun.nombreProfesionalResidente;
+    this.subsanarRegistroPublico = resp.lstAdjuntos[0].rechazado;
+    this.subsanarCertificacionIdonea = resp.lstAdjuntos[1].rechazado;
+    this.subsanarPlanos = resp.lstAdjuntos[2].rechazado;
+    
+    this.loadRegistro = false;
+    this.loadIdoneidad = false;
+    this.loadPLanos = false;
 
     let i = 0;
     resp.lstAdjuntos.forEach(element => {
@@ -290,26 +282,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     */
   }
 
-
-
-
-
-
-  getTipoPropiedad(){
-    //this.tipoPropiedad = resp.
-  }
-
-
-
-
-
-
-
-
-
-
-
-
+  getTipoPropiedad(){}
 
   fileChangeRegistro(element){
     this.uploadRegistroPublico = element.target.files[0];
@@ -340,7 +313,6 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
       this.archivoCargado();
     });
   }  
-
 
   fileChangePlanos(element){
     this.uploadPLanos = element.target.files[0];
