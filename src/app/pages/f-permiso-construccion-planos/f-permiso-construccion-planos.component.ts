@@ -8,21 +8,18 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { saveAs } from 'file-saver';
 
-
 @Component({
   selector: 'app-f-permiso-construccion-planos',
   templateUrl: './f-permiso-construccion-planos.component.html',
   styleUrls: ['./f-permiso-construccion-planos.component.scss']
 })
 
-
 export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewInit {
-
+  
   @ViewChild('wizard', { static: true }) el: ElementRef;
+  wizard: any;
 
   public formulario:FormGroup;
-  
-  wizard: any;
   public archivoRegistroPublico:string;
   public tramiteIdRegistroPublico:number;
   public archivoIdoneo:string;
@@ -41,50 +38,18 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
   constructor(private fPermisoConstruccionPlanosService:FPermisoConstruccionPlanosService,
               private formBuilder:FormBuilder,
               private activatedRoute:ActivatedRoute,
-              private router:Router) {
-                this.adjuntos = [];
-              }
+              private router:Router) 
+              { this.adjuntos = []; }
 
-  ngOnInit() {
+  ngOnInit(){
     this.formulario = this.formBuilder.group({
-  		nombre:['', Validators.compose([
-                  Validators.required
-                ]),
-              ],
-
-      checkboxNombre:[false, Validators.compose([
-                             Validators.required
-                        ]),
-                     ],              
-
-      descripcion:['', Validators.compose([
-                       Validators.required, 
-                       Validators.minLength(5),
-                       Validators.maxLength(500)
-                    ]),  
-                  ],
-
-      checkboxDescripcion:[false, Validators.compose([
-                                  Validators.required
-                            ]),
-                          ],
-
-                       
-      provincia:['', Validators.compose([
-                     Validators.required
-                  ]),    
-                ],
-                
-      checkboxProvincia:[false, Validators.compose([
-                                Validators.required
-                            ]),
-                          ],
- 
-      distrito:['', Validators.compose([
-                    Validators.required
-                  ]),
-               ],
-
+  		nombre:['', Validators.compose([Validators.required]),],
+      checkboxNombre:[false, Validators.compose([Validators.required]),],              
+      descripcion:['', Validators.compose([Validators.required, Validators.minLength(5),Validators.maxLength(500)]),],
+      checkboxDescripcion:[false, Validators.compose([Validators.required]),],
+      provincia:['', Validators.compose([Validators.required]),],
+      checkboxProvincia:[false, Validators.compose([Validators.required]),],
+      distrito:['', Validators.compose([Validators.required]),],
       checkboxDistrito:[false, Validators.compose([
                                Validators.required
                         ]),
@@ -250,25 +215,13 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
                          ]),
                        ],                          
 
-      planos:['', Validators.compose([
-                  Validators.required
-               ]), 
-             ],
-             
-      checkboxPlanos:[false, Validators.compose([
-                             Validators.required
-                        ]),
-                     ], 
-                     
-      noviable:[false, Validators.compose([
-                       Validators.required
-                ]),
-             ],                     
+      planos:['', Validators.compose([Validators.required]),],
+      checkboxPlanos:[false, Validators.compose([Validators.required]),], 
+      noviable:[false, Validators.compose([Validators.required]),],                     
     });
 
     
   this.getRevision();
-
   }
 
 
@@ -295,12 +248,14 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
       this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
+      
       this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
       this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;
       this.archivoIdoneo = resp.lstAdjuntos[1].urlAdjunto;
       this.tramiteIdIdoneo = resp.lstAdjuntos[1].solicitanteTramiteId.solicitanteTramiteId;
       this.archivoPlanos = resp.lstAdjuntos[2].urlAdjunto;
       this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
+      
       this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
       this.montoPagar = resp.t01_Rev_PermisoConstruccionMun.montoPagar;
       this.montoTotal = resp.t01_Rev_PermisoConstruccionMun.montoTotal;
@@ -319,7 +274,6 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
   }
 
   fileDownloadRegistro(){
-
     this.fPermisoConstruccionPlanosService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
       saveAs(resp,this.archivoRegistroPublico),
       error => console.error(error)
@@ -471,16 +425,14 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
             }
       }
       ]
-  }
+    }
            
     this.fPermisoConstruccionPlanosService.newRevisionPlanos(data).subscribe(resp=>{
       console.log('resp A', resp)
-      if(resp.codigo === 0){
-        this.register();
-      }
-      else{
-        this.fail()
-      }
+      if(resp.codigo === 0)
+      { this.register();  }
+      else
+      { this.fail() }
     })
 
    }

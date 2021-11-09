@@ -1,6 +1,5 @@
 import { FRevisionDocumentosSellosService } from './f-revision-documentos-sellos.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import KTWizard from '../../../assets/js/components/wizard';
@@ -41,113 +40,35 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   wizard: any;
 
   constructor(private fRevisionDocumentosSellosService:FRevisionDocumentosSellosService, 
-    private router:Router, private formBuilder:FormBuilder, 
-    private activatedRoute:ActivatedRoute) {}
+              private router:Router, 
+              private formBuilder:FormBuilder, 
+              private activatedRoute:ActivatedRoute){}
 
   ngOnInit() {
-
     this.formulario = this.formBuilder.group({
-  		nombreProyecto:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		descripcionProyecto:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		provincia:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		distrito:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		corregimiento:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		tipoPropiedad:['', Validators.compose([
-          Validators.required,
-        ]),
-      ], 
-
-  		codigoUbicacion:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		finca:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		tomo:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		folio:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		constructor:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		propietarioTerreno:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-  		valorObra:['', Validators.compose([
-          Validators.required,
-        ]),
-      ], 
-
-  		nombreProfesionalIdoneo:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		numeroIdoneidad:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		nombreProfesionalResidente:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		registroPublico:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		certificacion:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-
-  		planos:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-
+  		nombreProyecto:['', Validators.compose([Validators.required,]),],
+  		descripcionProyecto:['', Validators.compose([Validators.required,]),],
+  		provincia:['', Validators.compose([Validators.required,]),],
+  		distrito:['', Validators.compose([Validators.required,]),],
+  		corregimiento:['', Validators.compose([Validators.required,]),],
+  		tipoPropiedad:['', Validators.compose([Validators.required,]),], 
+  		codigoUbicacion:['', Validators.compose([Validators.required,]),],
+  		finca:['', Validators.compose([Validators.required,]),],
+  		tomo:['', Validators.compose([Validators.required,]),],
+  		folio:['', Validators.compose([Validators.required,]),],
+  		constructor:['', Validators.compose([Validators.required,]),],
+  		propietarioTerreno:['', Validators.compose([Validators.required,]),],
+  		valorObra:['', Validators.compose([Validators.required,]),], 
+  		nombreProfesionalIdoneo:['', Validators.compose([Validators.required,]),],
+  		numeroIdoneidad:['', Validators.compose([Validators.required,]),],
+  		nombreProfesionalResidente:['', Validators.compose([Validators.required,]),],
+  		registroPublico:['', Validators.compose([Validators.required,]),],
+  		certificacion:['', Validators.compose([Validators.required,]),],  
+  		planos:['', Validators.compose([Validators.required,]),],  
     });
 
     this.fRevisionDocumentosSellosService.getRevision(this.activatedRoute.snapshot.params.idRevision ).subscribe(resp =>{
       console.log('Respuesta',resp);
-
       this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['descripcionProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
       this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.nomProvincia);
@@ -164,24 +85,32 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
-
-
+ 
       this.formulario.controls['checkboxDocRecibido'].setValue(resp.docRecibido);
       this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);
       this.formulario.controls['checkboxSellos'].setValue(resp.sellosCompletos);
       this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
-      
+
       this.registroPublico = resp.lstAdjuntos[0].urlAdjunto;
       this.certificacion = resp.lstAdjuntos[1].urlAdjunto;
-      this.planos = resp.lstAdjuntos[2].urlAdjunto; 
+      this.planos = resp.lstAdjuntos[2].urlAdjunto;
+
+      /*
+      this.tramiteIdRegistroPublico = 
+      this.archivoRegistroPublico =
+      this.tramiteIdIdoneo =
+      this.archivoIdoneo =
+      this.tramiteIdPlanos =
+      this.archivoPlanos = 
+      this.tramiteIdInformeInspeccion =
+      this.archivoInformeInspeccion =
+      */   
     })
 
   }
 
 
   fileDownloadRegistro(){
-    //console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
-    //console.log('Nombre Archivo',this.archivoRegistroPublico);
     this.fRevisionDocumentosSellosService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
       saveAs(resp,this.archivoRegistroPublico),
       error => console.error(error)
@@ -203,27 +132,21 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   }
 
   fileDownloadInformeInspeccion(){
-    //console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
-    //console.log('Nombre Archivo',this.archivoRegistroPublico);
     this.fRevisionDocumentosSellosService.getDownloadFile(this.tramiteIdInformeInspeccion,this.archivoInformeInspeccion).subscribe(resp=>{
-      saveAs(resp,this.archivoRegistroPublico),
+      saveAs(resp,this.archivoInformeInspeccion),
       error => console.error(error)
     });
   }
 
 
   newRevision(){
-
     const data = {}
   
     this.fRevisionDocumentosSellosService.newRevision(data).subscribe(resp=>{
-  
-      if(resp.codigo === 0){
-        this.registerAlert();
-      }
-      else{
-        this.failSubsanar()
-      }
+      if(resp.codigo === 0)
+      { this.registerAlert(); }
+      else
+      { this.failSubsanar() }
     })
   }
 
@@ -245,22 +168,17 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
     })
   }
 
-  ngAfterViewInit(): void {
 
-   
-    // Initialize form wizard
+
+
+  
+  ngAfterViewInit(): void {
     this.wizard = new KTWizard(this.el.nativeElement, {
       startStep: 1,
       clickableSteps: true
     });
 
-    // Validation before going to next page
     this.wizard.on('beforeNext', (wizardObj) => {
-      // https://angular.io/guide/forms
-      // https://angular.io/guide/form-validation
-
-      // validate the form and use below function to stop the wizard's step
-      // wizardObj.stop();
       if (wizardObj.currentStep === 1) {
         if (this.wizard.invalid) {
             this.wizard.markAllAsTouched();
@@ -269,7 +187,6 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       }
     });
 
-    // Change event
     this.wizard.on('change', () => {
       setTimeout(() => {
         KTUtil.scrollTop();
@@ -277,16 +194,9 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
     });
   }
 
-  onSubmit() {
-    this.submitted = true;
-  }
+  onSubmit() 
+  { this.submitted = true;}
 
-  ngOnDestroy() {
-    this.wizard = undefined;
-  }
-  
+  ngOnDestroy()
+  { this.wizard = undefined; }
 }
-
-
-
-

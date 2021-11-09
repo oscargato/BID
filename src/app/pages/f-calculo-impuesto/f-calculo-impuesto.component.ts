@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FCalculoImpuestoService } from './f-calculo-impuesto.service'
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -25,18 +25,10 @@ export class FCalculoImpuestoComponent implements OnInit {
     ngOnInit(){
 
     this.formulario = this.formBuilder.group({
-  		nombre:['', Validators.compose([
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(100)
-        ]),
-      ],
-
-  		impuesto:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
+  		nombre:['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(100)]),],
+  		impuesto:['', Validators.compose([Validators.required,]),],
     });
+
 
     this.fCalculoImpuestoService.getRevision(this.activatedRoute.snapshot.params.tramiteId ).subscribe(resp =>{
       console.log('Respuesta',resp);
@@ -46,8 +38,7 @@ export class FCalculoImpuestoComponent implements OnInit {
 
 
   newCalculoImpuesto() 
-  { 
-    const data = {  
+  {  const data = {  
       "t01_Sol_PermisoConstruccionMun": {
         "solicitudId": 1,
         "montoPagar": this.formulario.controls['impuesto'].value

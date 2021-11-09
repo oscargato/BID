@@ -5,13 +5,11 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-f-tarea-inspeccion',
   templateUrl: './f-tarea-inspeccion.component.html',
   styleUrls: ['./f-tarea-inspeccion.component.scss']
 })
-
 
 export class FTareaInspeccionComponent implements OnInit {
 
@@ -32,29 +30,12 @@ export class FTareaInspeccionComponent implements OnInit {
               private formBuilder:FormBuilder, 
               private activatedRoute:ActivatedRoute){}
 
-  ngOnInit() {
-
-  this.formulario = this.formBuilder.group({  
-
-  		nombreProyecto:['', Validators.compose([
-                          Validators.required,
-                        ]),
-                     ],
-
-      inspeccion:[false, Validators.compose([
-                        Validators.required
-                    ]),
-                 ], 
-
-  		observaciones:['', Validators.compose([
-                         Validators.required,
-                      ]),
-                    ],
-
-      informe:['', Validators.compose([
-                   Validators.required
-                ]),
-              ], 
+  ngOnInit(){
+    this.formulario = this.formBuilder.group({  
+  		nombreProyecto:['', Validators.compose([Validators.required,]),],
+      inspeccion:[false, Validators.compose([Validators.required]),], 
+  		observaciones:['', Validators.compose([Validators.required,]),],
+      informe:['', Validators.compose([Validators.required]),], 
     });
 
     this.loadInforme = false;
@@ -79,82 +60,9 @@ export class FTareaInspeccionComponent implements OnInit {
   newRevisionInspeccion(){
 
     const hoy = new Date();
-/*    
-    const data = 
-    {
-      "incorrecto": false,
-        "t01_Rev_PermisoConstruccionMun": {
-            "inspeccionAprobada": this.formulario.controls['inspeccion'].value,
-            "codUbicacion": true,
-            "comentarios": "string",
-            "comentariosCierre": "string",
-            "comentariosInternos": "string",
-            "comprobacionNegada": true,
-            "corregimientoProyectoId": true,
-            "descripcionProyecto": true,
-            "distritoProyectoId": true,
-            "fechaRevision": hoy.toISOString(),
-            "fechaRevisionInspeccion": hoy.toISOString(),
-            "fechaRevisionPlanos": null,
-            "finca": true,
-            "folio": true,
-            "montoPagar": true,
-            "montoPagarFunc": true,
-            "montoTotal": true,
-            "noViable": false,
-            "nombreEntidadEvaluadora": true,
-            "nombreEntidadEvaluadoraFunc": true,
-            "nombreProfesionalIdoneo": true,
-            "nombreProfesionalResidente": true,
-            "nombrePropietarioTerreno": true,
-            "nombreProyecto": true,//this.formulario.controls['nombreProyecto'].value,
-            "nombreResp": true,
-            "numIdoneidad": true,
-            "observacionComprobacion": "string",
-            "observaciones": this.formulario.controls['observaciones'].value,
-            "pagoElectronico": true,
-            "pagoManual": true,
-            "provinciaProyectoId": true,
-            "revisionId": this.revisionId,
-            "revisionNegada": true,
-            "revisorId": null,
-            "revisorInspeccionId": {
-                "revisorId": 4,
-                "tipoRevisorId": {
-                    "descripcion": "Inspector",
-                    "tipoRevisorId": Number(localStorage.getItem('id'))
-                }
-            },
-            "solicitudConfirmada": true,
-            "solicitudId": {
-          "solicitudId": this.solicitudId,
-        },
-            "tipoPropiedadId": true,
-            "tomo": true,
-            "valorAproxObra": true
-        },
-      "lstAdjuntos": [
-        {
-          "adjuntoId": 1,
-          "fecha": hoy.toISOString(),
-          "fechaRevision": hoy.toISOString(),
-          "nombre": this.adjunto[0].tipoDocumentoId.nombre,
-          "rechazado": true,
-          "tipoDocumentoId": {
-          "diasVigencia": this.adjunto[0].tipoDocumentoId.diasVigencia,///////////
-          "nombre": this.adjunto[0].tipoDocumentoId.nombre,
-          "tipoDocumentoId": this.adjunto[0].tramiteTipoDocumentoId,//////////////
-          },
-          "urlAdjunto": this.urlInforme,
-               "solicitanteId": {
-                   "solicitanteId": this.solicitanteId,
-               }
-        }
-        ]
-    }
-*/
 
-const data = 
+
+    const data = 
     { "solicitudId": this.solicitudId,
       "revisionId": this.revisionId,
       "revisorId": 4,
@@ -173,10 +81,9 @@ const data =
           "nombre": this.adjunto[0].tipoDocumentoId.nombre,
           "urlAdjunto": this.urlInforme,
       }]
-  }
+    }
 
     console.log('data',data)
-    
     
     this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
       console.log('Carga',resp)
@@ -214,7 +121,6 @@ const data =
     })
   }
 
-
   registerAlert(){  
     Swal.fire(  
       'Inspeccion Exitosa!',
@@ -224,7 +130,6 @@ const data =
       this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
     });  
   }
-
 
   failRevision(){
     Swal.fire({

@@ -106,26 +106,25 @@
                 </div>
 
               </div>
+
               <div class="row">
                 <div class="col-xl-12">
                     <div class="form-group">
-                        <label>Comprobante
-                            de Pago</label>
+                        <label>Comprobante de Pago</label>
                         <input type="file"
-                        class="form-control"
-                        name="comprobantePago"
-                        formControlName="comprobantePago"
-                        placeholder="Pasaporte"
-                        accept=".png, .jpg, .jpeg, .pdf"  />
-                        <span class="form-text text-muted"
-                          >Copia del comprobante
-                          de pago. Subir el archivo en formato imagen o pdf</span
-                        >
+                               class="form-control"
+                               [ngStyle]="loadComprobante && {'background-color': '#e8f0fe'}"
+                               name="comprobantePago"
+                               formControlName="comprobantePago"
+                               placeholder="Comprobante de Pago"
+                               (change)="fileChangeComprobante($event)"
+                               value=""
+                               accept=".png, .jpg, .jpeg, .pdf"  />
+                              <span class="form-text text-muted">
+                                Copia del comprobante de pago. Subir el archivo en formato imagen o pdf
+                              </span>
                       </div>
-
                 </div>
-
-                
               </div>
           
 

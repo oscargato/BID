@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FRegistrarpagoService } from './f-registrarpago.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -15,59 +15,33 @@ export class FRegistrarpagoComponent implements OnInit {
 
   public formulario:FormGroup;
   public comprobantePago:string;
-  
+  public uploadComprobante:File;
+  public solicitanteTramiteId:number;
+  public urlComprobante:string;
+  public loadComprobante: boolean;
+  public adjuntoComprobante:string;
 
   constructor(private fRegistrarpagoService:FRegistrarpagoService, 
               private router:Router, 
               private formBuilder:FormBuilder, 
-              private activatedRoute:ActivatedRoute) {}
+              private activatedRoute:ActivatedRoute){}
 
-  ngOnInit() {
-
+  ngOnInit(){
     this.formulario = this.formBuilder.group({
-  		montoTotal:['', Validators.compose([
-                      Validators.required,
-        ]),
-      ],  
+  		montoTotal:['', Validators.compose([Validators.required,]),],  
+  		numeroRecibo:['', Validators.compose([Validators.required,]),],
+  		fechaPago:['', Validators.compose([Validators.required,]),],
+  		montoPago:['', Validators.compose([Validators.required,]),], 
+  		bancoPago:['', Validators.compose([Validators.required,]),],
+      comprobantePago:['', Validators.compose([Validators.required,]),],
+    });
 
-  		numeroRecibo:['', Validators.compose([
-                        Validators.required,
-        ]),
-      ],
-
-  		fechaPago:['', Validators.compose([
-                     Validators.required,
-        ]),
-      ],
-
-  		montoPago:['', Validators.compose([
-                     Validators.required,
-        ]),
-      ],
- 
-  		bancoPago:['', Validators.compose([
-                     Validators.required,
-        ]),
-      ],
- 
-      comprobantePago:['', Validators.compose([
-                          Validators.required,
-          ]),
-      ],  
-
-
-  });
+    this.loadComprobante = false;
 
     this.fRegistrarpagoService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
       console.log('Respuesta',resp);
-      /* this.formulario.controls['montoTotal'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['numeroRecibo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['fechaPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['montoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['bancoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto); 
-      this.comprobantePago = resp.lstAdjuntos[0].urlAdjunto;*/
+      //this.solicitanteTramiteId = resp.solicitanteTramiteId;
     })
-
   }
 
 
@@ -76,35 +50,54 @@ export class FRegistrarpagoComponent implements OnInit {
     const data = {}
   
     this.fRegistrarpagoService.newSubsanacion(data).subscribe(resp=>{
-  
-      if(resp.codigo === 0){
-        this.registerAlert();
-      }
-      else{
-        this.failSubsanar()
-      }
+      if(resp.codigo === 0)
+      { this.registerAlert(); }
+      else
+      { this.failSubsanar() }
     })
    }
   
   
   
-  
-    registerAlert(){  
-      Swal.fire(  
-        'Subsanacion de Tramite Exitosa!',
-        'Haga click para continuar',
-        'success',
-      ).then((result) => {
-        this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
-      });  
-    }
-  
-    failSubsanar(){
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Subsanacion Fallida!'
-      })
-    }  
-}
 
+  fileChangeComprobante(element){
+    this.uploadComprobante = element.target.files[0];
+    const formData = new FormData();
+    formData.append('file', this.uploadComprobante);
+    this.fRegistrarpagoService.uploadArchivo(formData,this.solicitanteTramiteId).subscribe((resp) => { 
+      this.urlComprobante = resp.name;
+      this.loadComprobante = true;
+      let adjunto = this.formulario.controls['comprobantePago'].value
+      this.adjuntoComprobante = adjunto.substring(adjunto.indexOf("h",10) + 2)
+      this.archivoCargado();
+    });
+  }
+
+
+  archivoCargado(){
+    Swal.fire({ position: 'center',
+                icon: 'success',
+                title: 'Archivo Cargado Exitosamente',
+                showConfirmButton: false,
+                timer: 1500
+              })
+  }
+  
+  registerAlert(){  
+    Swal.fire(  
+      'Registro de Tramite Exitoso!',
+      'Haga click para continuar',
+      'success',
+    ).then((result) => {
+      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+    });  
+  }
+
+  failSubsanar(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Registro Fallido!'
+    })
+  }  
+}

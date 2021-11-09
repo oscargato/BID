@@ -24,7 +24,6 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
   public registroPublico:string;
   public certificacion:string;
   public planos:string;
-
   public archivoRegistroPublico:string;
   public tramiteIdRegistroPublico:number;
   public archivoIdoneo:string;
@@ -360,16 +359,13 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
         }
         ]
     }
-    //console.log('DATA ',  data)
+    
 
     this.fRecepcionPlanosService.newRecepcionFisicaPlanos(data).subscribe(resp=>{
-      //console.log('Respuesta A', resp)
-      if(resp.codigo === 0){
-        this.register();
-      }
-      else{
-        this.fail()
-      }
+      if(resp.codigo === 0)
+      { this.register();  }
+      else
+      { this.fail() }
     })
 
   }

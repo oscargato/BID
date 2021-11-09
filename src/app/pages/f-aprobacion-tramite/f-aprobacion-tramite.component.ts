@@ -15,8 +15,6 @@ import { saveAs } from 'file-saver';
 })
 
 export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDestroy {
-
-
   @ViewChild('wizard', { static: true }) el: ElementRef;
 
   submitted = false;
@@ -29,133 +27,49 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   public tramiteIdIdoneo:number;
   public archivoPlanos:string;
   public tramiteIdPlanos:number;
-  public adjuntos: Array<any>
+  public adjuntos: Array<any>;
+  public tramiteIdInformeInspeccion:number;
+  public archivoInformeInspeccion:string;
+  public tramiteIdComprobante:number;
+  public archivoComprobante:string;  
+
 
   constructor(private fAprobacionTramiteService:FAprobacionTramiteService, 
               private router:Router, 
               private formBuilder:FormBuilder,
-              private activatedRoute:ActivatedRoute) {
-                this.adjuntos = [];
-              }
+              private activatedRoute:ActivatedRoute)
+              { this.adjuntos = []; }
+
 
   ngOnInit() {
-
     this.formulario = this.formBuilder.group({
-  		nombre:['', Validators.compose([
-                  Validators.required
-        ]),
-      ],
-
-  		descripcion:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		provincia:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		distrito:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		corregimiento:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		tipoPropiedad:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		codigoUbicacion:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		finca:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		tomo:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		folio:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		constructor:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		propietarioTerreno:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		valorObra:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		nombreProfesionalIdoneo:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		numeroIdoneidad:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		nombreProfesionalResidente:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		registroPublico:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		certificacionIdoneo:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		planos:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-      
-
-  		fechapago:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		monto:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-
-  		observaciones:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
+  		nombre:['', Validators.compose([Validators.required]),],
+  		descripcion:['', Validators.compose([Validators.required,]),],
+  		provincia:['', Validators.compose([Validators.required,]),],
+  		distrito:['', Validators.compose([Validators.required,]),],
+  		corregimiento:['', Validators.compose([Validators.required,]),],
+  		tipoPropiedad:['', Validators.compose([Validators.required,]),],
+  		codigoUbicacion:['', Validators.compose([Validators.required,]),],
+  		finca:['', Validators.compose([Validators.required,]),],
+  		tomo:['', Validators.compose([Validators.required,]),],
+  		folio:['', Validators.compose([Validators.required,]),],
+  		constructor:['', Validators.compose([Validators.required,]),],
+  		propietarioTerreno:['', Validators.compose([Validators.required,]),],
+  		valorObra:['', Validators.compose([Validators.required,]),],
+  		nombreProfesionalIdoneo:['', Validators.compose([Validators.required,]),],
+  		numeroIdoneidad:['', Validators.compose([Validators.required,]),],
+  		nombreProfesionalResidente:['', Validators.compose([Validators.required,]),],
+  		registroPublico:['', Validators.compose([Validators.required,]),],
+  		certificacionIdoneo:['', Validators.compose([Validators.required,]),],
+  		planos:['', Validators.compose([Validators.required,]),],
+  		fechapago:['', Validators.compose([Validators.required,]),],
+  		monto:['', Validators.compose([Validators.required,]),],
+  		observaciones:['', Validators.compose([Validators.required,]),],
     });
 
+
     this.fAprobacionTramiteService.getRevision(this.activatedRoute.snapshot.params.tramiteId).subscribe(resp =>{
-      console.log('Respuesta',resp);
+        console.log('Respuesta',resp);
         this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
         this.formulario.controls['descripcion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
         this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.nomProvincia);
@@ -172,27 +86,34 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
         this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
         this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
+        
         this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
-        this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;
+        this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;        
         this.archivoIdoneo = resp.lstAdjuntos[1].urlAdjunto;
-        this.tramiteIdIdoneo = resp.lstAdjuntos[1].solicitanteTramiteId.solicitanteTramiteId;
+        this.tramiteIdIdoneo = resp.lstAdjuntos[1].solicitanteTramiteId.solicitanteTramiteId;        
         this.archivoPlanos = resp.lstAdjuntos[2].urlAdjunto;
         this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
 
+        /*
+        InformeInspeccion
+        this.tramiteIdInformeInspeccion =
+        this.archivoInformeInspeccion =
+        this.tramiteIdComprobante =
+        this.archivoComprobante =
+        */
+
+
+        
         let i = 0;
         resp.lstAdjuntos.forEach(element => {
           this.adjuntos[i] = element
           i++;
         });
-    
-    })
 
+    })
   }
 
-  
   fileDownloadRegistro(){
-    console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
-    console.log('Nombre Archivo',this.archivoRegistroPublico);
     this.fAprobacionTramiteService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
       saveAs(resp,this.archivoRegistroPublico),
       error => console.error(error)
@@ -214,22 +135,20 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   }
 
   fileDownloadInformeInspeccion(){
-    console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
-    console.log('Nombre Archivo',this.archivoRegistroPublico);
-    this.fAprobacionTramiteService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
-      saveAs(resp,this.archivoRegistroPublico),
+    this.fAprobacionTramiteService.getDownloadFile(this.tramiteIdInformeInspeccion,this.archivoInformeInspeccion).subscribe(resp=>{
+      saveAs(resp,this.archivoInformeInspeccion),
       error => console.error(error)
     });
   }
 
   fileDownloadComprobante(){
-    console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
-    console.log('Nombre Archivo',this.archivoRegistroPublico);
-    this.fAprobacionTramiteService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
-      saveAs(resp,this.archivoRegistroPublico),
+    this.fAprobacionTramiteService.getDownloadFile(this.tramiteIdComprobante,this.archivoComprobante).subscribe(resp=>{
+      saveAs(resp,this.archivoComprobante),
       error => console.error(error)
     });
   }
+
+
 
 
   newAprobacion(){
@@ -237,18 +156,16 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   
     this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
       console.log(resp)
-      if(resp.codigo === 0){
-        this.succes();
-      }
-      else{
-        this.fail()
-      }
+      if(resp.codigo === 0)
+      { this.succes(); }
+      else
+      { this.fail() }
     })
    }
 
   succes(){  
     Swal.fire(  
-      'Subsanacion de Tramite Exitosa!',
+      'Aprobacion de Tramite Exitosa!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -256,21 +173,13 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
     });  
   }
 
-
   fail(){
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Subsanacion Fallida!'
+      text: 'Aprobacion Fallida!'
     })
   }
-
-
-
-
-
-
-  onAprobacion(){}
 
   ngAfterViewInit(): void {
     this.wizard = new KTWizard(this.el.nativeElement, {

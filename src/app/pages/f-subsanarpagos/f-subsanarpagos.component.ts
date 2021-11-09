@@ -22,38 +22,38 @@ export class FSubsanarpagosComponent implements OnInit {
               private formBuilder:FormBuilder, 
               private activatedRoute:ActivatedRoute){}
 
-    ngOnInit() {
-
-    this.formulario = this.formBuilder.group({
-  		montoTotal:['', Validators.compose([Validators.required,]),],  
-  		numeroRecibo:['', Validators.compose([Validators.required,]),],
-      checkboxNumeroRecibo:[false, Validators.compose([Validators.required,]),], 
-  		fechaPago:['', Validators.compose([Validators.required,]),],
-      checkboxFechaPago:[false, Validators.compose([Validators.required]),], 
-  		montoPago:['', Validators.compose([Validators.required,]),],
-      checkboxMontoPago:[false, Validators.compose([Validators.required]),], 
-  		bancoPago:['', Validators.compose([Validators.required,]),],
-      checkboxBancoPago:[false, Validators.compose([Validators.required]),], 
-      comprobantePago:['', Validators.compose([Validators.required]),],
-      checkboxComprobantePago:[false, Validators.compose([Validators.required]),],
-    });
+    ngOnInit(){
+      this.formulario = this.formBuilder.group({
+        montoTotal:['', Validators.compose([Validators.required,]),],  
+        numeroRecibo:['', Validators.compose([Validators.required,]),],
+        checkboxNumeroRecibo:[false, Validators.compose([Validators.required,]),], 
+        fechaPago:['', Validators.compose([Validators.required,]),],
+        checkboxFechaPago:[false, Validators.compose([Validators.required]),], 
+        montoPago:['', Validators.compose([Validators.required,]),],
+        checkboxMontoPago:[false, Validators.compose([Validators.required]),], 
+        bancoPago:['', Validators.compose([Validators.required,]),],
+        checkboxBancoPago:[false, Validators.compose([Validators.required]),], 
+        comprobantePago:['', Validators.compose([Validators.required]),],
+        checkboxComprobantePago:[false, Validators.compose([Validators.required]),],
+      });
     
-    this.fSubsanarpagosService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud ).subscribe(resp =>{
+    this.fSubsanarpagosService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
       console.log('Respuesta',resp);
 
-      /* this.formulario.controls['montoTotal'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+      /* 
+      this.formulario.controls['montoTotal'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['numeroRecibo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['fechaPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['montoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['bancoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto); */
+      this.formulario.controls['bancoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto); 
+      this.tramiteIdRegistroPublico = 
+      this.archivoRegistroPublico =
+      */
     })
-   
   }
 
 
   fileDownloadComprobante(){
-    console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
-    console.log('Nombre Archivo',this.archivoRegistroPublico);
     this.fSubsanarpagosService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
       saveAs(resp,this.archivoRegistroPublico),
       error => console.error(error)
@@ -62,21 +62,15 @@ export class FSubsanarpagosComponent implements OnInit {
 
 
   newSubsanacion(){
-
     const data = {}
-  
+
     this.fSubsanarpagosService.newSubsanacion(data).subscribe(resp=>{
-  
-      if(resp.codigo === 0){
-        this.registerAlert();
-      }
-      else{
-        this.failSubsanar()
-      }
+      if(resp.codigo === 0)
+      { this.registerAlert(); }
+      else
+      { this.failSubsanar() }
     })
    }
-  
-  
   
   
     registerAlert(){  

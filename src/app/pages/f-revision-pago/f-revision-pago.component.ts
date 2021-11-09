@@ -6,19 +6,19 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { saveAs } from 'file-saver';
 
-
 @Component({
   selector: 'app-f-revision-pago',
   templateUrl: './f-revision-pago.component.html',
   styleUrls: ['./f-revision-pago.component.scss']
 })
 
-
 export class FRevisionPagoComponent implements OnInit {
 
   public formulario:FormGroup;
   public archivoRegistroPublico:string;
   public tramiteIdRegistroPublico:number;
+  public tramiteIDComprobante:number;
+  public archivoComprobante:string;
 
 
   constructor(private fRevisionPagoService:FRevisionPagoService, 
@@ -34,65 +34,18 @@ export class FRevisionPagoComponent implements OnInit {
 
   iniciarFormulario(){
     this.formulario = this.formBuilder.group({
-  		nombre:['', Validators.compose([
-                  Validators.required
-                ]),
-              ],
-
-      montototal:['', Validators.compose([
-                      Validators.required
-                    ]),
-                 ],              
-
-      numRecibo:['', Validators.compose([
-                     Validators.required
-                    ]),  
-                  ],
-
-      checkboxNumRecibo:[false, Validators.compose([
-                                Validators.required
-                          ]),
-                        ],                  
-
-      fechaPago:['', Validators.compose([
-                     Validators.required
-                  ]),
-                ],
-
-      checkboxFechaPago:['', Validators.compose([
-                             Validators.required
-                          ]),
-                        ],                
-                       
-      montoPago:['', Validators.compose([
-                      Validators.required
-                    ]),    
-                 ],
-
-      checkboxMontoPago:['', Validators.compose([
-                      Validators.required
-                   ]),    
-                 ],                 
-                
-      nombreEntidad:['', Validators.compose([
-                         Validators.required
-                      ]),
-                    ],
-
-      checkboxNombreEntidad:['', Validators.compose([
-                                 Validators.required
-                              ]),
-                            ],
-
-      comprobantePago:['', Validators.compose([
-                         Validators.required
-                      ]),
-                    ],
-                    
-      checkboxComprobantePago:['', Validators.compose([
-                                   Validators.required
-                                ]),
-                              ],
+  		nombre:['', Validators.compose([Validators.required]),],
+      montototal:['', Validators.compose([Validators.required]),],              
+      numRecibo:['', Validators.compose([Validators.required]),],
+      checkboxNumRecibo:[false, Validators.compose([Validators.required]),],                  
+      fechaPago:['', Validators.compose([Validators.required]),],
+      checkboxFechaPago:[false, Validators.compose([Validators.required]),],                                       
+      montoPago:['', Validators.compose([Validators.required]),],
+      checkboxMontoPago:[false, Validators.compose([Validators.required]),],                 
+      nombreEntidad:['', Validators.compose([Validators.required]),],
+      checkboxNombreEntidad:[false, Validators.compose([Validators.required]),],
+      comprobantePago:['', Validators.compose([Validators.required]),],
+      checkboxComprobantePago:[false, Validators.compose([Validators.required]),],
     });
   }
 
@@ -101,40 +54,38 @@ export class FRevisionPagoComponent implements OnInit {
     this.fRevisionPagoService.getRevision(this.activatedRoute.snapshot.params.tramiteId).subscribe(resp =>{
       console.log('Respuesta',resp);
       this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+      
+      /*
+      this.tramiteIDComprobante =
+      this.archivoComprobante =
+      */
     })
   }
 
 
  newRevisonPago(){
-  const data = {
-      
-  
-  }
+  const data = {}
 
   this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
     console.log(resp)
-    if(resp.codigo === 0){
-      this.registerAlert();
-    }
-    else{
-      this.failSubsanar()
-    }
+    if(resp.codigo === 0)
+    { this.registerAlert(); }
+    else
+    { this.failSubsanar(); }
   })
  }
 
 
- fileDownloadComprobante(){
-  console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
-  console.log('Nombre Archivo',this.archivoRegistroPublico);
-  this.fRevisionPagoService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
-    saveAs(resp,this.archivoRegistroPublico),
-    error => console.error(error)
-  });
-}
+  fileDownloadComprobante(){
+    this.fRevisionPagoService.getDownloadFile(this.tramiteIDComprobante,this.archivoComprobante).subscribe(resp=>{
+      saveAs(resp,this.archivoComprobante),
+      error => console.error(error)
+    });
+  }
 
   registerAlert(){  
     Swal.fire(  
-      'Subsanacion de Tramite Exitosa!',
+      'Revision de Pago Exitosa!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -142,12 +93,11 @@ export class FRevisionPagoComponent implements OnInit {
     });  
   }
 
-
   failSubsanar(){
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Subsanacion Fallida!'
+      text: 'Revision Fallida!'
     })
   }
 }
