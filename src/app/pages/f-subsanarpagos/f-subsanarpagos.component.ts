@@ -1,17 +1,15 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FSubsanarpagosService } from './f-subsanarpagos.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'app-f-subsanarpagos',
   templateUrl: './f-subsanarpagos.component.html',
   styleUrls: ['./f-subsanarpagos.component.scss']
 })
-
 
 export class FSubsanarpagosComponent implements OnInit {
 
@@ -27,59 +25,17 @@ export class FSubsanarpagosComponent implements OnInit {
     ngOnInit() {
 
     this.formulario = this.formBuilder.group({
-  		montoTotal:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],  
-
-  		numeroRecibo:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-      checkboxNumeroRecibo:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
-
-  		fechaPago:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-      checkboxFechaPago:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
-
-
-  		montoPago:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-      checkboxMontoPago:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
-
-  		bancoPago:['', Validators.compose([
-          Validators.required,
-        ]),
-      ],
-      checkboxBancoPago:[false, Validators.compose([
-        Validators.required
-        ]),
-      ], 
-
-      comprobantePago:['', Validators.compose([
-        Validators.required
-       ]),
-   ],
-
-      checkboxComprobantePago:[false, 
-          Validators.compose([
-                Validators.required
-             ]),
-           ],       
-
+  		montoTotal:['', Validators.compose([Validators.required,]),],  
+  		numeroRecibo:['', Validators.compose([Validators.required,]),],
+      checkboxNumeroRecibo:[false, Validators.compose([Validators.required,]),], 
+  		fechaPago:['', Validators.compose([Validators.required,]),],
+      checkboxFechaPago:[false, Validators.compose([Validators.required]),], 
+  		montoPago:['', Validators.compose([Validators.required,]),],
+      checkboxMontoPago:[false, Validators.compose([Validators.required]),], 
+  		bancoPago:['', Validators.compose([Validators.required,]),],
+      checkboxBancoPago:[false, Validators.compose([Validators.required]),], 
+      comprobantePago:['', Validators.compose([Validators.required]),],
+      checkboxComprobantePago:[false, Validators.compose([Validators.required]),],
     });
     
     this.fSubsanarpagosService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud ).subscribe(resp =>{

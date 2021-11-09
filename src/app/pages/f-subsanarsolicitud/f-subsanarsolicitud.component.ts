@@ -89,7 +89,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   public tipoP:string;
   public solicitante:any;
   public tipoSubsanacion:number; 
-
+  public solicitanteId:number;
 
   constructor(private fSubsanarsolicitudService:FSubsanarsolicitudService, 
               private router:Router, 
@@ -161,6 +161,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.solicitanteTramiteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteTramiteId
     this.solicitante = resp.solicitante;
     this.tipoSubsanacion = resp.tipoSubsanacion;
+    this.solicitanteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteId.solicitanteId
 
     this.subsanarNombreProyecto = resp.t01_Rev_PermisoConstruccionMun.nombreProyecto;
     this.subsanarDescripcionProyecto = resp.t01_Rev_PermisoConstruccionMun.descripcionProyecto;
@@ -178,7 +179,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.subsanarNombreProfesionalIdoneo = resp.t01_Rev_PermisoConstruccionMun.nombreProfesionalIdoneo;
     this.subsanarnumeroIdoneidad = resp.t01_Rev_PermisoConstruccionMun.numIdoneidad;
     this.subsanarNombreProfesionalResidente = resp.t01_Rev_PermisoConstruccionMun.nombreProfesionalResidente;
-    this.subsanarRegistroPublico = resp.lstAdjuntos[0].rechazado;
+    this.subsanarRegistroPublico = true;//resp.lstAdjuntos[0].rechazado;
     this.subsanarCertificacionIdonea = resp.lstAdjuntos[1].rechazado;
     this.subsanarPlanos = resp.lstAdjuntos[2].rechazado;
     
@@ -286,7 +287,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
               "tipoDocumentoId": 1 
           },
           "solicitanteId": {
-              "solicitanteId": 1,//this.solicitante.solicitanteId,
+              "solicitanteId": this.solicitanteId,
           },
           "nombre": this.adjuntoRegistroPublico,
           "urlAdjunto": this.urlRegistroPublico
@@ -299,7 +300,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
               "tipoDocumentoId": 2 
           },
           "solicitanteId": {
-              "solicitanteId": 1,//this.solicitante.solicitanteId,
+              "solicitanteId": this.solicitanteId,
           },
           "nombre": this.adjuntoCertificacionIdoneo,
           "urlAdjunto": this.urlIdoneidad
@@ -312,16 +313,13 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
               "tipoDocumentoId": 5
           },
           "solicitanteId": {
-              "solicitanteId": 1,//this.solicitante.solicitanteId,
+              "solicitanteId": this.solicitanteId,
           },
           "nombre": this.adjuntoPlanos,
           "urlAdjunto": this.urlPLanos
       }]
   }
 
-  console.log(data);
-  
-    /*
     this.fSubsanarsolicitudService.newSubsanacion(data).subscribe(resp=>{
       console.log('newSubsanacion',resp)
       if(resp.codigo === 0)
@@ -329,7 +327,6 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
       else
       { this.failSubsanar() }
     })
-    */
   }
 
   getTipoPropiedad(){

@@ -18,13 +18,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent implements OnInit, OnDestroy {
 
   defaultAuth: any = {
-    
-    //email: 'oscar.mejia@silice.si',
-    //password: 'May17782404*.',
-    //email: 'siliceContribuyente1@hotmail.com',
-    //password: 'Silice2021*',
-    email:'secretariaMunicipio@gmail.com',
-    password:'Silice2021*',    
+      email: 'siliceContribuyente1@hotmail.com',
+    //email: 'siliceContribuyente2@hotmail.com',
+    //email: 'siliceContribuyente3@hotmail.com',
+    //email: 'siliceContribuyente4@hotmail.com',
+    //email: 'secretariaMunicipio@gmail.com',
+    //email: 'arquitectoMunicipio@gmail.com',
+    //email: 'inspectorMunicio@gmail.com',
+    //email: '',
+    password:'Silice2021*',
   };
 
   loginForm: FormGroup;

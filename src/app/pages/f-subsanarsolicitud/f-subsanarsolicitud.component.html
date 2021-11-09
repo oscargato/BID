@@ -271,6 +271,7 @@
                   <select formControlName="tipoPropiedad"
                             name="tipoPropiedad"
                             class="form-control"
+                            [disabled]="subsanarTipoPropiedad"
                             [ngStyle]="subsanarTipoPropiedad && (!formulario.controls['tipoPropiedad'].touched || !formulario.controls['tipoPropiedad'].dirty || !formulario.controls['tipoPropiedad'].valid) && {'border-color': '#FF0000'}"
                             [(ngModel)]="tipoProp"
                             (change)='getTipoPropiedad()'>
