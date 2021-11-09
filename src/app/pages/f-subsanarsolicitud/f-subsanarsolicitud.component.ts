@@ -87,6 +87,8 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   public distrito:string;
   public corregimiento:string;
   public tipoP:string;
+  public solicitante:any;
+  public tipoSubsanacion:number; 
 
 
   constructor(private fSubsanarsolicitudService:FSubsanarsolicitudService, 
@@ -96,9 +98,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
               { this.adjuntos = []; }
 
   ngOnInit(){
-
     this.formulario = this.formBuilder.group({
-      
   		nombreProyecto:['', Validators.compose([Validators.required,]),],  
   		descripcionProyecto:['', Validators.compose([Validators.required,]),],  
   		provincia:['', Validators.compose([Validators.required,]),],  
@@ -159,6 +159,8 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.revisionNegada = resp.t01_Rev_PermisoConstruccionMun.revisionNegada;
     this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId
     this.solicitanteTramiteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteTramiteId
+    this.solicitante = resp.solicitante;
+    this.tipoSubsanacion = resp.tipoSubsanacion;
 
     this.subsanarNombreProyecto = resp.t01_Rev_PermisoConstruccionMun.nombreProyecto;
     this.subsanarDescripcionProyecto = resp.t01_Rev_PermisoConstruccionMun.descripcionProyecto;
@@ -207,10 +209,118 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
 
   newSubsanacion(){
-    const hoy = new Date();
-    let incorrecto:boolean;
-    const data = {}
-    
+    const data = 
+    { "tipoSubsanacion": this.tipoSubsanacion,
+      "revisionId":this.revisionId,
+      "t01_Sol_PermisoConstruccionMun":{    
+          "solicitanteTramiteId": { 
+              "solicitanteTramiteId":this.solicitanteTramiteId,
+          },
+          "nombreProyecto":this.formulario.controls['nombreProyecto'].value,
+          "descripcionProyecto": this.formulario.controls['descripcionProyecto'].value,
+          "codUbicacion": this.formulario.controls['codigoUbicacion'].value,
+          "finca": this.formulario.controls['finca'].value,
+          "tomo": this.formulario.controls['tomo'].value,
+          "folio": this.formulario.controls['folio'].value,
+          "nombreResp": this.formulario.controls['constructor'].value,
+          "nombrePropietarioTerreno": this.formulario.controls['propietarioTerreno'].value,
+          "nombreProfesionalIdoneo": this.formulario.controls['nombreProfesionalIdoneo'].value,
+          "numIdoneidad": this.formulario.controls['numeroIdoneidad'].value,
+          "nombreProfesionalResidente": this.formulario.controls['nombreProfesionalResidente'].value,
+          "valorAproxObra": this.formulario.controls['valorObra'].value,
+          "tipoPropiedadId": {
+              "descripcion": this.tipoPropiedad[this.tipoProp].nombre,
+              "tipoPropiedadId": this.tipoPropiedad[this.tipoProp].id,
+          },
+          "provinciaProyectoId":{
+             "provinciaId": this.provincias[this.indexProv].provinciaId,
+              "regionId": {
+                  "regionId": this.provincias[this.indexProv].regionId.regionId,
+                  "codRegion": this.provincias[this.indexProv].regionId.codRegion,
+                  "nomRegion": this.provincias[this.indexProv].regionId.nomRegion
+              },
+              "codProvincia": this.provincias[this.indexProv].codProvincia,
+              "nomProvincia": this.provincias[this.indexProv].nomProvincia,
+          },
+          "distritoProyectoId":{
+              "distritoId": this.distritos[this.indexDist].distritoId,
+              "provinciaId": {
+                  "provinciaId": this.distritos[this.indexDist].provinciaId.provinciaId,
+                  "regionId": {
+                      "regionId": this.distritos[this.indexDist].provinciaId.regionId.regionId,
+                      "codRegion": this.distritos[this.indexDist].provinciaId.regionId.codRegion,
+                      "nomRegion": this.distritos[this.indexDist].provinciaId.regionId.nomRegion,
+                  },
+                  "codProvincia": this.distritos[this.indexDist].provinciaId.codProvincia,
+                  "nomProvincia": this.distritos[this.indexDist].provinciaId.nomProvincia,
+              },
+              "codDistrito": this.distritos[this.indexDist].codDistrito,
+              "nomDistrito": this.distritos[this.indexDist].nomDistrito,
+          },
+          "corregimientoProyectoId":{
+              "corregimientoId": this.corregimientos[this.indexCorr].corregimientoId,
+              "distritoId": {
+                  "distritoId": this.corregimientos[this.indexCorr].distritoId.distritoId,
+                  "provinciaId": {
+                      "provinciaId": this.corregimientos[this.indexCorr].distritoId.provinciaId.provinciaId,
+                      "regionId": {
+                          "regionId": this.corregimientos[this.indexCorr].distritoId.provinciaId.regionId.regionId,
+                          "codRegion": this.corregimientos[this.indexCorr].distritoId.provinciaId.regionId.codRegion,
+                          "nomRegion": this.corregimientos[this.indexCorr].distritoId.provinciaId.regionId.nomRegion,
+                      },
+                      "codProvincia": this.corregimientos[this.indexCorr].distritoId.provinciaId.codProvincia,
+                      "nomProvincia": this.corregimientos[this.indexCorr].distritoId.provinciaId.nomProvincia,
+                  },
+                  "codDistrito": this.corregimientos[this.indexCorr].distritoId.codDistrito,
+                  "nomDistrito": this.corregimientos[this.indexCorr].distritoId.nomDistrito,
+              },
+              "codCorregimiento": this.corregimientos[this.indexCorr].codCorregimiento,
+              "nomCorregimiento": this.corregimientos[this.indexCorr].nomCorregimiento,
+          }
+      },
+      "lstAdjuntos": [{
+          "solicitanteTramiteId": { 
+              "solicitanteTramiteId": this.solicitanteTramiteId,
+          },
+          "tipoDocumentoId": { 
+              "tipoDocumentoId": 1 
+          },
+          "solicitanteId": {
+              "solicitanteId": 1,//this.solicitante.solicitanteId,
+          },
+          "nombre": this.adjuntoRegistroPublico,
+          "urlAdjunto": this.urlRegistroPublico
+      },
+      {
+          "solicitanteTramiteId": { 
+              "solicitanteTramiteId": this.solicitanteTramiteId
+          },
+          "tipoDocumentoId": { 
+              "tipoDocumentoId": 2 
+          },
+          "solicitanteId": {
+              "solicitanteId": 1,//this.solicitante.solicitanteId,
+          },
+          "nombre": this.adjuntoCertificacionIdoneo,
+          "urlAdjunto": this.urlIdoneidad
+      },
+      {
+          "solicitanteTramiteId": { 
+              "solicitanteTramiteId": this.solicitanteTramiteId
+          },
+          "tipoDocumentoId": { 
+              "tipoDocumentoId": 5
+          },
+          "solicitanteId": {
+              "solicitanteId": 1,//this.solicitante.solicitanteId,
+          },
+          "nombre": this.adjuntoPlanos,
+          "urlAdjunto": this.urlPLanos
+      }]
+  }
+
+  console.log(data);
+  
     /*
     this.fSubsanarsolicitudService.newSubsanacion(data).subscribe(resp=>{
       console.log('newSubsanacion',resp)
@@ -222,7 +332,10 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     */
   }
 
-  getTipoPropiedad(){}
+  getTipoPropiedad(){
+    this.tipoP = this.tipoPropiedad[this.tipoProp].nombre;
+    console.log(this.tipoProp);
+  }
 
   getCarga(idCorregimiento:number){
     this.corregimiento = this.corregimientos[idCorregimiento].nomCorregimiento
@@ -262,7 +375,6 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     const formData = new FormData();
     formData.append('file', this.uploadRegistroPublico);
     this.fSubsanarsolicitudService.uploadArchivo(formData,this.solicitanteTramiteId).subscribe((resp) => { 
-      console.log('D',resp);
       this.urlRegistroPublico = resp.name;
       this.loadRegistro = true;
       let adjunto = this.formulario.controls['registroPublico'].value
@@ -272,13 +384,11 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     });
   }
   
-
   fileChangeIdoneo(element){
     this.uploadIdoneidad = element.target.files[0];
     const formData = new FormData();
     formData.append('file', this.uploadIdoneidad);
     this.fSubsanarsolicitudService.uploadArchivo(formData,this.solicitanteTramiteId).subscribe((resp) => {
-      console.log('D',resp);
       this.urlIdoneidad = resp.name;
       this.loadIdoneidad = true;
       let adjunto = this.formulario.controls['certificacionIdoneo'].value
@@ -292,7 +402,6 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     const formData = new FormData();
     formData.append('file', this.uploadPLanos);
     this.fSubsanarsolicitudService.uploadArchivo(formData,this.solicitanteTramiteId).subscribe((resp) => {      
-      console.log('D',resp);
       this.urlPLanos = resp.name;
       this.loadPLanos = true;
       let adjunto = this.formulario.controls['planos'].value
@@ -302,10 +411,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   }
 
   fileDownloadRegistro(){
-    console.log(this.tramiteIdRegistroPublico)
-    console.log(this.archivoRegistroPublico)
     this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
-      console.log('DownloadRegistro',resp);
       saveAs(resp,this.archivoRegistroPublico),
       error => console.error(error)
     });
@@ -326,32 +432,38 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   }  
 
   registerAlert()
-  { Swal.fire(  
-      'Subsanacion de Solicitud Exitosa!',
-      'Haga click para continuar',
-      'success',
+  { Swal.fire('Subsanacion de Solicitud Exitosa!',
+              'Haga click para continuar',
+              'success',
     ).then((result) => {
       this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
     });  
   }
 
   failSubsanar()
-  { Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'Subsanacion Fallida!'
+  { Swal.fire({ icon: 'error',
+                title: 'Error',
+                text: 'Subsanacion Fallida!'
     })
   }
 
-
-  archivoCargado(){
-    Swal.fire({ position: 'center',
+  archivoCargado()
+  { Swal.fire({ position: 'center',
                 icon: 'success',
                 title: 'Archivo Cargado Exitosamente',
                 showConfirmButton: false,
                 timer: 1500
               })
   }
+
+
+
+
+
+
+
+
+
 
 
   ngAfterViewInit(): void {

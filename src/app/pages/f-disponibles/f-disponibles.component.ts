@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import  KTWizard  from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { DisponiblesService } from './disponibles.service';
