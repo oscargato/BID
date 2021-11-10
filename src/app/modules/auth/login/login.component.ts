@@ -18,11 +18,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent implements OnInit, OnDestroy {
 
   defaultAuth: any = {
-      email: 'siliceContribuyente1@hotmail.com',
+    //email: 'siliceContribuyente1@hotmail.com',
     //email: 'siliceContribuyente2@hotmail.com',
     //email: 'siliceContribuyente3@hotmail.com',
     //email: 'siliceContribuyente4@hotmail.com',
-    //email: 'secretariaMunicipio@gmail.com',
+    email: 'secretariaMunicipio@gmail.com',
     //email: 'arquitectoMunicipio@gmail.com',
     //email: 'inspectorMunicio@gmail.com',
     //email: '',
@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             else
             { if(us.objeto.rol === 'REV')
               { localStorage.setItem("id", us.objeto.revisor.tipoRevisorId.tipoRevisorId);
-                this.router.navigate(['/tramites/tramites-pendientes/tramites-pendientes']); }     
+                this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']); }     
             }
           }else if(user.codigo === 1)
                 { 

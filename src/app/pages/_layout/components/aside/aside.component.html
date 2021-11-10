@@ -43,7 +43,7 @@
           </li>
           -->
           
-          <li class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active">
+          <li *ngIf="rol == 'SOL'" class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active">
             <a class="menu-link" routerLink="tramites/tramites-disponibles/tramites-disponibles" routerLinkActive="active">
               <span [inlineSVG]="'./assets/media/svg/icons/Design/Layers.svg'"
                     cacheSVG="true"
@@ -54,7 +54,7 @@
           </li>
 
 
-          <li class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active">
+          <li *ngIf="rol == 'SOL'" class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active">
             <a class="menu-link">
             <!--
               <a class="menu-link" routerLink="tramites/tramites-pendientes/tramites-pendientes" routerLinkActive="active">
@@ -68,7 +68,7 @@
           </li>
 
           
-          <li class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active">
+          <li *ngIf="rol == 'SOL'" class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active">
             <a class="menu-link">
               <!--
               <a class="menu-link" routerLink="tramites/tramites-finalizados/tramites-finalizados" routerLinkActive="active">  
@@ -82,7 +82,7 @@
           </li>
 
   
-          <li class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active">
+          <li *ngIf="rol == 'SOL'" class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active">
             <a class="menu-link" routerLink="tramites/mis-tramites/mis-tramites" routerLinkActive="active">
               <span [inlineSVG]="'./assets/media/svg/icons/Design/Interselect.svg'"
                     cacheSVG="true"
@@ -93,7 +93,7 @@
           </li>
     
 
-          <li class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active">
+          <li *ngIf="rol == 'REV'" class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active">
             <a class="menu-link" routerLink="tramites/tramites-a-revisar/tramites-a-revisar" routerLinkActive="active">
               <span [inlineSVG]="'./assets/media/svg/icons/Design/Edit.svg'"
                     cacheSVG="true"

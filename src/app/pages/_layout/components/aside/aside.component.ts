@@ -19,6 +19,8 @@ export class AsideComponent implements OnInit {
   brandClasses: string;
   asideMenuScroll = 1;
   asideSelfMinimizeToggle = false;
+  
+  public rol:string;
 
   constructor(private layout: LayoutService, private loc: Location) { }
 
@@ -40,6 +42,8 @@ export class AsideComponent implements OnInit {
     // this.asideMenuCSSClasses = `${this.asideMenuCSSClasses} ${this.asideMenuScroll === 1 ? 'scroll my-4 ps ps--active-y' : ''}`;
     // Routing
     this.location = this.loc;
+
+    this.rol = localStorage.getItem('rol')
   }
 
   

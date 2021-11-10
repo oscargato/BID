@@ -16,7 +16,6 @@ import Swal from 'sweetalert2';
 
 
 export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestroy {
-
   @ViewChild('wizard', { static: true }) el: ElementRef;
   wizard: any;
 
@@ -47,44 +46,13 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
 
   initFormulario(){
     this.formulario = this.formBuilder.group({
-  		nombre:['', Validators.compose([
-                  Validators.required
-                ]),
-              ],              
-
-      descripcion:['', Validators.compose([
-                       Validators.required, 
-                       Validators.minLength(5),
-                       Validators.maxLength(500)
-                    ]),  
-                  ],
-                       
-      provincia:['', Validators.compose([
-                     Validators.required
-                  ]),    
-                ],
-                
-      distrito:['', Validators.compose([
-                    Validators.required
-                  ]),
-               ],
-
-      corregimiento:['', Validators.compose([
-                         Validators.required
-                      ]),  
-                    ],
-                    
-      tipoPropiedad:['', Validators.compose([
-                         Validators.required
-                        ]),  
-                    ],
-
-      codigoUbicacion:['', Validators.compose([
-                           Validators.required, 
-                           Validators.minLength(5),
-                           Validators.maxLength(50)
-                          ]), 
-                      ],
+  		nombre:['', Validators.compose([Validators.required]),],              
+      descripcion:['', Validators.compose([Validators.required, Validators.minLength(5),Validators.maxLength(500)]),],               
+      provincia:['', Validators.compose([Validators.required]),],
+      distrito:['', Validators.compose([Validators.required]),],
+      corregimiento:['', Validators.compose([Validators.required]),],
+      tipoPropiedad:['', Validators.compose([Validators.required]),],
+      codigoUbicacion:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)]),],
                       
       finca:['', Validators.compose([
                  Validators.required, 
@@ -174,11 +142,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
                 ]),
              ],   
       fechaInspeccion:[],  
-
-      observaciones:['', Validators.compose([
-        Validators.required
-            ]), 
-          ],               
+      observaciones:['', Validators.compose([Validators.required]),],               
     });
 
 

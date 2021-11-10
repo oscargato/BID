@@ -19,12 +19,10 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   public registroPublico:string;
   public certificacion:string;
   public planos:string;
-
   public checkboxDocRecibido:boolean;
   public checkboxSellos:boolean;
   public fechaInspeccion:string;
   public observaciones:string;
-
   public archivoRegistroPublico:string;
   public tramiteIdRegistroPublico:number;
   public archivoIdoneo:string;
@@ -35,8 +33,6 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   public tramiteIdInformeInspeccion:number;
 
   @ViewChild('wizard', { static: true }) el: ElementRef;
-
-  submitted = false;
   wizard: any;
 
   constructor(private fRevisionDocumentosSellosService:FRevisionDocumentosSellosService, 
@@ -193,9 +189,6 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       }, 500);
     });
   }
-
-  onSubmit() 
-  { this.submitted = true;}
 
   ngOnDestroy()
   { this.wizard = undefined; }

@@ -13,10 +13,7 @@ import { saveAs } from 'file-saver';
 })
 
 export class FRevisionPagoComponent implements OnInit {
-
   public formulario:FormGroup;
-  public archivoRegistroPublico:string;
-  public tramiteIdRegistroPublico:number;
   public tramiteIDComprobante:number;
   public archivoComprobante:string;
 
@@ -63,18 +60,17 @@ export class FRevisionPagoComponent implements OnInit {
   }
 
 
- newRevisonPago(){
-  const data = {}
+  newRevisonPago(){
+    const data = {}
 
-  this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
-    console.log(resp)
-    if(resp.codigo === 0)
-    { this.registerAlert(); }
-    else
-    { this.failSubsanar(); }
-  })
- }
-
+    this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
+      console.log(resp)
+      if(resp.codigo === 0)
+      { this.registerAlert(); }
+      else
+      { this.failSubsanar(); }
+    })
+  }
 
   fileDownloadComprobante(){
     this.fRevisionPagoService.getDownloadFile(this.tramiteIDComprobante,this.archivoComprobante).subscribe(resp=>{

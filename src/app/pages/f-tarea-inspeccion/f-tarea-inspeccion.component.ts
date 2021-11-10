@@ -12,7 +12,6 @@ import Swal from 'sweetalert2';
 })
 
 export class FTareaInspeccionComponent implements OnInit {
-
   public formulario:FormGroup;
   public loadInforme: boolean;
   public uploadInforme:File;
@@ -52,15 +51,11 @@ export class FTareaInspeccionComponent implements OnInit {
       this.revisionId = resp.revisionId;
       this.solicitudId = resp.solicitudId;
       this.solicitanteId = resp.solicitanteTramite.solicitanteId.solicitanteId;
-      
     })
   }
 
 
   newRevisionInspeccion(){
-
-    const hoy = new Date();
-
 
     const data = 
     { "solicitudId": this.solicitudId,
@@ -95,7 +90,6 @@ export class FTareaInspeccionComponent implements OnInit {
     
   }
 
-
   fileChangeInforme(element){
     this.uploadInforme = element.target.files[0];
     const formData = new FormData();
@@ -107,9 +101,7 @@ export class FTareaInspeccionComponent implements OnInit {
       this.adjuntoInforme = adjunto.substring(adjunto.indexOf("h",10) + 2)
       this.archivoCargado();
     });
-
   } 
-
 
   archivoCargado(){
     Swal.fire({ 

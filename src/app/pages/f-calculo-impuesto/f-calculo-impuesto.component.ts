@@ -5,13 +5,11 @@ import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'app-f-calculo-impuesto',
   templateUrl: './f-calculo-impuesto.component.html',
   styleUrls: ['./f-calculo-impuesto.component.scss']
 })
-
 
 export class FCalculoImpuestoComponent implements OnInit {
 

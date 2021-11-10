@@ -16,8 +16,6 @@ import { saveAs } from 'file-saver';
 
 export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('wizard', { static: true }) el: ElementRef;
-
-  submitted = false;
   wizard: any;
 
   public formulario:FormGroup;
@@ -27,7 +25,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   public tramiteIdIdoneo:number;
   public archivoPlanos:string;
   public tramiteIdPlanos:number;
-  public adjuntos: Array<any>;
+  //public adjuntos: Array<any>;
   public tramiteIdInformeInspeccion:number;
   public archivoInformeInspeccion:string;
   public tramiteIdComprobante:number;
@@ -38,7 +36,8 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
               private router:Router, 
               private formBuilder:FormBuilder,
               private activatedRoute:ActivatedRoute)
-              { this.adjuntos = []; }
+              { //this.adjuntos = []; 
+              }
 
 
   ngOnInit() {
@@ -102,13 +101,14 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         this.archivoComprobante =
         */
 
-
-        
+        /*
         let i = 0;
         resp.lstAdjuntos.forEach(element => {
           this.adjuntos[i] = element
           i++;
         });
+
+        */
 
     })
   }
@@ -152,6 +152,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
 
 
   newAprobacion(){
+    
     const data = {}
   
     this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
