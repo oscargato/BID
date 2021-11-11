@@ -1,7 +1,7 @@
 <!--begin::Brand-->
 <div class="brand flex-column-auto" id="kt_brand" [ngClass]="brandClasses">
   <!--begin::Logo-->
-  <a routerLink="/" class="brand-logo">
+  <a class="brand-logo">
     <img alt="Logo" [attr.src]="headerLogo" />
   </a>
   <!--end::Logo-->
@@ -24,7 +24,7 @@
 <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
   <ng-container *ngIf="disableAsideSelfDisplay">
     <!--begin::Header Logo-->
-    <a routerLink="/">
+    <a>
       <img alt="Logo" [attr.src]="headerLogo" />
     </a>
     <!--end::Header Logo-->

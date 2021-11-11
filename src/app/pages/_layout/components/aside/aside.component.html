@@ -1,5 +1,5 @@
 <div class="brand flex-column-auto" id="kt_brand" [ngClass]="brandClasses">
-  <a routerLink="/" class="brand-logo">
+  <a class="brand-logo">
     <img alt="Logo" [attr.src]="headerLogo" />
   </a>
   
@@ -18,7 +18,7 @@
 
 <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
   <ng-container *ngIf="disableAsideSelfDisplay">
-      <a routerLink="/"><img alt="Logo" [attr.src]="headerLogo" /></a>
+      <a ><img alt="Logo" [attr.src]="headerLogo" /></a>
   </ng-container>
   
   <div  id="kt_aside_menu"
@@ -104,7 +104,7 @@
           </li>
 
           <li *ngIf="rol == 'REV'" class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active">
-            <a class="menu-link" routerLink="tramites/tramites-a-revisar/tramites-a-revisar" routerLinkActive="active">
+            <a class="menu-link" routerLink="tramites/historico-tramites/historico-tramites" routerLinkActive="active">
               <span [inlineSVG]="'./assets/media/svg/icons/Design/Interselect.svg'"
                     cacheSVG="true"
                     class="svg-icon menu-icon">

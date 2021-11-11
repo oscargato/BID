@@ -130,6 +130,10 @@ const routes: Routes = [
         component: TramitesARevisarComponent,
       },
       {
+        path: 'historico-tramites/historico-tramites',
+        component: HistoricoTramitesComponent,
+      },
+      {
         path: 'data-table/table',
         component: MaterialTableComponent,
       },
