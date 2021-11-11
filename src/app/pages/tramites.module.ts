@@ -98,7 +98,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MisTramitesComponent } from './mis-tramites/mis-tramites.component';
 import { TramitesARevisarComponent } from './tramites-a-revisar/tramites-a-revisar.component';
-
+import { HistoricoTramitesComponent } from './historico-tramites/historico-tramites.component'
 
 const routes: Routes = [
   {
@@ -243,7 +243,8 @@ const routes: Routes = [
       TramitesPendientesComponent,
       TramitesFinalizadosComponent,
       MisTramitesComponent,
-      TramitesARevisarComponent
+      TramitesARevisarComponent,
+      HistoricoTramitesComponent
   ],
 })
 export class TramitesModule {}
