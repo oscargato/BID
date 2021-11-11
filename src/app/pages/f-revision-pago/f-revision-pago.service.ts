@@ -19,8 +19,8 @@ export class FRevisionPagoService {
     return this.httpClient.post<any>(`${API_USERS_URL}/T01/newRevision`,user);
   }  
   
-  getRevision(idRevision:number):Observable<any>{
-    return this.httpClient.get<any>(`${API_USERS_URL}/T01/getRevision/${idRevision}`).pipe(map(resp => resp.objeto));
+  getRevisionPago(idRevision:number):Observable<any>{
+    return this.httpClient.get<any>(`${API_USERS_URL}/T01/getRevisionPago/${idRevision}`).pipe(map(resp => resp.objeto));
   }
 
   uploadArchivo(formData:FormData,id:number): Observable<any>{
