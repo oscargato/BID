@@ -61,7 +61,34 @@ export class FRevisionPagoComponent implements OnInit {
 
 
   newRevisonPago(){
-    const data = {}
+    const data = 
+    {
+      "solicitudId": 1, 
+      "montoPagar": true,
+      "nroRecibo": true,
+      "fechaPago": true,
+      "montoPagado": true,
+      "nombreEntidad": true,
+      "incorrecto": true,
+      "observaciones": "Esta muy correcto",
+      "revisorId": 2, 
+      "adjuntos": {
+        "adjuntoId": 1,
+        "fecha": "2021-09-09T15:13:32.947Z",
+        "fechaRevision": "2021-09-09T15:13:32.947Z",
+        "nombre": "Comprobante de Pago",
+        "rechazado": true,
+        "tipoDocumentoId": {
+          "diasVigencia": 0,
+          "nombre": "Comprobante de Pago",
+          "tipoDocumentoId":6
+        },
+        "urlAdjunto": "ComprobantePago.pdf",
+            "solicitanteId": {
+          "solicitanteId":1
+            }
+      }
+    }
 
     this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
       console.log(resp)

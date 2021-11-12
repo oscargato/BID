@@ -24,11 +24,11 @@ export class FRegistrarpagoService {
     return this.httpClient.get(`${API_FILE_URL}/fileManager/download/${idSolicitante}/${nameFile}`,{responseType: 'blob'});
   }
 
-  getSubsanacion(idSolicitud:number):Observable<any>{
-    return this.httpClient.get<any>(`${API_USERS_URL}/T01/getSubsanacion/${idSolicitud}`).pipe(map(resp => resp.objeto));
+  getRegistroPago(idSolicitud:number):Observable<any>{
+    return this.httpClient.get<any>(`${API_USERS_URL}/T01/getRegistroPago/${idSolicitud}`).pipe(map(resp => resp.objeto));
   }
 
-  newSubsanacion(data: any):Observable<any>{
-    return this.httpClient.post<any>(`${API_USERS_URL}/T01/newSubsanacion`,data);
+  newPago(data: any):Observable<any>{
+    return this.httpClient.post<any>(`${API_USERS_URL}/T01/newPago`,data);
   }  
 }

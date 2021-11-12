@@ -12,7 +12,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class FRegistrarpagoComponent implements OnInit {
-
   public formulario:FormGroup;
   public comprobantePago:string;
   public uploadComprobante:File;
@@ -20,7 +19,10 @@ export class FRegistrarpagoComponent implements OnInit {
   public urlComprobante:string;
   public loadComprobante: boolean;
   public adjuntoComprobante:string;
-
+  public solicitudId:number;
+  public tipoDocumentoId:string;
+  public solicitanteId:number;
+  
   constructor(private fRegistrarpagoService:FRegistrarpagoService, 
               private router:Router, 
               private formBuilder:FormBuilder, 
@@ -28,6 +30,7 @@ export class FRegistrarpagoComponent implements OnInit {
 
   ngOnInit(){
     this.formulario = this.formBuilder.group({
+      nombre:['', Validators.compose([Validators.required,]),],
   		montoTotal:['', Validators.compose([Validators.required,]),],  
   		numeroRecibo:['', Validators.compose([Validators.required,]),],
   		fechaPago:['', Validators.compose([Validators.required,]),],
@@ -38,18 +41,49 @@ export class FRegistrarpagoComponent implements OnInit {
 
     this.loadComprobante = false;
 
-    this.fRegistrarpagoService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
+    this.fRegistrarpagoService.getRegistroPago(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
       console.log('Respuesta',resp);
-      //this.solicitanteTramiteId = resp.solicitanteTramiteId;
+      this.formulario.controls['nombre'].setValue(resp.nmProyecto);
+      this.formulario.controls['montoTotal'].setValue(resp.montoPagar);
+      this.solicitudId = resp.solicitudId;
+      this.solicitanteTramiteId = resp.solicitanteTramiteId;
+      this.solicitanteId = resp.solicitanteId;
+      this.tipoDocumentoId = resp.lstTiposDocumentos[0].tipoDocumentoId.tipoDocumentoId;
     })
   }
 
 
-  newSubsanacion(){
+  newPago(){
+    const data = 
+    {
+      "solicitudId": this.solicitudId,
+      "pagoManual_T01_Sol":{
+          "comentarios" : "Comentario 1",
+          "numRecibo": this.formulario.controls['numeroRecibo'].value,
+          "montoPago": this.formulario.controls['montoPago'].value,
+          "fechaPago": this.formulario.controls['fechaPago'].value,
+          "nombreEntidadBancaria": this.formulario.controls['bancoPago'].value,
+      },
+      "lstAdjuntosPagos": [{
+          "solicitanteTramiteId": { 
+              "solicitanteTramiteId":this.solicitanteTramiteId,
+          },
+          "tipoDocumentoId": { 
+              "tipoDocumentoId":this.tipoDocumentoId,
+          },
+          "solicitanteId": {
+              "solicitanteId":this.solicitanteId,
+          },
+          "nombre": this.adjuntoComprobante,
+          "urlAdjunto": this.urlComprobante,
+      }
+      ]
+    }
+    
+    console.log(data)
 
-    const data = {}
-  
-    this.fRegistrarpagoService.newSubsanacion(data).subscribe(resp=>{
+    this.fRegistrarpagoService.newPago(data).subscribe(resp=>{
+      console.log(resp)
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
@@ -58,8 +92,6 @@ export class FRegistrarpagoComponent implements OnInit {
    }
   
   
-  
-
   fileChangeComprobante(element){
     this.uploadComprobante = element.target.files[0];
     const formData = new FormData();
@@ -83,6 +115,7 @@ export class FRegistrarpagoComponent implements OnInit {
               })
   }
   
+
   registerAlert(){  
     Swal.fire(  
       'Registro de Tramite Exitoso!',
@@ -92,6 +125,7 @@ export class FRegistrarpagoComponent implements OnInit {
       this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
     });  
   }
+
 
   failSubsanar(){
     Swal.fire({

@@ -23,21 +23,34 @@
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: -->
               <form [formGroup]="formulario" class="form" id="kt_form">
-        <!--begin: monto Actions -->
-        <div class="d-flex justify-content-between border-bottom py-5">
-            <div class="mr-2">
-                <label class="font-weight-bolder">Monto total</label>
-                <input type="text"
-                       class="form-control"
-                       name="montoTotal"
-                       formControlName="montoTotal"
-                       placeholder="$12,123,456.78"
-                       readonly/>
-            </div>
-        <div>
-     </div>
-    </div>
-      <!--end: monto Actions -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="font-weight-bolder">Nombre del Proyecto</label>
+                      <input type="text"
+                            class="form-control"
+                            name="nombre"
+                            formControlName="nombre"
+                            placeholder="Nombre del Proyecto"
+                            value="" 
+                            readonly/>
+                    </div> 
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="font-weight-bolder">Monto total</label>
+                      <input type="text"
+                             class="form-control"
+                             name="montoTotal"
+                             formControlName="montoTotal"
+                             placeholder="$12,123,456.78"
+                             value="" 
+                             readonly/>
+                    </div>
+                  </div>                
+                </div>
+        
         <!--begin: Form -->
         <div class="py-5" data-wizard-type="step-content">
                   <h4 class="mb-5 font-weight-bold text-dark">
@@ -51,8 +64,12 @@
                            class="form-control"
                            name="numeroRecibo"
                            formControlName="numeroRecibo"
-                           placeholder="123a"
-                           readonly/>
+                           placeholder="123a"/>
+                           <div *ngIf="formulario.controls['numeroRecibo'].invalid && (formulario.controls['numeroRecibo'].dirty || formulario.controls['numeroRecibo'].touched)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Se requiere Número de recibo / depósito</span> 
+                            </div>
+                          </div>
                   </div>
                 </div>
 
@@ -63,7 +80,12 @@
                            class="form-control"
                            name="fechaPago"
                            formControlName="fechaPago"
-                           id="Test_DatetimeLocal" readonly>
+                           id="Test_DatetimeLocal"/>
+                           <div *ngIf="formulario.controls['fechaPago'].invalid && (formulario.controls['fechaPago'].dirty || formulario.controls['fechaPago'].touched)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Se requiere la Fecha de pago</span> 
+                            </div>
+                          </div>
                   </div>
                 </div>
 
@@ -73,14 +95,16 @@
                 <div class="col-xl-6">
                   <div class="form-group">
                     <label>Monto del pago</label>
-                    <input
-                          type="text"
-                          class="form-control"
-                          name="montoPago"
-                          formControlName="montoPago"
-                          placeholder="456-123-789"
-                          readonly
-                        />
+                    <input  type="text"
+                            class="form-control"
+                            name="montoPago"
+                            formControlName="montoPago"
+                            placeholder="456-123-789"/>
+                            <div *ngIf="formulario.controls['montoPago'].invalid && (formulario.controls['montoPago'].dirty || formulario.controls['montoPago'].touched)">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Se requiere el Monto del pago</span> 
+                              </div>
+                            </div>
                   </div>
 
                 </div>
@@ -88,14 +112,16 @@
                 <div class="col-xl-6">
                   <div class="form-group">
                     <label>Nombre de la entidad o banco donde pagó</label>
-                    <input
-                    type="text"
-                    class="form-control"
-                    name="bancoPago"
-                    formControlName="bancoPago"
-                    placeholder="12354-123132"
-                    readonly
-                  />
+                    <input type="text"
+                           class="form-control"
+                           name="bancoPago"
+                           formControlName="bancoPago"
+                           placeholder="12354-123132"/>
+                           <div *ngIf="formulario.controls['bancoPago'].invalid && (formulario.controls['bancoPago'].dirty || formulario.controls['bancoPago'].touched)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Se requiere la entidad bancaria</span> 
+                            </div>
+                          </div>
                   </div>
 
                 </div>
@@ -119,6 +145,12 @@
                                 Copia del comprobante de pago. Subir el archivo en formato imagen o pdf
                               </span>
                       </div>
+
+                      <div *ngIf="formulario.controls['comprobantePago'].invalid && (formulario.controls['comprobantePago'].dirty || formulario.controls['comprobantePago'].touched)">
+                        <div class="d-flex justify-content-end" style="color:#FF0000;">
+                          <span>Se requiere el Comprobante de Pago</span> 
+                        </div>
+                      </div>
                 </div>
               </div>
           
@@ -130,12 +162,11 @@
             <div   div class="mr-2">
             </div>
         <div>
-          <button (click)="newSubsanacion()"
-            class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-            data-wizard-type="action-submit"
-            [disabled]="formulario.invalid"
-            >
-            Enviar
+          <button (click)="newPago()"
+                  class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                  data-wizard-type="action-submit"
+                  >
+                  Enviar
           </button>
     
         </div>

@@ -16,7 +16,7 @@ export class FRevisionPagoService {
   constructor(private httpClient: HttpClient){}
 
   newRevisionPago(user: any):Observable<any>{
-    return this.httpClient.post<any>(`${API_USERS_URL}/T01/newRevision`,user);
+    return this.httpClient.post<any>(`${API_USERS_URL}/T01/newRevisionPago`,user);
   }  
   
   getRevisionPago(idRevision:number):Observable<any>{
