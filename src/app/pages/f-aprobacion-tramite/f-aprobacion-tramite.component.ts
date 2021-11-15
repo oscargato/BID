@@ -29,8 +29,10 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   public tramiteIdInformeInspeccion:number;
   public archivoInformeInspeccion:string;
   public tramiteIdComprobante:number;
-  public archivoComprobante:string;  
-
+  public archivoComprobante:string;
+  public solicitudId:number;  
+  public revisionId:number;
+  public revisorId:number;
 
   constructor(private fAprobacionTramiteService:FAprobacionTramiteService, 
               private router:Router, 
@@ -109,7 +111,9 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         });
 
         */
-
+        this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
+        this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
+        this.revisorId = resp.t01_Rev_PermisoConstruccionMun.revisorId;
     })
   }
 
@@ -149,19 +153,23 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   }
 
 
-
-
   newAprobacion(){
-    
-    const data = {}
-  
-    this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
+    const data =
+    {
+      "solicitudId": this.solicitudId,
+      "revisionId": this.revisionId,
+      "revisorId": this.revisorId,
+      "comentarios":"Cierre aprobado",
+      "aprobado": true,
+    }
+    console.log(data);
+/*     this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
       console.log(resp)
       if(resp.codigo === 0)
       { this.succes(); }
       else
       { this.fail() }
-    })
+    }) */
    }
 
   succes(){  

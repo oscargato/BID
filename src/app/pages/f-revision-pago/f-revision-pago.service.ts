@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpEvent } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 const API_USERS_URL = `${environment.apiUrl}`;
@@ -27,9 +27,7 @@ export class FRevisionPagoService {
     return this.httpClient.post<any>(`${API_FILE_URL}/fileManager/upload/${id}`, formData);
   } 
 
-  //ojooooo
   getDownloadFile(idSolicitante:number, nameFile:string):Observable<Blob>{
     return this.httpClient.get(`${API_FILE_URL}/fileManager/download/${idSolicitante}/${nameFile}`,{responseType: 'blob'});
   }
-
 }

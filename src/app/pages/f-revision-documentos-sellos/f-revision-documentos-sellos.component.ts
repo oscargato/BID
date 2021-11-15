@@ -31,6 +31,9 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   public tramiteIdPlanos:number;
   public archivoInformeInspeccion:string;
   public tramiteIdInformeInspeccion:number;
+  public solicitudId:number;
+  public revisionId:number;
+  public revisorId:number;
 
   @ViewChild('wizard', { static: true }) el: ElementRef;
   wizard: any;
@@ -82,14 +85,19 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
  
-      this.formulario.controls['checkboxDocRecibido'].setValue(resp.docRecibido);
+/*       this.formulario.controls['checkboxDocRecibido'].setValue(resp.docRecibido);
       this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);
       this.formulario.controls['checkboxSellos'].setValue(resp.sellosCompletos);
       this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
+ */
 
-      this.registroPublico = resp.lstAdjuntos[0].urlAdjunto;
-      this.certificacion = resp.lstAdjuntos[1].urlAdjunto;
-      this.planos = resp.lstAdjuntos[2].urlAdjunto;
+      this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
+      this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;        
+      this.archivoIdoneo = resp.lstAdjuntos[1].urlAdjunto;
+      this.tramiteIdIdoneo = resp.lstAdjuntos[1].solicitanteTramiteId.solicitanteTramiteId;        
+      this.archivoPlanos = resp.lstAdjuntos[2].urlAdjunto;
+      this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
+ 
 
       /*
       this.tramiteIdRegistroPublico = 
@@ -100,7 +108,10 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       this.archivoPlanos = 
       this.tramiteIdInformeInspeccion =
       this.archivoInformeInspeccion =
-      */   
+      */
+      this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
+      this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
+      this.revisorId = resp.t01_Rev_PermisoConstruccionMun.revisorId; 
     })
 
   }
@@ -136,14 +147,22 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
 
 
   newRevision(){
-    const data = {}
-  
-    this.fRevisionDocumentosSellosService.newRevision(data).subscribe(resp=>{
+    const data =
+    { 
+      "solicitudId": this.solicitudId,
+      "revisionId": this.revisionId,
+      "incorrecto": false,
+      "sellosCompletos": true,
+      "revisorId":this.revisorId,
+      "observaciones": "Todos los sellos correctos"
+    }
+    console.log(data);
+/*     this.fRevisionDocumentosSellosService.newRevision(data).subscribe(resp=>{
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failSubsanar() }
-    })
+    }) */
   }
 
   registerAlert(){  
@@ -164,10 +183,6 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
     })
   }
 
-
-
-
-  
   ngAfterViewInit(): void {
     this.wizard = new KTWizard(this.el.nativeElement, {
       startStep: 1,

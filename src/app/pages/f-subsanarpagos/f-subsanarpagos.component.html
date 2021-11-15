@@ -23,23 +23,35 @@
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: -->
               <form [formGroup]="formulario" class="form" id="kt_form">
-        <!--begin: monto Actions -->
-        <div class="d-flex justify-content-between border-bottom py-2">
-            <div   div class="mr-2">
-                <label class="font-weight-bolder">Monto total</label>
-                <input
-                      type="text"
-                      class="form-control"
-                      name="montoTotal"
-                      formControlName="montoTotal"
-                      placeholder="$12,123,456.78"
-                      readonly
-                    />
-            </div>
-        <div>
-        </div>
-    </div>
-      <!--end: monto Actions -->
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="font-weight-bolder">Nombre del Proyecto</label>
+                      <input type="text"
+                            class="form-control"
+                            name="nombre"
+                            formControlName="nombre"
+                            placeholder="Nombre del Proyecto"
+                            value="" 
+                            readonly/>
+                    </div> 
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="font-weight-bolder">Monto total</label>
+                      <input type="text"
+                             class="form-control"
+                             name="montoTotal"
+                             formControlName="montoTotal"
+                             placeholder="$12,123,456.78"
+                             value="" 
+                             readonly/>
+                    </div>
+                  </div>                
+                </div>
+
         <!--begin: Form -->
         <div class="py-10" data-wizard-type="step-content">
                   <h4 class="mb-10 font-weight-bold text-dark">
