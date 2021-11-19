@@ -30,6 +30,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
   public archivoPlanos:string;
   public tramiteIdPlanos:number;
   public adjuntos: Array<any>
+  public solicitudId:number;
 
   constructor(private formBuilder:FormBuilder, 
               private activatedRoute:ActivatedRoute,
@@ -45,6 +46,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
 
 
   initFormulario(){
+    const today = new Date().toISOString();
     this.formulario = this.formBuilder.group({
   		nombre:['', Validators.compose([Validators.required]),],              
       descripcion:['', Validators.compose([Validators.required, Validators.minLength(5),Validators.maxLength(500)]),],               
@@ -52,103 +54,28 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       distrito:['', Validators.compose([Validators.required]),],
       corregimiento:['', Validators.compose([Validators.required]),],
       tipoPropiedad:['', Validators.compose([Validators.required]),],
-      codigoUbicacion:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)]),],
-                      
-      finca:['', Validators.compose([
-                 Validators.required, 
-                 Validators.minLength(5),
-                 Validators.maxLength(60)
-                ]),  
-            ],
-             
-      tomo:['', Validators.compose([
-                Validators.required, 
-                Validators.minLength(5),
-                Validators.maxLength(50)
-              ]),  
-           ],
-    
-      folio:['', Validators.compose([
-                 Validators.required, 
-                 Validators.minLength(5),
-                 Validators.maxLength(50)
-                ]),    
-            ],
-            
-      constructor:['', Validators.compose([
-                       Validators.required, 
-                       Validators.minLength(5),
-                       Validators.maxLength(120)
-                    ]),
-                  ],                       
-
-      propietarioTerreno:['', Validators.compose([
-                              Validators.required, 
-                              Validators.minLength(5),
-                              Validators.maxLength(120)
-                           ]),   
-                         ],
-
-      valorObra:['', Validators.compose([
-                     Validators.required, 
-                     Validators.minLength(2),
-                     Validators.maxLength(20)
-                    ]),
-                ], 
-
-      nombreProfesionalIdoneo:['', Validators.compose([ 
-                                   Validators.required, 
-                                   Validators.minLength(2),
-                                   Validators.maxLength(120)
-                                  ]),
-                              ], 
-
-      numeroIdoneidad:['', Validators.compose([
-                           Validators.required, 
-                           Validators.minLength(5),
-                           Validators.maxLength(120)
-                          ]),
-                      ],
-
-      nombreProfesionalResidente:['', Validators.compose([ 
-                                      Validators.required, 
-                                      Validators.minLength(2),
-                                      Validators.maxLength(120)
-                                    ]),
-                                  ],
-
-      registroPublico:['', Validators.compose([
-                           Validators.required
-                          ]),
-                      ],
-                      
-      certificacionIdoneo:['',Validators.compose([
-                              Validators.required
-                            ]), 
-                          ],
-
-      planos:['', Validators.compose([
-                  Validators.required
-               ]), 
-             ],
-                     
-      checkboxViable:[false, Validators.compose([
-                       Validators.required
-                ]),
-             ], 
-                                 
-      checkboxPlanosRecibidos:[false, Validators.compose([
-                       Validators.required
-                ]),
-             ],   
-      fechaInspeccion:[],  
+      codigoUbicacion:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)]),],                      
+      finca:['', Validators.compose([Validators.required, Validators.minLength(5),Validators.maxLength(60)]),],            
+      tomo:['', Validators.compose([Validators.required, Validators.minLength(5),Validators.maxLength(50)]),],
+      folio:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)]),],      
+      constructor:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(120)]),],                       
+      propietarioTerreno:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(120)]),],
+      valorObra:['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(20)]),], 
+      nombreProfesionalIdoneo:['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(120)]),], 
+      numeroIdoneidad:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(120)]),],
+      nombreProfesionalResidente:['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(120)]),],
+      registroPublico:['', Validators.compose([Validators.required]),],
+      certificacionIdoneo:['',Validators.compose([Validators.required]), ],
+      planos:['', Validators.compose([Validators.required]), ],
+      checkboxPlanosRecibidos:[false, Validators.compose([Validators.required]),],   
+      fechaInspeccion:[null, Validators.compose([Validators.required]),], 
+      checkboxViable:[false, Validators.compose([Validators.required]),],
       observaciones:['', Validators.compose([Validators.required]),],               
     });
 
 
     this.fRecepcionPlanosService.getRevision(this.activatedRoute.snapshot.params.idRevision ).subscribe(resp =>{
       console.log('Respuesta',resp);
-
       this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['descripcion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
       this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.nomProvincia);
@@ -166,6 +93,8 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
       
+      this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId
+
       this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
       this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;
       this.archivoIdoneo = resp.lstAdjuntos[1].urlAdjunto;
@@ -217,11 +146,12 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
   recibirPlanos(){
 
     const hoy = new Date();
+    const fecha = this.formulario.controls['fechaInspeccion'].value
 
     const data = {
       "incorrecto": false,
       "docRecibido": this.formulario.controls['checkboxPlanosRecibidos'].value,
-      "fechaInspeccion": "2021-09-09T15:13:32.947Z",
+      "fechaInspeccion":hoy.toISOString(),//Modificar
       "t01_Rev_PermisoConstruccionMun": {
           "codUbicacion": true,
           "comentarios": "string",
@@ -234,7 +164,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
           "fechaRevision": null,
           "fechaRevisionInspeccion": null,
           "fechaRevisionPlanos": null,
-          "fechaDocRecibidos": "2021-09-09T15:13:32.947Z",
+          "fechaDocRecibidos": hoy.toISOString(),
           "finca": true,
           "folio": true,
           "montoPagar": true,
@@ -266,7 +196,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
           "revisorId": null,
           "solicitudConfirmada": true,
           "solicitudId": {
-        "solicitudId": 1
+        "solicitudId": this.solicitudId,
       },
           "tipoPropiedadId": true,
           "tomo": true,
@@ -323,15 +253,15 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
         }
         ]
     }
-    
 
     this.fRecepcionPlanosService.newRecepcionFisicaPlanos(data).subscribe(resp=>{
+      console.log('Respuesta!!!',resp);
       if(resp.codigo === 0)
       { this.register();  }
       else
       { this.fail() }
-    })
-
+    })  
+    
   }
 
     register(){  

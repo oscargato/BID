@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class FCalculoImpuestoComponent implements OnInit {
 
   public formulario:FormGroup;
+  public solicitudId:number;
 
   constructor(private fCalculoImpuestoService:FCalculoImpuestoService, 
               private router:Router, 
@@ -31,6 +32,7 @@ export class FCalculoImpuestoComponent implements OnInit {
     this.fCalculoImpuestoService.getRevision(this.activatedRoute.snapshot.params.tramiteId ).subscribe(resp =>{
       console.log('Respuesta',resp);
       this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+      this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
     })
   }
 
@@ -38,11 +40,12 @@ export class FCalculoImpuestoComponent implements OnInit {
   newCalculoImpuesto() 
   {  const data = {  
       "t01_Sol_PermisoConstruccionMun": {
-        "solicitudId": 1,
+        "solicitudId": this.solicitudId,
         "montoPagar": this.formulario.controls['impuesto'].value
       }
     }
 
+    
     this.fCalculoImpuestoService.newCalculoImpuesto(data).subscribe(resp=>{
       console.log('respuesta:', resp)
       if(resp.codigo === 0)

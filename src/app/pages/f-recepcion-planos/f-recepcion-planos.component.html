@@ -455,29 +455,25 @@
 
               <!--begin: Form Wizard Step 6-->
               <div class="pb-5" data-wizard-type="step-content">
-           
-              <label class="font-weight-bold text-dark">
-                  Planos de construcción</label>
+                      <label class="font-weight-bold text-dark">
+                            Planos de construcción
+                      </label>
                       <div class="checkbox-inline border-top py-3">
                           <label class="checkbox  checkbox-danger">
                               <input type="checkbox" name="checkboxPlanosRecibidos" formControlName="checkboxPlanosRecibidos" />
                               <span></span>
                               Recibidos
                           </label>
-                  
                       </div>
+
                       <div *ngIf="formulario.controls['checkboxPlanosRecibidos'].value" class="row py-3">
-                        <div class="col-xl-4">
-                           
+                        <div class="col-xl-4">                           
                           <div class="form-group ">
                             <label>Fecha de Inspeccion</label>
-                            <input 
-                            type="datetime-local"  
-                            class="form-control"
-                            name="fechaInspeccion"
-                            formControlName="fechaInspeccion"
-                            id="Test_DatetimeLocal">
-             
+                            <input type="datetime-local"  
+                                   class="form-control"
+                                   name="fechaInspeccion"
+                                   formControlName="fechaInspeccion">
                           </div>
                         </div>
                       </div>
@@ -487,9 +483,7 @@
                       <label class="font-weight-bold text-dark">
                           ¿Trámite es viable?</label>
                       <div class="row  border-top py-3">
-                        
                           <div class="col-xl-12">
-                             
                             <div class="form-group ">
                             
                               <div class="checkbox-inline py-3">
@@ -498,24 +492,20 @@
                                     <span></span>
                                     No es viable
                                 </label>
-                        
-                            </div>
-               
+                              </div>
                             </div>
                           </div>
-      
-                        </div>
+                      </div>
              
 
                     <div class="row">
                       <div class="col-xl-12">
                         <div class="form-group">
                           <label>Observaciones</label>
-                          <textarea 
-                            class="form-control"
-                            name="observaciones"
-                            formControlName="observaciones"
-                            placeholder="Información general">
+                          <textarea class="form-control"
+                                    name="observaciones"
+                                    formControlName="observaciones"
+                                    placeholder="Información general">
                         </textarea>
                         </div>
                       </div>

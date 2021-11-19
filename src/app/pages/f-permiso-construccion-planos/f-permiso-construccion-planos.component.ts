@@ -34,6 +34,8 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
   public revisionNegada:boolean;
   public solicitudId:number;
   public adjuntos: Array<any>
+  public solicitanteTramiteId:number;
+    
 
   constructor(private fPermisoConstruccionPlanosService:FPermisoConstruccionPlanosService,
               private formBuilder:FormBuilder,
@@ -229,7 +231,7 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
 
   getRevision(){
     this.fPermisoConstruccionPlanosService.getRevision(this.activatedRoute.snapshot.params.idRevision).subscribe(resp =>{
-      
+      console.log('idRevision',this.activatedRoute.snapshot.params.idRevision);
       console.log('Respuesta A',resp);
 
       this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
@@ -262,7 +264,8 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
       this.pagoElectronico = resp.t01_Rev_PermisoConstruccionMun.pagoElectronico;
       this.pagoManual = resp.t01_Rev_PermisoConstruccionMun.pagoManual;
       this.revisionNegada = resp.t01_Rev_PermisoConstruccionMun.revisionNegada;
-      this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId
+      this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
+      this.solicitanteTramiteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteTramiteId;
 
       let i = 0;
       resp.lstAdjuntos.forEach(element => {
@@ -382,6 +385,9 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
         "fechaRevision": hoy.toISOString(),
         "nombre": this.adjuntos[0].nombre,
         "rechazado": this.formulario.controls['checkboxRegistroPublico'].value,
+        "solicitanteTramiteId": { 
+          "solicitanteTramiteId": this.solicitanteTramiteId,
+        },
         "tipoDocumentoId": {
         "diasVigencia": 0, 
         "nombre": this.adjuntos[0].nombre, 
@@ -398,6 +404,9 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
         "fechaRevision": hoy.toISOString(),
         "nombre": this.adjuntos[1].nombre,
         "rechazado": this.formulario.controls['checkboxCertificacionIdoneo'].value,
+        "solicitanteTramiteId": { 
+          "solicitanteTramiteId": this.solicitanteTramiteId,
+        },
         "tipoDocumentoId": {
         "diasVigencia": 0,
         "nombre": this.adjuntos[1].nombre,
@@ -414,6 +423,9 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
         "fechaRevision": hoy.toISOString(),
         "nombre": this.adjuntos[2].nombre,
         "rechazado": this.formulario.controls['checkboxPlanos'].value,
+        "solicitanteTramiteId": { 
+          "solicitanteTramiteId": this.solicitanteTramiteId,
+        },
         "tipoDocumentoId": {
         "diasVigencia": 0,
         "nombre": this.adjuntos[2].nombre,

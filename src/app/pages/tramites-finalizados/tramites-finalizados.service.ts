@@ -15,6 +15,6 @@ export class TramitesFinalizadosService {
   constructor(private httpClient: HttpClient) { }
 
   getTramitesFinalizados(usuarioId:number):Observable<any>{
-    return this.httpClient.get<any>(`${API_USERS_URL}/listadosController/getAllFinalizadosBySolicitanteId/${usuarioId}`).pipe(map(resp => resp.objeto));
+    return this.httpClient.get<any>(`${API_USERS_URL}/listadosController/getHistoricoTramiteSolicitante/${usuarioId}`).pipe(map(resp => resp.objeto));
   }
 }

@@ -63,13 +63,19 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   		registroPublico:['', Validators.compose([Validators.required,]),],
   		certificacionIdoneo:['', Validators.compose([Validators.required,]),],
   		planos:['', Validators.compose([Validators.required,]),],
-  		fechapago:['', Validators.compose([Validators.required,]),],
-  		monto:['', Validators.compose([Validators.required,]),],
-  		observaciones:['', Validators.compose([Validators.required,]),],
+      checkboxRecibidos:[false, Validators.compose([Validators.required,]),],
+      fechaInspeccion:['', Validators.compose([Validators.required,]),],
+  		informeInspeccion:['', Validators.compose([Validators.required,]),],
+  		completo:[false, Validators.compose([Validators.required,]),],
+      fechaPago:['', Validators.compose([Validators.required,]),],
+      montoPago:['', Validators.compose([Validators.required,]),],
+      comprobante:['', Validators.compose([Validators.required,]),],
+      observaciones:['', Validators.compose([Validators.required,]),],
     });
 
 
     this.fAprobacionTramiteService.getRevision(this.activatedRoute.snapshot.params.tramiteId).subscribe(resp =>{
+      console.log('tramiteId',this.activatedRoute.snapshot.params.tramiteId);
         console.log('Respuesta',resp);
         this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
         this.formulario.controls['descripcion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
@@ -87,6 +93,13 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
         this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
         this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
+        
+        this.formulario.controls['checkboxRecibidos'].setValue(resp.docRecibido);
+        this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);        
+        this.formulario.controls['completo'].setValue(resp.sellosCompletos);
+        this.formulario.controls['fechaPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
+        this.formulario.controls['montoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);        
+        this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
         
         this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
         this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;        
@@ -162,14 +175,14 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
       "comentarios":"Cierre aprobado",
       "aprobado": true,
     }
-    console.log(data);
-/*     this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
+    
+     this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
       console.log(resp)
       if(resp.codigo === 0)
       { this.succes(); }
       else
       { this.fail() }
-    }) */
+    })
    }
 
   succes(){  

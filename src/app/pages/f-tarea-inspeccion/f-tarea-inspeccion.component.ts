@@ -68,7 +68,7 @@ export class FTareaInspeccionComponent implements OnInit {
               "solicitanteTramiteId": this.solicitanteTramiteId,
           },
           "tipoDocumentoId": { 
-              "tipoDocumentoId": this.adjunto[0].tramiteTipoDocumentoId,
+              "tipoDocumentoId": this.adjunto[0].tipoDocumentoId.tipoDocumentoId,
           },
           "solicitanteId": {
               "solicitanteId": this.solicitanteId,
@@ -80,13 +80,13 @@ export class FTareaInspeccionComponent implements OnInit {
 
     console.log('data',data)
     
-    this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
+     this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
       console.log('Carga',resp)
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failRevision()   }
-    })
+    }) 
     
   }
 

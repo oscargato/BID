@@ -282,19 +282,13 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
   public pageSize = 10;
 
   exampleMain;
-
-
   displayedColumns7: string[] = ['id', 'tramite', 'estado','fcreacion'];
-
   dataSource7: MatTableDataSource<UserData>;
-
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
 
   @ViewChild('matPaginator7', { static: true }) paginator7: MatPaginator;
-
-
   @ViewChild('sort7', { static: true }) sort7: MatSort;
 
   ngAfterViewInit() {}

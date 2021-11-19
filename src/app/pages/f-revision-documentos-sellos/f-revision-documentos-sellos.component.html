@@ -439,57 +439,59 @@
               <div class="pb-5" data-wizard-type="step-content">
            
               <label class="font-weight-bold text-dark">
-                  Planos de construcción</label>
+                  Planos de construcción
+              </label>
                       <div class="checkbox-inline border-top py-3">
+                        <div class="form-group ">
                           <label class="checkbox  checkbox-danger">
-                              <input type="checkbox" name="checkboxDocRecibido" formControlName="checkboxDocRecibido"/>
+                              <input type="checkbox" name="checkboxRecibidos" formControlName="checkboxRecibidos"/>
                               <span></span>
                               Recibidos
                           </label>
-                  
+                        </div>
                       </div>
+
+
                       <br>
                       <label class="font-weight-bold text-dark">
                           Inspección</label>
                       <div class="row  border-top py-3">
-                        
-                          <div class="col-xl-6">
-                             
-                            <div class="form-group ">
-                              <label>Fecha</label>
-                              <input 
-                              type="datetime-local"  
-                              class="form-control"
-                              name="fechaInspeccion"
-                              formControlName="fechaInspeccion"
-                              id="Test_DatetimeLocal">
-               
-                            </div>
+                        <div class="col-xl-6">
+                          <div class="form-group ">
+                            <label>Fecha</label>
+                            <input type="datetime-local"  
+                                    class="form-control"
+                                    name="fechaInspeccion"
+                                    formControlName="fechaInspeccion"
+                                    id="Test_DatetimeLocal">
                           </div>
+                        </div>
       
+                          <!--
                           <div class="col-xl-6">
                             <div class="form-group">
                               <label>Informe de Inspección</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="iinspeccion"
-                                placeholder="Viggo Tarasov"
-                                value="" 
-                              />
-                   
+                              <input  type="text"
+                                      class="form-control"
+                                      name="iinspeccion"
+                                      placeholder="Viggo Tarasov"
+                                      value=""/>
                             </div>
                           </div>
+                          -->
       
-                        </div>
+                      </div>
             
                         <label class="font-weight-bold text-dark">
-                          Documentos y Sellos otras etidades  </label>
+                          Documentos y Sellos otras entidades  </label>
                               <div class="checkbox-inline border-top py-3">
                                   <label class="checkbox  checkbox-danger">
-                                      <input type="checkbox" checked="checked" name="checkboxSellos" formControlName="checkboxSellos"/>
-                                      <span></span>
-                                      ¿Completo?
+                                    ¿Completo?  
+                                    <input  type="checkbox" 
+                                            name="completo" 
+                                            formControlName="completo"/>
+                                     &nbsp; <span></span>
+                                     Si 
                                   </label>
                           
                               </div>
