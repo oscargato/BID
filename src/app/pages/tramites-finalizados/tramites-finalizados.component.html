@@ -1,70 +1,40 @@
-<h1>Trámites Finalizados</h1>
+<h1>Tramites Finalizados</h1>
+
 <div class="example-preview">
-    <div class="example-header">
-      <mat-form-field>
-        <input
-          matInput
-          (keyup)="applyFilter7($event.target.value)"
-          placeholder="Buscar"
-        />
-      </mat-form-field>
-    </div>
-    <div class="example-container mat-elevation-z8">
-      <mat-table #sort7="matSort" [dataSource]="dataSource7" matSort>
-        <!-- ID Column -->
-        <ng-container matColumnDef="id">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Id 
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
-        </ng-container>
-        <!-- Progress Column -->
-        <ng-container matColumnDef="tramite">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Trámites
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row"><a href="#">{{ row.tramite }}</a>  </mat-cell>
-        </ng-container>
-        <!-- Finicio Column -->
-        <ng-container matColumnDef="finicio">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Fecha de Inicio
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{ row.finicio }} </mat-cell>
-        </ng-container>
-        <!-- Ffinal Column -->
-        <ng-container matColumnDef="ffinal">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Fecha de Final
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{ row.ffinal }} </mat-cell>
-        </ng-container>
-        <!-- Estado Column -->
-        <ng-container matColumnDef="estado">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Estado
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row" [style.color]="row.color">
-            {{ row.estado }}
-          </mat-cell>
-        </ng-container>
-      <!-- Descarga Column -->
-        <ng-container matColumnDef="down">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Descarga
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row"> 
-          <a href="https://www.siberstar.com/wp-content/uploads/2020/04/jihn-wick-3-google-drive-scaled.jpg"><span class="svg-icon svg-icon-primary svg-icon-3x" [inlineSVG]="'../../../assets/media/svg/icons/Files/Cloud-download.svg'"></span> </a></mat-cell>
-      </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns7"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns7"></mat-row>
-      </mat-table>
-      <mat-paginator
-      #matPaginator7
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 20]"
-      [showFirstLastButtons]="true"
-    >
-    </mat-paginator>
-    </div>
+  <div class="example-header">
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter7($event.target.value)" placeholder="Buscar"/>
+    </mat-form-field>
   </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Clasificador</th>
+        <th scope="col">Nombre Tramite</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Fecha Inicio</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+        <tr *ngFor="let item of tramitesFinalizados | slice:desde:hasta">            
+            <td>{{ item.clasificador }}</td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.nombreEstado }}</td>
+            <td>{{ item.fechaInicio }}</td>
+            <td>
+              <button (click)="revisarTramite()" 
+                      class="btn btn-primary font-weight-bold text-uppercase px-4 py-2">
+                Revisar
+              </button>
+            </td>
+        </tr>         
+    </tbody>
+  </table>
+
+  <mat-paginator [length]="tramitesFinalizados.length" 
+                 [pageSize]="pageSize" 
+                 (page)="cambiarpagina($event)">
+  </mat-paginator>  
+</div>

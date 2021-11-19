@@ -54,6 +54,8 @@ export class FRegistrarpagoComponent implements OnInit {
 
 
   newPago(){
+    const hoy = new Date();
+
     const data = 
     {
       "solicitudId": this.solicitudId,
@@ -61,7 +63,7 @@ export class FRegistrarpagoComponent implements OnInit {
           "comentarios" : "Comentario 1",
           "numRecibo": this.formulario.controls['numeroRecibo'].value,
           "montoPago": this.formulario.controls['montoPago'].value,
-          "fechaPago": this.formulario.controls['fechaPago'].value,
+          "fechaPago": hoy.toISOString(),//this.formulario.controls['fechaPago'].value,
           "nombreEntidadBancaria": this.formulario.controls['bancoPago'].value,
       },
       "lstAdjuntosPagos": [{
@@ -89,7 +91,7 @@ export class FRegistrarpagoComponent implements OnInit {
       else
       { this.failSubsanar() }
     })
-   }
+  }
   
   
   fileChangeComprobante(element){
@@ -122,7 +124,7 @@ export class FRegistrarpagoComponent implements OnInit {
       'Haga click para continuar',
       'success',
     ).then((result) => {
-      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+      this.router.navigate(['/tramites/tramites-pendientes/tramites-pendientes']);
     });  
   }
 

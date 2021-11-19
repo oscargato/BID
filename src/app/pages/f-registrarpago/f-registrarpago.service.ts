@@ -30,5 +30,5 @@ export class FRegistrarpagoService {
 
   newPago(data: any):Observable<any>{
     return this.httpClient.post<any>(`${API_USERS_URL}/T01/newPago`,data);
-  }  
+  }   
 }

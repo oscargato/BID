@@ -1,24 +1,12 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  AfterViewInit,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { HttpClient } from '@angular/common/http';
-import { KTUtil } from '../../../assets/js/components/util';
-import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TramitesFinalizadosService } from './tramites-finalizados.service'
+import { PageEvent } from '@angular/material/paginator';
 
-//Tramites Finalizados
 const main = {
-
   htmlCode: `
 <div class="example-header">
   <mat-form-field>
@@ -167,6 +155,13 @@ export interface UserData {
   color: string;
 }
 
+interface TramitesFinalizados {
+  clasificador:string; 
+  nombre:string;
+  nombreEstado:string; 
+  fechaInicio:number;
+}
+
 /** Constants used to fill up our data base. */
 const COLORS: string[] = [
 
@@ -298,52 +293,58 @@ function createNewUser(id: number): UserData {
 })
 export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
   exampleMain;
-
-
   displayedColumns7: string[] = ['id', 'tramite', 'finicio', 'ffinal','estado','down'];
-
   dataSource7: MatTableDataSource<UserData>;
-
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
 
+  public tramitesFinalizados: Array<TramitesFinalizados>;
+  public desde:number =0;
+  public hasta:number =10;
+  public pageSize = 10;
+
   @ViewChild('matPaginator7', { static: true }) paginator7: MatPaginator;
-
-
   @ViewChild('sort7', { static: true }) sort7: MatSort;
 
   ngAfterViewInit() {}
 
-  constructor(private http: HttpClient, 
-    private router:Router, 
-    private tramitesFinalizadosService:TramitesFinalizadosService,
-    private activatedRoute:ActivatedRoute) {
-    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
+  constructor(private tramitesFinalizadosService:TramitesFinalizadosService,
+              private activatedRoute:ActivatedRoute) 
+              { const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
+                this.dataSource7 = new MatTableDataSource(users);
+                this.tramitesFinalizados = [];
+              }
 
-    // Assign the data to the data source for the table to render
-    this.dataSource7 = new MatTableDataSource(users);
-  }
-
-  ngOnInit() {
-
+  ngOnInit(){
     this.exampleMain = main;
-
-    // Example 7
     this.dataSource7.paginator = this.paginator7;
     this.dataSource7.sort = this.sort7;
 
     this.tramitesFinalizadosService.getTramitesFinalizados(this.activatedRoute.snapshot.params.usuarioId).subscribe(resp =>{
       console.log('Respuesta',resp);
 
-      /* this.formulario.controls['montoTotal'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['numeroRecibo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['fechaPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['montoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['bancoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto); */
+      let i = 0;
+      resp.forEach(element => {
+        this.tramitesFinalizados[i] = { clasificador:element.clasificador,                                        
+                                        nombre:element.nombre,
+                                        nombreEstado:element.nombreEstado,
+                                        fechaInicio:element.fechaInicio,
+                                      };
+        i++;
+      });      
     })
   }
 
+
+  revisarTramite()
+  {}
+
+
+  cambiarpagina(e:PageEvent){
+    this.desde = e.pageIndex * e.pageSize;
+    this.hasta = this.desde + e.pageSize;
+  } 
 
   applyFilter7(filterValue: string) {
     this.dataSource7.filter = filterValue.trim().toLowerCase();

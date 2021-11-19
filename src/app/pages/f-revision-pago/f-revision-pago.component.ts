@@ -17,7 +17,6 @@ export class FRevisionPagoComponent implements OnInit {
   public tramiteIDComprobante:number;
   public archivoComprobante:string;
 
-
   constructor(private fRevisionPagoService:FRevisionPagoService, 
               private router:Router,
               private formBuilder:FormBuilder,
@@ -48,14 +47,11 @@ export class FRevisionPagoComponent implements OnInit {
 
 
   getRevision(){
+
     this.fRevisionPagoService.getRevisionPago(this.activatedRoute.snapshot.params.tramiteId).subscribe(resp =>{
-      console.log('Respuesta',resp);
-      this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+      console.log('Resp',resp);
+      //this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       
-      /*
-      this.tramiteIDComprobante =
-      this.archivoComprobante =
-      */
     })
   }
 
@@ -90,13 +86,13 @@ export class FRevisionPagoComponent implements OnInit {
       }
     }
 
-    this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
+    /* this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
       console.log(resp)
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failSubsanar(); }
-    })
+    }) */
   }
 
   fileDownloadComprobante(){

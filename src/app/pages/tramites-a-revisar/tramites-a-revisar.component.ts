@@ -24,6 +24,7 @@ export interface DataRevisar {
   nombreEstado: string;
   fechaInicio: number;
   revisionId:number;
+  solicitudId:number;
   estadoTramiteId:number;
 }
 
@@ -255,6 +256,7 @@ export class TramitesARevisarComponent implements OnInit {
                                     nombreEstado:element.nombreEstado,
                                     fechaInicio:element.fechaInicio,
                                     revisionId:element.revisionId,
+                                    solicitudId:element.solicitudId,
                                     estadoTramiteId:element.estadoTramiteId,
                                   };
         i++;
@@ -274,6 +276,7 @@ export class TramitesARevisarComponent implements OnInit {
                                     nombreEstado:element.nombreEstado,
                                     fechaInicio:element.fechaInicio,
                                     revisionId:element.revisionId,
+                                    solicitudId:element.solicitudId,
                                     estadoTramiteId:element.estadoTramiteId,
                                   };
         i++;
@@ -293,6 +296,7 @@ export class TramitesARevisarComponent implements OnInit {
                                     nombreEstado:element.nombreEstado,
                                     fechaInicio:element.fechaInicio,
                                     revisionId:element.revisionId,
+                                    solicitudId:element.solicitudId,
                                     estadoTramiteId:element.estadoTramiteId,
                                   };
         i++;
@@ -301,7 +305,7 @@ export class TramitesARevisarComponent implements OnInit {
     })
   }
 
-  revisarTramite(estadoTramiteId:number, revisionId:number){
+  revisarTramite(estadoTramiteId:number, revisionId:number, solicitudId:number){
     console.log('estadoTramiteId',estadoTramiteId)
     switch (estadoTramiteId) 
     {   case 2:
@@ -339,7 +343,7 @@ export class TramitesARevisarComponent implements OnInit {
         break;
 
         case 11:
-          this.router.navigate([`/form/f-revision-pago/${revisionId}`]);     
+          this.router.navigate([`/form/f-revision-pago/${solicitudId}`]);     
         break;
 
         case 12:

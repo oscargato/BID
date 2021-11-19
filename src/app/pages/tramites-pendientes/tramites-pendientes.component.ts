@@ -3,9 +3,8 @@ import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy} f
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
-
+import { Router } from '@angular/router';
 
 export interface UserData {
   id: string;
@@ -17,9 +16,11 @@ export interface UserData {
 
 interface TramitesPendientes {
   clasificador:string; 
-  nombreTramite:string;
-  nombre:string; 
+  nombre:string;
+  nombreEstado:string; 
   fechaInicio:number;
+  solicitudId:number;
+  estadoTramiteId:number;  
 }
 
 const COLORS: string[] = [
@@ -196,7 +197,7 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {}
 
   constructor(private tramitesPendientesService:TramitesPendientesService,
-              private activatedRoute:ActivatedRoute){
+              private router:Router){
               const users = Array.from({ length: 3 }, (_, k) => createNewUser(k + 1));
               this.dataSource7 = new MatTableDataSource(users);
               this.tramitesPendientes = [];
@@ -204,25 +205,77 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(){
    
-    this.dataSource7.paginator = this.paginator7;
-    this.dataSource7.sort = this.sort7;
-
-    console.log('Bandera 1',this.activatedRoute.snapshot.params.usuarioId);
-
-    this.tramitesPendientesService.getTramitesPendientes(this.activatedRoute.snapshot.params.usuarioId).subscribe(resp =>{
+    this.tramitesPendientesService.getTramitesPendientes(Number(localStorage.getItem('id'))).subscribe(resp =>{
       console.log('Resp',resp);
 
-      /* this.formulario.controls['montoTotal'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['numeroRecibo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['fechaPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['montoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['bancoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto); 
-      */
+      let i = 0;
+      resp.forEach(element => {
+        this.tramitesPendientes[i] = { clasificador:element.clasificador,                                        
+                                       nombre:element.nombre,
+                                       nombreEstado:element.nombreEstado,
+                                       fechaInicio:element.fechaInicio,
+                                       solicitudId:element.solicitudId,
+                                       estadoTramiteId:element.estadoTramiteId,
+                                      };
+        i++;
+      });
     })
   }
 
-  revisarTramite()
-  {}
+
+  revisarTramite(estadoTramiteId:number, solicitudId:number){
+    switch (estadoTramiteId) 
+    {   case 2:
+          this.router.navigate([`/form/f-permiso-construccion/${solicitudId}`]);     
+        break;
+
+        case 3:
+          this.router.navigate([`/form/f-subsanarsolicitud/${solicitudId}`]);
+        break;
+
+        case 4:
+          this.router.navigate([`/form/f-permiso-construccion-planos/${solicitudId}`]);
+        break;
+
+        case 5:
+        break;
+        
+        case 6:
+          this.router.navigate([`/form/f-tarea-inspeccion/${solicitudId}`]);
+        break;
+
+        case 7:
+        break;
+
+        case 8:
+          this.router.navigate([`/form/f-calculo-impuesto/${solicitudId}`]);
+        break;
+
+        case 9:
+          this.router.navigate([`/form/f-revision-documentos-sellos/${solicitudId}`]);
+        break;
+
+        case 10:
+          this.router.navigate([`/form/f-registrarpago/${solicitudId}`]);
+        break;
+
+        case 11:
+          this.router.navigate([`/form/f-revision-pago/${solicitudId}`]);     
+        break;
+
+        case 12:
+          this.router.navigate([`/form/f-subsanarpagos/${solicitudId}`]);
+        break;
+
+        case 13:
+          this.router.navigate([`/form/f-aprobacion-tramite/${solicitudId}`]);
+        break;
+
+        case 17:
+          this.router.navigate([`/form/f-recepcion-planos/${solicitudId}`]);
+        break;
+    }
+  }
 
 
   cambiarpagina(e:PageEvent){
