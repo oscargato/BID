@@ -5,11 +5,13 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-f-tarea-inspeccion',
   templateUrl: './f-tarea-inspeccion.component.html',
   styleUrls: ['./f-tarea-inspeccion.component.scss']
 })
+
 
 export class FTareaInspeccionComponent implements OnInit {
   public formulario:FormGroup;
@@ -56,7 +58,6 @@ export class FTareaInspeccionComponent implements OnInit {
 
 
   newRevisionInspeccion(){
-
     const data = 
     { "solicitudId": this.solicitudId,
       "revisionId": this.revisionId,

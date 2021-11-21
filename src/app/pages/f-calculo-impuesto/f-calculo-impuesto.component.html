@@ -22,19 +22,28 @@
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: -->
               <form [formGroup]="formulario" class="form" id="kt_form">
-        <!--begin: monto Actions -->
-    <div class="form-group d-flex justify-content-between border-bottom py-5">
-      <div   div class="mr-2">
-        <label>Nombre del Proyecto</label>
-        <input type="text"
-               class="form-control"
-               name="nombre"
-               formControlName="nombre"
-               placeholder="Nombre del Proyecto"
-               readonly/>        
-      </div>
-    </div>
-      <!--end: monto Actions -->
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="font-weight-bolder">Nombre del Proyecto</label>
+                    <input type="text"
+                          class="form-control"
+                          name="nombre"
+                          formControlName="nombre"
+                          placeholder="Nombre del Proyecto"
+                          value="" 
+                          readonly/>
+                  </div> 
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-group">
+                    
+                  </div>
+                </div>                
+              </div>
+
         <!--begin: Form -->
         <div class="py-5" data-wizard-type="step-content">
                   <h4 class="mb-5 font-weight-bold border-bottom py-2 text-dark">

@@ -25,7 +25,6 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   public tramiteIdIdoneo:number;
   public archivoPlanos:string;
   public tramiteIdPlanos:number;
-  //public adjuntos: Array<any>;
   public tramiteIdInformeInspeccion:number;
   public archivoInformeInspeccion:string;
   public tramiteIdComprobante:number;
@@ -37,9 +36,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   constructor(private fAprobacionTramiteService:FAprobacionTramiteService, 
               private router:Router, 
               private formBuilder:FormBuilder,
-              private activatedRoute:ActivatedRoute)
-              { //this.adjuntos = []; 
-              }
+              private activatedRoute:ActivatedRoute){}
 
 
   ngOnInit() {
@@ -97,8 +94,8 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         this.formulario.controls['checkboxRecibidos'].setValue(resp.docRecibido);
         this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);        
         this.formulario.controls['completo'].setValue(resp.sellosCompletos);
-        this.formulario.controls['fechaPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
-        this.formulario.controls['montoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);        
+        this.formulario.controls['fechaPago'].setValue(resp.pago.fechaPago);
+        this.formulario.controls['montoPago'].setValue(resp.pago.montoPago);        
         this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
         
         this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
@@ -116,14 +113,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         this.archivoComprobante =
         */
 
-        /*
-        let i = 0;
-        resp.lstAdjuntos.forEach(element => {
-          this.adjuntos[i] = element
-          i++;
-        });
-
-        */
+       
         this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
         this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
         this.revisorId = resp.t01_Rev_PermisoConstruccionMun.revisorId;
@@ -168,16 +158,15 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
 
   newAprobacion(){
     const data =
-    {
-      "solicitudId": this.solicitudId,
+    { "solicitudId": this.solicitudId,
       "revisionId": this.revisionId,
       "revisorId": this.revisorId,
       "comentarios":"Cierre aprobado",
       "aprobado": true,
     }
     
-     this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
-      console.log(resp)
+    this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
+      console.log('newAprobacion',resp)
       if(resp.codigo === 0)
       { this.succes(); }
       else

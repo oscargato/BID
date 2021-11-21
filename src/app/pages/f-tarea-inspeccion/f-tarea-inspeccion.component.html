@@ -23,17 +23,23 @@
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: -->
               <form [formGroup]="formulario" class="form" id="kt_form">
-                  <!--begin: monto Actions -->
-                  <div class="d-flex justify-content-between border-bottom py-3">
-                      <div class="mr-2">
-                          <label class="font-weight-bolder">Nombre del Proyecto</label>
-                          <input  type="text"
-                                  class="form-control"
-                                  name="nombreProyecto"
-                                  formControlName="nombreProyecto"
-                                  placeholder="Nombre del Proyecto"
-                                  readonly/>
-                      </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-weight-bolder">Nombre del Proyecto</label>
+                        <input type="text"
+                              class="form-control"
+                              name="nombreProyecto"
+                              formControlName="nombreProyecto"
+                              placeholder="Nombre del Proyecto"
+                              value="" 
+                              readonly/>
+                      </div> 
+                    </div>
+                    
+                    <div class="col-md-6">
+                      
+                    </div>                
                   </div>
                   <!--end: monto Actions -->
                   

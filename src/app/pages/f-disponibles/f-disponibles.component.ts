@@ -248,10 +248,7 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
   
 
   solicitantesTramites(){
-    console.log('URL',this.activatedRoute.snapshot.params.Id);
-    console.log('LocalStorage',Number(localStorage.getItem('id')));
     this.disponiblesService.solicitantesTramites(Number(localStorage.getItem('id')), this.activatedRoute.snapshot.params.Id).subscribe(resp=>{
-      console.log('solicitantesTramites',resp);
       this.solicitanteTramiteId = resp.solicitanteTramiteId;
       this.getSolicitud(this.solicitanteTramiteId);
     })
@@ -441,10 +438,9 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
             "urlAdjunto": this.urlPLanos
         }]    
     };
-
-    console.log('Datos!!!',data)
     
     this.disponiblesService.registrarSolicitud(data).subscribe(resp=>{
+      console.log('Respuesta',resp)
       if(resp.codigo === 0)
       { this.registerExitoso();}
       else

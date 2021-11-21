@@ -120,7 +120,7 @@ export class FRegistrarpagoComponent implements OnInit {
 
   registerAlert(){  
     Swal.fire(  
-      'Registro de Tramite Exitoso!',
+      'Registro de Pago Exitoso!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -133,7 +133,7 @@ export class FRegistrarpagoComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Registro Fallido!'
+      text: 'Pago Fallido!'
     })
   }  
 }
