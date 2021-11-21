@@ -16,6 +16,16 @@ export class FRevisionPagoComponent implements OnInit {
   public formulario:FormGroup;
   public tramiteIDComprobante:number;
   public archivoComprobante:string;
+  public solicitudId: number;
+  public revisorId:number;
+  public tipoDocumentoId:number;
+  public solicitanteId:number;
+  public adjuntoId:number;
+  public diasVigencia:number;
+  public fecha:string;
+  public fechaRevision:string;
+  public nombre:string;
+  public urlAdjunto:string;
 
   constructor(private fRevisionPagoService:FRevisionPagoService, 
               private router:Router,
@@ -31,7 +41,7 @@ export class FRevisionPagoComponent implements OnInit {
   iniciarFormulario(){
     this.formulario = this.formBuilder.group({
   		nombre:['', Validators.compose([Validators.required]),],
-      montototal:['', Validators.compose([Validators.required]),],              
+      montoTotal:['', Validators.compose([Validators.required]),],              
       numRecibo:['', Validators.compose([Validators.required]),],
       checkboxNumRecibo:[false, Validators.compose([Validators.required]),],                  
       fechaPago:['', Validators.compose([Validators.required]),],
@@ -47,52 +57,80 @@ export class FRevisionPagoComponent implements OnInit {
 
 
   getRevision(){
-
     this.fRevisionPagoService.getRevisionPago(this.activatedRoute.snapshot.params.tramiteId).subscribe(resp =>{
       console.log('Resp',resp);
       //this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+      this.formulario.controls['montoTotal'].setValue(resp.montoPagar);
+      this.formulario.controls['numRecibo'].setValue(resp.nroRecibo);
+      this.formulario.controls['fechaPago'].setValue(resp.fechaPago);
+      this.formulario.controls['montoPago'].setValue(resp.montoPagado);
+      this.formulario.controls['nombreEntidad'].setValue(resp.nombreEntidad);      
+      this.archivoComprobante = resp.adjuntos.urlAdjunto;
+      this.tramiteIDComprobante = resp.adjuntos.solicitanteTramiteId.solicitanteTramiteId;
       
+      this.solicitudId = resp.solicitudIdT01;
+      this.revisorId = resp.adjuntos.revisorId;
+      this.tipoDocumentoId = resp.adjuntos.tipoDocumentoId.tipoDocumentoId;
+      this.solicitanteId = resp.adjuntos.solicitanteId.solicitanteId;
+      this.adjuntoId = resp.adjuntos.adjuntoId;
+      this.diasVigencia = resp.adjuntos.tipoDocumentoId.diasVigencia;
+      this.fecha = resp.adjuntos.fecha;
+      this.fechaRevision = resp.adjuntos.fechaRevision
+      this.nombre = resp.adjuntos.nombre
+      this.urlAdjunto = resp.adjuntos.urlAdjunto;
     })
   }
 
 
   newRevisonPago(){
+
+    let incorrecto:boolean;
+
+    if(this.formulario.controls['checkboxNumRecibo'].value === false &&
+       this.formulario.controls['checkboxFechaPago'].value === false &&
+       this.formulario.controls['checkboxMontoPago'].value === false &&
+       this.formulario.controls['checkboxNombreEntidad'].value === false &&
+       this.formulario.controls['checkboxComprobantePago'].value === false)
+      { incorrecto = false; }
+      else
+      { incorrecto = true; }
+
+
     const data = 
-    {
-      "solicitudId": 1, 
-      "montoPagar": true,
-      "nroRecibo": true,
-      "fechaPago": true,
-      "montoPagado": true,
-      "nombreEntidad": true,
-      "incorrecto": true,
+    { "solicitudId": this.solicitudId, //??????????
+      "montoPagar": false,
+      "nroRecibo": this.formulario.controls['checkboxNumRecibo'].value,
+      "fechaPago": this.formulario.controls['checkboxFechaPago'].value,
+      "montoPagado": this.formulario.controls['checkboxMontoPago'].value,
+      "nombreEntidad": this.formulario.controls['checkboxNombreEntidad'].value,
+      "incorrecto": incorrecto,
       "observaciones": "Esta muy correcto",
-      "revisorId": 2, 
+      "revisorId": this.revisorId, 
       "adjuntos": {
-        "adjuntoId": 1,
-        "fecha": "2021-09-09T15:13:32.947Z",
-        "fechaRevision": "2021-09-09T15:13:32.947Z",
-        "nombre": "Comprobante de Pago",
-        "rechazado": true,
+        "adjuntoId": this.adjuntoId,
+        "fecha": this.fecha,//"2021-09-09T15:13:32.947Z",
+        "fechaRevision": this.fechaRevision,//"2021-09-09T15:13:32.947Z",
+        "nombre": this.nombre,
+        "rechazado": this.formulario.controls['checkboxComprobantePago'].value,
         "tipoDocumentoId": {
-          "diasVigencia": 0,
-          "nombre": "Comprobante de Pago",
-          "tipoDocumentoId":6
+          "diasVigencia": this.diasVigencia,
+          "nombre": this.nombre,
+          "tipoDocumentoId": this.tipoDocumentoId,
         },
-        "urlAdjunto": "ComprobantePago.pdf",
-            "solicitanteId": {
-          "solicitanteId":1
-            }
+        "urlAdjunto": this.urlAdjunto,
+        "solicitanteId": {"solicitanteId":this.solicitanteId,}
       }
     }
 
-    /* this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
-      console.log(resp)
+    
+
+    this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
+      console.log('Respuesta',resp)
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failSubsanar(); }
-    }) */
+    })
   }
 
   fileDownloadComprobante(){

@@ -20,7 +20,6 @@
     <div class="wizard-body">
       <div class="row">
         <div class="offset-xxl-2 col-xxl-8">
-
           <form [formGroup]="formulario" class="form" id="kt_form">
               <div class="row">
                 <div class="col-md-6">
@@ -41,8 +40,8 @@
                     <label class="font-weight-bolder">Monto Total</label>
                     <input type="text"
                            class="form-control"
-                           name="montototal"
-                           formControlName="montototal"
+                           name="montoTotal"
+                           formControlName="montoTotal"
                            placeholder="$12,123,456.78"
                            value="" 
                            readonly/>
@@ -50,160 +49,152 @@
                 </div>                
               </div>
             
-
-
-            <div class="py-5" data-wizard-type="step-content">
-              <h4 class="mb-5 font-weight-bold text-dark">Datos del pago</h4>
-              <div class="row">
-                <div class="col-xl-4">
-                  <div class="form-group">
-                    <label>Número de recibo / depósito</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="numRecibo"
-                      formControlName="numRecibo"
-                      readonly
-                    />
+              <div class="py-5" data-wizard-type="step-content">
+                <h4 class="mb-5 font-weight-bold text-dark">Datos del pago</h4>
+                <div class="row">
+                  <div class="col-xl-4">
+                    <div class="form-group">
+                      <label>Número de recibo / depósito</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="numRecibo"
+                        formControlName="numRecibo"
+                        readonly
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="col-xl-2">
-                  <div class="form-group">
-                       <span class="form-text text-muted"></span><br><br>
-                           <div class="checkbox-inline">
-                               <label class="checkbox  checkbox-danger">
-                                   <input type="checkbox" name="checkboxNumRecibo" formControlName="checkboxNumRecibo"/>
-                                   <span></span>
-                                   
-                               </label>
-                       
-                           </div>
-                   </div>
-             </div>
-                <div class="col-xl-4">
-                  <div class="form-group">
-                    <label>Fecha de pago</label>
-                    <input
-                      type="datetime-local"
-                      class="form-control"
-                      name="fechaPago"
-                      formControlName="fechaPago"
-                      id="Test_DatetimeLocal"
-                      readonly
-                    />
-                  </div>
-                </div>
-                <div class="col-xl-2">
-                  <div class="form-group">
-                       <span class="form-text text-muted"></span><br><br>
-                           <div class="checkbox-inline">
-                               <label class="checkbox  checkbox-danger">
-                                   <input type="checkbox" name="checkboxFechaPago" formControlName="checkboxFechaPago"/>
-                                   <span></span>
-                                   
-                               </label>
-                       
-                           </div>
-                   </div>
-             </div>
+                  <div class="col-xl-2">
+                    <div class="form-group">
+                        <span class="form-text text-muted"></span><br><br>
+                            <div class="checkbox-inline">
+                                <label class="checkbox  checkbox-danger">
+                                    <input type="checkbox" name="checkboxNumRecibo" formControlName="checkboxNumRecibo"/>
+                                    <span></span>
+                                    
+                                </label>
+                        
+                            </div>
+                    </div>
               </div>
-
-              <div class="row">
-                <div class="col-xl-4">
-                  <div class="form-group">
-                    <label>Monto del pago</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="montoPago"
-                      formControlName="montoPago"
-                      readonly
-                    />
+                  <div class="col-xl-4">
+                    <div class="form-group">
+                      <label>Fecha de pago</label>
+                      <input
+                        type="datetime-local"
+                        class="form-control"
+                        name="fechaPago"
+                        formControlName="fechaPago"
+                        id="Test_DatetimeLocal"
+                        readonly
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="col-xl-2">
-                  <div class="form-group">
-                       <span class="form-text text-muted"></span><br><br>
-                           <div class="checkbox-inline">
-                               <label class="checkbox  checkbox-danger">
-                                   <input type="checkbox" name="checkboxMontoPago" formControlName="checkboxMontoPago"/>
-                                   <span></span>
-                                   
-                               </label>
-                       
-                           </div>
-                   </div>
-             </div>
-                <div class="col-xl-4">
-                  <div class="form-group">
-                    <label>Nombre de la entidad o banco donde pagó</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="nombreEntidad"
-                      formControlName="nombreEntidad"
-                      readonly
-                    />
-                  </div>
-                </div>
-                <div class="col-xl-2">
-                  <div class="form-group">
-                       <span class="form-text text-muted"></span><br><br>
-                           <div class="checkbox-inline">
-                               <label class="checkbox  checkbox-danger">
-                                   <input type="checkbox" name="checkboxNombreEntidad" formControlName="checkboxNombreEntidad"/>
-                                   <span></span>
-                                   
-                               </label>
-                       
-                           </div>
-                   </div>
-             </div>
+                  <div class="col-xl-2">
+                    <div class="form-group">
+                        <span class="form-text text-muted"></span><br><br>
+                            <div class="checkbox-inline">
+                                <label class="checkbox  checkbox-danger">
+                                    <input type="checkbox" name="checkboxFechaPago" formControlName="checkboxFechaPago"/>
+                                    <span></span>
+                                    
+                                </label>
+                        
+                            </div>
+                    </div>
               </div>
-              <div class="row">
+                </div>
 
-                <div class="col-xl-4">
-                  <div class="form-group">
-                    <label>Comprobante de Pago</label>
-                    <div class="col-md-10">
-                      <button (click)="fileDownloadComprobante()">Descargar</button>
+                <div class="row">
+                  <div class="col-xl-4">
+                    <div class="form-group">
+                      <label>Monto del pago</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="montoPago"
+                        formControlName="montoPago"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="col-xl-2">
+                    <div class="form-group">
+                        <span class="form-text text-muted"></span><br><br>
+                            <div class="checkbox-inline">
+                                <label class="checkbox  checkbox-danger">
+                                    <input type="checkbox" name="checkboxMontoPago" formControlName="checkboxMontoPago"/>
+                                    <span></span>
+                                    
+                                </label>
+                        
+                            </div>
+                    </div>
+              </div>
+                  <div class="col-xl-4">
+                    <div class="form-group">
+                      <label>Nombre de la entidad o banco donde pagó</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="nombreEntidad"
+                        formControlName="nombreEntidad"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="col-xl-2">
+                    <div class="form-group">
+                        <span class="form-text text-muted"></span><br><br>
+                            <div class="checkbox-inline">
+                                <label class="checkbox  checkbox-danger">
+                                    <input type="checkbox" name="checkboxNombreEntidad" formControlName="checkboxNombreEntidad"/>
+                                    <span></span>
+                                    
+                                </label>
+                        
+                            </div>
+                    </div>
+              </div>
+                </div>
+                <div class="row">
+
+                  <div class="col-xl-4">
+                    <div class="form-group">
+                      <label>Comprobante de Pago</label>
+                      <div class="col-md-10">
+                        <button (click)="fileDownloadComprobante()">Descargar</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                        <span class="form-text text-muted"></span><br><br>
+                            <div class="checkbox-inline">
+                                <label class="checkbox  checkbox-danger">
+                                    <input type="checkbox" name="checkboxComprobantePago" formControlName="checkboxComprobantePago" />
+                                    <span></span>
+                                    
+                                </label>
+                        
+                            </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-2">
-                  <div class="form-group">
-                       <span class="form-text text-muted"></span><br><br>
-                           <div class="checkbox-inline">
-                               <label class="checkbox  checkbox-danger">
-                                   <input type="checkbox" name="checkboxComprobantePago" formControlName="checkboxComprobantePago" />
-                                   <span></span>
-                                   
-                               </label>
-                       
-                           </div>
-                   </div>
-             </div>
-
               </div>
-            </div>
-            <!--end: Form -->
-            <!--begin: Form Actions -->
-            <div class="d-flex justify-content-between border-top pt-10">
-              <div div class="mr-2"></div>
-              <div>
-                <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4" 
-                        (click)="newRevisonPago()">
-                  Enviar
-                </button>
+            
+              <div class="d-flex justify-content-between border-top pt-10">
+                <div div class="mr-2"></div>
+                <div>
+                  <button class="btn btn-success font-weight-bold text-uppercase px-9 py-4" 
+                          (click)="newRevisonPago()">
+                    Enviar
+                  </button>
+                </div>
               </div>
-            </div>
-            <!--end: Form Actions -->
           </form>
-          <!--end: Form Wizard Form-->
         </div>
       </div>
     </div>
-
-    <!--end: Wizard -->
   </div>
 </div>

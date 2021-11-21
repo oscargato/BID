@@ -315,8 +315,6 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
 
 
   fileDownloadRegistro(){
-    console.log('Nombre Archivo',this.tramiteIdRegistroPublico);
-    console.log('Nombre Archivo',this.archivoRegistroPublico);
     this.permisoConstruccionService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
       saveAs(resp,this.archivoRegistroPublico),
       error => console.error(error)
