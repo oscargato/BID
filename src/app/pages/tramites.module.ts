@@ -23,6 +23,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 // Form controls
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { DatepickerComponent } from '../modules/material/formcontrols/datepicker/datepicker.component';
 
 import { FormfieldComponent } from '../modules/material/formcontrols/formfield/formfield.component';
@@ -154,6 +155,7 @@ const routes: Routes = [
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
+    MatMomentDateModule,
     MatAutocompleteModule,
     MatListModule,
     MatSliderModule,

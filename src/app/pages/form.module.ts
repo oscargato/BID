@@ -18,7 +18,6 @@ import { FRevisionPagoComponent } from './f-revision-pago/f-revision-pago.compon
 import { FAprobacionTramiteComponent } from './f-aprobacion-tramite/f-aprobacion-tramite.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 // Form controls
 /*import { DatepickerComponent } from '../modules/material/formcontrols/datepicker/datepicker.component';*/
 

@@ -167,6 +167,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
     
     this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
       console.log('newAprobacion',resp)
+      console.log('newAprobacion',resp)
       if(resp.codigo === 0)
       { this.succes(); }
       else

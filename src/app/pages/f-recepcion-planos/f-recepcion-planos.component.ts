@@ -6,7 +6,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FRecepcionPlanosService } from './f-recepcion-planos.service';
 import Swal from 'sweetalert2';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-f-recepcion-planos',
@@ -31,6 +31,17 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
   public tramiteIdPlanos:number;
   public adjuntos: Array<any>
   public solicitudId:number;
+  public fechaDocRecibidos:string;
+  public revisionId:number;
+  public revisorId:number;
+
+  public fecha1:string;
+  public fechaRevision1:string;
+  public fecha2:string;
+  public fechaRevision2:string;
+  public fecha3:string;
+  public fechaRevision3:string;
+
 
   constructor(private formBuilder:FormBuilder, 
               private activatedRoute:ActivatedRoute,
@@ -41,7 +52,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
 
   ngOnInit(){
     this.initFormulario();
-    this.getRevision();
+    //this.getRevision();
   }
 
 
@@ -93,7 +104,15 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
       
-      this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId
+      const dateString = moment.unix(1637553600).format('DD/MM/YYYY HH:mm');
+      console.log('Asigna',dateString);
+      this.formulario.controls['fechaInspeccion'].setValue(dateString);
+
+
+      this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
+      this.fechaDocRecibidos = resp.t01_Rev_PermisoConstruccionMun.fechaDocRecibidos;
+      this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
+      this.revisorId = resp.t01_Rev_PermisoConstruccionMun.revisorId;
 
       this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
       this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;
@@ -103,16 +122,22 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
       this.registroPublico = resp.lstAdjuntos[0].urlAdjunto;
       this.certificacion = resp.lstAdjuntos[1].urlAdjunto;
-      this.planos = resp.lstAdjuntos[2].urlAdjunto; 
+      this.planos = resp.lstAdjuntos[2].urlAdjunto;
+      
+      this.fecha1 = resp.resp.lstAdjuntos[0].fecha;
+      this.fechaRevision1= resp.resp.lstAdjuntos[0].fechaRevision;
+      this.fecha2= resp.resp.lstAdjuntos[1].fecha;
+      this.fechaRevision2= resp.resp.resp.lstAdjuntos[1].fechaRevision;
+      this.fecha3= resp.resp.lstAdjuntos[2].fecha;
+      this.fechaRevision3=resp.resp.lstAdjuntos[2].fechaRevision;
+
 
       let i = 0;
       resp.lstAdjuntos.forEach(element => {
         this.adjuntos[i] = element
         i++;
       });
-
     })
-
   }
 
   fileDownloadRegistro(){
@@ -136,22 +161,33 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
     });    
   }
 
-  getRevision(){
+/*   getRevision(){
     this.fRecepcionPlanosService.getRevision(this.activatedRoute.snapshot.params.idRevision).subscribe(resp=>{
         console.log(resp);
 
     })
-  }
+  } */
 
   recibirPlanos(){
 
-    const hoy = new Date();
+    
     const fecha = this.formulario.controls['fechaInspeccion'].value
 
-    const data = {
+    const unixTimestamp = moment(fecha).unix();
+
+    const dateString = moment.unix(unixTimestamp).format('DD/MM/YYYY');
+
+    //const unixTimestamp2 = moment(dateString).unix();
+
+    console.log('Fecha',fecha);
+    console.log('unixTimestamp',unixTimestamp);
+    console.log('dateString',dateString);
+    //console.log('unixTimestamp2',unixTimestamp2);
+
+ /*    const data = {
       "incorrecto": false,
       "docRecibido": this.formulario.controls['checkboxPlanosRecibidos'].value,
-      "fechaInspeccion":hoy.toISOString(),//Modificar
+      "fechaInspeccion":this.formulario.controls['fechaInspeccion'].value,//Modificar
       "t01_Rev_PermisoConstruccionMun": {
           "codUbicacion": true,
           "comentarios": "string",
@@ -164,7 +200,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
           "fechaRevision": null,
           "fechaRevisionInspeccion": null,
           "fechaRevisionPlanos": null,
-          "fechaDocRecibidos": hoy.toISOString(),
+          "fechaDocRecibidos": this.fechaDocRecibidos,
           "finca": true,
           "folio": true,
           "montoPagar": true,
@@ -185,13 +221,13 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
           "pagoManual": true,
           "provinciaProyectoId": true,
           "revisorRecepcionFisicaPlanos":{
-              "revisorId": 3,
+              "revisorId": this.revisorId,
               "tipoRevisorId": {
                   "descripcion": "Arquitecto",
-                  "tipoRevisorId": 3
+                  "tipoRevisorId": 3,
               }
           },
-          "revisionId": 3,
+          "revisionId": this.revisionId,
           "revisionNegada": true,
           "revisorId": null,
           "solicitudConfirmada": true,
@@ -205,8 +241,8 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
 
       "lstAdjuntos": [
         { "adjuntoId": this.adjuntos[0].adjuntoId, 
-          "fecha": hoy.toISOString(),
-          "fechaRevision": hoy.toISOString(),
+          "fecha": this.fecha1,
+          "fechaRevision": this.fechaRevision1,
           "nombre": this.adjuntos[0].nombre,
           "rechazado": null,
           "tipoDocumentoId": {
@@ -221,8 +257,8 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
         },
         {
           "adjuntoId": this.adjuntos[1].adjuntoId,
-          "fecha": hoy.toISOString(),
-          "fechaRevision": hoy.toISOString(),
+          "fecha": this.fecha2,
+          "fechaRevision": this.fechaRevision2,
           "nombre": this.adjuntos[1].nombre,
           "rechazado": null,
           "tipoDocumentoId": {
@@ -237,8 +273,8 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
         },
         {
           "adjuntoId": this.adjuntos[2].adjuntoId,
-          "fecha": hoy.toISOString(),
-          "fechaRevision": hoy.toISOString(),
+          "fecha": this.fecha3,
+          "fechaRevision": this.fechaRevision3,
           "nombre": this.adjuntos[2].nombre,
           "rechazado": null,
           "tipoDocumentoId": {
@@ -252,15 +288,17 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
               }
         }
         ]
-    }
+    } */
 
-    this.fRecepcionPlanosService.newRecepcionFisicaPlanos(data).subscribe(resp=>{
+    //console.log(data)
+
+    /*this.fRecepcionPlanosService.newRecepcionFisicaPlanos(data).subscribe(resp=>{
       console.log('Respuesta!!!',resp);
       if(resp.codigo === 0)
       { this.register();  }
       else
       { this.fail() }
-    })  
+    })  */ 
     
   }
 
