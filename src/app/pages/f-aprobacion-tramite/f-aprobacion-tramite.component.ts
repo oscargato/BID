@@ -8,11 +8,13 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { saveAs } from 'file-saver';
 
+
 @Component({
   selector: 'app-f-aprobacion-tramite',
   templateUrl: './f-aprobacion-tramite.component.html',
   styleUrls: ['./f-aprobacion-tramite.component.scss']
 })
+
 
 export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('wizard', { static: true }) el: ElementRef;
@@ -72,7 +74,6 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
 
 
     this.fAprobacionTramiteService.getRevision(this.activatedRoute.snapshot.params.tramiteId).subscribe(resp =>{
-      console.log('tramiteId',this.activatedRoute.snapshot.params.tramiteId);
         console.log('Respuesta',resp);
         this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
         this.formulario.controls['descripcion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
@@ -91,10 +92,15 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
         this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
         
+        
         this.formulario.controls['checkboxRecibidos'].setValue(resp.docRecibido);
-        this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);        
+        
+        //this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);        
+        
         this.formulario.controls['completo'].setValue(resp.sellosCompletos);
-        this.formulario.controls['fechaPago'].setValue(resp.pago.fechaPago);
+        
+        //this.formulario.controls['fechaPago'].setValue(resp.pago.fechaPago);
+
         this.formulario.controls['montoPago'].setValue(resp.pago.montoPago);        
         this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
         
@@ -104,21 +110,20 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         this.tramiteIdIdoneo = resp.lstAdjuntos[1].solicitanteTramiteId.solicitanteTramiteId;        
         this.archivoPlanos = resp.lstAdjuntos[2].urlAdjunto;
         this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
-
-        /*
-        InformeInspeccion
-        this.tramiteIdInformeInspeccion =
-        this.archivoInformeInspeccion =
-        this.tramiteIdComprobante =
-        this.archivoComprobante =
-        */
-
-       
+        this.archivoInformeInspeccion = resp.adjuntoInspeccion.urlAdjunto;
+        this.tramiteIdInformeInspeccion = resp.adjuntoInspeccion.solicitanteTramiteId.solicitanteTramiteId;
+        this.archivoComprobante = resp.pago.adjuntoId.urlAdjunto;
+        this.tramiteIdComprobante = resp.pago.pagoManualId;
+ 
+        
         this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
         this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
-        this.revisorId = resp.t01_Rev_PermisoConstruccionMun.revisorId;
+        this.revisorId = Number(localStorage.getItem('id'));
     })
   }
+
+
+
 
   fileDownloadRegistro(){
     this.fAprobacionTramiteService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
@@ -164,9 +169,8 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
       "comentarios":"Cierre aprobado",
       "aprobado": true,
     }
-    
+    console.log(data)
     this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
-      console.log('newAprobacion',resp)
       console.log('newAprobacion',resp)
       if(resp.codigo === 0)
       { this.succes(); }

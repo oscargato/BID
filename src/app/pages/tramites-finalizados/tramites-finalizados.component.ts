@@ -321,7 +321,7 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
     this.dataSource7.paginator = this.paginator7;
     this.dataSource7.sort = this.sort7;
 
-    this.tramitesFinalizadosService.getTramitesFinalizados(this.activatedRoute.snapshot.params.usuarioId).subscribe(resp =>{
+    this.tramitesFinalizadosService.getTramitesFinalizados(Number(localStorage.getItem('id'))).subscribe(resp =>{
       console.log('Respuesta',resp);
 
       let i = 0;
