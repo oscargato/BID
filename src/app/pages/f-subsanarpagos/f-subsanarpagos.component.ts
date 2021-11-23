@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FSubsanarpagosService } from './f-subsanarpagos.service';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-f-subsanarpagos',
@@ -16,7 +16,19 @@ export class FSubsanarpagosComponent implements OnInit {
   public formulario:FormGroup;
   public archivoRegistroPublico:string;
   public tramiteIdRegistroPublico:number;
-  
+  public subsanarNumeroRecibo:boolean = false;
+  public subsanarFechaPago:boolean = false;
+  public subsanarMontoPago:boolean = false;
+  public subsanarBanco:boolean = false;
+  public subsanarComprobante:boolean = false;
+  public loadComprobante:boolean = false;
+  public tramiteIdComprobante:number;
+  public archivoComprobante:string;
+  public uploadComprobante:File;
+  public solicitanteTramiteId:number;
+  public urlComprobante:string;
+  public adjuntoComprobante:string;
+
   constructor(private fSubsanarpagosService:FSubsanarpagosService, 
               private router:Router, 
               private formBuilder:FormBuilder, 
@@ -24,39 +36,51 @@ export class FSubsanarpagosComponent implements OnInit {
 
     ngOnInit(){
       this.formulario = this.formBuilder.group({
+        nombreProyecto:['', Validators.compose([Validators.required,]),],  
         montoTotal:['', Validators.compose([Validators.required,]),],  
         numeroRecibo:['', Validators.compose([Validators.required,]),],
-        checkboxNumeroRecibo:[false, Validators.compose([Validators.required,]),], 
         fechaPago:['', Validators.compose([Validators.required,]),],
-        checkboxFechaPago:[false, Validators.compose([Validators.required]),], 
         montoPago:['', Validators.compose([Validators.required,]),],
-        checkboxMontoPago:[false, Validators.compose([Validators.required]),], 
         bancoPago:['', Validators.compose([Validators.required,]),],
-        checkboxBancoPago:[false, Validators.compose([Validators.required]),], 
         comprobantePago:['', Validators.compose([Validators.required]),],
-        checkboxComprobantePago:[false, Validators.compose([Validators.required]),],
       });
     
-    this.fSubsanarpagosService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
-      console.log('Respuesta',resp);
+      this.fSubsanarpagosService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
+        console.log('Respuesta',resp);
 
       /* 
+      this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['montoTotal'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['numeroRecibo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['fechaPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['montoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
       this.formulario.controls['bancoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto); 
-      this.tramiteIdRegistroPublico = 
-      this.archivoRegistroPublico =
+      
+      this.tramiteIdComprobante = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
+      this.archivoComprobante = resp.lstAdjuntos[2].urlAdjunto;
+      this.solicitanteTramiteId = 
       */
     })
   }
 
 
   fileDownloadComprobante(){
-    this.fSubsanarpagosService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
-      saveAs(resp,this.archivoRegistroPublico),
+    this.fSubsanarpagosService.getDownloadFile(this.tramiteIdComprobante,this.archivoComprobante).subscribe(resp=>{
+      saveAs(resp,this.archivoComprobante),
       error => console.error(error)
+    });
+  }
+
+  fileChangeComprobante(element){
+    this.uploadComprobante = element.target.files[0];
+    const formData = new FormData();
+    formData.append('file', this.uploadComprobante);
+    this.fSubsanarpagosService.uploadArchivo(formData,this.solicitanteTramiteId).subscribe((resp) => { 
+      this.urlComprobante = resp.name;
+      this.loadComprobante = true;
+      let adjunto = this.formulario.controls['comprobantePago'].value
+      this.adjuntoComprobante = adjunto.substring(adjunto.indexOf("h",10) + 2)
+      this.archivoCargado(); 
     });
   }
 
@@ -72,23 +96,32 @@ export class FSubsanarpagosComponent implements OnInit {
     })
    }
   
-  
-    registerAlert(){  
-      Swal.fire(  
-        'Subsanacion de Tramite Exitosa!',
-        'Haga click para continuar',
-        'success',
-      ).then((result) => {
-        this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
-      });  
-    }
-  
-    failSubsanar(){
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Subsanacion Fallida!'
-      })
-    }
+
+   archivoCargado(){ 
+     Swal.fire({ position: 'center',
+                 icon: 'success',
+                 title: 'Archivo Cargado Exitosamente',
+                 showConfirmButton: false,
+                 timer: 1500
+     })
+   }
+
+  registerAlert(){  
+    Swal.fire(  
+      'Subsanacion de Tramite Exitosa!',
+      'Haga click para continuar',
+      'success',
+    ).then((result) => {
+      this.router.navigate(['/tramites/tramites-pendientes/tramites-pendientes']);
+    });  
+  }
+
+  failSubsanar(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Subsanacion Fallida!'
+    })
+  }
 }
 

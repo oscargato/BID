@@ -1,18 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { FSubsanarsolicitudService } from './f-subsanarsolicitud.service';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-
+import Swal from 'sweetalert2';
 
 interface DatosI{
   id:number;
   nombre:string;
 }
-
 
 @Component({
   selector: 'app-f-subsanarsolicitud',
@@ -88,8 +86,11 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   public corregimiento:string;
   public tipoP:string;
   public solicitante:any;
-  public tipoSubsanacion:number; 
   public solicitanteId:number;
+  public tipoSubsanacion:number;
+  public adjuntoIdRegistro:number;
+  public adjuntoIdIdoneo:number;
+  public adjuntoIdPlanos:number
 
   constructor(private fSubsanarsolicitudService:FSubsanarsolicitudService, 
               private router:Router, 
@@ -126,7 +127,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
  getSubsanacion()
  {
-  this.fSubsanarsolicitudService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud ).subscribe(resp =>{
+  this.fSubsanarsolicitudService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
     console.log('Resp AAA',resp);
     this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
     this.formulario.controls['descripcionProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
@@ -160,15 +161,14 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId
     this.solicitanteTramiteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteTramiteId
     this.solicitante = resp.solicitante;
-    this.tipoSubsanacion = resp.tipoSubsanacion;
     this.solicitanteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteId.solicitanteId
 
     this.subsanarNombreProyecto = resp.t01_Rev_PermisoConstruccionMun.nombreProyecto;
     this.subsanarDescripcionProyecto = resp.t01_Rev_PermisoConstruccionMun.descripcionProyecto;
-    this.subsanarProvincia = true;//resp.t01_Rev_PermisoConstruccionMun.provinciaProyectoId;
-    this.subsanarDistrito = true;//resp.t01_Rev_PermisoConstruccionMun.distritoProyectoId;
-    this.subsanarCorregimiento = true;//resp.t01_Rev_PermisoConstruccionMun.corregimientoProyectoId;    
-    this.subsanarTipoPropiedad = true;//resp.t01_Rev_PermisoConstruccionMun.tipoPropiedadId;
+    this.subsanarProvincia = resp.t01_Rev_PermisoConstruccionMun.provinciaProyectoId;
+    this.subsanarDistrito = resp.t01_Rev_PermisoConstruccionMun.distritoProyectoId;
+    this.subsanarCorregimiento = resp.t01_Rev_PermisoConstruccionMun.corregimientoProyectoId;    
+    this.subsanarTipoPropiedad = resp.t01_Rev_PermisoConstruccionMun.tipoPropiedadId;
     this.subsanarCodigoUbicacion = resp.t01_Rev_PermisoConstruccionMun.codUbicacion;
     this.subsanarFinca = resp.t01_Rev_PermisoConstruccionMun.finca;
     this.subsanarTomo = resp.t01_Rev_PermisoConstruccionMun.tomo;
@@ -179,9 +179,13 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.subsanarNombreProfesionalIdoneo = resp.t01_Rev_PermisoConstruccionMun.nombreProfesionalIdoneo;
     this.subsanarnumeroIdoneidad = resp.t01_Rev_PermisoConstruccionMun.numIdoneidad;
     this.subsanarNombreProfesionalResidente = resp.t01_Rev_PermisoConstruccionMun.nombreProfesionalResidente;
-    this.subsanarRegistroPublico = true;//resp.lstAdjuntos[0].rechazado;
+    this.subsanarRegistroPublico = resp.lstAdjuntos[0].rechazado;
     this.subsanarCertificacionIdonea = resp.lstAdjuntos[1].rechazado;
     this.subsanarPlanos = resp.lstAdjuntos[2].rechazado;
+
+    this.adjuntoIdRegistro = resp.lstAdjuntos[0].adjuntoId;
+    this.adjuntoIdIdoneo = resp.lstAdjuntos[1].adjuntoId;
+    this.adjuntoIdPlanos = resp.lstAdjuntos[2].adjuntoId;
     
     this.loadRegistro = false;
     this.loadIdoneidad = false;
@@ -210,6 +214,12 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
 
   newSubsanacion(){
+
+    if(this.activatedRoute.snapshot.params.estadoTramiteId == 3)
+    { this.tipoSubsanacion = 1 }else 
+    if(this.activatedRoute.snapshot.params.estadoTramiteId == 5)
+    { this.tipoSubsanacion = 2; }
+
     const data = 
     { "tipoSubsanacion": this.tipoSubsanacion,
       "revisionId":this.revisionId,
@@ -280,6 +290,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
           }
       },
       "lstAdjuntos": [{
+          "adjuntoId": this.adjuntoIdRegistro,
           "solicitanteTramiteId": { 
               "solicitanteTramiteId": this.solicitanteTramiteId,
           },
@@ -292,7 +303,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
           "nombre": this.adjuntoRegistroPublico,
           "urlAdjunto": this.urlRegistroPublico
       },
-      {
+      {   "adjuntoId": this.adjuntoIdIdoneo,
           "solicitanteTramiteId": { 
               "solicitanteTramiteId": this.solicitanteTramiteId
           },
@@ -305,7 +316,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
           "nombre": this.adjuntoCertificacionIdoneo,
           "urlAdjunto": this.urlIdoneidad
       },
-      {
+      {   "adjuntoId": this.adjuntoIdPlanos,
           "solicitanteTramiteId": { 
               "solicitanteTramiteId": this.solicitanteTramiteId
           },
@@ -318,20 +329,21 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
           "nombre": this.adjuntoPlanos,
           "urlAdjunto": this.urlPLanos
       }]
-  }
+    }
 
+    console.log(data)
+    
     this.fSubsanarsolicitudService.newSubsanacion(data).subscribe(resp=>{
       console.log('newSubsanacion',resp)
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failSubsanar() }
-    })
+    }) 
   }
 
   getTipoPropiedad(){
     this.tipoP = this.tipoPropiedad[this.tipoProp].nombre;
-    console.log(this.tipoProp);
   }
 
   getCarga(idCorregimiento:number){
@@ -433,7 +445,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
               'Haga click para continuar',
               'success',
     ).then((result) => {
-      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+      this.router.navigate(['/tramites/tramites-pendientes/tramites-pendientes']);
     });  
   }
 

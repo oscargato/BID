@@ -371,23 +371,23 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
         "t01_Rev_PermisoConstruccionMun": {
             "codUbicacion": this.formulario.controls['checkboxCodigoUbicacion'].value,
             "comentarios": "string",
-            "comentariosCierre": "string", //obviar
-            "comentariosInternos": "string", //obviar
-            "comprobacionNegada": true, //obviar
+            "comentariosCierre": "string",
+            "comentariosInternos": "string",
+            "comprobacionNegada": true,
             "corregimientoProyectoId": this.formulario.controls['checkboxCorregimiento'].value, 
             "descripcionProyecto": this.formulario.controls['checkboxDescripcion'].value,
             "distritoProyectoId": this.formulario.controls['checkboxDistrito'].value,
             "fechaRevision": hoy.toISOString(),//"2021-09-09T15:13:32.947Z", 
-            "fechaRevisionInspeccion": null, //obviar
-            "fechaRevisionPlanos": null, //obviar
+            "fechaRevisionInspeccion": null,
+            "fechaRevisionPlanos": null,
             "finca": this.formulario.controls['checkboxFinca'].value,
             "folio": this.formulario.controls['checkboxFolio'].value,
             "montoPagar": this.montoPagar,
-            "montoPagarFunc": true, //obviar
+            "montoPagarFunc": true,
             "montoTotal": this.montoTotal,
             "noViable": this.formulario.controls['noviable'].value,
-            "nombreEntidadEvaluadora": true, //obviar
-            "nombreEntidadEvaluadoraFunc": true, //obviar
+            "nombreEntidadEvaluadora": true,
+            "nombreEntidadEvaluadoraFunc": true,
             "nombreProfesionalIdoneo": this.formulario.controls['checkboxNombreProfesional'].value,
             "nombreProfesionalResidente": this.formulario.controls['checkboxNombreProfesionalResidente'].value,
             "nombrePropietarioTerreno": this.formulario.controls['checkboxPropietarioTerreno'].value,

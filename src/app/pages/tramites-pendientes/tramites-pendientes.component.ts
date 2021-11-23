@@ -224,13 +224,14 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
 
 
   revisarTramite(estadoTramiteId:number, solicitudId:number){
+    console.log('estadoTramiteId',estadoTramiteId);
     switch (estadoTramiteId) 
     {   case 2:
           this.router.navigate([`/form/f-permiso-construccion/${solicitudId}`]);     
         break;
 
         case 3:
-          this.router.navigate([`/form/f-subsanarsolicitud/${solicitudId}`]);
+          this.router.navigate([`/form/f-subsanarsolicitud/${solicitudId}/${estadoTramiteId}`]);
         break;
 
         case 4:
@@ -238,6 +239,7 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
         break;
 
         case 5:
+          this.router.navigate([`/form/f-subsanarsolicitud/${solicitudId}/${estadoTramiteId}`]);//// Ojooo
         break;
         
         case 6:

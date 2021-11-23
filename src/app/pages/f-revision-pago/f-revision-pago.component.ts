@@ -59,7 +59,7 @@ export class FRevisionPagoComponent implements OnInit {
   getRevision(){
     this.fRevisionPagoService.getRevisionPago(this.activatedRoute.snapshot.params.tramiteId).subscribe(resp =>{
       console.log('Resp',resp);
-      //this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
+      this.formulario.controls['nombre'].setValue(resp.nmProyecto);
       this.formulario.controls['montoTotal'].setValue(resp.montoPagar);
       this.formulario.controls['numRecibo'].setValue(resp.nroRecibo);
       this.formulario.controls['fechaPago'].setValue(resp.fechaPago);

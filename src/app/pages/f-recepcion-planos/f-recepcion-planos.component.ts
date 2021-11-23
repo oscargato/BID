@@ -81,6 +81,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       observaciones:['', Validators.compose([Validators.required]),],               
     });
 
+
     
     this.fRecepcionPlanosService.getRevision(this.activatedRoute.snapshot.params.idRevision ).subscribe(resp =>{
       console.log('Respuesta',resp);
@@ -100,9 +101,9 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
-      this.formulario.controls['checkboxPlanosRecibidos'].setValue(resp.docRecibido);
+      //this.formulario.controls['checkboxPlanosRecibidos'].setValue(resp.docRecibido);
       this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);
-      this.formulario.controls['checkboxViable'].setValue(resp.incorrecto);
+      //this.formulario.controls['checkboxViable'].setValue(resp.incorrecto);
       this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
    
       //const dateString = moment.unix(1637553600).format('DD/MM/yyyy');
@@ -171,11 +172,10 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
     console.log('unixTimestamp',unixTimestamp);
     console.log('dateString',dateString);
     
-    /*
      const data = {
       "incorrecto": false,
       "docRecibido": this.formulario.controls['checkboxPlanosRecibidos'].value,
-      "fechaInspeccion":hoy.toTimeString(),//this.formulario.controls['fechaInspeccion'].value,//Modificar
+      "fechaInspeccion":hoy.toISOString(),//this.formulario.controls['fechaInspeccion'].value,//Modificar
       "t01_Rev_PermisoConstruccionMun": {
           "codUbicacion": true,
           "comentarios": "string",
@@ -276,16 +276,17 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
               }
         }
         ]
-    } 
-
+    }
+    console.log(this.formulario.controls); 
+    console.log(data);
     this.fRecepcionPlanosService.newRecepcionFisicaPlanos(data).subscribe(resp=>{
       console.log('Respuesta!!!',resp);
       if(resp.codigo === 0)
       { this.register();  }
       else
       { this.fail() }
-    }) 
-    */
+    })  
+    
   }
 
     register(){  
