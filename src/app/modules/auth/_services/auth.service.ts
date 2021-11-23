@@ -98,7 +98,6 @@ export class AuthService implements OnDestroy {
     this.isLoadingSubject.next(true);
 
     return this.authHttpService.createUser(user).pipe(map((resp:any) => {
-        console.log('Usuario',resp);
         if(resp.codigo === 0)
         { this.registerAlert(); }
         else if(resp.codigo === 8)

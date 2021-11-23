@@ -171,7 +171,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
     console.log('unixTimestamp',unixTimestamp);
     console.log('dateString',dateString);
     
-
+    /*
      const data = {
       "incorrecto": false,
       "docRecibido": this.formulario.controls['checkboxPlanosRecibidos'].value,
@@ -285,7 +285,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       else
       { this.fail() }
     }) 
-    
+    */
   }
 
     register(){  
