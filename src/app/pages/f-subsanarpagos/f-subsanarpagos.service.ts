@@ -23,10 +23,10 @@ export class FSubsanarpagosService {
     return this.httpClient.post<any>(`${API_FILE_URL}/fileManager/upload/${id}`, formData);
   } 
 
-  getSubsanacion(idSolicitud:number):Observable<any>{
-    return this.httpClient.get<any>(`${API_USERS_URL}/T01/getSubsanacion/${idSolicitud}`).pipe(map(resp => resp.objeto));
+  getSubsanarRegistroPago(idSolicitud:number):Observable<any>{
+    return this.httpClient.get<any>(`${API_USERS_URL}/T01/getSubsanarRegistroPago/${idSolicitud}`).pipe(map(resp => resp.objeto));
   }
-  newSubsanacion(data: any):Observable<any>{
-    return this.httpClient.post<any>(`${API_USERS_URL}/T01/newSubsanacion`,data);
+  newSubsanacionPago(data: any):Observable<any>{
+    return this.httpClient.post<any>(`${API_USERS_URL}/T01/newSubsanacionPago`,data);
   }  
 }

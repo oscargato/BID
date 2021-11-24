@@ -12,7 +12,6 @@ import Swal from 'sweetalert2';
 })
 
 export class FSubsanarpagosComponent implements OnInit {
-
   public formulario:FormGroup;
   public archivoRegistroPublico:string;
   public tramiteIdRegistroPublico:number;
@@ -45,23 +44,70 @@ export class FSubsanarpagosComponent implements OnInit {
         comprobantePago:['', Validators.compose([Validators.required]),],
       });
     
-      this.fSubsanarpagosService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
+      this.fSubsanarpagosService.getSubsanarRegistroPago(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
         console.log('Respuesta',resp);
+        this.formulario.controls['nombreProyecto'].setValue(resp.pagoSol.solicitudId.nombreProyecto);
+        this.formulario.controls['montoTotal'].setValue(resp.pagoRev.pagoManualSolId.solicitudId.montoPagar);
+        this.formulario.controls['numeroRecibo'].setValue(resp.pagoSol.numRecibo);
+        this.formulario.controls['fechaPago'].setValue(resp.pagoSol.fechaPago);
+        this.formulario.controls['montoPago'].setValue(resp.pagoSol.montoPago);
+        this.formulario.controls['bancoPago'].setValue(resp.pagoSol.nombreEntidadBancaria); 
+        
+        this.subsanarNumeroRecibo = resp.pagoRev.numeroDeposito
+        this.subsanarFechaPago = resp.pagoRev.fechaPago
+        this.subsanarMontoPago = resp.pagoRev.montoPago
+        this.subsanarBanco = resp.pagoRev.nombreEntidadBancaria
+        this.subsanarComprobante = resp.pagoRev.fechaPago //no Esta
 
-      /* 
-      this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['montoTotal'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['numeroRecibo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['fechaPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['montoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
-      this.formulario.controls['bancoPago'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto); 
-      
-      this.tramiteIdComprobante = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
-      this.archivoComprobante = resp.lstAdjuntos[2].urlAdjunto;
-      this.solicitanteTramiteId = 
-      */
+        this.tramiteIdComprobante = resp.pagoRev.pagoManualSolId.adjuntoId.solicitanteTramiteId;
+        this.archivoComprobante = resp.pagoRev.pagoManualSolId.adjuntoId.urlAdjunto;
+
+        this.solicitanteTramiteId = resp.pagoSol.solicitudId.solicitanteTramiteId.solicitanteTramiteId;
     })
   }
+
+  newSubsanacion(){
+    const data = 
+    {
+      "solicitudId": 1,
+      "pagoManual_T01_Sol":{
+          "comentarios" : "Comentario 1",
+          "numRecibo": this.formulario.controls['numeroRecibo'].value,
+          "montoPago": this.formulario.controls['montoPago'].value,
+          "fechaPago": this.formulario.controls['fechaPago'].value,
+          "nombreEntidadBancaria": this.formulario.controls['bancoPago'].value,
+      },
+      "lstAdjuntosPagos": [{
+          "solicitanteTramiteId": { 
+              "solicitanteTramiteId":1
+          },
+          "tipoDocumentoId": { 
+              "tipoDocumentoId": 6 
+          },
+          "solicitanteId": {
+              "solicitanteId": 1
+          },
+          "nombre": "Copia de comprobante de pago",
+          "urlAdjunto": "CopiaComprobantePago.pdf"
+      }
+      ]
+  }
+
+    this.fSubsanarpagosService.newSubsanacionPago(data).subscribe(resp=>{
+      console.log('Respuesta',resp)
+      if(resp.codigo === 0)
+      { this.registerAlert(); }
+      else
+      { this.failSubsanar() }
+    })
+   }
+  
+
+
+
+
+
+
 
 
   fileDownloadComprobante(){
@@ -84,20 +130,7 @@ export class FSubsanarpagosComponent implements OnInit {
     });
   }
 
-
-  newSubsanacion(){
-    const data = {}
-
-    this.fSubsanarpagosService.newSubsanacion(data).subscribe(resp=>{
-      if(resp.codigo === 0)
-      { this.registerAlert(); }
-      else
-      { this.failSubsanar() }
-    })
-   }
-  
-
-   archivoCargado(){ 
+  archivoCargado(){ 
      Swal.fire({ position: 'center',
                  icon: 'success',
                  title: 'Archivo Cargado Exitosamente',

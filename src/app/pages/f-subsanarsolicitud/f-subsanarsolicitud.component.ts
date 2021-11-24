@@ -158,7 +158,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.pagoElectronico = resp.t01_Rev_PermisoConstruccionMun.pagoElectronico;
     this.pagoManual = resp.t01_Rev_PermisoConstruccionMun.pagoManual;
     this.revisionNegada = resp.t01_Rev_PermisoConstruccionMun.revisionNegada;
-    this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId
+    this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
     this.solicitanteTramiteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteTramiteId
     this.solicitante = resp.solicitante;
     this.solicitanteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteId.solicitanteId
@@ -223,7 +223,8 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     const data = 
     { "tipoSubsanacion": this.tipoSubsanacion,
       "revisionId":this.revisionId,
-      "t01_Sol_PermisoConstruccionMun":{    
+      "t01_Sol_PermisoConstruccionMun":{
+          "solicitudId":this.solicitudId,   
           "solicitanteTramiteId": { 
               "solicitanteTramiteId":this.solicitanteTramiteId,
           },

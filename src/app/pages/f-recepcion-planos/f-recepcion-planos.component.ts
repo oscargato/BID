@@ -8,13 +8,11 @@ import { FRecepcionPlanosService } from './f-recepcion-planos.service';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
 
-
 @Component({
   selector: 'app-f-recepcion-planos',
   templateUrl: './f-recepcion-planos.component.html',
   styleUrls: ['./f-recepcion-planos.component.scss']
 })
-
 
 export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('wizard', { static: true }) el: ElementRef;
@@ -82,7 +80,6 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
     });
 
 
-    
     this.fRecepcionPlanosService.getRevision(this.activatedRoute.snapshot.params.idRevision ).subscribe(resp =>{
       console.log('Respuesta',resp);
       this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
@@ -101,9 +98,8 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
-      //this.formulario.controls['checkboxPlanosRecibidos'].setValue(resp.docRecibido);
+      
       this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);
-      //this.formulario.controls['checkboxViable'].setValue(resp.incorrecto);
       this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
    
       //const dateString = moment.unix(1637553600).format('DD/MM/yyyy');
@@ -163,7 +159,6 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
   recibirPlanos(){
 
     const hoy = new Date();
-
     const fecha = this.formulario.controls['fechaInspeccion'].value
     const unixTimestamp = moment(fecha).unix();
     const dateString = moment.unix(unixTimestamp).format('DD/MM/YYYY');
@@ -172,6 +167,14 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
     console.log('unixTimestamp',unixTimestamp);
     console.log('dateString',dateString);
     
+/*     let incorrecto:boolean;
+
+    if(this.formulario.controls['checkboxPlanosRecibidos'].value === true &&
+       this.formulario.controls['checkboxViable'].value === true)
+      { incorrecto = false; }
+      else
+      { incorrecto = true; } */
+
      const data = {
       "incorrecto": false,
       "docRecibido": this.formulario.controls['checkboxPlanosRecibidos'].value,

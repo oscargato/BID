@@ -14,7 +14,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit, OnDestroy {
-
   public formulario:FormGroup;
   public registroPublico:string;
   public certificacion:string;
@@ -90,9 +89,8 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
  
-      this.formulario.controls['checkboxRecibidos'].setValue(resp.docRecibido);
-      this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);        
-      this.formulario.controls['completo'].setValue(resp.sellosCompletos);
+      this.formulario.controls['checkboxRecibidos'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.docRecibido);
+      this.formulario.controls['fechaInspeccion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.fechaInspeccion);              
       this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
       
       this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
@@ -101,14 +99,14 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       this.tramiteIdIdoneo = resp.lstAdjuntos[1].solicitanteTramiteId.solicitanteTramiteId;        
       this.archivoPlanos = resp.lstAdjuntos[2].urlAdjunto;
       this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
- 
+      this.archivoInformeInspeccion = resp.adjuntoInspeccion.urlAdjunto;
+      this.tramiteIdInformeInspeccion = resp.adjuntoInspeccion.solicitanteTramiteId.solicitanteTramiteId;
+      
       this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
       this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
       this.revisorId = resp.t01_Rev_PermisoConstruccionMun.revisorId; 
     })
-
   }
-
 
   fileDownloadRegistro(){
     this.fRevisionDocumentosSellosService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
@@ -140,22 +138,29 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
 
 
   newRevision(){
-    const data =
-    { 
-      "solicitudId": this.solicitudId,
-      "revisionId": this.revisionId,
-      "incorrecto": false,
-      "sellosCompletos": true,
-      "revisorId":this.revisorId,
-      "observaciones": "Todos los sellos correctos"
-    }
-    console.log(data);
-    this.fRevisionDocumentosSellosService.newRevision(data).subscribe(resp=>{
-      if(resp.codigo === 0)
-      { this.registerAlert(); }
+    let incorrecto:boolean;
+
+    if(this.formulario.controls['checkboxRecibidos'].value === true &&
+       this.formulario.controls['completo'].value === true)
+      { incorrecto = false; }
       else
-      { this.failSubsanar() }
-    })
+      { incorrecto = true; }
+
+      const data =
+      { "solicitudId": this.solicitudId,
+        "revisionId": this.revisionId,
+        "incorrecto": incorrecto,
+        "sellosCompletos": this.formulario.controls['completo'].value, 
+        "revisorId":this.revisorId,
+        "observaciones": "Todos los sellos correctos"
+      }
+      console.log(data);
+      this.fRevisionDocumentosSellosService.newRevision(data).subscribe(resp=>{
+        if(resp.codigo === 0)
+        { this.registerAlert(); }
+        else
+        { this.failSubsanar() }
+      })
   }
 
   registerAlert(){  
