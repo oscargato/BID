@@ -27,6 +27,9 @@ export class FSubsanarpagosComponent implements OnInit {
   public solicitanteTramiteId:number;
   public urlComprobante:string;
   public adjuntoComprobante:string;
+  public solicitanteId:number;
+  public solicitudId:number;
+  public adjuntoIdComprobante:number;
 
   constructor(private fSubsanarpagosService:FSubsanarpagosService, 
               private router:Router, 
@@ -57,42 +60,46 @@ export class FSubsanarpagosComponent implements OnInit {
         this.subsanarFechaPago = resp.pagoRev.fechaPago
         this.subsanarMontoPago = resp.pagoRev.montoPago
         this.subsanarBanco = resp.pagoRev.nombreEntidadBancaria
-        this.subsanarComprobante = resp.pagoRev.fechaPago //no Esta
+        this.subsanarComprobante = resp.pagoSol.adjuntoId.rechazado
 
         this.tramiteIdComprobante = resp.pagoRev.pagoManualSolId.adjuntoId.solicitanteTramiteId;
         this.archivoComprobante = resp.pagoRev.pagoManualSolId.adjuntoId.urlAdjunto;
-
-        this.solicitanteTramiteId = resp.pagoSol.solicitudId.solicitanteTramiteId.solicitanteTramiteId;
+        this.solicitanteTramiteId = resp.pagoSol.solicitudId.solicitanteTramiteId.solicitanteTramiteId; 
+        this.solicitanteId = resp.pagoSol.solicitudId.solicitanteTramiteId.solicitanteId.solicitanteId;
+        this.solicitudId = resp.pagoSol.solicitudId.solicitudId;
+        this.adjuntoIdComprobante = resp.pagoSol.adjuntoId.adjuntoId;
     })
   }
 
-  newSubsanacion(){
+  newSubsanacionPago(){
+    const hoy = new Date();
+
     const data = 
-    {
-      "solicitudId": 1,
+    { "solicitudId": this.solicitudId,
       "pagoManual_T01_Sol":{
           "comentarios" : "Comentario 1",
           "numRecibo": this.formulario.controls['numeroRecibo'].value,
           "montoPago": this.formulario.controls['montoPago'].value,
-          "fechaPago": this.formulario.controls['fechaPago'].value,
+          "fechaPago": hoy.toISOString(),//this.formulario.controls['fechaPago'].value,
           "nombreEntidadBancaria": this.formulario.controls['bancoPago'].value,
       },
       "lstAdjuntosPagos": [{
+          "adjuntoId": this.adjuntoIdComprobante,
           "solicitanteTramiteId": { 
-              "solicitanteTramiteId":1
+              "solicitanteTramiteId":this.solicitanteTramiteId
           },
           "tipoDocumentoId": { 
               "tipoDocumentoId": 6 
           },
           "solicitanteId": {
-              "solicitanteId": 1
+              "solicitanteId": this.solicitanteId,
           },
-          "nombre": "Copia de comprobante de pago",
-          "urlAdjunto": "CopiaComprobantePago.pdf"
+          "nombre": this.adjuntoComprobante,
+          "urlAdjunto": this.urlComprobante,
       }
       ]
-  }
-
+    }
+    console.log(data);
     this.fSubsanarpagosService.newSubsanacionPago(data).subscribe(resp=>{
       console.log('Respuesta',resp)
       if(resp.codigo === 0)
@@ -102,13 +109,6 @@ export class FSubsanarpagosComponent implements OnInit {
     })
    }
   
-
-
-
-
-
-
-
 
   fileDownloadComprobante(){
     this.fSubsanarpagosService.getDownloadFile(this.tramiteIdComprobante,this.archivoComprobante).subscribe(resp=>{
@@ -157,4 +157,3 @@ export class FSubsanarpagosComponent implements OnInit {
     })
   }
 }
-

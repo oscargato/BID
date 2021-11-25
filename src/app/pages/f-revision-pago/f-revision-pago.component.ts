@@ -69,7 +69,7 @@ export class FRevisionPagoComponent implements OnInit {
       this.tramiteIDComprobante = resp.adjuntos.solicitanteTramiteId.solicitanteTramiteId;
       
       this.solicitudId = resp.solicitudIdT01;
-      this.revisorId = resp.adjuntos.revisorId;
+      //this.revisorId = Number(localStorage.getItem('id'));//resp.adjuntos.revisorId;
       this.tipoDocumentoId = resp.adjuntos.tipoDocumentoId.tipoDocumentoId;
       this.solicitanteId = resp.adjuntos.solicitanteId.solicitanteId;
       this.adjuntoId = resp.adjuntos.adjuntoId;
@@ -105,7 +105,7 @@ export class FRevisionPagoComponent implements OnInit {
       "nombreEntidad": this.formulario.controls['checkboxNombreEntidad'].value,
       "incorrecto": incorrecto,
       "observaciones": "Esta muy correcto",
-      "revisorId": this.revisorId, 
+      "revisorId": Number(localStorage.getItem('id')), 
       "adjuntos": {
         "adjuntoId": this.adjuntoId,
         "fecha": this.fecha,//"2021-09-09T15:13:32.947Z",
@@ -122,7 +122,7 @@ export class FRevisionPagoComponent implements OnInit {
       }
     }
 
-    
+    console.log(data);
 
     this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
       console.log('Respuesta',resp)

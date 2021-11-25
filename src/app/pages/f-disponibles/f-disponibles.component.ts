@@ -33,9 +33,9 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
   public corregimientos:Array<any> = [];
   public tipoPropiedad:Array<DatosI> = [];
   public tipoProp:string;
-  public indexProv:number;
-  public indexDist:number;
-  public indexCorr:number;
+  public indexProv:number=0;
+  public indexDist:number=0;
+  public indexCorr:number=0;
 
   public provincia:string;  
   public distrito:string;
@@ -476,37 +476,6 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
                 timer: 1500
               })
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   ngAfterViewInit(): void {

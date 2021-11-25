@@ -8,13 +8,11 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { saveAs } from 'file-saver';
 
-
 @Component({
   selector: 'app-f-aprobacion-tramite',
   templateUrl: './f-aprobacion-tramite.component.html',
   styleUrls: ['./f-aprobacion-tramite.component.scss']
 })
-
 
 export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('wizard', { static: true }) el: ElementRef;
@@ -93,11 +91,11 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
         
         
-        this.formulario.controls['checkboxRecibidos'].setValue(resp.docRecibido);
+        this.formulario.controls['checkboxRecibidos'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.docRecibido);
         
         //this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);        
         
-        this.formulario.controls['completo'].setValue(resp.sellosCompletos);
+        this.formulario.controls['completo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.selloCompleto);
         
         //this.formulario.controls['fechaPago'].setValue(resp.pago.fechaPago);
 
@@ -112,8 +110,9 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
         this.archivoInformeInspeccion = resp.adjuntoInspeccion.urlAdjunto;
         this.tramiteIdInformeInspeccion = resp.adjuntoInspeccion.solicitanteTramiteId.solicitanteTramiteId;
+
         this.archivoComprobante = resp.pago.adjuntoId.urlAdjunto;
-        this.tramiteIdComprobante = resp.pago.pagoManualId;
+        this.tramiteIdComprobante = resp.adjuntoInspeccion.solicitanteTramiteId.solicitanteTramiteId;//resp.pago.pagoManualId;
  
         
         this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;

@@ -78,9 +78,9 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   public provincias:Array<any> = [];
   public distritos:Array<any> = [];
   public corregimientos:Array<any> = [];
-  public indexProv:number;
-  public indexDist:number;
-  public indexCorr:number;
+  public indexProv:number = 0;
+  public indexDist:number = 0;
+  public indexCorr:number = 0;
   public provincia:string;  
   public distrito:string;
   public corregimiento:string;

@@ -195,7 +195,7 @@
                               [(ngModel)]="indexProv"
                               #mySelectProv
                               (change)='getCargaDistritos(mySelectProv.value)'>
-                          <option selected value="">Seleccione una opción</option>
+                          <option selected value="0">Seleccione una opción</option>
                           <option   [value]="i" *ngFor="let item of provincias;let i = index">
                                 {{ item.nomProvincia }}
                           </option>
@@ -220,7 +220,7 @@
                               [(ngModel)]="indexDist"
                               #mySelectDist
                               (change)='getCargaCorregimientos(mySelectDist.value)'>
-                          <option selected value="">Seleccione una opción</option>
+                          <option selected value="0">Seleccione una opción</option>
                           <option [value]="i" *ngFor="let item of distritos;let i = index">
                               {{ item.nomDistrito }}
                           </option>                      
@@ -243,7 +243,7 @@
                               [(ngModel)]="indexCorr"
                               #mySelectCorr
                               (change)='getCarga(mySelectCorr.value)'>
-                          <option selected value="">Seleccione una opción</option>
+                          <option selected value="0">Seleccione una opción</option>
                           <option [value]="i" *ngFor="let item of corregimientos;let i = index">
                               {{ item.nomCorregimiento }}
                           </option>                      

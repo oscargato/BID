@@ -172,19 +172,11 @@
                 </div>
                 <!--end: Form Wizard Step 1-->
   
-
-
-
-
-
-
-
                 <!--begin: Form Wizard Step 2-->
                 <div class="pb-5" data-wizard-type="step-content">
                   <h4 class="mb-10 font-weight-bold text-dark">
                     Ubicación del Proyecto
                   </h4>
-
 
                   <div class="row">
                     <div class="col-xl-12">
@@ -195,9 +187,8 @@
                                 class="form-control"
                                 [(ngModel)]="indexProv"
                                 #mySelectProv
-                                (change)='getCargaDistritos(mySelectProv.value)'
-                                >
-                          <option selected value="">Seleccione una opción</option>
+                                (change)='getCargaDistritos(mySelectProv.value)'>
+                          <option selected value="0">Seleccione una opción</option>
                           <option   [value]="i" *ngFor="let item of provincias;let i = index">
                                   {{ item.nomProvincia }}
                           </option>
@@ -223,7 +214,7 @@
                                 #mySelectDist
                                 (change)='getCargaCorregimientos(mySelectDist.value)'
                                 >
-                            <option selected value="">Seleccione una opción</option>
+                            <option selected value="0">Seleccione una opción</option>
                             <option [value]="i" *ngFor="let item of distritos;let i = index">
                               {{ item.nomDistrito }}
                             </option>                      
@@ -247,7 +238,7 @@
                                 #mySelectCorr
                                 (change)='getCarga(mySelectCorr.value)'                                
                                 >
-                            <option selected value="">Seleccione una opción</option>
+                            <option selected value="0">Seleccione una opción</option>
                             <option [value]="i" *ngFor="let item of corregimientos;let i = index">
                               {{ item.nomCorregimiento }}
                             </option>                      
@@ -276,7 +267,7 @@
                             class="form-control"                            
                             [(ngModel)]="tipoProp"
                             (change)='getTipoPropiedad()'>
-                      <option selected value="">Seleccione una opción</option>
+                      <option selected value="0">Seleccione una opción</option>
                       <option [value]="i" *ngFor="let item of tipoPropiedad; let i = index">
                           {{ item.nombre }}
                       </option> 
