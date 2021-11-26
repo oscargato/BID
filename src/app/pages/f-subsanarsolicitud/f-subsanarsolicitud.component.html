@@ -269,16 +269,16 @@
                 <div class="form-group">
                   <label>Tipo de Propiedad</label>
                   <select formControlName="tipoPropiedad"
-                            name="tipoPropiedad"
-                            class="form-control"
-                            [disabled]="subsanarTipoPropiedad"
-                            [ngStyle]="subsanarTipoPropiedad && (!formulario.controls['tipoPropiedad'].touched || !formulario.controls['tipoPropiedad'].dirty || !formulario.controls['tipoPropiedad'].valid) && {'border-color': '#FF0000'}"
-                            [(ngModel)]="tipoProp"
-                            (change)='getTipoPropiedad()'>
-                      <option selected value="">Seleccione una opción</option>
-                      <option [value]="i" *ngFor="let item of tipoPropiedad; let i = index">
-                              {{ item.nombre }}
-                      </option> 
+                          name="tipoPropiedad"
+                          class="form-control"
+                          [disabled]="subsanarTipoPropiedad"
+                          [ngStyle]="subsanarTipoPropiedad && (!formulario.controls['tipoPropiedad'].touched || !formulario.controls['tipoPropiedad'].dirty || !formulario.controls['tipoPropiedad'].valid) && {'border-color': '#FF0000'}"
+                          [(ngModel)]="propiedadId"
+                          (change)='getTipoPropiedad()'>
+                          <option selected value="0">Seleccione una opción</option>
+                          <option [value]="propiedadId" *ngFor="let item of tipoPropiedad; let i = index">
+                                {{ item.nombre }}
+                          </option> 
                   </select>
                   <div *ngIf="subsanarTipoPropiedad && (!formulario.controls['tipoPropiedad'].touched || !formulario.controls['tipoPropiedad'].dirty || !formulario.controls['tipoPropiedad'].valid)">
                     <div class="d-flex justify-content-end" style="color:#FF0000;">

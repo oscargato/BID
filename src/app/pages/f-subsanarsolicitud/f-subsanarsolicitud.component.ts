@@ -18,7 +18,6 @@ interface DatosI{
   styleUrls: ['./f-subsanarsolicitud.component.scss']
 })
 
-
 export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('wizard', { static: true }) el: ElementRef;
@@ -91,6 +90,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   public adjuntoIdRegistro:number;
   public adjuntoIdIdoneo:number;
   public adjuntoIdPlanos:number
+  public propiedadId:number=0;
 
   constructor(private fSubsanarsolicitudService:FSubsanarsolicitudService, 
               private router:Router, 
@@ -128,13 +128,13 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
  getSubsanacion()
  {this.fSubsanarsolicitudService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
     console.log('Id',this.activatedRoute.snapshot.params.idSolicitud)
-    console.log('Resp AAA',resp);
+    console.log('Respuesta',resp);
     this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
     this.formulario.controls['descripcionProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
     //this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.codProvincia);
     //this.formulario.controls['distrito'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.distritoProyectoId.codDistrito);
     //this.formulario.controls['corregimiento'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.corregimientoProyectoId.codCorregimiento);
-    this.formulario.controls['tipoPropiedad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.descripcion);
+    //this.formulario.controls['tipoPropiedad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.descripcion);
     this.formulario.controls['codigoUbicacion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.codUbicacion);
     this.formulario.controls['finca'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.finca);
     this.formulario.controls['tomo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tomo);
@@ -158,15 +158,10 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.pagoElectronico = resp.t01_Rev_PermisoConstruccionMun.pagoElectronico;
     this.pagoManual = resp.t01_Rev_PermisoConstruccionMun.pagoManual;
     this.revisionNegada = resp.t01_Rev_PermisoConstruccionMun.revisionNegada;
-
-
     this.solicitudId = parseInt(this.activatedRoute.snapshot.params.idSolicitud)//resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
-    
-    
     this.solicitanteTramiteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteTramiteId
     this.solicitante = resp.solicitante;
     this.solicitanteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteId.solicitanteId
-
     this.subsanarNombreProyecto = resp.t01_Rev_PermisoConstruccionMun.nombreProyecto;
     this.subsanarDescripcionProyecto = resp.t01_Rev_PermisoConstruccionMun.descripcionProyecto;
     this.subsanarProvincia = resp.t01_Rev_PermisoConstruccionMun.provinciaProyectoId;
@@ -218,6 +213,9 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.indexDist = resp.t01_Rev_PermisoConstruccionMun.solicitudId.distritoProyectoId.codDistrito;
     this.indexCorr = 0;
     this.getCargaGeneral(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.codProvincia)
+    
+    this.formulario.controls['tipoPropiedad'].setValue(2);    
+    this.propiedadId = 2;//= resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.tipoPropiedadId;
   })
 }
 

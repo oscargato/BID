@@ -62,19 +62,20 @@ export class FSubsanarpagosComponent implements OnInit {
         this.subsanarBanco = resp.pagoRev.nombreEntidadBancaria
         this.subsanarComprobante = resp.pagoSol.adjuntoId.rechazado
 
-        this.tramiteIdComprobante = resp.pagoSol.adjuntoId.solicitudId.solicitanteTramiteId.solicitanteTramiteId;
-        this.archivoComprobante = resp.pagoSol.adjuntoId.urlAdjunto;
         
-        this.solicitanteTramiteId = resp.pagoSol.solicitudId.solicitanteTramiteId.solicitanteTramiteId; 
+        ///////this.tramiteIdComprobante = resp.pagoSol.solicitudId.solicitanteTramiteId.solicitanteTramiteId;
+        this.solicitanteTramiteId = resp.pagoSol.solicitudId.solicitanteTramiteId.solicitanteTramiteId;         
+        this.urlComprobante = resp.pagoSol.adjuntoId.urlAdjunto; 
+        this.adjuntoComprobante = resp.pagoSol.adjuntoId.nombre; 
         this.solicitanteId = resp.pagoSol.solicitudId.solicitanteTramiteId.solicitanteId.solicitanteId;
         this.solicitudId = parseInt(this.activatedRoute.snapshot.params.idSolicitud);//resp.pagoSol.solicitudId.solicitudId;
-        this.adjuntoIdComprobante = resp.pagoSol.adjuntoId.adjuntoId;
+        this.adjuntoIdComprobante = resp.pagoSol.adjuntoId.adjuntoId;         
     })
   }
 
   newSubsanacionPago(){
     const hoy = new Date();
-
+    
     const data = 
     { "solicitudId": this.solicitudId,
       "pagoManual_T01_Sol":{
@@ -101,6 +102,7 @@ export class FSubsanarpagosComponent implements OnInit {
       ]
     }
     console.log(data);
+    
     this.fSubsanarpagosService.newSubsanacionPago(data).subscribe(resp=>{
       console.log('Respuesta',resp)
       if(resp.codigo === 0)
@@ -112,8 +114,8 @@ export class FSubsanarpagosComponent implements OnInit {
   
 
   fileDownloadComprobante(){
-    this.fSubsanarpagosService.getDownloadFile(this.tramiteIdComprobante,this.archivoComprobante).subscribe(resp=>{
-      saveAs(resp,this.archivoComprobante),
+    this.fSubsanarpagosService.getDownloadFile(this.solicitanteTramiteId,this.urlComprobante).subscribe(resp=>{
+      saveAs(resp,this.urlComprobante),
       error => console.error(error)
     });
   }
