@@ -41,7 +41,7 @@ const routes: Routes = [
         component: FSubsanarpagosComponent,
       },
       {
-        path: 'f-permiso-construccion/:id',
+        path: 'f-permiso-construccion/:idRevision/:solicitudId',
         component: FPermisoConstruccionComponent,
       },
      {

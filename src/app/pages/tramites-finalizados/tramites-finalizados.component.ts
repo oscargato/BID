@@ -333,7 +333,7 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
                                       };
         i++;
       });      
-    })
+    },err => { console.log(err) })
   }
 
 

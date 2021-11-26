@@ -68,7 +68,7 @@ export class FRevisionPagoComponent implements OnInit {
       this.archivoComprobante = resp.adjuntos.urlAdjunto;
       this.tramiteIDComprobante = resp.adjuntos.solicitanteTramiteId.solicitanteTramiteId;
       
-      this.solicitudId = resp.solicitudIdT01;
+      this.solicitudId = parseInt(this.activatedRoute.snapshot.params.tramiteId);//resp.adjuntos.solicitanteTramiteId.solicitanteTramiteId;//resp.solicitudIdT01;
       //this.revisorId = Number(localStorage.getItem('id'));//resp.adjuntos.revisorId;
       this.tipoDocumentoId = resp.adjuntos.tipoDocumentoId.tipoDocumentoId;
       this.solicitanteId = resp.adjuntos.solicitanteId.solicitanteId;
@@ -97,7 +97,7 @@ export class FRevisionPagoComponent implements OnInit {
 
 
     const data = 
-    { "solicitudId": this.solicitudId, //??????????
+    { "solicitudId": this.solicitudId,
       "montoPagar": false,
       "nroRecibo": this.formulario.controls['checkboxNumRecibo'].value,
       "fechaPago": this.formulario.controls['checkboxFechaPago'].value,

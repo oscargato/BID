@@ -261,7 +261,7 @@ export class TramitesARevisarComponent implements OnInit {
                                   };
         i++;
       });
-    })
+    },err => { console.log(err) })
   }
 
 
@@ -281,7 +281,7 @@ export class TramitesARevisarComponent implements OnInit {
                                   };
         i++;
       });
-    })
+    },err => { console.log(err) })
   }
 
 
@@ -302,14 +302,14 @@ export class TramitesARevisarComponent implements OnInit {
         i++;
       });
       
-    })
+    },err => { console.log(err) })
   }
 
   revisarTramite(estadoTramiteId:number, revisionId:number, solicitudId:number){
     console.log('estadoTramiteId',estadoTramiteId)
     switch (estadoTramiteId) 
     {   case 2:
-          this.router.navigate([`/form/f-permiso-construccion/${revisionId}`]);     
+          this.router.navigate([`/form/f-permiso-construccion/${revisionId}/${solicitudId}`]);     
         break;
 
         case 3:

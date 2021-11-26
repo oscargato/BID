@@ -17,7 +17,7 @@ export class FPermisoConstruccionService {
 
   constructor(private httpClient: HttpClient){}
 
-  setRevision(user: any):Observable<any>{
+  newRevision(user: any):Observable<any>{
     return this.httpClient.post<any>(`${API_USERS_URL}/T01/newRevision`,user);
   }  
 

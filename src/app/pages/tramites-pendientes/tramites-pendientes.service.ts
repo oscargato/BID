@@ -14,7 +14,7 @@ export class TramitesPendientesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getTramitesPendientes(usuarioId:number):Observable<any>{
+  getAllSubsanacionesBySolicitanteId(usuarioId:number):Observable<any>{
     return this.httpClient.get<any>(`${API_USERS_URL}/listadosController/getAllSubsanacionesBySolicitanteId/${usuarioId}`).pipe(map(resp => resp.objeto));
   }
 

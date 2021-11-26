@@ -33,9 +33,9 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
   public corregimientos:Array<any> = [];
   public tipoPropiedad:Array<DatosI> = [];
   public tipoProp:string;
-  public indexProv:number=0;
-  public indexDist:number=0;
-  public indexCorr:number=0;
+  public indexProv:number=-1;
+  public indexDist:number=-1;
+  public indexCorr:number=-1;
 
   public provincia:string;  
   public distrito:string;

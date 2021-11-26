@@ -45,7 +45,7 @@ export class FRegistrarpagoComponent implements OnInit {
       console.log('Respuesta',resp);
       this.formulario.controls['nombre'].setValue(resp.nmProyecto);
       this.formulario.controls['montoTotal'].setValue(resp.montoPagar);
-      this.solicitudId = resp.solicitudId;
+      this.solicitudId = parseInt(this.activatedRoute.snapshot.params.idSolicitud);//resp.solicitudId;
       this.solicitanteTramiteId = resp.solicitanteTramiteId;
       this.solicitanteId = resp.solicitanteId;
       this.tipoDocumentoId = resp.lstTiposDocumentos[0].tipoDocumentoId.tipoDocumentoId;
@@ -90,7 +90,7 @@ export class FRegistrarpagoComponent implements OnInit {
       { this.registerAlert(); }
       else
       { this.failSubsanar() }
-    })
+    }) 
   }
   
   

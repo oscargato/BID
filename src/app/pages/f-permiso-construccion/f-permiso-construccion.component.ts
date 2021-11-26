@@ -272,7 +272,7 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
 
 
   getRevision(){
-    this.permisoConstruccionService.getRevision(this.activatedRoute.snapshot.params.id).subscribe(resp=>{
+    this.permisoConstruccionService.getRevision(this.activatedRoute.snapshot.params.idRevision).subscribe(resp=>{
         console.log('Respuesta Cosntruccion',resp);
         this.formulario.controls['nombre'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
         this.formulario.controls['descripcion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
@@ -296,13 +296,15 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
         this.tramiteIdIdoneo = resp.lstAdjuntos[1].solicitanteTramiteId.solicitanteTramiteId;
         this.archivoPlanos = resp.lstAdjuntos[2].urlAdjunto;
         this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
-        this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
+        this.revisionId = parseInt(this.activatedRoute.snapshot.params.idRevision);//resp.t01_Rev_PermisoConstruccionMun.revisionId;
         this.montoPagar = resp.t01_Rev_PermisoConstruccionMun.montoPagar;
         this.montoTotal = resp.t01_Rev_PermisoConstruccionMun.montoTotal;
         this.pagoElectronico = resp.t01_Rev_PermisoConstruccionMun.pagoElectronico;
         this.pagoManual = resp.t01_Rev_PermisoConstruccionMun.pagoManual;
         this.revisionNegada = resp.t01_Rev_PermisoConstruccionMun.revisionNegada;
-        this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
+
+        this.solicitudId = parseInt(this.activatedRoute.snapshot.params.solicitudId);
+        console.log('solicitudId',this.activatedRoute.snapshot.params.solicitudId)
         this.solicitanteTramiteId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitanteTramiteId.solicitanteTramiteId;
 
         let i = 0;
@@ -477,13 +479,15 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
         ]
     }
 
-    this.permisoConstruccionService.setRevision(data).subscribe(resp=>{
+    console.log('data',data)
+ 
+    this.permisoConstruccionService.newRevision(data).subscribe(resp=>{
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failSubsanar()
       }
-    })
+    })  
     
   }
 

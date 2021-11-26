@@ -62,11 +62,12 @@ export class FSubsanarpagosComponent implements OnInit {
         this.subsanarBanco = resp.pagoRev.nombreEntidadBancaria
         this.subsanarComprobante = resp.pagoSol.adjuntoId.rechazado
 
-        this.tramiteIdComprobante = resp.pagoRev.pagoManualSolId.adjuntoId.solicitanteTramiteId;
-        this.archivoComprobante = resp.pagoRev.pagoManualSolId.adjuntoId.urlAdjunto;
+        this.tramiteIdComprobante = resp.pagoSol.adjuntoId.solicitudId.solicitanteTramiteId.solicitanteTramiteId;
+        this.archivoComprobante = resp.pagoSol.adjuntoId.urlAdjunto;
+        
         this.solicitanteTramiteId = resp.pagoSol.solicitudId.solicitanteTramiteId.solicitanteTramiteId; 
         this.solicitanteId = resp.pagoSol.solicitudId.solicitanteTramiteId.solicitanteId.solicitanteId;
-        this.solicitudId = resp.pagoSol.solicitudId.solicitudId;
+        this.solicitudId = parseInt(this.activatedRoute.snapshot.params.idSolicitud);//resp.pagoSol.solicitudId.solicitudId;
         this.adjuntoIdComprobante = resp.pagoSol.adjuntoId.adjuntoId;
     })
   }

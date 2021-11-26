@@ -19,6 +19,7 @@ interface TramitesPendientes {
   nombre:string;
   nombreEstado:string; 
   fechaInicio:number;
+  revisionId:number;
   solicitudId:number;
   estadoTramiteId:number;  
 }
@@ -205,7 +206,8 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(){
    
-    this.tramitesPendientesService.getTramitesPendientes(Number(localStorage.getItem('id'))).subscribe(resp =>{
+    this.tramitesPendientesService.getAllSubsanacionesBySolicitanteId(Number(localStorage.getItem('id'))).subscribe(resp =>{
+      
       console.log('Resp',resp);
 
       let i = 0;
@@ -214,20 +216,22 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
                                        nombre:element.nombre,
                                        nombreEstado:element.nombreEstado,
                                        fechaInicio:element.fechaInicio,
+                                       revisionId:element.revisionId,
                                        solicitudId:element.solicitudId,
                                        estadoTramiteId:element.estadoTramiteId,
                                       };
         i++;
       });
-    })
+    },err => { console.log(err) })
   }
 
 
-  revisarTramite(estadoTramiteId:number, solicitudId:number){
+  revisarTramite(estadoTramiteId:number, revisionId:number, solicitudId:number){
     console.log('estadoTramiteId',estadoTramiteId);
+    console.log('solicitudId',solicitudId);
     switch (estadoTramiteId) 
     {   case 2:
-          this.router.navigate([`/form/f-permiso-construccion/${solicitudId}`]);     
+          this.router.navigate([`/form/f-permiso-construccion/${revisionId}/${solicitudId}`]);     
         break;
 
         case 3:

@@ -202,7 +202,7 @@ export class TramitesDisponiblesComponent implements OnInit, AfterViewInit {
         i++;
       });
       //localStorage.setItem("tramiteId", this.tramiteId);
-    })
+    },err => { console.log(err) })
   }
 
 
