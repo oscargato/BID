@@ -6,7 +6,6 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FRecepcionPlanosService } from './f-recepcion-planos.service';
 import Swal from 'sweetalert2';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-f-recepcion-planos',
@@ -44,9 +43,9 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
   constructor(private formBuilder:FormBuilder, 
               private activatedRoute:ActivatedRoute,
               private router: Router,
-              private fRecepcionPlanosService:FRecepcionPlanosService){
-                this.adjuntos = [];
-              }
+              private fRecepcionPlanosService:FRecepcionPlanosService)
+              { this.adjuntos = []; }
+
 
   ngOnInit()
   { this.initFormulario();  }
@@ -98,14 +97,8 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
-      
-      this.formulario.controls['fechaInspeccion'].setValue(resp.fechaInspeccion);
       this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
-   
-      //const dateString = moment.unix(1637553600).format('DD/MM/yyyy');
-      //console.log('Asigna',dateString);
-      //this.formulario.controls['fechaInspeccion'].setValue(dateString);
-
+      
       this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
       this.fechaDocRecibidos = resp.t01_Rev_PermisoConstruccionMun.fechaDocRecibidos;
       this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
@@ -158,27 +151,10 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
 
   recibirPlanos(){
 
-    const hoy = new Date();
-    const fecha = this.formulario.controls['fechaInspeccion'].value
-    const unixTimestamp = moment(fecha).unix();
-    const dateString = moment.unix(unixTimestamp).format('DD/MM/YYYY');
-
-    console.log('Fecha',fecha);
-    console.log('unixTimestamp',unixTimestamp);
-    console.log('dateString',dateString);
-    
- /* let incorrecto:boolean;
-
-    if(this.formulario.controls['checkboxPlanosRecibidos'].value === true &&
-      this.formulario.controls['checkboxViable'].value === true)
-    { incorrecto = false; }
-    else
-    { incorrecto = true; } */
-
      const data = {
       "incorrecto": false,
       "docRecibido": this.formulario.controls['checkboxPlanosRecibidos'].value,
-      "fechaInspeccion":hoy.toISOString(),//this.formulario.controls['fechaInspeccion'].value,//Modificar
+      "fechaInspeccion":this.formulario.controls['fechaInspeccion'].value,
       "t01_Rev_PermisoConstruccionMun": {
           "codUbicacion": true,
           "comentarios": "string",
@@ -280,8 +256,9 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
         }
         ]
     }
-    console.log(this.formulario.controls); 
-    console.log(data);
+    
+    console.log('data',data);
+
     this.fRecepcionPlanosService.newRecepcionFisicaPlanos(data).subscribe(resp=>{
       console.log('Respuesta!!!',resp);
       if(resp.codigo === 0)
@@ -289,7 +266,6 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       else
       { this.fail() }
     })  
-    
   }
 
     register(){  

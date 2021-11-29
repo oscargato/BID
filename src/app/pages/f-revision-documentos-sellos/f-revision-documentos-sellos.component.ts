@@ -1,11 +1,11 @@
 import { FRevisionDocumentosSellosService } from './f-revision-documentos-sellos.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import KTWizard from '../../../assets/js/components/wizard';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-f-revision-documentos-sellos',
@@ -20,7 +20,7 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   public planos:string;
   public checkboxDocRecibido:boolean;
   public checkboxSellos:boolean;
-  public fechaInspeccion:string;
+  public fechaInspeccion:number;
   public observaciones:string;
   public archivoRegistroPublico:string;
   public tramiteIdRegistroPublico:number;
@@ -64,7 +64,7 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   		certificacion:['', Validators.compose([Validators.required,]),],  
   		planos:['', Validators.compose([Validators.required,]),],
       checkboxRecibidos:[false, Validators.compose([Validators.required,]),],
-      fechaInspeccion:['', Validators.compose([Validators.required,]),],
+      fechaInspeccion:[null, Validators.compose([Validators.required,]),],
   		completo:[false, Validators.compose([Validators.required,]),],
       informe:['', Validators.compose([Validators.required,]),],
       observaciones:['', Validators.compose([Validators.required,]),],      
@@ -88,9 +88,7 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
- 
-      this.formulario.controls['checkboxRecibidos'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.docRecibido);
-      this.formulario.controls['fechaInspeccion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.fechaInspeccion);              
+      this.formulario.controls['checkboxRecibidos'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.docRecibido);            
       this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
       
       this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
@@ -105,6 +103,10 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
       this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
       this.revisorId = resp.t01_Rev_PermisoConstruccionMun.revisorId; 
+    
+      let fecha = new Date(resp.t01_Rev_PermisoConstruccionMun.solicitudId.fechaInspeccion);
+      fecha.setDate(fecha.getDate()+1);
+      this.fechaInspeccion = fecha.getTime();    
     })
   }
 
@@ -154,13 +156,15 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
         "revisorId":this.revisorId,
         "observaciones": "Todos los sellos correctos"
       }
+      
       console.log(data);
+   
       this.fRevisionDocumentosSellosService.newRevision(data).subscribe(resp=>{
         if(resp.codigo === 0)
         { this.registerAlert(); }
         else
         { this.failSubsanar() }
-      })
+      }) 
   }
 
   registerAlert(){  

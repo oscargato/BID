@@ -54,32 +54,22 @@ export class FRegistrarpagoComponent implements OnInit {
 
 
   newPago(){
-    const hoy = new Date();
-
     const data = 
-    {
-      "solicitudId": this.solicitudId,
+    { "solicitudId": this.solicitudId,
       "pagoManual_T01_Sol":{
           "comentarios" : "Comentario 1",
           "numRecibo": this.formulario.controls['numeroRecibo'].value,
           "montoPago": this.formulario.controls['montoPago'].value,
-          "fechaPago": hoy.toISOString(),//this.formulario.controls['fechaPago'].value,
+          "fechaPago": this.formulario.controls['fechaPago'].value,
           "nombreEntidadBancaria": this.formulario.controls['bancoPago'].value,
       },
       "lstAdjuntosPagos": [{
-          "solicitanteTramiteId": { 
-              "solicitanteTramiteId":this.solicitanteTramiteId,
-          },
-          "tipoDocumentoId": { 
-              "tipoDocumentoId":this.tipoDocumentoId,
-          },
-          "solicitanteId": {
-              "solicitanteId":this.solicitanteId,
-          },
+          "solicitanteTramiteId": {"solicitanteTramiteId":this.solicitanteTramiteId,},
+          "tipoDocumentoId": {"tipoDocumentoId":this.tipoDocumentoId,},
+          "solicitanteId": {"solicitanteId":this.solicitanteId,},
           "nombre": this.adjuntoComprobante,
           "urlAdjunto": this.urlComprobante,
-      }
-      ]
+      }]
     }
     
     console.log(data)

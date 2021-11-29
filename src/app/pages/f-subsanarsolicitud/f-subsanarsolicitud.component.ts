@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { FSubsanarsolicitudService } from './f-subsanarsolicitud.service';
 import { Router } from '@angular/router';
-import KTWizard from '../../../assets/js/components/wizard';
 import { KTUtil } from '../../../assets/js/components/util';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import KTWizard from '../../../assets/js/components/wizard';
 import Swal from 'sweetalert2';
 
 interface DatosI{
@@ -126,8 +126,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
 
  getSubsanacion()
- {this.fSubsanarsolicitudService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
-    console.log('Id',this.activatedRoute.snapshot.params.idSolicitud)
+ {this.fSubsanarsolicitudService.getSubsanacion(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{    
     console.log('Respuesta',resp);
     this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
     this.formulario.controls['descripcionProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
@@ -146,12 +145,13 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
     this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
 
-    this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
+    this.urlRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
     this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;
-    this.archivoIdoneo = resp.lstAdjuntos[1].urlAdjunto;
+    this.urlIdoneidad = resp.lstAdjuntos[1].urlAdjunto;
     this.tramiteIdIdoneo = resp.lstAdjuntos[1].solicitanteTramiteId.solicitanteTramiteId;
-    this.archivoPlanos = resp.lstAdjuntos[2].urlAdjunto;
+    this.urlPLanos = resp.lstAdjuntos[2].urlAdjunto;
     this.tramiteIdPlanos = resp.lstAdjuntos[2].solicitanteTramiteId.solicitanteTramiteId;
+    
     this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
     this.montoPagar = resp.t01_Rev_PermisoConstruccionMun.montoPagar;
     this.montoTotal = resp.t01_Rev_PermisoConstruccionMun.montoTotal;
@@ -178,6 +178,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.subsanarNombreProfesionalIdoneo = resp.t01_Rev_PermisoConstruccionMun.nombreProfesionalIdoneo;
     this.subsanarnumeroIdoneidad = resp.t01_Rev_PermisoConstruccionMun.numIdoneidad;
     this.subsanarNombreProfesionalResidente = resp.t01_Rev_PermisoConstruccionMun.nombreProfesionalResidente;
+    
     this.subsanarRegistroPublico = resp.lstAdjuntos[0].rechazado;
     this.subsanarCertificacionIdonea = resp.lstAdjuntos[1].rechazado;
     this.subsanarPlanos = resp.lstAdjuntos[2].rechazado;
@@ -186,10 +187,13 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.adjuntoIdIdoneo = resp.lstAdjuntos[1].adjuntoId;
     this.adjuntoIdPlanos = resp.lstAdjuntos[2].adjuntoId;
     
+    this.adjuntoRegistroPublico = resp.lstAdjuntos[0].nombre;
+    this.adjuntoCertificacionIdoneo = resp.lstAdjuntos[1].nombre;
+    this.adjuntoPlanos = resp.lstAdjuntos[2].nombre;
+
     this.loadRegistro = false;
     this.loadIdoneidad = false;
     this.loadPLanos = false;
-
 
     let i = 0;
     resp.lstAdjuntos.forEach(element => {
@@ -209,19 +213,21 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
       k++;
     });
 
+
+    /* 
     this.indexProv = resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.codProvincia;
     this.indexDist = resp.t01_Rev_PermisoConstruccionMun.solicitudId.distritoProyectoId.codDistrito;
     this.indexCorr = 0;
-    this.getCargaGeneral(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.codProvincia)
-    
+    this.getCargaGeneral(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.codProvincia)    
     this.formulario.controls['tipoPropiedad'].setValue(2);    
-    this.propiedadId = 2;//= resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.tipoPropiedadId;
+    this.propiedadId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.tipoPropiedadId; }
+    */
   })
 }
 
 
   newSubsanacion(){
-
+    
     if(this.activatedRoute.snapshot.params.estadoTramiteId == 3)
     { this.tipoSubsanacion = 1 }else 
     if(this.activatedRoute.snapshot.params.estadoTramiteId == 5)
@@ -248,8 +254,8 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
           "nombreProfesionalResidente": this.formulario.controls['nombreProfesionalResidente'].value,
           "valorAproxObra": this.formulario.controls['valorObra'].value,
           "tipoPropiedadId": {
-              "descripcion": this.tipoPropiedad[this.tipoProp].nombre,
-              "tipoPropiedadId": this.tipoPropiedad[this.tipoProp].id,
+              "descripcion": this.tipoPropiedad[this.propiedadId].nombre,
+              "tipoPropiedadId": this.tipoPropiedad[this.propiedadId].id,
           },
           "provinciaProyectoId":{
              "provinciaId": this.provincias[this.indexProv].provinciaId,
@@ -309,7 +315,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
               "solicitanteId": this.solicitanteId,
           },
           "nombre": this.adjuntoRegistroPublico,
-          "urlAdjunto": this.urlRegistroPublico
+          "urlAdjunto": this.urlRegistroPublico,
       },
       {   "adjuntoId": this.adjuntoIdIdoneo,
           "solicitanteTramiteId": { 
@@ -322,7 +328,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
               "solicitanteId": this.solicitanteId,
           },
           "nombre": this.adjuntoCertificacionIdoneo,
-          "urlAdjunto": this.urlIdoneidad
+          "urlAdjunto": this.urlIdoneidad,
       },
       {   "adjuntoId": this.adjuntoIdPlanos,
           "solicitanteTramiteId": { 
@@ -335,11 +341,11 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
               "solicitanteId": this.solicitanteId,
           },
           "nombre": this.adjuntoPlanos,
-          "urlAdjunto": this.urlPLanos
+          "urlAdjunto": this.urlPLanos,
       }]
     }
 
-    console.log(data)
+    console.log('data',data)
     
     this.fSubsanarsolicitudService.newSubsanacion(data).subscribe(resp=>{
       console.log('newSubsanacion',resp)
@@ -347,11 +353,12 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
       { this.registerAlert(); }
       else
       { this.failSubsanar() }
-    }) 
+    })  
   }
 
   getTipoPropiedad(){
-    this.tipoP = this.tipoPropiedad[this.tipoProp].nombre;
+    this.tipoP = this.tipoPropiedad[this.propiedadId].nombre;
+    console.log('this.tipoP',this.propiedadId);
   }
 
   getCarga(idCorregimiento:number){
@@ -447,21 +454,21 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
   fileDownloadRegistro(){
     this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
-      saveAs(resp,this.archivoRegistroPublico),
+      saveAs(resp,this.urlRegistroPublico),
       error => console.error(error)
     });
   }
 
   fileDownloadIdoneo(){
     this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdIdoneo,this.archivoIdoneo).subscribe(resp=>{
-      saveAs(resp,this.archivoIdoneo),
+      saveAs(resp,this.urlIdoneidad),
       error => console.error(error)      
     });
   } 
 
   fileDownloadPlanos(){
     this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdPlanos,this.archivoPlanos).subscribe(resp=>{
-      saveAs(resp,this.archivoPlanos),
+      saveAs(resp,this.urlPLanos),
       error => console.error(error)      
     });    
   }  

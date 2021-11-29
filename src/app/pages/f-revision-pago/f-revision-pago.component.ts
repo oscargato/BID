@@ -26,6 +26,7 @@ export class FRevisionPagoComponent implements OnInit {
   public fechaRevision:string;
   public nombre:string;
   public urlAdjunto:string;
+  public fechaPago:number;
 
   constructor(private fRevisionPagoService:FRevisionPagoService, 
               private router:Router,
@@ -36,7 +37,6 @@ export class FRevisionPagoComponent implements OnInit {
     this.iniciarFormulario();
     this.getRevision();
   }
-
 
   iniciarFormulario(){
     this.formulario = this.formBuilder.group({
@@ -65,11 +65,10 @@ export class FRevisionPagoComponent implements OnInit {
       this.formulario.controls['fechaPago'].setValue(resp.fechaPago);
       this.formulario.controls['montoPago'].setValue(resp.montoPagado);
       this.formulario.controls['nombreEntidad'].setValue(resp.nombreEntidad);      
+
       this.archivoComprobante = resp.adjuntos.urlAdjunto;
-      this.tramiteIDComprobante = resp.adjuntos.solicitanteTramiteId.solicitanteTramiteId;
-      
-      this.solicitudId = parseInt(this.activatedRoute.snapshot.params.tramiteId);//resp.adjuntos.solicitanteTramiteId.solicitanteTramiteId;//resp.solicitudIdT01;
-      //this.revisorId = Number(localStorage.getItem('id'));//resp.adjuntos.revisorId;
+      this.tramiteIDComprobante = resp.adjuntos.solicitanteTramiteId.solicitanteTramiteId;      
+      this.solicitudId = parseInt(this.activatedRoute.snapshot.params.tramiteId);      
       this.tipoDocumentoId = resp.adjuntos.tipoDocumentoId.tipoDocumentoId;
       this.solicitanteId = resp.adjuntos.solicitanteId.solicitanteId;
       this.adjuntoId = resp.adjuntos.adjuntoId;
@@ -78,6 +77,10 @@ export class FRevisionPagoComponent implements OnInit {
       this.fechaRevision = resp.adjuntos.fechaRevision
       this.nombre = resp.adjuntos.nombre
       this.urlAdjunto = resp.adjuntos.urlAdjunto;
+
+      let fecha = new Date(resp.fechaPago);
+      fecha.setDate(fecha.getDate()+1);
+      this.fechaPago = fecha.getTime();      
     })
   }
 
@@ -85,7 +88,6 @@ export class FRevisionPagoComponent implements OnInit {
   newRevisonPago(){
 
     let incorrecto:boolean;
-
     if(this.formulario.controls['checkboxNumRecibo'].value === false &&
        this.formulario.controls['checkboxFechaPago'].value === false &&
        this.formulario.controls['checkboxMontoPago'].value === false &&

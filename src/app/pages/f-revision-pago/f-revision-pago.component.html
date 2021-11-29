@@ -80,14 +80,12 @@
                   <div class="col-xl-4">
                     <div class="form-group">
                       <label>Fecha de pago</label>
-                      <input
-                        type="datetime-local"
-                        class="form-control"
-                        name="fechaPago"
-                        formControlName="fechaPago"
-                        id="Test_DatetimeLocal"
-                        readonly
-                      />
+                      <input type="datetime"
+                             class="form-control"
+                             name="fechaPago"
+                             [ngModel]="fechaPago | date: 'dd/MM/yyyy'"
+                             formControlName="fechaPago"
+                             readonly/>
                     </div>
                   </div>
                   <div class="col-xl-2">

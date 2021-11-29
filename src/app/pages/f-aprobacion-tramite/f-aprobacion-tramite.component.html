@@ -479,12 +479,13 @@
                     <div class="row  border-top py-3">                          
                       <div class="col-xl-12">                                 
                         <div class="form-group">
-                          <label>Fecha</label>
-                          <input type="datetime-local"  
+                          <label>Fecha de Inspección</label>
+                          <input type="datetime"  
                                   class="form-control"
                                   name="fechaInspeccion"
+                                  [ngModel]="fechaInspeccion | date: 'dd/MM/yyyy'"  
                                   formControlName="fechaInspeccion"
-                                  id="Test_DatetimeLocal">
+                                  readonly/>
                         </div>
                       </div>
                       <div class="col-xl-12">
@@ -524,10 +525,12 @@
                             <div class="col-xl-4">                              
                               <div class="form-group ">
                                 <label>Fecha</label>
-                                <input type="date"  
+                                <input type="datetime"  
                                        class="form-control"
                                        name="fechaPago"
-                                       formControlName="fechaPago"/>                 
+                                       [ngModel]="fechaPago | date: 'dd/MM/yyyy'"  
+                                       formControlName="fechaPago"
+                                       readonly/>                 
                               </div>
                             </div>
         

@@ -454,32 +454,20 @@
 
                       <br>
                       <label class="font-weight-bold text-dark">
-                          Inspección</label>
+                          Inspección
+                      </label>
                       <div class="row  border-top py-3">
                         <div class="col-xl-6">
                           <div class="form-group ">
-                            <label>Fecha</label>
-                            <input type="datetime-local"  
-                                    class="form-control"
-                                    name="fechaInspeccion"
-                                    formControlName="fechaInspeccion"
-                                    id="Test_DatetimeLocal">
+                            <label>Fecha de la Inspección</label>
+                            <input type="datetime"                                   
+                                   class="form-control"
+                                   name="fechaInspeccion"
+                                   [ngModel]="fechaInspeccion | date: 'dd/MM/yyyy'"                                   
+                                   formControlName="fechaInspeccion" 
+                                   readonly/>       
                           </div>
                         </div>
-      
-                          <!--
-                          <div class="col-xl-6">
-                            <div class="form-group">
-                              <label>Informe de Inspección</label>
-                              <input  type="text"
-                                      class="form-control"
-                                      name="iinspeccion"
-                                      placeholder="Viggo Tarasov"
-                                      value=""/>
-                            </div>
-                          </div>
-                          -->
-      
                       </div>
             
                         <label class="font-weight-bold text-dark">

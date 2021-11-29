@@ -32,6 +32,8 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
   public solicitudId:number;  
   public revisionId:number;
   public revisorId:number;
+  public fechaInspeccion:number;
+  public fechaPago:number;
 
   constructor(private fAprobacionTramiteService:FAprobacionTramiteService, 
               private router:Router, 
@@ -118,6 +120,14 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
         this.revisionId = resp.t01_Rev_PermisoConstruccionMun.revisionId;
         this.revisorId = Number(localStorage.getItem('id'));
+
+        let fecha = new Date(resp.t01_Rev_PermisoConstruccionMun.solicitudId.fechaInspeccion);
+        fecha.setDate(fecha.getDate()+1);
+        this.fechaInspeccion = fecha.getTime();
+
+        let fechaP = new Date(resp.pago.fechaPago);
+        fechaP.setDate(fechaP.getDate()+1);
+        this.fechaPago = fechaP.getTime();
     })
   }
 

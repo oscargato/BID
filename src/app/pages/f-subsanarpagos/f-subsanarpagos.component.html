@@ -73,9 +73,10 @@
                 <div class="col-xl-6">
                   <div class="form-group">
                     <label>Fecha de Pago</label>
-                    <input type="datetime-local"  
+                    <input type="date"  
                            class="form-control"
                            name="fechaPago"
+                           [ngModel]="fechaPago | date: 'yyyy-MM-dd'"
                            formControlName="fechaPago"
                            [ngStyle]="subsanarFechaPago && (!formulario.controls['fechaPago'].touched || !formulario.controls['fechaPago'].dirty || !formulario.controls['fechaPago'].valid) && {'border-color': '#FF0000'}"
                            [readonly]="!subsanarFechaPago"/>
@@ -176,8 +177,7 @@
             <div>
               <button (click)="newSubsanacionPago()"
                       class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-                      data-wizard-type="action-submit"
-                      >
+                      data-wizard-type="action-submit">
                       Enviar
               </button>
             </div>
