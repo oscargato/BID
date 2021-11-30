@@ -5,43 +5,29 @@ import {LoginComponent} from './login/login.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
 import {LogoutComponent} from './logout/logout.component';
-
+import { RegisterComponent } from '../auth/modal/register/register.component';
+import { PasswordComponent } from '../auth/modal/password/password.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: AuthComponent,
+  { path: '', component: AuthComponent,
     children: [
-      {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full'
-      },
-      {
-        path: 'login',
-        component: LoginComponent,
-        data: {returnUrl: window.location.pathname}
-      },
-      {
-        path: 'registration',
-        component: RegistrationComponent
-      },
-      {
-        path: 'forgot-password',
-        component: ForgotPasswordComponent
-      },
-      {
-        path: 'logout',
-        component: LogoutComponent
-      },
-      {path: '', redirectTo: 'login', pathMatch: 'full'},
-      {path: '**', redirectTo: 'login', pathMatch: 'full'},
+      { path: '', redirectTo: 'login', pathMatch: 'full'},
+      { path: 'login', component: LoginComponent, data: {returnUrl: window.location.pathname}},
+      { path: 'registration', component: RegistrationComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'logout', component: LogoutComponent },
+      { path: '', component: LogoutComponent },
+      { path: 'register-confirm', component: RegisterComponent},
+      { path: 'password-confirm', component: PasswordComponent},
+      { path: '', redirectTo: 'login', pathMatch: 'full'},
+      { path: '**', redirectTo: 'login', pathMatch: 'full'},
     ]
-  }
-];
+  }];
+
 
 @NgModule({
   imports: [ RouterModule.forChild(routes) ],
   exports: [ RouterModule ]
 })
+
 export class AuthRoutingModule {}

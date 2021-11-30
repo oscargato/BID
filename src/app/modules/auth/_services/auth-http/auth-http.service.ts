@@ -27,12 +27,16 @@ export class AuthHTTPService {
 
   
   forgotPassword(email: string): Observable<boolean> {
-    return this.http.post<boolean>(`${API_USERS_URL}/forgot-password`, { email,});
+    return this.http.post<boolean>(`${API_USERS_URL}/forgot-password`,{email,});
   }
 
 
   getUserByToken(token): Observable<UserModel> {
     const httpHeaders = new HttpHeaders({ Authorization: `Bearer ${token}`,});
     return this.http.get<UserModel>(`${API_USERS_URL}/me`, {headers: httpHeaders,});
+  }
+
+  updateCorrecto(data:any){
+    return this.http.post<any>(`${API_USERS_URL}/registros/updateCorrecto`,data); 
   }
 }
