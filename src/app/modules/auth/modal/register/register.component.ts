@@ -12,7 +12,8 @@ export class RegisterComponent implements OnInit {
   private hash:string;
   private urlTree:UrlTree;
 
-  constructor(private authHTTPService:AuthHTTPService, private router:Router){}
+  constructor(private authHTTPService:AuthHTTPService, 
+              private router:Router){}
 
   ngOnInit(){}
 

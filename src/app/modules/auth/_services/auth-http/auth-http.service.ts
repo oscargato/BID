@@ -27,7 +27,8 @@ export class AuthHTTPService {
 
   
   forgotPassword(email: string): Observable<boolean> {
-    return this.http.post<boolean>(`${API_USERS_URL}/forgot-password`,{email,});
+    const data = { "email": email }
+    return this.http.post<boolean>(`${API_USERS_URL}/usuarios/recuperarPass`,data);
   }
 
 
@@ -38,5 +39,9 @@ export class AuthHTTPService {
 
   updateCorrecto(data:any){
     return this.http.post<any>(`${API_USERS_URL}/registros/updateCorrecto`,data); 
+  }
+
+  recuperarPassCorrecto(data:any){
+    return this.http.post<any>(`${API_USERS_URL}/usuarios/recuperarPassCorrecto`,data); 
   }
 }
