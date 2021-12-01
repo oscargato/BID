@@ -347,13 +347,13 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
     console.log('data',data)
     
-    this.fSubsanarsolicitudService.newSubsanacion(data).subscribe(resp=>{
+/*     this.fSubsanarsolicitudService.newSubsanacion(data).subscribe(resp=>{
       console.log('newSubsanacion',resp)
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failSubsanar() }
-    })  
+    }) */  
   }
 
   getTipoPropiedad(){
@@ -453,21 +453,21 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   }
 
   fileDownloadRegistro(){
-    this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdRegistroPublico,this.archivoRegistroPublico).subscribe(resp=>{
+    this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdRegistroPublico,this.urlRegistroPublico).subscribe(resp=>{
       saveAs(resp,this.urlRegistroPublico),
       error => console.error(error)
     });
   }
 
   fileDownloadIdoneo(){
-    this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdIdoneo,this.archivoIdoneo).subscribe(resp=>{
+    this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdIdoneo,this.urlIdoneidad).subscribe(resp=>{
       saveAs(resp,this.urlIdoneidad),
       error => console.error(error)      
     });
   } 
 
   fileDownloadPlanos(){
-    this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdPlanos,this.archivoPlanos).subscribe(resp=>{
+    this.fSubsanarsolicitudService.getDownloadFile(this.tramiteIdPlanos,this.urlPLanos).subscribe(resp=>{
       saveAs(resp,this.urlPLanos),
       error => console.error(error)      
     });    

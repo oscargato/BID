@@ -59,35 +59,28 @@ function createNewUser(id: number): any {
 
 export class HistoricoTramitesComponent implements OnInit, AfterViewInit {
 
-  constructor(private historicoTramitesService:HistoricoTramitesService) {
-    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
-    this.dataSource7 = new MatTableDataSource(users);
-    this.historicoTramites = [];
-  }
-
   public historicoTramites: Array<any>;
   public desde:number =0;
   public hasta:number =10;
   public pageSize = 10;
 
   exampleMain;
-
-
   displayedColumns7: string[] = ['id', 'solicitante', 'tramite', 'estado','fcreacion'];
-
   dataSource7: MatTableDataSource<any>;
-
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
 
   @ViewChild('matPaginator7', { static: true }) paginator7: MatPaginator;
-
-
   @ViewChild('sort7', { static: true }) sort7: MatSort;
 
   ngAfterViewInit() {}
 
+  constructor(private historicoTramitesService:HistoricoTramitesService) {
+    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
+    this.dataSource7 = new MatTableDataSource(users);
+    this.historicoTramites = [];
+  }
   
   ngOnInit() {
     this.dataSource7.paginator = this.paginator7;
@@ -130,12 +123,10 @@ export class HistoricoTramitesComponent implements OnInit, AfterViewInit {
     this.hasta = this.desde + e.pageSize;
   }
 
-
   applyFilter7(filterValue: string){
     this.dataSource7.filter = filterValue.trim().toLowerCase();
     if (this.dataSource7.paginator) {
       this.dataSource7.paginator.firstPage();
     }
   }
-  
 }

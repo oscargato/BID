@@ -1,14 +1,6 @@
 <h1>Historico Trámites</h1>
 
-<div class="example-preview">
-    <!--
-    <div class="example-header">
-      <mat-form-field>
-        <input  matInput (keyup)="applyFilter7($event.target.value)" placeholder="Buscar"/>
-      </mat-form-field>
-    </div>
-    -->
-    
+<div class="example-preview">    
     <table class="table table-hover">
       <thead>
         <tr>
@@ -21,7 +13,7 @@
       </thead>
       
       <tbody>
-          <tr *ngFor="let item of historicoTramites">
+          <tr *ngFor="let item of historicoTramites | slice:desde:hasta">
               <td>{{ item.clasificador }} </td>
               <td>{{ item.nombreSolicitante }}</td>
               <td>{{ item.nombreTramite }}</td>

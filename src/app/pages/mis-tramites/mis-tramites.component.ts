@@ -277,8 +277,8 @@ function createNewUser(id: number): UserData {
 export class MisTramitesComponent implements OnInit, AfterViewInit {
 
   public misTramites: Array<MisTramites>;
-  public desde:number =0;
-  public hasta:number =10;
+  public desde:number = 0;
+  public hasta:number = 10;
   public pageSize = 10;
 
   exampleMain;
@@ -299,7 +299,6 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
     this.misTramites = [];
   }
 
-  
   ngOnInit() {
     this.exampleMain = main;
     this.dataSource7.paginator = this.paginator7;
@@ -327,7 +326,6 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
     this.desde = e.pageIndex * e.pageSize;
     this.hasta = this.desde + e.pageSize;
   }
-
 
   applyFilter7(filterValue: string){
     this.dataSource7.filter = filterValue.trim().toLowerCase();
