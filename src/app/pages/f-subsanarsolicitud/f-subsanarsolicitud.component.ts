@@ -90,7 +90,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   public adjuntoIdRegistro:number;
   public adjuntoIdIdoneo:number;
   public adjuntoIdPlanos:number
-  public propiedadId:number=0;
+  public propiedadId:number;
 
   constructor(private fSubsanarsolicitudService:FSubsanarsolicitudService, 
               private router:Router, 
@@ -105,7 +105,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   		provincia:['', Validators.compose([Validators.required,]),],  
   		distrito:['', Validators.compose([Validators.required,]),],  
   		corregimiento:['', Validators.compose([Validators.required,]),],  
-  		tipoPropiedad:['', Validators.compose([Validators.required,]),],  
+  		tipoPropiedad:[-1, Validators.compose([Validators.required,]),],  
   		codigoUbicacion:['', Validators.compose([Validators.required,]),],  
   		finca:['', Validators.compose([Validators.required,]),],  
   		tomo:['', Validators.compose([Validators.required,]),],  
@@ -130,10 +130,12 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     console.log('Respuesta',resp);
     this.formulario.controls['nombreProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProyecto);
     this.formulario.controls['descripcionProyecto'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.descripcionProyecto);
+    
     //this.formulario.controls['provincia'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.codProvincia);
     //this.formulario.controls['distrito'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.distritoProyectoId.codDistrito);
     //this.formulario.controls['corregimiento'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.corregimientoProyectoId.codCorregimiento);
-    //this.formulario.controls['tipoPropiedad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.descripcion);
+    //this.formulario.controls['tipoPropiedad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.tipoPropiedadId);
+                                                       
     this.formulario.controls['codigoUbicacion'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.codUbicacion);
     this.formulario.controls['finca'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.finca);
     this.formulario.controls['tomo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.tomo);
@@ -178,7 +180,8 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.subsanarNombreProfesionalIdoneo = resp.t01_Rev_PermisoConstruccionMun.nombreProfesionalIdoneo;
     this.subsanarnumeroIdoneidad = resp.t01_Rev_PermisoConstruccionMun.numIdoneidad;
     this.subsanarNombreProfesionalResidente = resp.t01_Rev_PermisoConstruccionMun.nombreProfesionalResidente;
-    
+    this.propiedadId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.tipoPropiedadId -1;
+
     this.subsanarRegistroPublico = resp.lstAdjuntos[0].rechazado;
     this.subsanarCertificacionIdonea = resp.lstAdjuntos[1].rechazado;
     this.subsanarPlanos = resp.lstAdjuntos[2].rechazado;
@@ -212,22 +215,16 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
       this.provincias[k] = element;
       k++;
     });
+    
+    this.getCargaCombo(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.nomProvincia,
+                       resp.t01_Rev_PermisoConstruccionMun.solicitudId.distritoProyectoId.nomDistrito,
+                       resp.t01_Rev_PermisoConstruccionMun.solicitudId.corregimientoProyectoId.nomCorregimiento)
 
-
-    /* 
-    this.indexProv = resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.codProvincia;
-    this.indexDist = resp.t01_Rev_PermisoConstruccionMun.solicitudId.distritoProyectoId.codDistrito;
-    this.indexCorr = 0;
-    this.getCargaGeneral(resp.t01_Rev_PermisoConstruccionMun.solicitudId.provinciaProyectoId.codProvincia)    
-    this.formulario.controls['tipoPropiedad'].setValue(2);    
-    this.propiedadId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.tipoPropiedadId.tipoPropiedadId; }
-    */
   })
 }
 
 
   newSubsanacion(){
-    
     if(this.activatedRoute.snapshot.params.estadoTramiteId == 3)
     { this.tipoSubsanacion = 1 }else 
     if(this.activatedRoute.snapshot.params.estadoTramiteId == 5)
@@ -347,18 +344,67 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
 
     console.log('data',data)
     
-/*     this.fSubsanarsolicitudService.newSubsanacion(data).subscribe(resp=>{
+    this.fSubsanarsolicitudService.newSubsanacion(data).subscribe(resp=>{
       console.log('newSubsanacion',resp)
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failSubsanar() }
-    }) */  
+    })
   }
 
+
+
+
+
+
+
+  getCargaCombo(nomProvincia:string, nomDistrito:string, nomCorregimiento:string){
+    const posProvincias = this.provincias.findIndex(resp => resp.nomProvincia === nomProvincia);
+    this.indexProv = posProvincias;
+    if(this.indexProv >= 0){
+      this.distritos = [];
+      this.corregimientos = [];
+      const id = this.provincias[this.indexProv].provinciaId
+      this.provincia = this.provincias[this.indexProv].nomProvincia
+      this.fSubsanarsolicitudService.getDistritos(id).subscribe(resp=>{
+        let i = 0;
+        resp.forEach(element => {
+          this.distritos[i] = element;
+          i++;
+        });
+        const posDistritos = this.distritos.findIndex(resp => resp.nomDistrito === nomDistrito);
+        this.indexDist = posDistritos;
+        console.log('indexDist',this.indexDist);
+
+         if(this.indexDist >= 0){
+          this.corregimientos = [];
+          const id2 = this.distritos[this.indexDist].distritoId
+          this.distrito = this.distritos[this.indexDist].nomDistrito
+          this.fSubsanarsolicitudService.getCorregimientos(id2).subscribe(respuesta=>{
+            let j = 0;
+            respuesta.forEach(elemento => {
+              this.corregimientos[j] = elemento;
+              j++;
+            });
+            const posCorregimiento = this.corregimientos.findIndex(resp => resp.nomCorregimiento === nomCorregimiento);
+            this.indexCorr = posCorregimiento;
+          })
+        }  
+      })
+    }
+  }
+
+
+
+
+
+
+
+
   getTipoPropiedad(){
-    this.tipoP = this.tipoPropiedad[this.propiedadId].nombre;
-    console.log('this.tipoP',this.propiedadId);
+    console.log('propiedadId',this.propiedadId);
+    //this.tipoP = this.tipoPropiedad[this.propiedadId].nombre;
   }
 
   getCarga(idCorregimiento:number){
@@ -382,35 +428,19 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   }
   
   getCargaCorregimientos(idDistrito:number){
-    this.corregimientos = [];
-    const id = this.distritos[idDistrito].distritoId
-    this.distrito = this.distritos[idDistrito].nomDistrito
-    this.fSubsanarsolicitudService.getCorregimientos(id).subscribe(resp=>{
-      let i = 0;
-      resp.forEach(element => {
-        this.corregimientos[i] = element;
-        i++;
-      });
-    })
-  }  
-
-  getCargaGeneral(idProvincia:number)
-  { if(idProvincia >= 0){
-      this.distritos = [];
+    if(idDistrito >= 0){
       this.corregimientos = [];
-      const id = this.provincias[idProvincia].provinciaId
-      this.provincia = this.provincias[idProvincia].nomProvincia
-      this.fSubsanarsolicitudService.getDistritos(id).subscribe(resp=>{
+      const id = this.distritos[idDistrito].distritoId
+      this.distrito = this.distritos[idDistrito].nomDistrito
+      this.fSubsanarsolicitudService.getCorregimientos(id).subscribe(resp=>{
         let i = 0;
         resp.forEach(element => {
-          this.distritos[i] = element;
+          this.corregimientos[i] = element;
           i++;
         });
       })
-      this.getCargaCorregimientos(this.indexDist);
     }
-  }
-
+  }  
 
   fileChangeRegistro(element){
     this.uploadRegistroPublico = element.target.files[0];

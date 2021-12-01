@@ -7,19 +7,16 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 
-
 interface DatosI{
   id:number;
   nombre:string;
 }
-
 
 @Component({
   selector: 'app-f-disponibles',
   templateUrl: './f-disponibles.component.html',
   styleUrls: ['./f-disponibles.component.scss'],
 })
-
 
 export class FDisponiblesComponent implements OnInit, AfterViewInit 
 {
@@ -32,7 +29,7 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
   public distritos:Array<any> = [];
   public corregimientos:Array<any> = [];
   public tipoPropiedad:Array<DatosI> = [];
-  public tipoProp:string;
+  public tipoProp:number = 0;
   public indexProv:number=-1;
   public indexDist:number=-1;
   public indexCorr:number=-1;
@@ -199,7 +196,6 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
     this.loadIdoneidad = false;
     this.loadPLanos = false;
     
-    
     this.solicitantesTramites(); 
   }
 
@@ -214,7 +210,6 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
       let adjunto = this.formulario.controls['registroPublico'].value
       this.adjuntoRegistroPublico = adjunto.substring(adjunto.indexOf("h",10) + 2)
       this.archivoCargado();
-
     });
   }
   
@@ -282,7 +277,6 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
         k++;
       });
       
-      
       this.solicitante = resp.solicitante;
     })
   }
@@ -306,31 +300,29 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
 
   
   getCargaCorregimientos(idDistrito:number){
-    this.corregimientos = [];
-    const id = this.distritos[idDistrito].distritoId
-    this.distrito = this.distritos[idDistrito].nomDistrito
-    this.disponiblesService.getCorregimientos(id).subscribe(resp=>{
-      let i = 0;
-      resp.forEach(element => {
-        this.corregimientos[i] = element;
-        i++;
-      });
-    })
+    if(idDistrito >= 0){
+      this.corregimientos = [];
+      const id = this.distritos[idDistrito].distritoId
+      this.distrito = this.distritos[idDistrito].nomDistrito
+      this.disponiblesService.getCorregimientos(id).subscribe(resp=>{
+        let i = 0;
+        resp.forEach(element => {
+          this.corregimientos[i] = element;
+          i++;
+        });
+      })      
+    }
   }
-
 
   getCarga(idCorregimiento:number){
     this.corregimiento = this.corregimientos[idCorregimiento].nomCorregimiento
   }
  
   getTipoPropiedad(){
-    this.tipoP = this.tipoPropiedad[this.tipoProp].nombre;
+    console.log('tipoProp',this.tipoProp)
   }
 
-
-
   onRegistrar(){
-
     const data = {
         "t01_Sol_PermisoConstruccionMun":{    
             "solicitanteTramiteId": { 
@@ -446,7 +438,6 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
       else
       { this.failRegister();  }
     })
-    
   }
 
 
@@ -479,30 +470,21 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
 
 
   ngAfterViewInit(): void {
-    // Initialize form wizard
     this.wizard = new KTWizard(this.el.nativeElement, {
       startStep: 1,
       clickableSteps: true
     });
 
-
-    // Validation before going to next page
     this.wizard.on('beforeNext', (wizardObj) => {
-      // validate the form and use below function to stop the wizard's step
-      // wizardObj.stop();
-      
-      
       if (wizardObj.currentStep === 1) {
         if (this.wizard.invalid) {
             this.wizard.markAllAsTouched();
             wizardObj.stop();
           }
       }
-
       
     });
 
-    // Change event
     this.wizard.on('change', () => {
       setTimeout(() => {
         KTUtil.scrollTop();

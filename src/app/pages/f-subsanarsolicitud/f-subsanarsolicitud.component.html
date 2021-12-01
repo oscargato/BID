@@ -274,9 +274,8 @@
                           [disabled]="subsanarTipoPropiedad"
                           [ngStyle]="subsanarTipoPropiedad && (!formulario.controls['tipoPropiedad'].touched || !formulario.controls['tipoPropiedad'].dirty || !formulario.controls['tipoPropiedad'].valid) && {'border-color': '#FF0000'}"
                           [(ngModel)]="propiedadId"
-                          (change)='getTipoPropiedad()'>
-                          <option selected value="0">Seleccione una opción</option>
-                          <option [value]="propiedadId" *ngFor="let item of tipoPropiedad; let i = index">
+                          (change)='getTipoPropiedad()'>                          
+                          <option [value]="i" *ngFor="let item of tipoPropiedad; let i = index">
                                 {{ item.nombre }}
                           </option> 
                   </select>
