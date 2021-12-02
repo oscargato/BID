@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
-import { UserModel, UModel } from '../_models/user.model';
+import { UModel } from '../_models/user.model';
 import { first } from 'rxjs/operators';
-
 
 
 @Component({
@@ -21,14 +20,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   hasError: boolean;
   isLoading$: Observable<boolean>;
   
+  private unsubscribe: Subscription[] = [];
 
-  // private fields
-  private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
-
-  constructor( private fb: FormBuilder, private authService: AuthService, private router: Router) 
+  constructor( private fb: FormBuilder, 
+               private authService: AuthService, 
+               private router: Router) 
   {
-    this.isLoading$ = this.authService.isLoading$;
-    // redirect to home if already logged in
+    this.isLoading$ = this.authService.isLoading$;    
     if (this.authService.currentUserValue) {
       this.router.navigate(['/']);
     }
@@ -42,27 +40,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   initForm(){
       this.registrationForm = this.fb.group(
-      { tipoID: [ '',
-                  Validators.compose([
-                  Validators.required
-                  ]),
-                ],        
-
-        numeroID: [ '',
-                    Validators.compose([
-                    Validators.required,
-                    Validators.minLength(3),
-                    Validators.maxLength(20),                    
-                    ]),
-                  ],
-        
-        firstname: [ '',
-                     Validators.compose([
-                     Validators.required,
-                     Validators.minLength(3),
-                     Validators.maxLength(100),
-                    ]),
-                  ],
+      { tipoID: [ '',Validators.compose([Validators.required]),],
+        numeroID: [ '',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(20),]),],        
+        firstname: [ '',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100),]),],
 
         lastname: [ '',
                   Validators.compose([

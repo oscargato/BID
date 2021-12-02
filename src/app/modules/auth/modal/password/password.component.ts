@@ -10,7 +10,6 @@ import { Router, UrlTree } from '@angular/router';
 })
 
 export class PasswordComponent implements OnInit {
-  
   public formulario:FormGroup;
   private hash:string;
   private urlTree:UrlTree;
@@ -30,14 +29,12 @@ export class PasswordComponent implements OnInit {
     this.urlTree = this.router.parseUrl(this.router.url);
     this.hash = this.urlTree.queryParams.hash;
 
-    const data = {
-      "pass": this.formulario.controls['password'].value,
-      "hash": this.hash,
-    }
-    console.log(data)
- /*    this.authHTTPService.recuperarPassCorrecto(data).subscribe(resp=>{
-      console.log('Respuesta',resp)
+    const data = {  "pass": this.formulario.controls['password'].value,
+                    "hash": this.hash,
+                 }
+    
+    this.authHTTPService.recuperarPassCorrecto(data).subscribe(resp=>{
       this.router.navigate(['/auth/login']);
-    }) */
+    }) 
   }
 }

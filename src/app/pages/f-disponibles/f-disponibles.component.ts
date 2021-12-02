@@ -19,9 +19,7 @@ interface DatosI{
 })
 
 export class FDisponiblesComponent implements OnInit, AfterViewInit 
-{
-  @ViewChild('wizard', { static: true }) el: ElementRef;
-
+{ @ViewChild('wizard', { static: true }) el: ElementRef;
   wizard: any;
 
   public formulario:FormGroup;
@@ -33,28 +31,22 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
   public indexProv:number=-1;
   public indexDist:number=-1;
   public indexCorr:number=-1;
-
   public provincia:string;  
   public distrito:string;
   public corregimiento:string;
   public tipoP:string;
-
   public solicitante:any;
   public solicitanteTramiteId:number;
   public documentosAdjuntar:Array<any> = [];
-
   public uploadRegistroPublico:File;
   public uploadIdoneidad:File;
   public uploadPLanos:File;
-
   public loadRegistro: boolean;
   public loadIdoneidad: boolean;
   public loadPLanos: boolean;
-  
   public urlRegistroPublico:string;
   public urlIdoneidad:string;
   public urlPLanos:string;
-
   public adjuntoRegistroPublico:string;
   public adjuntoCertificacionIdoneo:string;
   public adjuntoPlanos:string;
