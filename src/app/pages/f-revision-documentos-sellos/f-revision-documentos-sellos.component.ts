@@ -140,31 +140,35 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
 
 
   newRevision(){
-    let incorrecto:boolean;
+    if(this.formulario.controls['completo'].value !== true)
+    {  this.failDocumentos();  }
+    else
+    {
+      let incorrecto:boolean;
 
-    if(this.formulario.controls['checkboxRecibidos'].value === true &&
-       this.formulario.controls['completo'].value === true)
-      { incorrecto = false; }
-      else
-      { incorrecto = true; }
-
-      const data =
-      { "solicitudId": this.solicitudId,
-        "revisionId": this.revisionId,
-        "incorrecto": incorrecto,
-        "sellosCompletos": this.formulario.controls['completo'].value, 
-        "revisorId":this.revisorId,
-        "observaciones": "Todos los sellos correctos"
-      }
-      
-      console.log(data);
-   
-      this.fRevisionDocumentosSellosService.newRevision(data).subscribe(resp=>{
-        if(resp.codigo === 0)
-        { this.registerAlert(); }
+      if(this.formulario.controls['checkboxRecibidos'].value === true &&
+        this.formulario.controls['completo'].value === true)
+        { incorrecto = false; }
         else
-        { this.failSubsanar() }
-      }) 
+        { incorrecto = true; }
+
+        const data =
+        { "solicitudId": this.solicitudId,
+          "revisionId": this.revisionId,
+          "incorrecto": incorrecto,
+          "sellosCompletos": this.formulario.controls['completo'].value, 
+          "revisorId":this.revisorId,
+          "observaciones": "Todos los sellos correctos"
+        }
+    
+        this.fRevisionDocumentosSellosService.newRevision(data).subscribe(resp=>{
+          if(resp.codigo === 0)
+          { this.registerAlert(); }
+          else
+          { this.failSubsanar() }
+        }) 
+        
+    }    
   }
 
   registerAlert(){  
@@ -184,6 +188,14 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       text: 'Revision Fallida!'
     })
   }
+
+  failDocumentos(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Debe indicar completos los Documentos y Sellos otras entidades'
+    })
+  }   
 
   ngAfterViewInit(): void {
     this.wizard = new KTWizard(this.el.nativeElement, {

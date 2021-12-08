@@ -60,11 +60,13 @@
                 <div class="col-xl-6">
                   <div class="form-group">
                     <label>Número de recibo / depósito</label>
-                    <input type="text"
+                    <input type="number"
+                           min="0"
+                           oninput="validity.valid || (value='');"
                            class="form-control"
                            name="numeroRecibo"
                            formControlName="numeroRecibo"
-                           placeholder="123a"/>
+                           placeholder="1234567890"/>
                            <div *ngIf="formulario.controls['numeroRecibo'].invalid && (formulario.controls['numeroRecibo'].dirty || formulario.controls['numeroRecibo'].touched)">
                             <div class="d-flex justify-content-end" style="color:#FF0000;">
                               <span>Se requiere Número de recibo / depósito</span> 
@@ -94,11 +96,13 @@
                 <div class="col-xl-6">
                   <div class="form-group">
                     <label>Monto del Pago</label>
-                    <input  type="text"
+                    <input  type="number"
+                            min="0"
+                            oninput="validity.valid || (value='');"
                             class="form-control"
                             name="montoPago"
                             formControlName="montoPago"
-                            placeholder="456-123-789"/>
+                            placeholder="1234567890"/>
                             <div *ngIf="formulario.controls['montoPago'].invalid && (formulario.controls['montoPago'].dirty || formulario.controls['montoPago'].touched)">
                               <div class="d-flex justify-content-end" style="color:#FF0000;">
                                 <span>Se requiere el Monto del pago</span> 
@@ -115,7 +119,7 @@
                            class="form-control"
                            name="bancoPago"
                            formControlName="bancoPago"
-                           placeholder="12354-123132"/>
+                           placeholder="Nombre del Banco"/>
                            <div *ngIf="formulario.controls['bancoPago'].invalid && (formulario.controls['bancoPago'].dirty || formulario.controls['bancoPago'].touched)">
                             <div class="d-flex justify-content-end" style="color:#FF0000;">
                               <span>Se requiere la entidad bancaria</span> 

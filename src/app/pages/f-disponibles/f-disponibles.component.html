@@ -282,17 +282,18 @@
                 <div class="col-xl-6">
                   <div class="form-group">
                     <label>Código de Ubicación</label>
-                    <input
-                          type="text"
-                          class="form-control"
-                          formControlName="codigoUbicacion"
-                          name="codigoUbicacion"
-                          placeholder="123a"/>
-                          <div *ngIf="formulario.controls['codigoUbicacion'].invalid && (formulario.controls['codigoUbicacion'].dirty || formulario.controls['codigoUbicacion'].touched)">
-                            <div class="d-flex justify-content-end" style="color:#FF0000;">
-                              <span>Se requiere el Código de Ubicación</span> 
-                            </div>
-                          </div>                          
+                    <input  type="number"
+                            min="0"
+                            oninput="validity.valid || (value='');"
+                            class="form-control"
+                            formControlName="codigoUbicacion"
+                            name="codigoUbicacion"
+                            placeholder="1234567890"/>
+                            <div *ngIf="formulario.controls['codigoUbicacion'].invalid && (formulario.controls['codigoUbicacion'].dirty || formulario.controls['codigoUbicacion'].touched)">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Se requiere el Código de Ubicación</span> 
+                              </div>
+                            </div>                          
                   </div>
                 </div>
               </div> 
@@ -301,30 +302,32 @@
                 <div class="col-xl-6">
                   <div class="form-group">
                     <label>Finca</label>
-                    <input
-                          type="text"
-                          class="form-control"
-                          formControlName="finca"
-                          name="finca"
-                          placeholder="456-123-789"/>
-                          <div *ngIf="formulario.controls['finca'].invalid && (formulario.controls['finca'].dirty || formulario.controls['finca'].touched)">
-                            <div class="d-flex justify-content-end" style="color:#FF0000;">
-                              <span>Se requiere el campo Finca</span> 
-                            </div>
-                          </div> 
+                    <input  type="number"
+                            min="0"
+                            oninput="validity.valid || (value='');"
+                            class="form-control"
+                            formControlName="finca"
+                            name="finca"
+                            placeholder="1234567890"/>
+                            <div *ngIf="formulario.controls['finca'].invalid && (formulario.controls['finca'].dirty || formulario.controls['finca'].touched)">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Se requiere el campo Finca</span> 
+                              </div>
+                            </div> 
                   </div>
 
                 </div>
                 <div class="col-xl-6">
                   <div class="form-group">
                     <label>Tomo</label>
-                    <input
-                    type="text"
-                    class="form-control"
-                    formControlName="tomo"
-                    name="tomo"
-                    placeholder="0-9"
-                    maxlength="1"/>
+                    <input  type="number"
+                            min="0"
+                            max="9"
+                            oninput="validity.valid || (value='');"                          
+                            class="form-control"
+                            formControlName="tomo"
+                            name="tomo"
+                            placeholder="0-9"/>
                     <div *ngIf="formulario.controls['tomo'].invalid && (formulario.controls['tomo'].dirty || formulario.controls['tomo'].touched)">
                       <div class="d-flex justify-content-end" style="color:#FF0000;">
                         <span>Se requiere el campo Tomo</span> 
@@ -339,13 +342,14 @@
                 <div class="col-xl-6">
                   <div class="form-group">
                     <label>Folio</label>
-                    <input
-                          type="text"
-                          class="form-control"
-                          formControlName="folio"
-                          name="folio"
-                          placeholder="0-9"
-                          maxlength="1"/>
+                    <input  type="number"
+                            min="0"
+                            max="9"
+                            oninput="validity.valid || (value='');"
+                            class="form-control"
+                            formControlName="folio"
+                            name="folio"
+                            placeholder="0-9"/>
                           <div *ngIf="formulario.controls['folio'].invalid && (formulario.controls['folio'].dirty || formulario.controls['folio'].touched)">
                             <div class="d-flex justify-content-end" style="color:#FF0000;">
                               <span>Se requiere el campo Folio</span> 
@@ -408,7 +412,9 @@
                     <div class="col-xl-6">
                       <div class="form-group">
                         <label>Valor aproximado de la obra</label>
-                        <input type="text"
+                        <input type="number"
+                               min="0"
+                               oninput="validity.valid || (value='');"
                                class="form-control"
                                formControlName="valorObra"
                                name="valorObra"
@@ -423,12 +429,11 @@
                     <div class="col-xl-6">
                       <div class="form-group">
                         <label>Nombre profesional Idóneo</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          formControlName="nombreProfesionalIdoneo"
-                          name="nombreProfesionalIdoneo"
-                          placeholder="Introduzca el nombre"/>
+                        <input  type="text"
+                                class="form-control"
+                                formControlName="nombreProfesionalIdoneo"
+                                name="nombreProfesionalIdoneo"
+                                placeholder="Introduzca el nombre"/>
                           <div *ngIf="formulario.controls['nombreProfesionalIdoneo'].invalid && (formulario.controls['nombreProfesionalIdoneo'].dirty || formulario.controls['nombreProfesionalIdoneo'].touched)">
                             <div class="d-flex justify-content-end" style="color:#FF0000;">
                               <span>Se requiere el campo Nombre</span> 
@@ -437,21 +442,23 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="row">
                     <div class="col-xl-6">
                       <div class="form-group">
                         <label>No. Idoneidad</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          formControlName="numeroIdoneidad"
-                          name="numeroIdoneidad"
-                          placeholder="Número de Idoneidad"/>
-                          <div *ngIf="formulario.controls['numeroIdoneidad'].invalid && (formulario.controls['numeroIdoneidad'].dirty || formulario.controls['numeroIdoneidad'].touched)">
-                            <div class="d-flex justify-content-end" style="color:#FF0000;">
-                              <span>Se requiere el campo Numero</span> 
-                            </div>
-                          </div>
+                        <input  type="number"
+                                min="0"
+                                oninput="validity.valid || (value='');"
+                                class="form-control"
+                                formControlName="numeroIdoneidad"
+                                name="numeroIdoneidad"
+                                placeholder="0123456789"/>
+                                <div *ngIf="formulario.controls['numeroIdoneidad'].invalid && (formulario.controls['numeroIdoneidad'].dirty || formulario.controls['numeroIdoneidad'].touched)">
+                                  <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                    <span>Se requiere el campo Numero</span> 
+                                  </div>
+                                </div>
                       </div>
                     </div>
                     <div class="col-xl-6">

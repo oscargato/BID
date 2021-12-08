@@ -289,11 +289,13 @@
               <div class="col-xl-6">
                 <div class="form-group">
                   <label>Código de Ubicación</label>
-                  <input type="text"
+                  <input type="number"
+                         min="0"
+                         oninput="validity.valid || (value='');"
                          class="form-control"
                          name="codigoUbicacion"
                          formControlName="codigoUbicacion"
-                         placeholder="Código de Ubicación"
+                         placeholder="1234567890"
                          [ngStyle]="subsanarCodigoUbicacion && (!formulario.controls['codigoUbicacion'].touched || !formulario.controls['codigoUbicacion'].dirty || !formulario.controls['codigoUbicacion'].valid) && {'border-color': '#FF0000'}"
                          [readonly]="!subsanarCodigoUbicacion"/>
                          <div *ngIf="subsanarCodigoUbicacion && (!formulario.controls['codigoUbicacion'].touched || !formulario.controls['codigoUbicacion'].dirty || !formulario.controls['codigoUbicacion'].valid)">
@@ -309,11 +311,13 @@
               <div class="col-xl-6">
                 <div class="form-group">
                   <label>Finca</label>
-                  <input type="text"
+                  <input  type="number"
+                          min="0"
+                          oninput="validity.valid || (value='');"
                           class="form-control"
                           name="finca"
                           formControlName="finca"
-                          placeholder="Finca"
+                          placeholder="1234567890"
                           [ngStyle]="subsanarFinca && (!formulario.controls['finca'].touched || !formulario.controls['finca'].dirty || !formulario.controls['finca'].valid) && {'border-color': '#FF0000'}"
                           [readonly]="!subsanarFinca"/>
                           <div *ngIf="subsanarFinca && (!formulario.controls['finca'].touched || !formulario.controls['finca'].dirty || !formulario.controls['finca'].valid)">
@@ -327,11 +331,14 @@
               <div class="col-xl-6">
                 <div class="form-group">
                   <label>Tomo</label>
-                  <input type="text"
+                  <input  type="number"
+                          min="0"
+                          max="9"
+                          oninput="validity.valid || (value='');"
                           class="form-control"
                           name="tomo"
                           formControlName="tomo"
-                          placeholder="Tomo"
+                          placeholder="0-9"
                           [ngStyle]="subsanarTomo && (!formulario.controls['tomo'].touched || !formulario.controls['tomo'].dirty || !formulario.controls['tomo'].valid) && {'border-color': '#FF0000'}"
                           [readonly]="!subsanarTomo"/>
                           <div *ngIf="subsanarTomo && (!formulario.controls['tomo'].touched || !formulario.controls['tomo'].dirty || !formulario.controls['tomo'].valid)">
@@ -347,11 +354,14 @@
               <div class="col-xl-6">
                 <div class="form-group">
                   <label>Folio</label>
-                  <input type="text"
+                  <input  type="number"
+                          min="0"
+                          max="9"
+                          oninput="validity.valid || (value='');"
                           class="form-control"
                           name="folio"
                           formControlName="folio"
-                          placeholder="Folio"
+                          placeholder="0-9"
                           [ngStyle]="subsanarFolio && (!formulario.controls['folio'].touched || !formulario.controls['folio'].dirty || !formulario.controls['folio'].valid) && {'border-color': '#FF0000'}"
                           [readonly]="!subsanarFolio"/>
                           <div *ngIf="subsanarFolio && (!formulario.controls['folio'].touched || !formulario.controls['folio'].dirty || !formulario.controls['folio'].valid)">
@@ -414,7 +424,9 @@
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>Valor aproximado de la obra</label>
-                      <input type="text"
+                      <input  type="number"
+                              min="0"
+                              oninput="validity.valid || (value='');"
                               class="form-control"
                               name="valorObra"
                               formControlName="valorObra"
@@ -431,7 +443,7 @@
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>Nombre profesional Idóneo</label>
-                      <input type="text"
+                      <input  type="text"
                               class="form-control"
                               name="nombreProfesionalIdoneo"
                               formControlName="nombreProfesionalIdoneo"
@@ -451,7 +463,9 @@
                   <div class="col-xl-6">
                     <div class="form-group">
                       <label>No. Idoneidad</label>
-                      <input type="text"
+                      <input  type="number"
+                              min="0"
+                              oninput="validity.valid || (value='');"
                               class="form-control"
                               name="numeroIdoneidad"
                               formControlName="numeroIdoneidad"
