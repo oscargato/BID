@@ -266,7 +266,11 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
         this.fRecepcionPlanosService.newRecepcionFisicaPlanos(data).subscribe(resp=>{
           console.log('Respuesta!!!',resp);
           if(resp.codigo === 0)
-          { this.register();  }
+          { if(this.formulario.controls['checkboxViable'].value == true)
+            { this.noViable();  }
+            else
+            { this.register();  }
+          }          
           else
           { this.fail() }
         })
@@ -306,29 +310,39 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
         title: 'Error',
         text: 'Debe indicar la Fecha de Inspeccion'
       })
+    }
+    
+    noViable(){  
+      Swal.fire(  
+        'Tramite No Viable!',
+        'Haga click para continuar',
+        'info',
+        ).then((result) => {
+        this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+      });  
     }    
 
   ngAfterViewInit(): void {
-    this.wizard = new KTWizard(this.el.nativeElement, {
-      startStep: 1,
-      clickableSteps: true
-    });
+      this.wizard = new KTWizard(this.el.nativeElement, {
+        startStep: 1,
+        clickableSteps: true
+      });
 
-    this.wizard.on('beforeNext', (wizardObj) => {
-      
-      if (wizardObj.currentStep === 1) {
-        if (this.wizard.invalid) {
-            this.wizard.markAllAsTouched();
-            wizardObj.stop();
-          }
-      }
-    });
+      this.wizard.on('beforeNext', (wizardObj) => {
+        
+        if (wizardObj.currentStep === 1) {
+          if (this.wizard.invalid) {
+              this.wizard.markAllAsTouched();
+              wizardObj.stop();
+            }
+        }
+      });
 
-    this.wizard.on('change', () => {
-      setTimeout(() => {
-        KTUtil.scrollTop();
-      }, 500);
-    });
+      this.wizard.on('change', () => {
+        setTimeout(() => {
+          KTUtil.scrollTop();
+        }, 500);
+      });
   }
 
   ngOnDestroy() 

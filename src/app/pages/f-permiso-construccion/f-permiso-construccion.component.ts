@@ -483,10 +483,13 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
  
     this.permisoConstruccionService.newRevision(data).subscribe(resp=>{
       if(resp.codigo === 0)
-      { this.registerAlert(); }
-      else
-      { this.failSubsanar()
+      { if(this.formulario.controls['noviable'].value == true)
+        { this.noViable();  }
+        else
+        { this.registerAlert(); }
       }
+      else
+      { this.failSubsanar() }
     })  
     
   }
@@ -510,8 +513,15 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
     })
   }
 
-
-
+  noViable(){  
+    Swal.fire(  
+      'Tramite No Viable!',
+      'Haga click para continuar',
+      'info',
+      ).then((result) => {
+      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+    });  
+  }
 
 
 

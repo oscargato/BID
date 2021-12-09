@@ -84,7 +84,11 @@ export class FTareaInspeccionComponent implements OnInit {
      this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
       console.log('Carga',resp)
       if(resp.codigo === 0)
-      { this.registerAlert(); }
+      { if(this.formulario.controls['inspeccion'].value == true)
+        { this.registerAlert(); }
+        else
+        { this.noAprobada(); }        
+      }
       else
       { this.failRevision()   }
     }) 
@@ -123,6 +127,16 @@ export class FTareaInspeccionComponent implements OnInit {
       this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
     });  
   }
+
+  noAprobada(){  
+    Swal.fire(  
+      'Tramite No Viable!',
+      'Haga click para continuar',
+      'info',
+      ).then((result) => {
+      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+    });  
+  }  
 
   failRevision(){
     Swal.fire({

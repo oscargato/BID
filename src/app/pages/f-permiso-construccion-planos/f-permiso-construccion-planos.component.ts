@@ -442,11 +442,14 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
     this.fPermisoConstruccionPlanosService.newRevisionPlanos(data).subscribe(resp=>{
       console.log('resp A', resp)
       if(resp.codigo === 0)
-      { this.register();  }
+      { if(this.formulario.controls['noviable'].value == true)
+        { this.noViable();  }
+        else
+        { this.register();  }
+      }
       else
       { this.fail() }
     })
-
    }
   
     register(){  
@@ -455,6 +458,16 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
         'Haga click para continuar',
         'success',
       ).then((result) => {
+        this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+      });  
+    }
+
+    noViable(){  
+      Swal.fire(  
+        'Tramite No Viable!',
+        'Haga click para continuar',
+        'info',
+        ).then((result) => {
         this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
       });  
     }
