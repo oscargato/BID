@@ -444,7 +444,12 @@
                       <div class="checkbox-inline border-top py-3">
                         <div class="form-group ">
                           <label class="checkbox  checkbox-danger">
-                              <input type="checkbox" name="checkboxRecibidos" formControlName="checkboxRecibidos" readonly/>
+                              <input type="checkbox" 
+                                     name="checkboxRecibidos" 
+                                     formControlName="checkboxRecibidos"
+                                     class="form-control" 
+                                     readonly="readonly" 
+                                     checked onclick="javascript: return false;"/>
                               <span></span>
                               Recibidos
                           </label>

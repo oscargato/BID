@@ -10,16 +10,7 @@
       </p>
     </div>
   
-    <!--
-        <ng-container *ngIf="hasError">
-            <div class="mb-10 alert alert-custom alert-light-danger alert-dismissible">
-                <div class="alert-text">
-                    Los datos de registro son incorrectos 
-                </div>
-            </div>
-        </ng-container>
-    -->
-
+    
     <div class="form-group">
         <label class="font-size-h6 font-weight-bolder text-dark">Tipo de Identificación</label>
           <select class="form-control form-control-lg form-control-solid" name="tipoID" formControlName="tipoID">
@@ -38,13 +29,16 @@
     <div class="form-group">
         <label class="font-size-h6 font-weight-bolder text-dark">Número de Identificación</label>
         <input  class="form-control form-control-lg form-control-solid"
-                type="text"
+                type="number"
+                min="0"                
+                oninput="validity.valid || (value='');"
+                
                 name="numeroID"
                 formControlName="numeroID"
-                placeholder="identificacion"
+                placeholder="0123456789"
                 autocomplete="off"
                 [ngClass]="{ 'is-invalid': registrationForm.controls['numeroID'].invalid }"/>
-
+          
         <ng-container [ngTemplateOutlet]="formError"
                       [ngTemplateOutletContext]="{ validation: 'required',
                                                    message: 'Se requiere identificacion',
@@ -130,7 +124,7 @@
         <input  class="form-control form-control-lg form-control-solid" 
                 type="tel" 
                 matInput 
-                placeholder="+507 Teléfono"
+                placeholder="+5071234567890"
                 name="phone"
                 formControlName="phone"
                 autocomplete="off"
@@ -214,7 +208,6 @@
     </div>
     
 
-
     <div class="form-group">
         <label class="font-size-h6 font-weight-bolder text-dark pt-5">Confirmar contraseña</label>
         <input class="form-control form-control-lg form-control-solid"
@@ -273,8 +266,8 @@
             <span class="spinner spinner-primary ml-5"></span>
         </ng-container>
     </div>
+  
   </form>
-
 </div>
 
 

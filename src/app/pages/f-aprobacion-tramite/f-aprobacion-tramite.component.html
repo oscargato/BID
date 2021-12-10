@@ -146,9 +146,7 @@
                           class="form-control"
                           name="nombre"
                           formControlName="nombre"
-                          readonly
-                        />
-                        
+                          readonly/>
                       </div>
                     </div>
 
@@ -184,10 +182,10 @@
                       <div class="form-group">
                         <label>Provincia:</label>
                         <input type="text"
-                        class="form-control"
-                        name="provincia"
-                        formControlName="provincia"
-                        readonly/>
+                               class="form-control"
+                               name="provincia"
+                               formControlName="provincia"
+                               readonly/>
                       </div>
                     </div>
 
@@ -198,10 +196,10 @@
                       <div class="form-group">
                         <label>Distrito</label>
                         <input type="text"
-                        class="form-control"
-                        name="distrito"
-                        formControlName="distrito"
-                        readonly/>
+                               class="form-control"
+                               name="distrito"
+                               formControlName="distrito"
+                               readonly/>
                       </div>
                     </div>
 
@@ -463,9 +461,11 @@
                     <div class="checkbox-inline border-top py-3">
                       <label class="checkbox  checkbox-danger">
                           <input type="checkbox" 
-                                 class="form-control" 
+                                 name="checkboxRecibidos"
                                  formControlName="checkboxRecibidos"
-                                 name="checkboxRecibidos"/>
+                                 class="form-control"
+                                 readonly="readonly"
+                                 checked onclick="javascript: return false;"/>
                           <span></span>
                           Recibidos
                       </label>
@@ -508,7 +508,10 @@
                                 <input type="checkbox"
                                        class="form-control"
                                        formControlName="completo"
-                                       name="completo"/>
+                                       name="completo"
+                                       readonly="readonly"
+                                       checked onclick="javascript: return false;"
+                                       />
                                 &nbsp; <span></span>
                                 Si
                             </label>                          

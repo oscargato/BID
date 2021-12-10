@@ -41,7 +41,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   initForm(){
       this.registrationForm = this.fb.group(
       { tipoID: [ '',Validators.compose([Validators.required]),],
-        numeroID: [ '',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(20),]),],        
+        numeroID: [ '',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(15),]),],        
         firstname: [ '',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100),]),],
 
         lastname: [ '',
