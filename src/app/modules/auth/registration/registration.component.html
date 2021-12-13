@@ -32,12 +32,13 @@
                 type="number"
                 min="0"                
                 oninput="validity.valid || (value='');"
-                
+                onKeyPress="if(this.value.length == 15) return false;"
                 name="numeroID"
                 formControlName="numeroID"
-                placeholder="0123456789"
+                placeholder="1234567890"
                 autocomplete="off"
                 [ngClass]="{ 'is-invalid': registrationForm.controls['numeroID'].invalid }"/>
+        
           
         <ng-container [ngTemplateOutlet]="formError"
                       [ngTemplateOutletContext]="{ validation: 'required',
@@ -121,11 +122,14 @@
            
     <div class="form-group">
         <label class="font-size-h6 font-weight-bolder text-dark">Número de contacto</label>  
-        <input  class="form-control form-control-lg form-control-solid" 
-                type="tel" 
+        <input  class="form-control form-control-lg form-control-solid"                 
                 matInput 
-                placeholder="+5071234567890"
-                name="phone"
+                type="number"
+                min="0"                
+                oninput="validity.valid || (value='');"
+                onKeyPress="if(this.value.length == 15) return false;"
+                placeholder="1234567890"
+                name="phone"               
                 formControlName="phone"
                 autocomplete="off"
                 [ngClass]="{'is-invalid': registrationForm.controls['phone'].invalid }">
@@ -186,6 +190,7 @@
                name="password"
                formControlName="password"
                autocomplete="off"
+               [(ngModel)]="letraMayuscula"
                [ngClass]="{ 'is-invalid': registrationForm.controls['password'].invalid}"/>
         
         <ng-container [ngTemplateOutlet]="formError"
@@ -207,6 +212,26 @@
         </ng-container>
     </div>
     
+    <div>
+      <label>Contraseña Segura    <u class="text-primary" (click)="verRequerimientos()">Ver</u></label>
+      <div *ngIf="ver">
+        <div class="card">
+          <div class="card-body">
+            <label>La contraseña debe cumplir con los siguientes requerimientos:</label>  
+            <ul class="ul">              
+              <li [ngClass]="{'correcto':letraMayuscula,'incorrecto':!letraMayuscula}"><i [ngClass]="{'correcto':letraMayuscula,'incorrecto':!letraMayuscula}" class="far fa-check-circle"></i> Al menos una letra Mayuscula</li>
+              <li [ngClass]="{'correcto':letraMinuscula,'incorrecto':!letraMinuscula}"><i [ngClass]="{'correcto':letraMinuscula,'incorrecto':!letraMinuscula}" class="far fa-check-circle"></i> Al menos una letra miniscula</li>
+              <li [ngClass]="{'correcto':unNumero,'incorrecto':!unNumero}"><i [ngClass]="{'correcto':unNumero,'incorrecto':!unNumero}" class="far fa-check-circle"></i> Al menos un numero</li>
+              <li [ngClass]="{'correcto':unCaracter,'incorrecto':!unCaracter}"><i [ngClass]="{'correcto':unCaracter,'incorrecto':!unCaracter}" class="far fa-check-circle"></i> Al menos un caracter especial</li>
+              <li [ngClass]="{'correcto':minimoCaracteres,'incorrecto':!minimoCaracteres}"><i [ngClass]="{'correcto':minimoCaracteres,'incorrecto':!minimoCaracteres}" class="far fa-check-circle"></i> Minimo 8 caracteres</li>                            
+              <li [ngClass]="{'correcto':maximoCaracteres,'incorrecto':!maximoCaracteres}"><i [ngClass]="{'correcto':maximoCaracteres,'incorrecto':!maximoCaracteres}" class="far fa-check-circle"></i> Maximo 20 caracteres</li>
+            </ul>            
+          </div>
+        </div>        
+
+      </div>
+    </div>
+
 
     <div class="form-group">
         <label class="font-size-h6 font-weight-bolder text-dark pt-5">Confirmar contraseña</label>

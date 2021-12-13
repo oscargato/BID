@@ -21,6 +21,17 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   isLoading$: Observable<boolean>;
   
   private unsubscribe: Subscription[] = [];
+  public ver:boolean = false;
+  public letraMayuscula:boolean = false;
+  public letraMinuscula:boolean = false;
+  public unNumero:boolean = false;
+  public unCaracter:boolean = false;
+  public minimoCaracteres:boolean = false;
+  public maximoCaracteres:boolean = false;
+
+
+
+
 
   constructor( private fb: FormBuilder, 
                private authService: AuthService, 
@@ -87,7 +98,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     );
   }
 
-
   submit(){
     this.hasError = false;
 
@@ -111,6 +121,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.unsubscribe.push(registrationSubscr);
   }
 
+
+  verRequerimientos(){
+    this.ver = !this.ver ;
+  }
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
