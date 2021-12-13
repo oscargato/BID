@@ -212,8 +212,7 @@
                                 class="form-control"
                                 [(ngModel)]="indexDist"
                                 #mySelectDist
-                                (change)='getCargaCorregimientos(mySelectDist.value)'
-                                >
+                                (change)='getCargaCorregimientos(mySelectDist.value)'>
                             <option selected value="-1">Seleccione una opción</option>
                             <option [value]="i" *ngFor="let item of distritos;let i = index">
                               {{ item.nomDistrito }}
@@ -236,8 +235,7 @@
                                 class="form-control"
                                 [(ngModel)]="indexCorr"
                                 #mySelectCorr
-                                (change)='getCarga(mySelectCorr.value)'                                
-                                >
+                                (change)='getCarga(mySelectCorr.value)'>
                             <option selected value="-1">Seleccione una opción</option>
                             <option [value]="i" *ngFor="let item of corregimientos;let i = index">
                               {{ item.nomCorregimiento }}

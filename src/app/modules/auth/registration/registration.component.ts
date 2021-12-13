@@ -28,10 +28,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   public unCaracter:boolean = false;
   public minimoCaracteres:boolean = false;
   public maximoCaracteres:boolean = false;
-
-
-
-
+  public clave:string = '';
+  public cclave:string = '';
 
   constructor( private fb: FormBuilder, 
                private authService: AuthService, 
@@ -54,48 +52,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       { tipoID: [ '',Validators.compose([Validators.required]),],
         numeroID: [ '',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(15),]),],        
         firstname: [ '',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100),]),],
-
-        lastname: [ '',
-                  Validators.compose([
-                  Validators.required,
-                  Validators.minLength(3),
-                  Validators.maxLength(100),
-                 ]),
-                ],
-
-        phone: [ '',
-                Validators.compose([
-                Validators.required,
-               ]),
-              ],                
-
-        email: [ '',
-               Validators.compose([
-               Validators.required,
-               Validators.email,
-               Validators.minLength(3),
-               Validators.maxLength(360), 
-              ]),
-            ],
-
-        password: [ '',
-                  Validators.compose([
-                  Validators.required,
-                  Validators.minLength(3),
-                  Validators.maxLength(100),
-                  ]),
-                ],
-
-        cPassword: ['',
-                    Validators.compose([
-                    Validators.required,
-                    Validators.minLength(3),
-                    Validators.maxLength(100),
-                    ]),
-                  ],
+        lastname: [ '',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100),]),],
+        phone: [ '',Validators.compose([Validators.required,]),],                
+        email: [ '',Validators.compose([Validators.required,Validators.email,Validators.minLength(3),Validators.maxLength(360), ]),],
+        password: [ '',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100),]),],
+        cPassword: ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100),]),],
       },
-      { validator: ConfirmPasswordValidator.MatchPassword,  }
-    );
+      { validator: ConfirmPasswordValidator.MatchPassword,}
+    );    
   }
 
   submit(){
@@ -121,6 +85,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.unsubscribe.push(registrationSubscr);
   }
 
+  validatePassword(e){
+    
+    console.log('clave',this.registrationForm.controls['password'].value)
+    
+  /*if(password.length >= 8)
+    { this.minimoCaracteres = true; }
+    else
+    { this.minimoCaracteres = false;  } */
+
+  }
 
   verRequerimientos(){
     this.ver = !this.ver ;
