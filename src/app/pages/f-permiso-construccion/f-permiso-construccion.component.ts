@@ -48,22 +48,9 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
 
   ngOnInit(){
     this.formulario = this.formBuilder.group({
-  		nombre:['', Validators.compose([
-                  Validators.required
-                ]),
-              ],
-
-      checkboxNombre:[false, Validators.compose([
-                             Validators.required
-                        ]),
-                     ],              
-
-      descripcion:['', Validators.compose([
-                       Validators.required, 
-                       Validators.minLength(5),
-                       Validators.maxLength(500)
-                    ]),  
-                  ],
+  		nombre:['', Validators.compose([Validators.required]),],
+      checkboxNombre:[false, Validators.compose([Validators.required]),],              
+      descripcion:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(500)]),],
 
       checkboxDescripcion:[false, Validators.compose([
                                   Validators.required
@@ -251,20 +238,10 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
                          ]),
                        ],                          
 
-      planos:['', Validators.compose([
-                  Validators.required
-               ]), 
-             ],
-             
-      checkboxPlanos:[false, Validators.compose([
-                             Validators.required
-                        ]),
-                     ], 
-                     
-      noviable:[false, Validators.compose([
-                       Validators.required
-                ]),
-             ],                     
+      planos:['', Validators.compose([Validators.required]),],
+      checkboxPlanos:[false, Validators.compose([Validators.required]),], 
+      noviable:[false, Validators.compose([Validators.required]),],
+      observaciones:['', Validators.compose([Validators.required,]),],                     
     });
   
     this.getRevision();
@@ -396,8 +373,8 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
             "nombreProyecto": this.formulario.controls['checkboxNombre'].value,
             "nombreResp": this.formulario.controls['checkboxConstructor'].value,
             "numIdoneidad": this.formulario.controls['checkboxNumeroIdoneidad'].value,
-            "observacionComprobacion": "string",
-            "observaciones": "string",
+            "observacionComprobacion": "",
+            "observaciones": this.formulario.controls['observaciones'].value,
             "pagoElectronico": this.pagoElectronico,
             "pagoManual": this.pagoManual,
             "provinciaProyectoId": this.formulario.controls['checkboxProvincia'].value,

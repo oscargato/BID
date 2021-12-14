@@ -33,6 +33,7 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   public solicitudId:number;
   public revisionId:number;
   public revisorId:number;
+  public visible:boolean = true;
 
   @ViewChild('wizard', { static: true }) el: ElementRef;
   wizard: any;
@@ -89,7 +90,7 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
       this.formulario.controls['checkboxRecibidos'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.docRecibido);            
-      this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
+      //this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
       
       this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
       this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;        
@@ -138,6 +139,10 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
     });
   }
 
+  observacionInvisible(){
+    this.visible = !this.visible
+  }
+
 
   newRevision(){
     if(this.formulario.controls['completo'].value !== true)
@@ -158,8 +163,10 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
           "incorrecto": incorrecto,
           "sellosCompletos": this.formulario.controls['completo'].value, 
           "revisorId":this.revisorId,
-          "observaciones": "Todos los sellos correctos"
+          "observaciones": this.formulario.controls['observaciones'].value
         }
+
+        console.log(data)
     
         this.fRevisionDocumentosSellosService.newRevision(data).subscribe(resp=>{
           if(resp.codigo === 0)

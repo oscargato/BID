@@ -25,6 +25,7 @@ export class FTareaInspeccionComponent implements OnInit {
   public solicitudId:number;
   public solicitanteId:number;
   public adjunto: Array<any> = [];
+  public visible:boolean = false;
 
   constructor(private fTareaInspeccionService:FTareaInspeccionService, 
               private router:Router, 
@@ -34,7 +35,7 @@ export class FTareaInspeccionComponent implements OnInit {
   ngOnInit(){
     this.formulario = this.formBuilder.group({  
   		nombreProyecto:['', Validators.compose([Validators.required,]),],
-      inspeccion:[false, Validators.compose([Validators.required]),], 
+      inspeccion:[true, Validators.compose([Validators.required]),], 
   		observaciones:['', Validators.compose([Validators.required,]),],
       informe:['', Validators.compose([Validators.required]),], 
     });
@@ -54,6 +55,14 @@ export class FTareaInspeccionComponent implements OnInit {
       this.solicitudId = resp.solicitudId;
       this.solicitanteId = resp.solicitanteTramite.solicitanteId.solicitanteId;
     })
+  }
+
+  verObservaciontrue(){
+    this.visible = true
+  }
+
+  verObservacionfalse(){
+    this.visible = false
   }
 
 
@@ -81,7 +90,7 @@ export class FTareaInspeccionComponent implements OnInit {
 
     console.log('data',data)
     
-     this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
+    this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
       console.log('Carga',resp)
       if(resp.codigo === 0)
       { if(this.formulario.controls['inspeccion'].value == true)
@@ -91,7 +100,7 @@ export class FTareaInspeccionComponent implements OnInit {
       }
       else
       { this.failRevision()   }
-    }) 
+    })
     
   }
 

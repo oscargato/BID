@@ -118,7 +118,8 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   		nombreProfesionalResidente:['', Validators.compose([Validators.required,]),],  
   		registroPublico:['', Validators.compose([Validators.required,]),],  
   		certificacionIdoneo:['', Validators.compose([Validators.required,]),],  
-  		planos:['', Validators.compose([Validators.required,]),],  
+  		planos:['', Validators.compose([Validators.required,]),],
+      observaciones:['', Validators.compose([Validators.required,]),],                       
     });
 
     this.getSubsanacion();
@@ -146,6 +147,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
     this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
     this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
     this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
+    this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
 
     this.urlRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
     this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;

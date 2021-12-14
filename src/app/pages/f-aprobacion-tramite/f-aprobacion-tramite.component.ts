@@ -102,7 +102,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
         //this.formulario.controls['fechaPago'].setValue(resp.pago.fechaPago);
 
         this.formulario.controls['montoPago'].setValue(resp.pago.montoPago);        
-        this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
+        //this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
         
         this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
         this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;        
@@ -175,7 +175,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
     { "solicitudId": this.solicitudId,
       "revisionId": this.revisionId,
       "revisorId": this.revisorId,
-      "comentarios":"Cierre aprobado",
+      "comentarios":this.formulario.controls['observaciones'].value,
       "aprobado": true,
     }
     console.log(data)

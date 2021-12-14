@@ -436,63 +436,51 @@
                 <!--end: Form Wizard Step 5-->
 
               <!--begin: Form Wizard Step 6-->
-              <div class="pb-5" data-wizard-type="step-content">
-           
-              <label class="font-weight-bold text-dark">
-                  Planos de construcción
-              </label>
-                      <div class="checkbox-inline border-top py-3">
-                        <div class="form-group ">
-                          <label class="checkbox  checkbox-danger">
-                              <input type="checkbox" 
-                                     name="checkboxRecibidos" 
-                                     formControlName="checkboxRecibidos"
-                                     class="form-control" 
-                                     readonly="readonly" 
-                                     checked onclick="javascript: return false;"/>
-                              <span></span>
-                              Recibidos
-                          </label>
-                        </div>
-                      </div>
+              <div class="pb-5" data-wizard-type="step-content">           
+                <label class="font-weight-bold text-dark">
+                    Planos de construcción
+                </label>
+                <div class="checkbox-inline border-top py-1">
+                  <div class="form-group ">
+                    <label class="checkbox  checkbox-danger">
+                        <input type="checkbox" 
+                                name="checkboxRecibidos" 
+                                formControlName="checkboxRecibidos"
+                                class="form-control" 
+                                readonly="readonly" 
+                                checked onclick="javascript: return false;"/>
+                        <span></span>
+                        Recibidos
+                    </label>
+                  </div>
+                </div>
 
 
-                      <br>
-                      <label class="font-weight-bold text-dark">
-                          Inspección
-                      </label>
-                      <div class="row  border-top py-3">
-                        <div class="col-xl-6">
-                          <div class="form-group ">
-                            <label>Fecha de la Inspección</label>
-                            <input type="datetime"                                   
-                                   class="form-control"
-                                   name="fechaInspeccion"
-                                   [ngModel]="fechaInspeccion | date: 'dd/MM/yyyy'"                                   
-                                   formControlName="fechaInspeccion" 
-                                   readonly/>       
-                          </div>
-                        </div>
-                      </div>
+                <br>
+
+                <label class="font-weight-bold text-dark">
+                    Inspección
+                </label>
+                <div class="row  border-top py-3">
+                  <div class="col-xl-6">
+                    <div class="form-group ">
+                      <label>Fecha de la Inspección</label>
+                      <input type="datetime"                                   
+                              class="form-control"
+                              name="fechaInspeccion"
+                              [ngModel]="fechaInspeccion | date: 'dd/MM/yyyy'"                                   
+                              formControlName="fechaInspeccion" 
+                              readonly/>       
+                    </div>
+                  </div>
+                </div>
             
-                        <label class="font-weight-bold text-dark">
-                          Documentos y Sellos otras entidades  </label>
-                              <div class="checkbox-inline border-top py-3">
-                                  <label class="checkbox  checkbox-danger">
-                                    ¿Completo?  
-                                    <input  type="checkbox" 
-                                            name="completo" 
-                                            formControlName="completo"/>
-                                     &nbsp; <span></span>
-                                     Si 
-                                  </label>
-                          
-                              </div>
-                              <br>
-                              <h6 class="mb-5 font-weight-bold text-dark">
+                        
+                              <br>                              
+                               <label class="font-weight-bold text-dark">
                                 Adjuntos
-                               </h6>
-                               <div class="row">
+                              </label>
+                               <div class="row border-top">
                                 <div class="col-xl-12">
                                   <div class="form-group">
                                     <label>Informe de Inspección</label>
@@ -501,9 +489,32 @@
                                     </div>
                                   </div>
                                 </div>
+
+                                <br><br><br>
              
-                               </div>          
-                    <div class="row">
+                                <div class="col-xl-12">
+
+                                  <label class="font-weight-bold text-dark pt-5">
+                                    Documentos y Sellos otras entidades  
+                                  </label>
+
+                                  <div class="checkbox-inline border-top py-3">
+                                    <label class="checkbox  checkbox-danger">
+                                      ¿Completo?  
+                                      <input  type="checkbox" 
+                                              name="completo" 
+                                              formControlName="completo"
+                                              (click)="observacionInvisible()"/>
+                                        &nbsp; <span></span>
+                                        Si 
+                                    </label>
+                                </div>
+                                </div>
+                              </div>          
+                    
+
+                              
+                    <div *ngIf="visible" class="row">
                       <div class="col-xl-12">
                         <div class="form-group">
                           <label>Observaciones</label>

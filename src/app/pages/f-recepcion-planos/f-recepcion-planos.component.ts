@@ -96,8 +96,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       this.formulario.controls['valorObra'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.valorAproxObra);
       this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
-      this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
-      this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
+      this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);      
       
       this.solicitudId = resp.t01_Rev_PermisoConstruccionMun.solicitudId.solicitudId;
       this.fechaDocRecibidos = resp.t01_Rev_PermisoConstruccionMun.fechaDocRecibidos;
@@ -188,7 +187,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
               "nombreProyecto": true,
               "nombreResp": true,
               "numIdoneidad": true,
-              "observacionComprobacion": "string",
+              "observacionComprobacion": "",
               "observaciones": this.formulario.controls['observaciones'].value,
               "pagoElectronico": true,
               "pagoManual": true,
@@ -273,7 +272,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
           }          
           else
           { this.fail() }
-        })
+        }) 
       }  
     }
   }

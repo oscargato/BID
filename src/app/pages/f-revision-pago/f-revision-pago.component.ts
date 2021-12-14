@@ -52,6 +52,7 @@ export class FRevisionPagoComponent implements OnInit {
       checkboxNombreEntidad:[false, Validators.compose([Validators.required]),],
       comprobantePago:['', Validators.compose([Validators.required]),],
       checkboxComprobantePago:[false, Validators.compose([Validators.required]),],
+      observaciones:['', Validators.compose([Validators.required,]),],
     });
   }
 
@@ -106,7 +107,7 @@ export class FRevisionPagoComponent implements OnInit {
       "montoPagado": this.formulario.controls['checkboxMontoPago'].value,
       "nombreEntidad": this.formulario.controls['checkboxNombreEntidad'].value,
       "incorrecto": incorrecto,
-      "observaciones": "Esta muy correcto",
+      "observaciones": this.formulario.controls['observaciones'].value,
       "revisorId": Number(localStorage.getItem('id')), 
       "adjuntos": {
         "adjuntoId": this.adjuntoId,

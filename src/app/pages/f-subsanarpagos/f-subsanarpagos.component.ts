@@ -46,6 +46,7 @@ export class FSubsanarpagosComponent implements OnInit {
         montoPago:['', Validators.compose([Validators.required,]),],
         bancoPago:['', Validators.compose([Validators.required,]),],
         comprobantePago:['', Validators.compose([Validators.required]),],
+        observaciones:['', Validators.compose([Validators.required,]),],                       
       });
     
       this.fSubsanarpagosService.getSubsanarRegistroPago(this.activatedRoute.snapshot.params.idSolicitud).subscribe(resp =>{
@@ -55,7 +56,8 @@ export class FSubsanarpagosComponent implements OnInit {
         this.formulario.controls['numeroRecibo'].setValue(resp.pagoSol.numRecibo);
         this.formulario.controls['fechaPago'].setValue(resp.pagoSol.fechaPago);
         this.formulario.controls['montoPago'].setValue(resp.pagoSol.montoPago);
-        this.formulario.controls['bancoPago'].setValue(resp.pagoSol.nombreEntidadBancaria); 
+        this.formulario.controls['bancoPago'].setValue(resp.pagoSol.nombreEntidadBancaria);
+        this.formulario.controls['observaciones'].setValue(resp.pagoRev.observaciones); 
         
         this.subsanarNumeroRecibo = resp.pagoRev.numeroDeposito
         this.subsanarFechaPago = resp.pagoRev.fechaPago

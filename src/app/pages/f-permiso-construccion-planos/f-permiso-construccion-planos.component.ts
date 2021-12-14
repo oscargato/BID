@@ -219,7 +219,8 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
 
       planos:['', Validators.compose([Validators.required]),],
       checkboxPlanos:[false, Validators.compose([Validators.required]),], 
-      noviable:[false, Validators.compose([Validators.required]),],                     
+      noviable:[false, Validators.compose([Validators.required]),],
+      observaciones:['', Validators.compose([Validators.required,]),],                                            
     });
 
     
@@ -356,8 +357,8 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
           "nombreProyecto": this.formulario.controls['checkboxNombre'].value,
           "nombreResp": this.formulario.controls['checkboxConstructor'].value,
           "numIdoneidad": this.formulario.controls['checkboxNumeroIdoneidad'].value,
-          "observacionComprobacion": "string",
-          "observaciones": "string",
+          "observacionComprobacion": "",
+          "observaciones": this.formulario.controls['observaciones'].value,
           "pagoElectronico": this.pagoElectronico,
           "pagoManual": this.pagoManual,
           "provinciaProyectoId": this.formulario.controls['checkboxProvincia'].value,
@@ -438,7 +439,9 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
       }
       ]
     }
-           
+     
+    console.log('data',data)
+
     this.fPermisoConstruccionPlanosService.newRevisionPlanos(data).subscribe(resp=>{
       console.log('resp A', resp)
       if(resp.codigo === 0)
