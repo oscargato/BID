@@ -13,7 +13,16 @@ export class PasswordComponent implements OnInit {
   public formulario:FormGroup;
   private hash:string;
   private urlTree:UrlTree;
-
+  public ver:boolean = false;
+  public letraMayuscula:boolean = false;
+  public letraMinuscula:boolean = false;
+  public unNumero:boolean = false;
+  public unCaracter:boolean = false;
+  public minimoCaracteres:boolean = false;
+  public maximoCaracteres:boolean = false;
+  public clave:string = '';
+  public cclave:string = '';
+  
   constructor(private formBuilder:FormBuilder, 
               private authHTTPService:AuthHTTPService,
               private router:Router){}
@@ -37,4 +46,9 @@ export class PasswordComponent implements OnInit {
       this.router.navigate(['/auth/login']);
     }) 
   }
+
+
+  verRequerimientos(){
+    this.ver = !this.ver ;
+  }  
 }
