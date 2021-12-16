@@ -457,7 +457,7 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
   
     register(){  
       Swal.fire(  
-        'Revision de Tramite Exitosa!',
+        'Revisión de Trámite Exitosa!',
         'Haga click para continuar',
         'success',
       ).then((result) => {
@@ -467,7 +467,7 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
 
     noViable(){  
       Swal.fire(  
-        'Tramite No Viable!',
+        'Trámite No Viable!',
         'Haga click para continuar',
         'info',
         ).then((result) => {
@@ -479,21 +479,10 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Revision Fallida!'
+        text: 'Revisión Fallida!'
       })
     }
   
-
-
-
-
-
-
-
-
-
-
-
 
   ngAfterViewInit(): void {
     this.wizard = new KTWizard(this.el.nativeElement, {

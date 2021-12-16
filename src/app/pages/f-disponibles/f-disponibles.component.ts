@@ -312,6 +312,7 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
  
   getTipoPropiedad(){
     console.log('tipoProp',this.tipoProp)
+    this.tipoP = this.tipoPropiedad[this.tipoProp].nombre;
   }
 
   onRegistrar(){
@@ -435,7 +436,7 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
 
   registerExitoso(){  
     Swal.fire(  
-      'Solicitud de Tramite Exitosa!',
+      'Solicitud de Trámite Exitosa!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -447,7 +448,7 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Solicitud de Tramite Fallida!'
+      text: 'Solicitud de Trámite Fallida!'
     })
   }
 

@@ -119,7 +119,7 @@
         </div>
         <!--end: Form Wizard Nav -->
       </div>
-      <div class="wizard-body ">
+      <div class="wizard-body py-8 px-8 py-lg-20 px-lg-10">
         <!--begin: Wizard Form-->
         <div class="row">
           <div class="offset-xxl-2 col-xxl-8">
@@ -473,42 +473,63 @@
                               readonly/>       
                     </div>
                   </div>
+
+                  <div class="col-xl-6">
+                    <div class="form-group text-center">
+                      <label>Informe de la Inspección</label>
+                      <div>
+                        <button (click)="fileDownloadInformeInspeccion()">Descargar</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             
                         
                               <br>                              
-                               <label class="font-weight-bold text-dark">
-                                Adjuntos
-                              </label>
-                               <div class="row border-top">
+                               
+                               <div class="row">                            
+                                <br><br><br>
+
                                 <div class="col-xl-12">
+                                  <label class="font-weight-bold text-dark">
+                                      ¿Trámite es viable?
+                                  </label>
+                                
                                   <div class="form-group">
-                                    <label>Informe de Inspección</label>
-                                    <div class="col-md-10">
-                                      <button (click)="fileDownloadInformeInspeccion()">Descargar</button>
+                                    <div class="checkbox-inline border-top">
+                                        <label class="checkbox  checkbox-danger">
+                                            <input type="checkbox" class="form-control" formControlName="noviable" name="noviable" (click)="opcionNoViable()"/>
+                                            <span></span>
+                                            No es viable
+                                        </label>
                                     </div>
                                   </div>
-                                </div>
 
-                                <br><br><br>
-             
-                                <div class="col-xl-12">
 
                                   <label class="font-weight-bold text-dark pt-5">
                                     Documentos y Sellos otras entidades  
                                   </label>
 
                                   <div class="checkbox-inline border-top py-3">
-                                    <label class="checkbox  checkbox-danger">
-                                      ¿Completo?  
-                                      <input  type="checkbox" 
-                                              name="completo" 
-                                              formControlName="completo"
-                                              (click)="observacionInvisible()"/>
-                                        &nbsp; <span></span>
-                                        Si 
-                                    </label>
-                                </div>
+                                      <label class="checkbox  checkbox-danger">
+                                        ¿Completo?  
+                                        <input  type="checkbox" 
+                                                name="completo" 
+                                                formControlName="completo"
+                                                (click)="completo()"/>
+                                                &nbsp; <span></span>
+                                                Si                                                                              
+                                      </label>
+
+                                      <label class="checkbox  checkbox-danger">
+                                          <input  type="checkbox" 
+                                                  name="incompleto" 
+                                                  formControlName="incompleto"
+                                                  (click)="incompleto()"/>
+                                                  &nbsp; <span></span>
+                                                  No
+                                      </label>                                    
+                                  </div>
                                 </div>
                               </div>          
                     

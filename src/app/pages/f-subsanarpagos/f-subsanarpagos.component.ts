@@ -142,7 +142,7 @@ export class FSubsanarpagosComponent implements OnInit {
 
   registerAlert(){  
     Swal.fire(  
-      'Subsanacion de Tramite Exitosa!',
+      'Subsanación de Trámite Exitosa!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -154,7 +154,7 @@ export class FSubsanarpagosComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Subsanacion Fallida!'
+      text: 'Subsanación Fallida!'
     })
   }
 }

@@ -67,40 +67,46 @@ export class FTareaInspeccionComponent implements OnInit {
 
 
   newRevisionInspeccion(){
-    const data = 
-    { "solicitudId": this.solicitudId,
-      "revisionId": this.revisionId,
-      "revisorId": 4,
-      "inspeccionAprobada": this.formulario.controls['inspeccion'].value,
-      "observaciones": this.formulario.controls['observaciones'].value,
-      "lstAdjuntos": [{
-          "solicitanteTramiteId": { 
-              "solicitanteTramiteId": this.solicitanteTramiteId,
-          },
-          "tipoDocumentoId": { 
-              "tipoDocumentoId": this.adjunto[0].tipoDocumentoId.tipoDocumentoId,
-          },
-          "solicitanteId": {
-              "solicitanteId": this.solicitanteId,
-          },
-          "nombre": this.adjunto[0].tipoDocumentoId.nombre,
-          "urlAdjunto": this.urlInforme,
-      }]
+    if(this.formulario.controls['informe'].value == ""){
+      this.failInforme();
+    }
+    else
+    { const data = 
+      { "solicitudId": this.solicitudId,
+        "revisionId": this.revisionId,
+        "revisorId": 4,
+        "inspeccionAprobada": this.formulario.controls['inspeccion'].value,
+        "observaciones": this.formulario.controls['observaciones'].value,
+        "lstAdjuntos": [{
+            "solicitanteTramiteId": { 
+                "solicitanteTramiteId": this.solicitanteTramiteId,
+            },
+            "tipoDocumentoId": { 
+                "tipoDocumentoId": this.adjunto[0].tipoDocumentoId.tipoDocumentoId,
+            },
+            "solicitanteId": {
+                "solicitanteId": this.solicitanteId,
+            },
+            "nombre": this.adjunto[0].tipoDocumentoId.nombre,
+            "urlAdjunto": this.urlInforme,
+        }]
+      }
+  
+      console.log('data',data)
+      
+      this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
+        console.log('Carga',resp)
+        if(resp.codigo === 0)
+        { if(this.formulario.controls['inspeccion'].value == true)
+          { this.registerAlert(); }
+          else
+          { this.noAprobada(); }        
+        }
+        else
+        { this.failRevision()   }
+      }) 
     }
 
-    console.log('data',data)
-    
-    this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
-      console.log('Carga',resp)
-      if(resp.codigo === 0)
-      { if(this.formulario.controls['inspeccion'].value == true)
-        { this.registerAlert(); }
-        else
-        { this.noAprobada(); }        
-      }
-      else
-      { this.failRevision()   }
-    })
     
   }
 
@@ -121,7 +127,7 @@ export class FTareaInspeccionComponent implements OnInit {
     Swal.fire({ 
       position: 'center',
       icon: 'success',
-      title: 'Informe de Inspeccion Cargado Exitosamente',
+      title: 'Informe de Inspección Cargado Exitosamente',
       showConfirmButton: false,
       timer: 1500
     })
@@ -129,7 +135,7 @@ export class FTareaInspeccionComponent implements OnInit {
 
   registerAlert(){  
     Swal.fire(  
-      'Inspeccion Exitosa!',
+      'Inspección Exitosa!',
       'Haga click para continuar',
       'success',
       ).then((result) => {
@@ -139,7 +145,7 @@ export class FTareaInspeccionComponent implements OnInit {
 
   noAprobada(){  
     Swal.fire(  
-      'Tramite No Viable!',
+      'Trámite No Aprobado!',
       'Haga click para continuar',
       'info',
       ).then((result) => {
@@ -151,7 +157,15 @@ export class FTareaInspeccionComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Inspeccion Fallida!'
+      text: 'Inspección Fallida!'
     })
   }
+
+  failInforme(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Debe Adjuntar un Informe de Inspección!'
+    })
+  }  
 }

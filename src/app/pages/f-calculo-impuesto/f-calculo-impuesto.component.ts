@@ -57,7 +57,7 @@ export class FCalculoImpuestoComponent implements OnInit {
 
    registerAlert(){  
     Swal.fire(  
-      'Calculo de Impuesto Exitoso!',
+      'Cálculo de Impuesto Exitoso!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -69,7 +69,7 @@ export class FCalculoImpuestoComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Calculo Fallido!'
+      text: 'Cálculo Fallido!'
     })
   }
 }

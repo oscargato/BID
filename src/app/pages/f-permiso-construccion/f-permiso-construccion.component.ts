@@ -474,7 +474,7 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
 
   registerAlert(){  
     Swal.fire(  
-      'Subsanacion de Tramite Exitosa!',
+      'Subsanación de Trámite Exitosa!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -486,13 +486,13 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Subsanacion Fallida!'
+      text: 'Subsanación Fallida!'
     })
   }
 
   noViable(){  
     Swal.fire(  
-      'Tramite No Viable!',
+      'Trámite No Viable!',
       'Haga click para continuar',
       'info',
       ).then((result) => {

@@ -145,7 +145,7 @@ export class FRevisionPagoComponent implements OnInit {
 
   registerAlert(){  
     Swal.fire(  
-      'Revision de Pago Exitosa!',
+      'Revisión de Pago Exitosa!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -157,7 +157,7 @@ export class FRevisionPagoComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Revision Fallida!'
+      text: 'Revisión Fallida!'
     })
   }
 }

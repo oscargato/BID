@@ -190,7 +190,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
 
   succes(){  
     Swal.fire(  
-      'Aprobacion de Tramite Exitosa!',
+      'Aprobación de Trámite Exitosa!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -202,7 +202,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Aprobacion Fallida!'
+      text: 'Aprobación Fallida!'
     })
   }
 

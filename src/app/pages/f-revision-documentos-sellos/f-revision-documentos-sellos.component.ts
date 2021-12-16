@@ -33,7 +33,7 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   public solicitudId:number;
   public revisionId:number;
   public revisorId:number;
-  public visible:boolean = true;
+  public visible:boolean = false;
 
   @ViewChild('wizard', { static: true }) el: ElementRef;
   wizard: any;
@@ -67,6 +67,8 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       checkboxRecibidos:[false, Validators.compose([Validators.required,]),],
       fechaInspeccion:[null, Validators.compose([Validators.required,]),],
   		completo:[false, Validators.compose([Validators.required,]),],
+      incompleto:[false, Validators.compose([Validators.required,]),],
+      noviable:[false, Validators.compose([Validators.required]),],
       informe:['', Validators.compose([Validators.required,]),],
       observaciones:['', Validators.compose([Validators.required,]),],      
     });
@@ -89,8 +91,7 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       this.formulario.controls['nombreProfesionalIdoneo'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalIdoneo);
       this.formulario.controls['numeroIdoneidad'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.numIdoneidad);
       this.formulario.controls['nombreProfesionalResidente'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.nombreProfesionalResidente);
-      this.formulario.controls['checkboxRecibidos'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.docRecibido);            
-      //this.formulario.controls['observaciones'].setValue(resp.t01_Rev_PermisoConstruccionMun.observaciones);
+      this.formulario.controls['checkboxRecibidos'].setValue(resp.t01_Rev_PermisoConstruccionMun.solicitudId.docRecibido);                  
       
       this.archivoRegistroPublico = resp.lstAdjuntos[0].urlAdjunto;
       this.tramiteIdRegistroPublico = resp.lstAdjuntos[0].solicitanteTramiteId.solicitanteTramiteId;        
@@ -139,48 +140,90 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
     });
   }
 
-  observacionInvisible(){
-    this.visible = !this.visible
+  opcionNoViable(){
+    if(this.formulario.controls['noviable'].value == false){
+      this.formulario.controls['noviable'].setValue(true);
+      this.formulario.controls['completo'].setValue(false);
+      this.formulario.controls['incompleto'].setValue(false);
+      this.visible = false;
+    }
   }
 
+  completo(){
+    if(this.formulario.controls['completo'].value == false){
+      this.formulario.controls['noviable'].setValue(false);
+      this.formulario.controls['completo'].setValue(true);
+      this.formulario.controls['incompleto'].setValue(false);
+      this.visible = false;
+    }
+  }
+
+  incompleto(){
+    if(this.formulario.controls['incompleto'].value == false){
+      this.formulario.controls['noviable'].setValue(false);
+      this.formulario.controls['completo'].setValue(false);
+      this.formulario.controls['incompleto'].setValue(true);
+      this.visible = true;
+    }
+    else
+    { this.visible = false; }
+  }
+
+
+  registrarData(){
+    let incorrecto:boolean;
+
+    if(this.formulario.controls['checkboxRecibidos'].value == true &&
+        this.formulario.controls['completo'].value == true)
+    { incorrecto = false; }
+    else
+    { incorrecto = true; }
+
+    const data =
+    { "solicitudId": this.solicitudId,
+      "revisionId": this.revisionId,
+      "incorrecto": incorrecto,
+      "noViable": this.formulario.controls['noviable'].value,
+      "sellosCompletos": this.formulario.controls['completo'].value, 
+      "revisorId":this.revisorId,
+      "observaciones": this.formulario.controls['observaciones'].value
+    }
+
+    console.log(data)
+
+    this.fRevisionDocumentosSellosService.newRevision(data).subscribe(resp=>{
+      if(resp.codigo === 0)
+      { if(this.formulario.controls['noviable'].value == true)
+        { this.noViable();  }
+        else
+        { if(this.formulario.controls['completo'].value == false){
+            this.sellosIncompletos();
+          }
+          else
+          {  this.registerAlert();  } 
+        }
+      }
+      else
+      { this.failSubsanar(); }
+    })
+
+  }
 
   newRevision(){
-    if(this.formulario.controls['completo'].value !== true)
-    {  this.failDocumentos();  }
+    if(this.formulario.controls['noviable'].value == true || 
+       this.formulario.controls['completo'].value == true || 
+       this.formulario.controls['incompleto'].value == true)
+    {  this.registrarData();  }
     else
-    {
-      let incorrecto:boolean;
-
-      if(this.formulario.controls['checkboxRecibidos'].value === true &&
-        this.formulario.controls['completo'].value === true)
-        { incorrecto = false; }
-        else
-        { incorrecto = true; }
-
-        const data =
-        { "solicitudId": this.solicitudId,
-          "revisionId": this.revisionId,
-          "incorrecto": incorrecto,
-          "sellosCompletos": this.formulario.controls['completo'].value, 
-          "revisorId":this.revisorId,
-          "observaciones": this.formulario.controls['observaciones'].value
-        }
-
-        console.log(data)
-    
-        this.fRevisionDocumentosSellosService.newRevision(data).subscribe(resp=>{
-          if(resp.codigo === 0)
-          { this.registerAlert(); }
-          else
-          { this.failSubsanar() }
-        }) 
-        
-    }    
+    { this.failOpciones(); }    
   }
+
+
+
 
   registerAlert(){  
     Swal.fire(  
-      'Revision de Tramite Exitosa!',
+      'Revisión de Trámite Exitosa!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -192,15 +235,35 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Revision Fallida!'
+      text: 'Revisión Fallida!'
     })
   }
+  
+  noViable(){  
+    Swal.fire(  
+      'Trámite No Viable!',
+      'Haga click para continuar',
+      'info',
+      ).then((result) => {
+      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+    });  
+  }
 
-  failDocumentos(){
+  sellosIncompletos(){  
+    Swal.fire(  
+      'Documentos y Sellos otras entidades Incompletos!',
+      'Haga click para continuar',
+      'info',
+      ).then((result) => {
+      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+    });  
+  }  
+  
+  failOpciones(){
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Debe indicar completos los Documentos y Sellos otras entidades'
+      text: 'Debe elegir una opción, Trámite No es Viable o Documentos y Sellos otras entidades'
     })
   }   
 

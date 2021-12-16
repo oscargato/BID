@@ -71,9 +71,9 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       nombreProfesionalResidente:['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(120)]),],
       registroPublico:['', Validators.compose([Validators.required]),],
       certificacionIdoneo:['',Validators.compose([Validators.required]), ],
-      planos:['', Validators.compose([Validators.required]), ],
+      planos:['', Validators.compose([Validators.required]), ],      
+      fechaInspeccion:['', Validators.compose([Validators.required]),], 
       checkboxPlanosRecibidos:[false, Validators.compose([Validators.required]),],   
-      fechaInspeccion:[false, Validators.compose([Validators.required]),], 
       checkboxViable:[false, Validators.compose([Validators.required]),],
       observaciones:['', Validators.compose([Validators.required]),],               
     });
@@ -148,200 +148,234 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
   }
 
 
-  recibirPlanos(){
-    if(this.formulario.controls['checkboxPlanosRecibidos'].value == false)
-    {  this.failSellos();  }
-    else
-    {  if(this.formulario.controls['fechaInspeccion'].value == false)
-       {  this.failFecha(); }
-       else
-       {
-        const data = {
-          "incorrecto": false,
-          "docRecibido": this.formulario.controls['checkboxPlanosRecibidos'].value,
-          "fechaInspeccion":this.formulario.controls['fechaInspeccion'].value,
-          "t01_Rev_PermisoConstruccionMun": {
-              "codUbicacion": true,
-              "comentarios": "string",
-              "comentariosCierre": "string",
-              "comentariosInternos": "string",
-              "comprobacionNegada": true,
-              "corregimientoProyectoId": true,
-              "descripcionProyecto": true,
-              "distritoProyectoId": true,
-              "fechaRevision": null,
-              "fechaRevisionInspeccion": null,
-              "fechaRevisionPlanos": null,
-              "fechaDocRecibidos": this.fechaDocRecibidos,
-              "finca": true,
-              "folio": true,
-              "montoPagar": true,
-              "montoPagarFunc": true,
-              "montoTotal": true,
-              "noViable": this.formulario.controls['checkboxViable'].value,
-              "nombreEntidadEvaluadora": true,
-              "nombreEntidadEvaluadoraFunc": true,
-              "nombreProfesionalIdoneo": true,
-              "nombreProfesionalResidente": true,
-              "nombrePropietarioTerreno": true,
-              "nombreProyecto": true,
-              "nombreResp": true,
-              "numIdoneidad": true,
-              "observacionComprobacion": "",
-              "observaciones": this.formulario.controls['observaciones'].value,
-              "pagoElectronico": true,
-              "pagoManual": true,
-              "provinciaProyectoId": true,
-              "revisorRecepcionFisicaPlanos":{
-                  "revisorId": this.revisorId,
-                  "tipoRevisorId": {
-                      "descripcion": "Arquitecto",
-                      "tipoRevisorId": 3,
-                  }
-              },
-              "revisionId": this.revisionId,
-              "revisionNegada": true,
-              "revisorId": null,
-              "solicitudConfirmada": true,
-              "solicitudId": {
-            "solicitudId": this.solicitudId,
-          },
-              "tipoPropiedadId": true,
-              "tomo": true,
-              "valorAproxObra": true
-          },
+  opcionNoViable(){
+    if(this.formulario.controls['checkboxViable'].value == false){
+      this.formulario.controls['checkboxPlanosRecibidos'].setValue(false);
+      this.formulario.controls['checkboxViable'].setValue(true); 
+      this.formulario.controls['fechaInspeccion'].setValue('');   
+    }
+    
+  }
 
-          "lstAdjuntos": [
-            { "adjuntoId": this.adjuntos[0].adjuntoId, 
-              "fecha": this.fecha1,
-              "fechaRevision": this.fechaRevision1,
-              "nombre": this.adjuntos[0].nombre,
-              "rechazado": null,
-              "tipoDocumentoId": {
-              "diasVigencia": 0, 
-              "nombre": this.adjuntos[0].nombre, 
-              "tipoDocumentoId": this.adjuntos[0].tipoDocumentoId.tipoDocumentoId,
-              },
-              "urlAdjunto": this.adjuntos[0].urlAdjunto, 
-                  "solicitanteId": {
-                      "solicitanteId": this.adjuntos[0].solicitanteId.solicitanteId,
-                  }    
-            },
-            {
-              "adjuntoId": this.adjuntos[1].adjuntoId,
-              "fecha": this.fecha2,
-              "fechaRevision": this.fechaRevision2,
-              "nombre": this.adjuntos[1].nombre,
-              "rechazado": null,
-              "tipoDocumentoId": {
-              "diasVigencia": 0,
-              "nombre": this.adjuntos[1].nombre,
-              "tipoDocumentoId": this.adjuntos[1].tipoDocumentoId.tipoDocumentoId,
-              },
-              "urlAdjunto": this.adjuntos[1].urlAdjunto,
-                  "solicitanteId": {
-                      "solicitanteId": this.adjuntos[1].solicitanteId.solicitanteId,
-                  }
-            },
-            {
-              "adjuntoId": this.adjuntos[2].adjuntoId,
-              "fecha": this.fecha3,
-              "fechaRevision": this.fechaRevision3,
-              "nombre": this.adjuntos[2].nombre,
-              "rechazado": null,
-              "tipoDocumentoId": {
-              "diasVigencia": 0,
-              "nombre": this.adjuntos[2].nombre,
-              "tipoDocumentoId": this.adjuntos[2].tipoDocumentoId.tipoDocumentoId,
-              },
-              "urlAdjunto": this.adjuntos[2].urlAdjunto,
-                  "solicitanteId": {
-                      "solicitanteId": this.adjuntos[2].solicitanteId.solicitanteId,
-                  }
-            }
-            ]
-        }
+  opcionRecibidos(){
+    if(this.formulario.controls['checkboxPlanosRecibidos'].value == false){
+      this.formulario.controls['checkboxPlanosRecibidos'].setValue(true);  
+      this.formulario.controls['checkboxViable'].setValue(false);  
+    }
+    
+  }
 
-        this.fRecepcionPlanosService.newRecepcionFisicaPlanos(data).subscribe(resp=>{
-          console.log('Respuesta!!!',resp);
-          if(resp.codigo === 0)
-          { if(this.formulario.controls['checkboxViable'].value == true)
-            { this.noViable();  }
-            else
-            { this.register();  }
-          }          
+  registrarData(){  
+       const data = {
+         "incorrecto": false,
+         "docRecibido": this.formulario.controls['checkboxPlanosRecibidos'].value,
+         "fechaInspeccion":this.formulario.controls['fechaInspeccion'].value,
+         "t01_Rev_PermisoConstruccionMun": {
+             "codUbicacion": true,
+             "comentarios": "",
+             "comentariosCierre": "",
+             "comentariosInternos": "",
+             "comprobacionNegada": true,
+             "corregimientoProyectoId": true,
+             "descripcionProyecto": true,
+             "distritoProyectoId": true,
+             "fechaRevision": null,
+             "fechaRevisionInspeccion": null,
+             "fechaRevisionPlanos": null,
+             "fechaDocRecibidos": this.fechaDocRecibidos,
+             "finca": true,
+             "folio": true,
+             "montoPagar": true,
+             "montoPagarFunc": true,
+             "montoTotal": true,
+             "noViable": this.formulario.controls['checkboxViable'].value,
+             "nombreEntidadEvaluadora": true,
+             "nombreEntidadEvaluadoraFunc": true,
+             "nombreProfesionalIdoneo": true,
+             "nombreProfesionalResidente": true,
+             "nombrePropietarioTerreno": true,
+             "nombreProyecto": true,
+             "nombreResp": true,
+             "numIdoneidad": true,
+             "observacionComprobacion": "",
+             "observaciones": this.formulario.controls['observaciones'].value,
+             "pagoElectronico": true,
+             "pagoManual": true,
+             "provinciaProyectoId": true,
+             "revisorRecepcionFisicaPlanos":{
+                 "revisorId": this.revisorId,
+                 "tipoRevisorId": {
+                     "descripcion": "Arquitecto",
+                     "tipoRevisorId": 3,
+                 }
+             },
+             "revisionId": this.revisionId,
+             "revisionNegada": true,
+             "revisorId": null,
+             "solicitudConfirmada": true,
+             "solicitudId": {
+           "solicitudId": this.solicitudId,
+         },
+             "tipoPropiedadId": true,
+             "tomo": true,
+             "valorAproxObra": true
+         },
+
+         "lstAdjuntos": [
+           { "adjuntoId": this.adjuntos[0].adjuntoId, 
+             "fecha": this.fecha1,
+             "fechaRevision": this.fechaRevision1,
+             "nombre": this.adjuntos[0].nombre,
+             "rechazado": null,
+             "tipoDocumentoId": {
+             "diasVigencia": 0, 
+             "nombre": this.adjuntos[0].nombre, 
+             "tipoDocumentoId": this.adjuntos[0].tipoDocumentoId.tipoDocumentoId,
+             },
+             "urlAdjunto": this.adjuntos[0].urlAdjunto, 
+                 "solicitanteId": {
+                     "solicitanteId": this.adjuntos[0].solicitanteId.solicitanteId,
+                 }    
+           },
+           {
+             "adjuntoId": this.adjuntos[1].adjuntoId,
+             "fecha": this.fecha2,
+             "fechaRevision": this.fechaRevision2,
+             "nombre": this.adjuntos[1].nombre,
+             "rechazado": null,
+             "tipoDocumentoId": {
+             "diasVigencia": 0,
+             "nombre": this.adjuntos[1].nombre,
+             "tipoDocumentoId": this.adjuntos[1].tipoDocumentoId.tipoDocumentoId,
+             },
+             "urlAdjunto": this.adjuntos[1].urlAdjunto,
+                 "solicitanteId": {
+                     "solicitanteId": this.adjuntos[1].solicitanteId.solicitanteId,
+                 }
+           },
+           {
+             "adjuntoId": this.adjuntos[2].adjuntoId,
+             "fecha": this.fecha3,
+             "fechaRevision": this.fechaRevision3,
+             "nombre": this.adjuntos[2].nombre,
+             "rechazado": null,
+             "tipoDocumentoId": {
+             "diasVigencia": 0,
+             "nombre": this.adjuntos[2].nombre,
+             "tipoDocumentoId": this.adjuntos[2].tipoDocumentoId.tipoDocumentoId,
+             },
+             "urlAdjunto": this.adjuntos[2].urlAdjunto,
+                 "solicitanteId": {
+                     "solicitanteId": this.adjuntos[2].solicitanteId.solicitanteId,
+                 }
+           }
+           ]
+       }
+       
+      this.fRecepcionPlanosService.newRecepcionFisicaPlanos(data).subscribe(resp=>{
+        console.log('Respuesta!!!',resp);
+        if(resp.codigo === 0)
+        { if(this.formulario.controls['checkboxViable'].value == true)
+          { this.noViable();  }
           else
-          { this.fail() }
-        }) 
-      }  
+          { this.register();  }
+        }          
+        else
+        { this.fail() }
+      })
+  }
+
+  recibirPlanos(){       
+    if(this.formulario.controls['checkboxViable'].value == true)
+    { this.registrarData(); }
+    else
+    { 
+      if(this.formulario.controls['checkboxPlanosRecibidos'].value == true)
+      { if(this.formulario.controls['fechaInspeccion'].value == '')
+        { this.failFecha(); }
+        else
+        { this.registrarData(); }
+      }
+      else
+      { this.failOpciones(); }
     }
   }
 
-    register(){  
-      Swal.fire(  
-        'Recepción de Planos Exitosa!',
-        'Haga click para continuar',
-        'success',
-      ).then((result) => {
-        this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
-      });  
-    }
+
+
+  register(){  
+    Swal.fire(  
+      'Recepción de Planos Exitosa!',
+      'Haga click para continuar',
+      'success',
+    ).then((result) => {
+      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+    });  
+  }
   
-    fail(){
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Recepcion Fallida!'
-      })
-    }
+  fail(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Recepción Fallida!'
+    })
+  }
 
-    failSellos(){
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Debe indicar recibidos los planos de construcción'
-      })
-    }
+  failSellos(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Debe indicar recibidos los planos de construcción'
+    })
+  }
 
-    failFecha(){
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Debe indicar la Fecha de Inspeccion'
-      })
-    }
-    
-    noViable(){  
-      Swal.fire(  
-        'Tramite No Viable!',
-        'Haga click para continuar',
-        'info',
-        ).then((result) => {
-        this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
-      });  
-    }    
+  failFecha(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Debe indicar la Fecha de Inspección'
+    })
+  }
+
+  failOpciones(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Debe elegir una opción, Trámite No es Viable o Planos de Construcción'
+    })
+  }
+  
+  noViable(){  
+    Swal.fire(  
+      'Trámite No Viable!',
+      'Haga click para continuar',
+      'info',
+      ).then((result) => {
+      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+    });  
+  }    
 
   ngAfterViewInit(): void {
-      this.wizard = new KTWizard(this.el.nativeElement, {
-        startStep: 1,
-        clickableSteps: true
-      });
+    this.wizard = new KTWizard(this.el.nativeElement, {
+      startStep: 1,
+      clickableSteps: true
+    });
 
-      this.wizard.on('beforeNext', (wizardObj) => {
-        
-        if (wizardObj.currentStep === 1) {
-          if (this.wizard.invalid) {
-              this.wizard.markAllAsTouched();
-              wizardObj.stop();
-            }
-        }
-      });
+    this.wizard.on('beforeNext', (wizardObj) => {
+      
+      if (wizardObj.currentStep === 1) {
+        if (this.wizard.invalid) {
+            this.wizard.markAllAsTouched();
+            wizardObj.stop();
+          }
+      }
+    });
 
-      this.wizard.on('change', () => {
-        setTimeout(() => {
-          KTUtil.scrollTop();
-        }, 500);
-      });
+    this.wizard.on('change', () => {
+      setTimeout(() => {
+        KTUtil.scrollTop();
+      }, 500);
+    });
   }
 
   ngOnDestroy() 
