@@ -251,7 +251,7 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
 
   sellosIncompletos(){  
     Swal.fire(  
-      'Documentos y Sellos Incompletos!',
+      '¡Documentos y Sellos Incompletos!',
       'Haga click para continuar',
       'info',
       ).then((result) => {

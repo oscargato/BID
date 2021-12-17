@@ -28,6 +28,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   public unCaracter:boolean = false;
   public minimoCaracteres:boolean = false;
   public maximoCaracteres:boolean = false;
+  public iguales:boolean = false;
   public clave:string = '';
   public cclave:string = '';
 
@@ -85,26 +86,38 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.unsubscribe.push(registrationSubscr);
   }
 
-  validatePassword(e){
-    
-    console.log('clave',this.registrationForm.controls['password'].value)
-    
-  /*if(password.length >= 8)
-    { this.minimoCaracteres = true; }
-    else
-    { this.minimoCaracteres = false;  } */
 
+
+  
+  validatePassword(event: any){
+    console.log('clave',this.clave)
+ 
+    if(this.clave.length < 8)
+    { this.minimoCaracteres = false; }
+    else
+    { this.minimoCaracteres = true; }
+    
+    if(this.clave.length >=1 && this.clave.length <= 20)
+    { this.maximoCaracteres = true; }
+    else
+    { this.maximoCaracteres = false; }    
+
+
+    const mayusculas = /^[A-Z]*$/; 
+    if(mayusculas.test(this.clave))
+    {}
   }
+
+
+
+
 
 
   inputValidator(event: any){
-    //console.log(event.target.value);
     const pattern = /^[a-zA-Z0-9]*$/;   
-    if (!pattern.test(event.target.value)) {
-      event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g,"");    
-    }
+    if (!pattern.test(event.target.value))
+    {  event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g,"");  }
   }
-
 
   verRequerimientos(){
     this.ver = !this.ver ;
