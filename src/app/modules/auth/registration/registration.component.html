@@ -29,13 +29,13 @@
     <div class="form-group">
         <label class="font-size-h6 font-weight-bolder text-dark">Número de Identificación</label>
         <input  class="form-control form-control-lg form-control-solid"
-                type="number"
-                min="0"                
-                oninput="validity.valid || (value='');"
-                onKeyPress="if(this.value.length == 15) return false;"
+                type="text"
+                minlength="1"
+                maxlength="15"
+                (input)="inputValidator($event)"                                          
                 name="numeroID"
                 formControlName="numeroID"
-                placeholder="1234567890"
+                placeholder="Número de Identificación"
                 autocomplete="off"
                 [ngClass]="{ 'is-invalid': registrationForm.controls['numeroID'].invalid }"/>
         

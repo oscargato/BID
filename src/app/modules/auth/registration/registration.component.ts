@@ -96,6 +96,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   }
 
+
+  inputValidator(event: any){
+    //console.log(event.target.value);
+    const pattern = /^[a-zA-Z0-9]*$/;   
+    if (!pattern.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g,"");    
+    }
+  }
+
+
   verRequerimientos(){
     this.ver = !this.ver ;
   }
