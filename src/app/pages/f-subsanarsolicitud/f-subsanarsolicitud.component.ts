@@ -506,7 +506,7 @@ export class FSubsanarsolicitudComponent implements OnInit, AfterViewInit, OnDes
   }  
 
   registerAlert()
-  { Swal.fire('Subsanación de Solicitud Exitosa!',
+  { Swal.fire('Subsanación Exitosa!',
               'Haga click para continuar',
               'success',
     ).then((result) => {

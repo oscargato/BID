@@ -130,7 +130,11 @@ export class FRevisionPagoComponent implements OnInit {
     this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
       console.log('Respuesta',resp)
       if(resp.codigo === 0)
-      { this.registerAlert(); }
+      { if(incorrecto == true)
+        { this.solicitudSubsanar(); }
+        else
+        { this.registerAlert(); } 
+      }
       else
       { this.failSubsanar(); }
     })
@@ -160,4 +164,14 @@ export class FRevisionPagoComponent implements OnInit {
       text: 'Revisión Fallida!'
     })
   }
+
+  solicitudSubsanar(){  
+    Swal.fire(  
+      'Trámite enviado a Subsanar!',
+      'Haga click para continuar',
+      'info',
+      ).then((result) => {
+      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+    });  
+  }  
 }

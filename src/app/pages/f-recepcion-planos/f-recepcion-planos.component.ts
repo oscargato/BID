@@ -305,7 +305,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
 
   register(){  
     Swal.fire(  
-      'Recepción de Planos Exitosa!',
+      'Recepción de Planos Exitoso!',
       'Haga click para continuar',
       'success',
     ).then((result) => {

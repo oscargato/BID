@@ -135,7 +135,7 @@ export class FTareaInspeccionComponent implements OnInit {
 
   registerAlert(){  
     Swal.fire(  
-      'Inspección Exitosa!',
+      'Inspección Aprobada!',
       'Haga click para continuar',
       'success',
       ).then((result) => {
@@ -165,7 +165,7 @@ export class FTareaInspeccionComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Debe Adjuntar un Informe de Inspección!'
+      text: 'Debe Adjuntar el Informe de Inspección!'
     })
   }  
 }

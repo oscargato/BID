@@ -463,7 +463,11 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
       { if(this.formulario.controls['noviable'].value == true)
         { this.noViable();  }
         else
-        { this.registerAlert(); }
+        { if(incorrecto == true)
+          { this.solicitudSubsanar(); }
+          else
+          { this.registerAlert(); }
+        }
       }
       else
       { this.failSubsanar() }
@@ -471,10 +475,9 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
     
   }
 
-
   registerAlert(){  
     Swal.fire(  
-      'Subsanación de Trámite Exitosa!',
+      'Trámite Exitoso!',
       'Haga click para continuar',
       'success',
     ).then((result) => {
@@ -486,7 +489,7 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Subsanación Fallida!'
+      text: 'Revisión Fallida!'
     })
   }
 
@@ -501,19 +504,16 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
   }
 
 
+  solicitudSubsanar(){  
+    Swal.fire(  
+      'Trámite enviado a Subsanar!',
+      'Haga click para continuar',
+      'info',
+      ).then((result) => {
+      this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+    });  
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-  
 
   ngAfterViewInit(): void 
   {

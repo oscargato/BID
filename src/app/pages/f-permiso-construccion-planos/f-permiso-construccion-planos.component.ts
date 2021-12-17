@@ -448,7 +448,11 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
       { if(this.formulario.controls['noviable'].value == true)
         { this.noViable();  }
         else
-        { this.register();  }
+        { if(incorrecto == true)
+          { this.solicitudSubsanar(); }
+          else
+          { this.register(); }
+        }
       }
       else
       { this.fail() }
@@ -483,6 +487,15 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
       })
     }
   
+    solicitudSubsanar(){  
+      Swal.fire(  
+        'Trámite enviado a Subsanar!',
+        'Haga click para continuar',
+        'info',
+        ).then((result) => {
+        this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
+      });  
+    }
 
   ngAfterViewInit(): void {
     this.wizard = new KTWizard(this.el.nativeElement, {
