@@ -188,7 +188,7 @@
                type="password"
                maxlength="20"
                [(ngModel)]="clave"
-               (input)="validatePassword($event)"
+               (input)="validatePassword()"
                placeholder="Contraseña"
                name="password"
                formControlName="password"                              
@@ -227,7 +227,7 @@
               <li [ngClass]="{'correcto':unCaracter,'incorrecto':!unCaracter}"><i [ngClass]="{'correcto':unCaracter,'incorrecto':!unCaracter}" class="far fa-check-circle"></i> Al menos un caracter especial</li>
               <li [ngClass]="{'correcto':minimoCaracteres,'incorrecto':!minimoCaracteres}"><i [ngClass]="{'correcto':minimoCaracteres,'incorrecto':!minimoCaracteres}" class="far fa-check-circle"></i> Mínimo 8 caracteres</li>                            
               <li [ngClass]="{'correcto':maximoCaracteres,'incorrecto':!maximoCaracteres}"><i [ngClass]="{'correcto':maximoCaracteres,'incorrecto':!maximoCaracteres}" class="far fa-check-circle"></i> Máximo 20 caracteres</li>
-              <!--li [ngClass]="{'correcto':iguales,'incorrecto':!iguales}"><i [ngClass]="{'correcto':iguales,'incorrecto':!iguales}" class="far fa-check-circle"></i> Confirma Contraseña</li-->
+              <li [ngClass]="{'correcto':iguales,'incorrecto':!iguales}"><i [ngClass]="{'correcto':iguales,'incorrecto':!iguales}" class="far fa-check-circle"></i> Confirma Contraseña</li>
             </ul>            
           </div>
         </div>        
@@ -239,7 +239,8 @@
         <input class="form-control form-control-lg form-control-solid"
                type="password"
                maxlength="20"
-               [ngModel]="cclave"
+               [(ngModel)]="cclave"
+               (input)="validateConfirmPassword()"
                placeholder="Confirmar contraseña"
                name="cPassword"
                autocomplete="off"

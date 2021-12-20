@@ -20,6 +20,7 @@ export class PasswordComponent implements OnInit {
   public unCaracter:boolean = false;
   public minimoCaracteres:boolean = false;
   public maximoCaracteres:boolean = false;
+  public iguales:boolean = false;
   public clave:string = '';
   public cclave:string = '';
   
@@ -41,14 +42,68 @@ export class PasswordComponent implements OnInit {
     const data = {  "pass": this.formulario.controls['password'].value,
                     "hash": this.hash,
                  }
-    
     this.authHTTPService.recuperarPassCorrecto(data).subscribe(resp=>{
       this.router.navigate(['/auth/login']);
     }) 
   }
 
-
   verRequerimientos(){
     this.ver = !this.ver ;
   }  
+
+
+
+
+  validatePassword(){    
+    if(this.clave.length < 8)
+    { this.minimoCaracteres = false; }
+    else
+    { this.minimoCaracteres = true; }
+    
+
+    if(this.clave.length >=1 && this.clave.length <= 20)
+    { this.maximoCaracteres = true; }
+    else
+    { this.maximoCaracteres = false; }    
+
+
+    const numero = /\d/; 
+    if(numero.test(this.clave))
+    { this.unNumero = true; }
+    else
+    { this.unNumero = false; }
+
+
+    const mayuscula = /[A-Z]/; 
+    if(mayuscula.test(this.clave))
+    { this.letraMayuscula = true; }
+    else
+    { this.letraMayuscula = false; }
+
+
+    const minuscula = /[a-z]/; 
+    if(minuscula.test(this.clave))
+    { this.letraMinuscula = true; }
+    else
+    { this.letraMinuscula = false; }
+
+
+    const caracter = /[${}"><@&%#!¡¿?()|+*-/:;_.,=]/
+    if(caracter.test(this.clave))
+    { this.unCaracter = true; }
+    else
+    { this.unCaracter = false; }
+
+    if(this.clave == this.cclave)
+    { this.iguales = true; }
+    else
+    { this.iguales = false; }    
+  }
+
+  validateConfirmPassword(){
+    if(this.clave === this.cclave)
+    { this.iguales = true; }
+    else
+    { this.iguales = false; }
+  }
 }

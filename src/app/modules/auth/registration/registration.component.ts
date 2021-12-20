@@ -89,27 +89,59 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
 
   
-  validatePassword(event: any){
-    console.log('clave',this.clave)
- 
+  validatePassword(){    
     if(this.clave.length < 8)
     { this.minimoCaracteres = false; }
     else
     { this.minimoCaracteres = true; }
     
+
     if(this.clave.length >=1 && this.clave.length <= 20)
     { this.maximoCaracteres = true; }
     else
     { this.maximoCaracteres = false; }    
 
 
-    const mayusculas = /^[A-Z]*$/; 
-    if(mayusculas.test(this.clave))
-    {}
+    const numero = /\d/; 
+    if(numero.test(this.clave))
+    { this.unNumero = true; }
+    else
+    { this.unNumero = false; }
+
+
+    const mayuscula = /[A-Z]/; 
+    if(mayuscula.test(this.clave))
+    { this.letraMayuscula = true; }
+    else
+    { this.letraMayuscula = false; }
+
+
+    const minuscula = /[a-z]/; 
+    if(minuscula.test(this.clave))
+    { this.letraMinuscula = true; }
+    else
+    { this.letraMinuscula = false; }
+
+
+    const caracter = /[${}"><@&%#!¡¿?()|+*-/:;_.,=]/
+    if(caracter.test(this.clave))
+    { this.unCaracter = true; }
+    else
+    { this.unCaracter = false; }
+
+    if(this.clave == this.cclave)
+    { this.iguales = true; }
+    else
+    { this.iguales = false; }    
   }
 
 
-
+  validateConfirmPassword(){
+    if(this.clave == this.cclave)
+    { this.iguales = true; }
+    else
+    { this.iguales = false; }
+  }
 
 
 
