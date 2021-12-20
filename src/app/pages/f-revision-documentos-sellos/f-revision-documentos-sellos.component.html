@@ -436,8 +436,29 @@
                 <!--end: Form Wizard Step 5-->
 
               <!--begin: Form Wizard Step 6-->
-              <div class="pb-5" data-wizard-type="step-content">           
-                <label class="font-weight-bold text-dark">
+              <div class="pb-5" data-wizard-type="step-content">
+                
+                
+                <div class="form-group">
+                  <label class="font-weight-bold text-dark">
+                    ¿Trámite es viable?
+                </label>
+                  <div class="checkbox-inline border-top pt-3">
+                      <label class="checkbox  checkbox-danger">
+                          <input type="checkbox" class="form-control" formControlName="noviable" name="noviable" (click)="opcionNoViable()"/>
+                          <span></span>
+                          No es viable
+                      </label>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+                <label class="font-weight-bold text-dark pt-3">
                     Planos de construcción
                 </label>
                 <div class="checkbox-inline border-top">
@@ -455,10 +476,7 @@
                   </div>
                 </div>
 
-
-                <br>
-
-                <label class="font-weight-bold text-dark">
+                <label class="font-weight-bold text-dark pt-2">
                     Inspección
                 </label>
                 <div class="row  border-top">
@@ -485,29 +503,13 @@
                 </div>
             
                         
-                <br>                              
+                                           
                                
                                <div class="row">                            
                                 
 
-                                <div class="col-xl-12">
-                                  
-                                
-                                  <div class="form-group">
-                                    <label class="font-weight-bold text-dark">
-                                      ¿Trámite es viable?
-                                  </label>
-                                    <div class="checkbox-inline border-top pt-3">
-                                        <label class="checkbox  checkbox-danger">
-                                            <input type="checkbox" class="form-control" formControlName="noviable" name="noviable" (click)="opcionNoViable()"/>
-                                            <span></span>
-                                            No es viable
-                                        </label>
-                                    </div>
-                                  </div>
-
-
-                                  <label class="font-weight-bold text-dark pt-5">
+                                <div class="col-xl-12 pt-3">                                                                                          
+                                  <label class="font-weight-bold text-dark">
                                     Documentos y Sellos otras entidades  
                                   </label>
 

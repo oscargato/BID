@@ -454,17 +454,16 @@
               <!--end: Form Wizard Step 5-->
 
               <!--begin: Form Wizard Step 6-->
-              <div class="pb-5" data-wizard-type="step-content">
-
-
-                      <label class="font-weight-bold text-dark">
-                          ¿Trámite es viable?
-                      </label>
-                      <div class="row  border-top py-3">
+              <div class="" data-wizard-type="step-content">
+                      
+                      <div class="row">
                           <div class="col-xl-12">
-                            <div class="form-group ">                            
-                              <div class="checkbox-inline py-3">
-                                <label class="checkbox  checkbox-danger">                                    
+                            <div class="form-group "> 
+                              <label class="font-weight-bold text-dark">
+                                ¿Trámite es viable?
+                              </label>
+                              <div class="checkbox-inline border-top">
+                                <label class="checkbox  checkbox-danger mt-3">                                    
                                     <input type="checkbox"
                                            class="form-control" 
                                            formControlName="checkboxViable" 
@@ -479,7 +478,7 @@
                           </div>
                       </div>
 
-                      <label class="font-weight-bold text-dark">
+                      <label class="font-weight-bold text-dark mt-5">
                             Planos de construcción
                       </label>
                       <div class="checkbox-inline border-top py-3">
@@ -490,7 +489,7 @@
                           </label>
                       </div>
 
-                      <div *ngIf="formulario.controls['checkboxPlanosRecibidos'].value" class="row py-3">
+                      <div *ngIf="formulario.controls['checkboxPlanosRecibidos'].value" class="row">
                         <div class="col-xl-6">                           
                           <div class="form-group ">
                             <label>Fecha de Inspección</label>
