@@ -32,7 +32,10 @@ export class NotificationsDropdownInnerComponent implements OnInit {
     return 'active show';
   }
 
-  
+  perfilUsuario(){
+
+    this.router.navigate(['/form/user/1']);
+  }
 
   logout(){
     localStorage.removeItem('token')
