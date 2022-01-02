@@ -574,7 +574,12 @@
                                       name="observaciones"
                                       formControlName="observaciones"
                                       placeholder="Comentarios Finales">
-                          </textarea>
+                            </textarea>
+                            <div *ngIf="formulario.controls['observaciones'].invalid && (formulario.controls['observaciones'].dirty || formulario.controls['observaciones'].touched)">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Se requiere los Comentarios Finales</span> 
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>

@@ -831,7 +831,12 @@
                                   name="observaciones"
                                   formControlName="observaciones"
                                   placeholder="Información general">
-                      </textarea>
+                        </textarea>
+                        <div *ngIf="formulario.controls['observaciones'].invalid && (formulario.controls['observaciones'].dirty || formulario.controls['observaciones'].touched)">
+                          <div class="d-flex justify-content-end" style="color:#FF0000;">
+                            <span>Se requiere las Observaciones</span> 
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>                 

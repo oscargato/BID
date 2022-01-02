@@ -36,7 +36,7 @@ export class FTareaInspeccionComponent implements OnInit {
     this.formulario = this.formBuilder.group({  
   		nombreProyecto:['', Validators.compose([Validators.required,]),],
       inspeccion:[true, Validators.compose([Validators.required]),], 
-  		observaciones:['', Validators.compose([Validators.required,]),],
+  		observaciones:['', Validators.compose([Validators.required,Validators.minLength(5)]),],
       informe:['', Validators.compose([Validators.required]),], 
     });
 
@@ -59,6 +59,7 @@ export class FTareaInspeccionComponent implements OnInit {
 
   verObservaciontrue(){
     this.visible = true
+
   }
 
   verObservacionfalse(){
@@ -67,47 +68,51 @@ export class FTareaInspeccionComponent implements OnInit {
 
 
   newRevisionInspeccion(){
+    console.log(this.formulario.controls);
     if(this.formulario.controls['informe'].value == ""){
       this.failInforme();
     }
     else
-    { const data = 
-      { "solicitudId": this.solicitudId,
-        "revisionId": this.revisionId,
-        "revisorId": 4,
-        "inspeccionAprobada": this.formulario.controls['inspeccion'].value,
-        "observaciones": this.formulario.controls['observaciones'].value,
-        "lstAdjuntos": [{
-            "solicitanteTramiteId": { 
-                "solicitanteTramiteId": this.solicitanteTramiteId,
-            },
-            "tipoDocumentoId": { 
-                "tipoDocumentoId": this.adjunto[0].tipoDocumentoId.tipoDocumentoId,
-            },
-            "solicitanteId": {
-                "solicitanteId": this.solicitanteId,
-            },
-            "nombre": this.adjunto[0].tipoDocumentoId.nombre,
-            "urlAdjunto": this.urlInforme,
-        }]
-      }
-  
-      console.log('data',data)
-      
-      this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
-        console.log('Carga',resp)
-        if(resp.codigo === 0)
-        { if(this.formulario.controls['inspeccion'].value == true)
-          { this.registerAlert(); }
-          else
-          { this.noAprobada(); }        
+    { if(this.formulario.controls['inspeccion'].value == false && this.formulario.controls['observaciones'].valid == false )
+      { this.failObservacion(); }
+      else
+      {
+        const data = 
+        { "solicitudId": this.solicitudId,
+          "revisionId": this.revisionId,
+          "revisorId": 4,
+          "inspeccionAprobada": this.formulario.controls['inspeccion'].value,
+          "observaciones": this.formulario.controls['observaciones'].value,
+          "lstAdjuntos": [{
+              "solicitanteTramiteId": { 
+                  "solicitanteTramiteId": this.solicitanteTramiteId,
+              },
+              "tipoDocumentoId": { 
+                  "tipoDocumentoId": this.adjunto[0].tipoDocumentoId.tipoDocumentoId,
+              },
+              "solicitanteId": {
+                  "solicitanteId": this.solicitanteId,
+              },
+              "nombre": this.adjunto[0].tipoDocumentoId.nombre,
+              "urlAdjunto": this.urlInforme,
+          }]
         }
-        else
-        { this.failRevision()   }
-      }) 
-    }
 
-    
+        console.log(data)
+      
+        this.fTareaInspeccionService.newRevisionInspeccion(data).subscribe(resp=>{
+          console.log('Carga',resp)
+          if(resp.codigo === 0)
+          { if(this.formulario.controls['inspeccion'].value == true)
+            { this.registerAlert(); }
+            else
+            { this.noAprobada(); }        
+          }
+          else
+          { this.failRevision()   }
+        })  
+      }
+    }
   }
 
   fileChangeInforme(element){
@@ -167,5 +172,13 @@ export class FTareaInspeccionComponent implements OnInit {
       title: 'Error',
       text: 'Debe Adjuntar el Informe de Inspección!'
     })
-  }  
+  }
+  
+  failObservacion(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'El campo Observación es obligatorio!'
+    })
+  }
 }

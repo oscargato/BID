@@ -75,7 +75,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       fechaInspeccion:['', Validators.compose([Validators.required]),], 
       checkboxPlanosRecibidos:[false, Validators.compose([Validators.required]),],   
       checkboxViable:[false, Validators.compose([Validators.required]),],
-      observaciones:['', Validators.compose([Validators.required]),],               
+      observaciones:['', Validators.compose([Validators.required,Validators.minLength(5)]),],               
     });
 
 
@@ -165,7 +165,9 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
     
   }
 
-  registrarData(){  
+  registrarData(){ 
+
+
        const data = {
          "incorrecto": false,
          "docRecibido": this.formulario.controls['checkboxPlanosRecibidos'].value,
@@ -283,6 +285,8 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
         else
         { this.fail() }
       })
+
+
   }
 
   recibirPlanos(){       
@@ -294,7 +298,12 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
       { if(this.formulario.controls['fechaInspeccion'].value == '')
         { this.failFecha(); }
         else
-        { this.registrarData(); }
+        { if(this.formulario.controls['observaciones'].valid == false)
+          { this.failObservacion(); }
+          else
+          { this.registrarData(); }
+           
+        }
       }
       else
       { this.failOpciones(); }
@@ -345,6 +354,14 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
     })
   }
   
+  failObservacion(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'El campo Observación es obligatorio!'
+    })
+  }  
+
   noViable(){  
     Swal.fire(  
       'Trámite No Viable!',

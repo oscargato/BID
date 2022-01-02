@@ -69,7 +69,7 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
       fechaPago:['', Validators.compose([Validators.required,]),],
       montoPago:['', Validators.compose([Validators.required,]),],
       comprobante:['', Validators.compose([Validators.required,]),],
-      observaciones:['', Validators.compose([Validators.required,]),],
+      observaciones:['', Validators.compose([Validators.required,Validators.minLength(5)]),],
     });
 
 
@@ -171,21 +171,26 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
 
 
   newAprobacion(){
-    const data =
-    { "solicitudId": this.solicitudId,
-      "revisionId": this.revisionId,
-      "revisorId": this.revisorId,
-      "comentarios":this.formulario.controls['observaciones'].value,
-      "aprobado": true,
-    }
-    console.log(data)
-    this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
-      console.log('newAprobacion',resp)
-      if(resp.codigo === 0)
-      { this.succes(); }
-      else
-      { this.fail() }
-    })
+    if(this.formulario.controls['observaciones'].valid == false)
+    { this.failObservacion(); }
+    else
+    {
+      const data =
+      { "solicitudId": this.solicitudId,
+        "revisionId": this.revisionId,
+        "revisorId": this.revisorId,
+        "comentarios":this.formulario.controls['observaciones'].value,
+        "aprobado": true,
+      }
+      console.log(data)
+      this.fAprobacionTramiteService.newAprobacion(data).subscribe(resp=>{
+        console.log('newAprobacion',resp)
+        if(resp.codigo === 0)
+        { this.succes(); }
+        else
+        { this.fail() }
+      })
+    } 
    }
 
   succes(){  
@@ -205,6 +210,14 @@ export class FAprobacionTramiteComponent implements OnInit, AfterViewInit, OnDes
       text: 'Aprobación Fallida!'
     })
   }
+
+  failObservacion(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'El campo Comentarios Finales es obligatorio!'
+    })
+  }   
 
   ngAfterViewInit(): void {
     this.wizard = new KTWizard(this.el.nativeElement, {

@@ -70,7 +70,7 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       incompleto:[false, Validators.compose([Validators.required,]),],
       noviable:[false, Validators.compose([Validators.required]),],
       informe:['', Validators.compose([Validators.required,]),],
-      observaciones:['', Validators.compose([Validators.required,]),],      
+      observaciones:['', Validators.compose([Validators.required,Validators.minLength(5)]),],      
     });
 
     this.fRevisionDocumentosSellosService.getRevision(this.activatedRoute.snapshot.params.idRevision ).subscribe(resp =>{
@@ -210,15 +210,18 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
   }
 
   newRevision(){
+    console.log(this.formulario.controls)
     if(this.formulario.controls['noviable'].value == true || 
        this.formulario.controls['completo'].value == true || 
        this.formulario.controls['incompleto'].value == true)
-    {  this.registrarData();  }
+    { if(this.formulario.controls['incompleto'].value == true && this.formulario.controls['observaciones'].valid == false)
+      { this.failObservacion(); }
+      else
+      { this.registrarData();  }   
+    }
     else
     { this.failOpciones(); }    
   }
-
-
 
 
   registerAlert(){  
@@ -265,7 +268,15 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
       title: 'Error',
       text: 'Debe elegir una opción, Trámite No es Viable o Documentos y Sellos otras entidades'
     })
-  }   
+  }
+  
+  failObservacion(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'El campo Observación es obligatorio!'
+    })
+  }
 
   ngAfterViewInit(): void {
     this.wizard = new KTWizard(this.el.nativeElement, {

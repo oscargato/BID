@@ -140,15 +140,12 @@
                   <div class="col-xl-12">
                     <div class="form-group">
                       <label>Nombre del Proyecto</label>
-                      <input
-                      type="text"
-                      class="form-control"
-                      name="nombreProyecto"
-                      formControlName="nombreProyecto"
-                      placeholder="Finca del Montillelo"
-                      readonly
-                    />
-                      
+                      <input type="text"
+                             class="form-control"
+                             name="nombreProyecto"
+                             formControlName="nombreProyecto"
+                             placeholder="Nombre del Proyecto"
+                             readonly/>                      
                     </div>
                   </div>
 
@@ -157,11 +154,11 @@
                     <div class="col-xl-12">
                       <div class="form-group">
                           <label>Descripción del Proyecto</label>
-                          <textarea 
-                          class="form-control"
-                          name="descripcionProyecto"
-                          formControlName="descripcionProyecto"
-                          readonly>
+                          <textarea class="form-control"
+                                    name="descripcionProyecto"
+                                    formControlName="descripcionProyecto"
+                                    placeholder="Descripción del Proyecto"
+                                    readonly>
                           </textarea>
                    
                       </div>
@@ -541,13 +538,17 @@
                     <div *ngIf="visible" class="row">
                       <div class="col-xl-12">
                         <div class="form-group">
-                          <label>Observaciones</label>
-                          <textarea 
-                            class="form-control"
-                            name="observaciones"
-                            formControlName="observaciones"
-                            placeholder="Información general">
-                        </textarea>
+                          <label>Observación</label>
+                          <textarea class="form-control"
+                                    name="observaciones"
+                                    formControlName="observaciones"
+                                    placeholder="Observación">
+                          </textarea>
+                          <div *ngIf="formulario.controls['observaciones'].invalid && (formulario.controls['observaciones'].dirty || formulario.controls['observaciones'].touched)">
+                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                              <span>Se requiere la Observación</span> 
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

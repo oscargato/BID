@@ -52,7 +52,7 @@ export class FRevisionPagoComponent implements OnInit {
       checkboxNombreEntidad:[false, Validators.compose([Validators.required]),],
       comprobantePago:['', Validators.compose([Validators.required]),],
       checkboxComprobantePago:[false, Validators.compose([Validators.required]),],
-      observaciones:['', Validators.compose([Validators.required,]),],
+      observaciones:['', Validators.compose([Validators.required,Validators.minLength(5)]),],
     });
   }
 
@@ -87,57 +87,61 @@ export class FRevisionPagoComponent implements OnInit {
 
 
   newRevisonPago(){
-
-    let incorrecto:boolean;
-    if(this.formulario.controls['checkboxNumRecibo'].value === false &&
-       this.formulario.controls['checkboxFechaPago'].value === false &&
-       this.formulario.controls['checkboxMontoPago'].value === false &&
-       this.formulario.controls['checkboxNombreEntidad'].value === false &&
-       this.formulario.controls['checkboxComprobantePago'].value === false)
-      { incorrecto = false; }
-      else
-      { incorrecto = true; }
-
-
-    const data = 
-    { "solicitudId": this.solicitudId,
-      "montoPagar": false,
-      "nroRecibo": this.formulario.controls['checkboxNumRecibo'].value,
-      "fechaPago": this.formulario.controls['checkboxFechaPago'].value,
-      "montoPagado": this.formulario.controls['checkboxMontoPago'].value,
-      "nombreEntidad": this.formulario.controls['checkboxNombreEntidad'].value,
-      "incorrecto": incorrecto,
-      "observaciones": this.formulario.controls['observaciones'].value,
-      "revisorId": Number(localStorage.getItem('id')), 
-      "adjuntos": {
-        "adjuntoId": this.adjuntoId,
-        "fecha": this.fecha,//"2021-09-09T15:13:32.947Z",
-        "fechaRevision": this.fechaRevision,//"2021-09-09T15:13:32.947Z",
-        "nombre": this.nombre,
-        "rechazado": this.formulario.controls['checkboxComprobantePago'].value,
-        "tipoDocumentoId": {
-          "diasVigencia": this.diasVigencia,
-          "nombre": this.nombre,
-          "tipoDocumentoId": this.tipoDocumentoId,
-        },
-        "urlAdjunto": this.urlAdjunto,
-        "solicitanteId": {"solicitanteId":this.solicitanteId,}
-      }
-    }
-
-    console.log(data);
-
-    this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
-      console.log('Respuesta',resp)
-      if(resp.codigo === 0)
-      { if(incorrecto == true)
-        { this.solicitudSubsanar(); }
+    if(this.formulario.controls['observaciones'].valid == false)
+    {   this.failObservacion();  }
+    else
+    {
+      let incorrecto:boolean;
+      if(this.formulario.controls['checkboxNumRecibo'].value === false &&
+        this.formulario.controls['checkboxFechaPago'].value === false &&
+        this.formulario.controls['checkboxMontoPago'].value === false &&
+        this.formulario.controls['checkboxNombreEntidad'].value === false &&
+        this.formulario.controls['checkboxComprobantePago'].value === false)
+        { incorrecto = false; }
         else
-        { this.registerAlert(); } 
-      }
-      else
-      { this.failSubsanar(); }
-    })
+        { incorrecto = true; }
+
+
+        const data = 
+        { "solicitudId": this.solicitudId,
+          "montoPagar": false,
+          "nroRecibo": this.formulario.controls['checkboxNumRecibo'].value,
+          "fechaPago": this.formulario.controls['checkboxFechaPago'].value,
+          "montoPagado": this.formulario.controls['checkboxMontoPago'].value,
+          "nombreEntidad": this.formulario.controls['checkboxNombreEntidad'].value,
+          "incorrecto": incorrecto,
+          "observaciones": this.formulario.controls['observaciones'].value,
+          "revisorId": Number(localStorage.getItem('id')), 
+          "adjuntos": {
+            "adjuntoId": this.adjuntoId,
+            "fecha": this.fecha,//"2021-09-09T15:13:32.947Z",
+            "fechaRevision": this.fechaRevision,//"2021-09-09T15:13:32.947Z",
+            "nombre": this.nombre,
+            "rechazado": this.formulario.controls['checkboxComprobantePago'].value,
+            "tipoDocumentoId": {
+              "diasVigencia": this.diasVigencia,
+              "nombre": this.nombre,
+              "tipoDocumentoId": this.tipoDocumentoId,
+            },
+            "urlAdjunto": this.urlAdjunto,
+            "solicitanteId": {"solicitanteId":this.solicitanteId,}
+          }
+        }
+
+        console.log(data);
+
+      this.fRevisionPagoService.newRevisionPago(data).subscribe(resp=>{
+        console.log('Respuesta',resp)
+        if(resp.codigo === 0)
+        { if(incorrecto == true)
+          { this.solicitudSubsanar(); }
+          else
+          { this.registerAlert(); } 
+        }
+        else
+        { this.failSubsanar(); }
+      })
+    }
   }
 
   fileDownloadComprobante(){
@@ -173,5 +177,13 @@ export class FRevisionPagoComponent implements OnInit {
       ).then((result) => {
       this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']);
     });  
+  }
+  
+  failObservacion(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'El campo Observación es obligatorio!'
+    })
   }  
 }

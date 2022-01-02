@@ -508,23 +508,21 @@
 
                         <div class="col-xl-12">
                           <div class="form-group">
-                            <label>Observaciones</label>
+                            <label>Observación</label>
                             <textarea class="form-control"
                                     name="observaciones"
                                     formControlName="observaciones"
-                                    placeholder="Observaciones">
+                                    placeholder="Observación">
                             </textarea>
+                            <div *ngIf="formulario.controls['observaciones'].invalid && (formulario.controls['observaciones'].dirty || formulario.controls['observaciones'].touched)">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Se requiere las Observaciones</span> 
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        
                       </div>
-
                       <br>
-
-
-                      
-                      
-                      
                   </div>
              
               <!--end: Form Wizard Step 6-->
@@ -532,11 +530,9 @@
               <!--begin: Form Actions -->
               <div class="d-flex justify-content-between border-top pt-10">
                 <div class="mr-2">
-                  <div
-                    class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
-                    data-wizard-type="action-prev"
-                  >
-                    Anterior
+                  <div class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
+                       data-wizard-type="action-prev">
+                       Anterior
                   </div>
                 </div>
                 <div>
@@ -546,11 +542,9 @@
                           Enviar
                   </button>
 
-                  <div
-                    class="btn btn-primary font-weight-bold text-uppercase px-9 py-4"
-                    data-wizard-type="action-next"
-                  >
-                    Siguiente
+                  <div class="btn btn-primary font-weight-bold text-uppercase px-9 py-4"
+                       data-wizard-type="action-next">
+                       Siguiente
                   </div>
                 </div>
               </div>

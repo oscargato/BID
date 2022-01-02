@@ -170,12 +170,17 @@
 
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Observaciones</label>
+                      <label>Observación</label>
                       <textarea class="form-control"
                                 name="observaciones"
                                 formControlName="observaciones"
-                                placeholder="Información general">
-                    </textarea>
+                                placeholder="Observación">
+                      </textarea>
+                      <div *ngIf="formulario.controls['observaciones'].invalid && (formulario.controls['observaciones'].dirty || formulario.controls['observaciones'].touched)">
+                        <div class="d-flex justify-content-end" style="color:#FF0000;">
+                          <span>Se requiere la Observación</span> 
+                        </div>
+                      </div>
                     </div>
                   </div>
 

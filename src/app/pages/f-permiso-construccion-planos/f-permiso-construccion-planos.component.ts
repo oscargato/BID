@@ -220,7 +220,7 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
       planos:['', Validators.compose([Validators.required]),],
       checkboxPlanos:[false, Validators.compose([Validators.required]),], 
       noviable:[false, Validators.compose([Validators.required]),],
-      observaciones:['', Validators.compose([Validators.required,]),],                                            
+      observaciones:['', Validators.compose([Validators.required,Validators.minLength(5)]),],                                            
     });
 
     
@@ -301,163 +301,168 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
 
   newRevision()
   {
-    const hoy = new Date();
+    if(this.formulario.controls['observaciones'].valid == false)
+    {   this.failObservacion();  }
+    else
+    {
+      const hoy = new Date();
 
-    let incorrecto:boolean;
+      let incorrecto:boolean;
 
-    if(this.formulario.controls['checkboxNombre'].value === false &&
-    this.formulario.controls['checkboxDescripcion'].value === false &&
-    this.formulario.controls['checkboxProvincia'].value === false &&
-    this.formulario.controls['checkboxDistrito'].value === false &&
-    this.formulario.controls['checkboxCorregimiento'].value === false &&
-    this.formulario.controls['checkboxTipoPropiedad'].value === false &&
-    this.formulario.controls['checkboxCodigoUbicacion'].value === false &&
-    this.formulario.controls['checkboxFinca'].value === false &&
-    this.formulario.controls['checkboxTomo'].value === false &&
-    this.formulario.controls['checkboxFolio'].value === false &&
-    this.formulario.controls['checkboxConstructor'].value === false &&
-    this.formulario.controls['checkboxPropietarioTerreno'].value === false &&
-    this.formulario.controls['checkboxValorObra'].value === false &&
-    this.formulario.controls['checkboxNombreProfesional'].value === false &&
-    this.formulario.controls['checkboxNumeroIdoneidad'].value === false &&
-    this.formulario.controls['checkboxNombreProfesionalResidente'].value === false &&
-    this.formulario.controls['checkboxRegistroPublico'].value === false &&
-    this.formulario.controls['checkboxCertificacionIdoneo'].value === false &&
-    this.formulario.controls['checkboxPlanos'].value === false)
-   { incorrecto = false; }
-   else
-   { incorrecto = true; }    
-     
-
-   const data = {
-    "incorrecto": incorrecto,
-      "t01_Rev_PermisoConstruccionMun": {
-          "codUbicacion": this.formulario.controls['checkboxCodigoUbicacion'].value,
-          "comentarios": "string",
-          "comentariosCierre": "string", //obviar
-          "comentariosInternos": "string", //obviar
-          "comprobacionNegada": true, //obviar
-          "corregimientoProyectoId": this.formulario.controls['checkboxCorregimiento'].value, 
-          "descripcionProyecto": this.formulario.controls['checkboxDescripcion'].value,
-          "distritoProyectoId": this.formulario.controls['checkboxDistrito'].value,
-          "fechaRevision": hoy.toISOString(),//"2021-09-09T15:13:32.947Z", 
-          "fechaRevisionInspeccion": null, //obviar
-          "fechaRevisionPlanos": null, //obviar
-          "finca": this.formulario.controls['checkboxFinca'].value,
-          "folio": this.formulario.controls['checkboxFolio'].value,
-          "montoPagar": this.montoPagar,
-          "montoPagarFunc": true, //obviar
-          "montoTotal": this.montoTotal,
-          "noViable": this.formulario.controls['noviable'].value,
-          "nombreEntidadEvaluadora": true, //obviar
-          "nombreEntidadEvaluadoraFunc": true, //obviar
-          "nombreProfesionalIdoneo": this.formulario.controls['checkboxNombreProfesional'].value,
-          "nombreProfesionalResidente": this.formulario.controls['checkboxNombreProfesionalResidente'].value,
-          "nombrePropietarioTerreno": this.formulario.controls['checkboxPropietarioTerreno'].value,
-          "nombreProyecto": this.formulario.controls['checkboxNombre'].value,
-          "nombreResp": this.formulario.controls['checkboxConstructor'].value,
-          "numIdoneidad": this.formulario.controls['checkboxNumeroIdoneidad'].value,
-          "observacionComprobacion": "",
-          "observaciones": this.formulario.controls['observaciones'].value,
-          "pagoElectronico": this.pagoElectronico,
-          "pagoManual": this.pagoManual,
-          "provinciaProyectoId": this.formulario.controls['checkboxProvincia'].value,
-          "revisionId": this.revisionId,
-          "revisionNegada": this.revisionNegada,
-          "revisorId": {
-              "revisorId": 2,
-              "tipoRevisorId": {
-                  "descripcion": "Secretaria Municipio",
-                  "tipoRevisorId": Number(localStorage.getItem('id'))
-              }
-          },
-          "solicitudConfirmada": true,
-          "solicitudId": {
-        "solicitudId": this.solicitudId
-      },
-          "tipoPropiedadId": this.formulario.controls['checkboxTipoPropiedad'].value,
-          "tomo": this.formulario.controls['checkboxTomo'].value,
-          "valorAproxObra": this.formulario.controls['checkboxValorObra'].value,
-      },
-
-    "lstAdjuntos": [
-      { "adjuntoId": this.adjuntos[0].adjuntoId, 
-        "fecha": hoy.toISOString(),
-        "fechaRevision": hoy.toISOString(),
-        "nombre": this.adjuntos[0].nombre,
-        "rechazado": this.formulario.controls['checkboxRegistroPublico'].value,
-        "solicitanteTramiteId": { 
-          "solicitanteTramiteId": this.solicitanteTramiteId,
-        },
-        "tipoDocumentoId": {
-        "diasVigencia": 0, 
-        "nombre": this.adjuntos[0].nombre, 
-        "tipoDocumentoId": this.adjuntos[0].tipoDocumentoId.tipoDocumentoId,
-        },
-        "urlAdjunto": this.adjuntos[0].urlAdjunto, 
-            "solicitanteId": {
-                "solicitanteId": this.adjuntos[0].solicitanteId.solicitanteId,
-            }    
-      },
-      {
-        "adjuntoId": this.adjuntos[1].adjuntoId,
-        "fecha": hoy.toISOString(),
-        "fechaRevision": hoy.toISOString(),
-        "nombre": this.adjuntos[1].nombre,
-        "rechazado": this.formulario.controls['checkboxCertificacionIdoneo'].value,
-        "solicitanteTramiteId": { 
-          "solicitanteTramiteId": this.solicitanteTramiteId,
-        },
-        "tipoDocumentoId": {
-        "diasVigencia": 0,
-        "nombre": this.adjuntos[1].nombre,
-        "tipoDocumentoId": this.adjuntos[1].tipoDocumentoId.tipoDocumentoId,
-        },
-        "urlAdjunto": this.adjuntos[1].urlAdjunto,
-            "solicitanteId": {
-                "solicitanteId": this.adjuntos[1].solicitanteId.solicitanteId,
-            }
-      },
-      {
-        "adjuntoId": this.adjuntos[2].adjuntoId,
-        "fecha": hoy.toISOString(),
-        "fechaRevision": hoy.toISOString(),
-        "nombre": this.adjuntos[2].nombre,
-        "rechazado": this.formulario.controls['checkboxPlanos'].value,
-        "solicitanteTramiteId": { 
-          "solicitanteTramiteId": this.solicitanteTramiteId,
-        },
-        "tipoDocumentoId": {
-        "diasVigencia": 0,
-        "nombre": this.adjuntos[2].nombre,
-        "tipoDocumentoId": this.adjuntos[2].tipoDocumentoId.tipoDocumentoId,
-        },
-        "urlAdjunto": this.adjuntos[2].urlAdjunto,
-            "solicitanteId": {
-                "solicitanteId": this.adjuntos[2].solicitanteId.solicitanteId,
-            }
-      }
-      ]
-    }
-     
-    console.log('data',data)
-
-    this.fPermisoConstruccionPlanosService.newRevisionPlanos(data).subscribe(resp=>{
-      console.log('resp A', resp)
-      if(resp.codigo === 0)
-      { if(this.formulario.controls['noviable'].value == true)
-        { this.noViable();  }
-        else
-        { if(incorrecto == true)
-          { this.solicitudSubsanar(); }
-          else
-          { this.register(); }
-        }
-      }
+      if(this.formulario.controls['checkboxNombre'].value === false &&
+      this.formulario.controls['checkboxDescripcion'].value === false &&
+      this.formulario.controls['checkboxProvincia'].value === false &&
+      this.formulario.controls['checkboxDistrito'].value === false &&
+      this.formulario.controls['checkboxCorregimiento'].value === false &&
+      this.formulario.controls['checkboxTipoPropiedad'].value === false &&
+      this.formulario.controls['checkboxCodigoUbicacion'].value === false &&
+      this.formulario.controls['checkboxFinca'].value === false &&
+      this.formulario.controls['checkboxTomo'].value === false &&
+      this.formulario.controls['checkboxFolio'].value === false &&
+      this.formulario.controls['checkboxConstructor'].value === false &&
+      this.formulario.controls['checkboxPropietarioTerreno'].value === false &&
+      this.formulario.controls['checkboxValorObra'].value === false &&
+      this.formulario.controls['checkboxNombreProfesional'].value === false &&
+      this.formulario.controls['checkboxNumeroIdoneidad'].value === false &&
+      this.formulario.controls['checkboxNombreProfesionalResidente'].value === false &&
+      this.formulario.controls['checkboxRegistroPublico'].value === false &&
+      this.formulario.controls['checkboxCertificacionIdoneo'].value === false &&
+      this.formulario.controls['checkboxPlanos'].value === false)
+      { incorrecto = false; }
       else
-      { this.fail() }
-    })
-   }
+      { incorrecto = true; }    
+      
+
+      const data = {
+        "incorrecto": incorrecto,
+        "t01_Rev_PermisoConstruccionMun": {
+            "codUbicacion": this.formulario.controls['checkboxCodigoUbicacion'].value,
+            "comentarios": "string",
+            "comentariosCierre": "string", //obviar
+            "comentariosInternos": "string", //obviar
+            "comprobacionNegada": true, //obviar
+            "corregimientoProyectoId": this.formulario.controls['checkboxCorregimiento'].value, 
+            "descripcionProyecto": this.formulario.controls['checkboxDescripcion'].value,
+            "distritoProyectoId": this.formulario.controls['checkboxDistrito'].value,
+            "fechaRevision": hoy.toISOString(),//"2021-09-09T15:13:32.947Z", 
+            "fechaRevisionInspeccion": null, //obviar
+            "fechaRevisionPlanos": null, //obviar
+            "finca": this.formulario.controls['checkboxFinca'].value,
+            "folio": this.formulario.controls['checkboxFolio'].value,
+            "montoPagar": this.montoPagar,
+            "montoPagarFunc": true, //obviar
+            "montoTotal": this.montoTotal,
+            "noViable": this.formulario.controls['noviable'].value,
+            "nombreEntidadEvaluadora": true, //obviar
+            "nombreEntidadEvaluadoraFunc": true, //obviar
+            "nombreProfesionalIdoneo": this.formulario.controls['checkboxNombreProfesional'].value,
+            "nombreProfesionalResidente": this.formulario.controls['checkboxNombreProfesionalResidente'].value,
+            "nombrePropietarioTerreno": this.formulario.controls['checkboxPropietarioTerreno'].value,
+            "nombreProyecto": this.formulario.controls['checkboxNombre'].value,
+            "nombreResp": this.formulario.controls['checkboxConstructor'].value,
+            "numIdoneidad": this.formulario.controls['checkboxNumeroIdoneidad'].value,
+            "observacionComprobacion": "",
+            "observaciones": this.formulario.controls['observaciones'].value,
+            "pagoElectronico": this.pagoElectronico,
+            "pagoManual": this.pagoManual,
+            "provinciaProyectoId": this.formulario.controls['checkboxProvincia'].value,
+            "revisionId": this.revisionId,
+            "revisionNegada": this.revisionNegada,
+            "revisorId": {
+                "revisorId": 2,
+                "tipoRevisorId": {
+                    "descripcion": "Secretaria Municipio",
+                    "tipoRevisorId": Number(localStorage.getItem('id'))
+                }
+            },
+            "solicitudConfirmada": true,
+            "solicitudId": {
+          "solicitudId": this.solicitudId
+        },
+            "tipoPropiedadId": this.formulario.controls['checkboxTipoPropiedad'].value,
+            "tomo": this.formulario.controls['checkboxTomo'].value,
+            "valorAproxObra": this.formulario.controls['checkboxValorObra'].value,
+        },
+
+      "lstAdjuntos": [
+        { "adjuntoId": this.adjuntos[0].adjuntoId, 
+          "fecha": hoy.toISOString(),
+          "fechaRevision": hoy.toISOString(),
+          "nombre": this.adjuntos[0].nombre,
+          "rechazado": this.formulario.controls['checkboxRegistroPublico'].value,
+          "solicitanteTramiteId": { 
+            "solicitanteTramiteId": this.solicitanteTramiteId,
+          },
+          "tipoDocumentoId": {
+          "diasVigencia": 0, 
+          "nombre": this.adjuntos[0].nombre, 
+          "tipoDocumentoId": this.adjuntos[0].tipoDocumentoId.tipoDocumentoId,
+          },
+          "urlAdjunto": this.adjuntos[0].urlAdjunto, 
+              "solicitanteId": {
+                  "solicitanteId": this.adjuntos[0].solicitanteId.solicitanteId,
+              }    
+        },
+        {
+          "adjuntoId": this.adjuntos[1].adjuntoId,
+          "fecha": hoy.toISOString(),
+          "fechaRevision": hoy.toISOString(),
+          "nombre": this.adjuntos[1].nombre,
+          "rechazado": this.formulario.controls['checkboxCertificacionIdoneo'].value,
+          "solicitanteTramiteId": { 
+            "solicitanteTramiteId": this.solicitanteTramiteId,
+          },
+          "tipoDocumentoId": {
+          "diasVigencia": 0,
+          "nombre": this.adjuntos[1].nombre,
+          "tipoDocumentoId": this.adjuntos[1].tipoDocumentoId.tipoDocumentoId,
+          },
+          "urlAdjunto": this.adjuntos[1].urlAdjunto,
+              "solicitanteId": {
+                  "solicitanteId": this.adjuntos[1].solicitanteId.solicitanteId,
+              }
+        },
+        {
+          "adjuntoId": this.adjuntos[2].adjuntoId,
+          "fecha": hoy.toISOString(),
+          "fechaRevision": hoy.toISOString(),
+          "nombre": this.adjuntos[2].nombre,
+          "rechazado": this.formulario.controls['checkboxPlanos'].value,
+          "solicitanteTramiteId": { 
+            "solicitanteTramiteId": this.solicitanteTramiteId,
+          },
+          "tipoDocumentoId": {
+          "diasVigencia": 0,
+          "nombre": this.adjuntos[2].nombre,
+          "tipoDocumentoId": this.adjuntos[2].tipoDocumentoId.tipoDocumentoId,
+          },
+          "urlAdjunto": this.adjuntos[2].urlAdjunto,
+              "solicitanteId": {
+                  "solicitanteId": this.adjuntos[2].solicitanteId.solicitanteId,
+              }
+        }
+        ]
+      }
+      
+      console.log('data',data)
+
+      this.fPermisoConstruccionPlanosService.newRevisionPlanos(data).subscribe(resp=>{
+        console.log('resp A', resp)
+        if(resp.codigo === 0)
+        { if(this.formulario.controls['noviable'].value == true)
+          { this.noViable();  }
+          else
+          { if(incorrecto == true)
+            { this.solicitudSubsanar(); }
+            else
+            { this.register(); }
+          }
+        }
+        else
+        { this.fail() }
+      })
+    } 
+  }
   
     register(){  
       Swal.fire(  
@@ -497,13 +502,21 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
       });  
     }
 
-  ngAfterViewInit(): void {
-    this.wizard = new KTWizard(this.el.nativeElement, {
-      startStep: 1,
-      clickableSteps: true
-    });
+    failObservacion(){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El campo Observación es obligatorio!'
+      })
+    }    
 
-    this.wizard.on('beforeNext', (wizardObj) => {
+    ngAfterViewInit(): void {
+      this.wizard = new KTWizard(this.el.nativeElement, {
+        startStep: 1,
+        clickableSteps: true
+      });
+
+      this.wizard.on('beforeNext', (wizardObj) => {
       
       if (wizardObj.currentStep === 1) {
         if (this.wizard.invalid) {
