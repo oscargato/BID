@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { TramitesFinalizadosService } from './tramites-finalizados.service'
 import { PageEvent } from '@angular/material/paginator';
+
 
 const main = {
   htmlCode: `
@@ -340,6 +341,9 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
   revisarTramite()
   {}
 
+  descargarPermiso(){
+    
+  }
 
   cambiarpagina(e:PageEvent){
     this.desde = e.pageIndex * e.pageSize;

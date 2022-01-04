@@ -100,6 +100,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MisTramitesComponent } from './mis-tramites/mis-tramites.component';
 import { TramitesARevisarComponent } from './tramites-a-revisar/tramites-a-revisar.component';
 import { HistoricoTramitesComponent } from './historico-tramites/historico-tramites.component'
+import { UsuariosComponent } from './usuarios/usuarios.component'
 
 const routes: Routes = [
   {
@@ -133,6 +134,9 @@ const routes: Routes = [
       {
         path: 'historico-tramites/historico-tramites',
         component: HistoricoTramitesComponent,
+      },
+      {
+        path: 'user/:id', component: UsuariosComponent,
       },
       {
         path: 'data-table/table',
@@ -250,7 +254,8 @@ const routes: Routes = [
       TramitesFinalizadosComponent,
       MisTramitesComponent,
       TramitesARevisarComponent,
-      HistoricoTramitesComponent
+      HistoricoTramitesComponent,
+      UsuariosComponent
   ],
 })
 export class TramitesModule {}

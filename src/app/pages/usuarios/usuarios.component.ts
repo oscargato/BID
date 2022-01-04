@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-usuarios',
@@ -20,7 +23,7 @@ export class UsuariosComponent implements OnInit {
   public distrito:string;
   public corregimiento:string; 
   
-  constructor(private formBuilder:FormBuilder){}
+  constructor(private formBuilder:FormBuilder, private router:Router){}
 
   ngOnInit(): void{
     this.formulario = this.formBuilder.group({
@@ -82,8 +85,31 @@ export class UsuariosComponent implements OnInit {
 
   subirAvatar(){
 
+    this.archivoCargado();
   }
 
   editarUsuario(){
+
+    this.registerAlert();
+  }
+
+  registerAlert(){  
+    Swal.fire(  
+      'Usuario Editado!',
+      'Haga click para continuar',
+      'success',
+    ).then((result) => {
+      this.router.navigate(['/tramites/tramites-disponibles/tramites-disponibles']);
+    });  
+  } 
+  
+  
+  archivoCargado(){
+    Swal.fire({ position: 'center',
+                icon: 'success',
+                title: 'Imagen Cargada Exitosamente',
+                showConfirmButton: false,
+                timer: 1500
+              })
   }
 }

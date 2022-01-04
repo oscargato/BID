@@ -34,7 +34,7 @@ export class NotificationsDropdownInnerComponent implements OnInit {
 
   perfilUsuario(){
 
-    this.router.navigate(['/form/user/1']);
+    this.router.navigate(['/tramites/user/1']);
   }
 
   logout(){

@@ -11,6 +11,7 @@ import KTLayoutQuickPanel from '../../../../../assets/js/layout/extended/quick-p
 import KTLayoutQuickUser from '../../../../../assets/js/layout/extended/quick-user';
 import KTLayoutHeaderTopbar from '../../../../../assets/js/layout/base/header-topbar';
 import { KTUtil } from '../../../../../assets/js/components/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-topbar',
@@ -34,7 +35,9 @@ export class TopbarComponent implements OnInit, AfterViewInit {
   extrasUserLayout: 'offcanvas' | 'dropdown';
   public nombre:string 
 
-  constructor(private layout: LayoutService, private auth: AuthService) {
+  constructor(private layout: LayoutService, 
+              private auth: AuthService, 
+              private router:Router) {
     this.user$ = this.auth.currentUserSubject.asObservable();
   }
 
@@ -109,5 +112,20 @@ export class TopbarComponent implements OnInit, AfterViewInit {
       // Init Header Topbar For Mobile Mode
       KTLayoutHeaderTopbar.init('kt_header_mobile_topbar_toggle');
     });
+  }
+
+
+  perfilUsuario(){
+
+    this.router.navigate(['/tramites/user/1']);
+  }
+
+  logout(){
+    localStorage.removeItem('token')
+    localStorage.removeItem('tramiteId')
+    localStorage.removeItem('id')
+    localStorage.removeItem('rol')
+    localStorage.removeItem('nombre')
+    this.router.navigate(['/auth/login'], { queryParams: {}, });
   }
 }

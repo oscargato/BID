@@ -15,7 +15,6 @@ import { FCalculoImpuestoComponent } from './f-calculo-impuesto/f-calculo-impues
 import { FRevisionDocumentosSellosComponent } from './f-revision-documentos-sellos/f-revision-documentos-sellos.component';
 import { FRevisionPagoComponent } from './f-revision-pago/f-revision-pago.component';
 import { FAprobacionTramiteComponent } from './f-aprobacion-tramite/f-aprobacion-tramite.component';
-import { UsuariosComponent } from './usuarios/usuarios.component'
 
 /*import { Wizard2Component } from './wizard2/wizard2.component';
 import { Wizard3Component } from './wizard3/wizard3.component';
@@ -74,10 +73,6 @@ const routes: Routes = [
         path: 'f-aprobacion-tramite/:tramiteId',
         component: FAprobacionTramiteComponent,
       },
-      { 
-        path: 'user/:idUser',
-        component: UsuariosComponent,
-      },     
       { path: '', redirectTo: 'f-disponibles', pathMatch: 'full' },
       { path: '**', redirectTo: 'f-disponibles', pathMatch: 'full' },
     ],

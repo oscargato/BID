@@ -27,11 +27,20 @@
         </div>
       </div>
       
-      <div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg">
-        <form>
-          <app-notifications-dropdown-inner></app-notifications-dropdown-inner>
-        </form>
+      <div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu">        
+        <li>
+          <button class="dropdown-item" (click)="perfilUsuario()">
+            <i class="fas fa-user"></i><b>  Perfil</b> 
+          </button>
+        </li>
+        
+        <li>
+          <button class="dropdown-item" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i><b>  Logout</b>  
+          </button>
+        </li>        
       </div>
+      
     </div>
   </ng-container>
 </ng-container>

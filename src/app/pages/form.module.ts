@@ -16,7 +16,6 @@ import { FCalculoImpuestoComponent } from './f-calculo-impuesto/f-calculo-impues
 import { FRevisionDocumentosSellosComponent } from './f-revision-documentos-sellos/f-revision-documentos-sellos.component';
 import { FRevisionPagoComponent } from './f-revision-pago/f-revision-pago.component';
 import { FAprobacionTramiteComponent } from './f-aprobacion-tramite/f-aprobacion-tramite.component';
-import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // Form controls
@@ -41,8 +40,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FCalculoImpuestoComponent,
     FRevisionDocumentosSellosComponent,
     FRevisionPagoComponent,
-    FAprobacionTramiteComponent,
-    UsuariosComponent
+    FAprobacionTramiteComponent    
   ],
   imports: [
     CommonModule,
