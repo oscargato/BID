@@ -16,7 +16,7 @@
             <td>{{ item.clasificador }}</td>
             <td>{{ item.nombre }}</td>
             <td *ngIf="item.nombreEstado == 'Aprobado'">
-              <button class="btn btn-danger btn-sm" (click)="descargarPermiso()">
+              <button class="btn btn-danger btn-sm" (click)="descargarPermiso(item.solicitudId)">
                 Aprobado <i class="fas fa-arrow-circle-down"></i>
               </button>
             </td>

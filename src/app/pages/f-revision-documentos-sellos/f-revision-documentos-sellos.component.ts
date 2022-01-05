@@ -128,6 +128,7 @@ export class FRevisionDocumentosSellosComponent implements OnInit, AfterViewInit
 
   fileDownloadPlanos(){
     this.fRevisionDocumentosSellosService.getDownloadFile(this.tramiteIdPlanos,this.archivoPlanos).subscribe(resp=>{
+      console.log(resp);
       saveAs(resp,this.archivoPlanos),
       error => console.error(error)      
     });    

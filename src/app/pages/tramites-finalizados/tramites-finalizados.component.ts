@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { TramitesFinalizadosService } from './tramites-finalizados.service'
 import { PageEvent } from '@angular/material/paginator';
+import * as FileSaver from 'file-saver';
 
 
 const main = {
@@ -161,6 +162,7 @@ interface TramitesFinalizados {
   nombre:string;
   nombreEstado:string; 
   fechaInicio:number;
+  solicitudId:number;
 }
 
 /** Constants used to fill up our data base. */
@@ -331,6 +333,7 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
                                         nombre:element.nombre,
                                         nombreEstado:element.nombreEstado,
                                         fechaInicio:element.fechaInicio,
+                                        solicitudId:element.solicitudId
                                       };
         i++;
       });      
@@ -338,12 +341,19 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
   }
 
 
-  revisarTramite()
-  {}
+  revisarTramite(){}
 
-  descargarPermiso(){
-    
+  descargarPermiso(solicitudId:number){
+    this.tramitesFinalizadosService.obtencionPermisoConstruccion(solicitudId).subscribe(resp =>{
+      console.log('Respuesta',resp);
+      let nombre = 'Permiso-'+ solicitudId + '-' + localStorage.getItem('nombre') + '.pdf'
+      FileSaver.saveAs(resp,nombre),
+      error => console.error(error)
+    });
   }
+
+
+
 
   cambiarpagina(e:PageEvent){
     this.desde = e.pageIndex * e.pageSize;
@@ -352,7 +362,6 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
 
   applyFilter7(filterValue: string) {
     this.dataSource7.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource7.paginator) {
       this.dataSource7.paginator.firstPage();
     }
