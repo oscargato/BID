@@ -1,12 +1,14 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../../_metronic/core';
+import { ServiciosService } from '../../../servicios/servicios.service';
 
 @Component({
   selector: 'app-aside',
   templateUrl: './aside.component.html',
   styleUrls: ['./aside.component.scss'],
 })
+
 export class AsideComponent implements OnInit {
   disableAsideSelfDisplay: boolean;
   headerLogo: string;
@@ -22,12 +24,13 @@ export class AsideComponent implements OnInit {
   
   public rol:string;
 
-  constructor(private layout: LayoutService, private loc: Location) { }
+  constructor(private layout: LayoutService, 
+              private loc: Location,
+              public serviciosService:ServiciosService) { }
 
   ngOnInit(): void {
-    // load view settings
     this.disableAsideSelfDisplay =
-      this.layout.getProp('aside.self.display') === false;
+    this.layout.getProp('aside.self.display') === false;
     this.brandSkin = this.layout.getProp('brand.self.theme');
     this.headerLogo = this.getLogo();
     this.ulCSSClasses = this.layout.getProp('aside_menu_nav');
@@ -35,19 +38,13 @@ export class AsideComponent implements OnInit {
     this.asideMenuHTMLAttributes = this.layout.getHTMLAttributes('aside_menu');
     this.asideMenuDropdown = this.layout.getProp('aside.menu.dropdown') ? '1' : '0';
     this.brandClasses = this.layout.getProp('brand');
-    this.asideSelfMinimizeToggle = this.layout.getProp(
-      'aside.self.minimize.toggle'
-    );
+    this.asideSelfMinimizeToggle = this.layout.getProp('aside.self.minimize.toggle');
     this.asideMenuScroll = this.layout.getProp('aside.menu.scroll') ? 1 : 0;
-    // this.asideMenuCSSClasses = `${this.asideMenuCSSClasses} ${this.asideMenuScroll === 1 ? 'scroll my-4 ps ps--active-y' : ''}`;
-    // Routing
     this.location = this.loc;
-
     this.rol = localStorage.getItem('rol')
   }
 
-  
-  private getLogo() {
+  private getLogo(){
     if (this.brandSkin === 'light') {
       return './assets/media/logos/logo-dark.png';
     } else {

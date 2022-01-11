@@ -60,7 +60,14 @@
                     cacheSVG="true"
                     class="svg-icon menu-icon">
               </span>
-              <span class="menu-text">Trámites Pendientes </span>
+
+              <div>
+                <div class="menu-text pr-5">Trámites Pendientes 
+                    <span *ngIf="serviciosService.tramitesPendientes > 0" class="numberCircle">
+                        {{ serviciosService.tramitesPendientes }}
+                    </span>
+                </div>
+              </div>
             </a>
           </li>
 

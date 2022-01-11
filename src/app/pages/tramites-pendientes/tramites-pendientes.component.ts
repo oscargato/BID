@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { ServiciosService } from '../servicios/servicios.service';
 
 export interface UserData {
   id: string;
@@ -198,6 +199,7 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {}
 
   constructor(private tramitesPendientesService:TramitesPendientesService,
+              private serviciosService:ServiciosService,
               private router:Router){
               const users = Array.from({ length: 3 }, (_, k) => createNewUser(k + 1));
               this.dataSource7 = new MatTableDataSource(users);
@@ -208,20 +210,25 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
    
     this.tramitesPendientesService.getAllSubsanacionesBySolicitanteId(Number(localStorage.getItem('id'))).subscribe(resp =>{
       
-      console.log('Resp',resp);
-
-      let i = 0;
-      resp.forEach(element => {
-        this.tramitesPendientes[i] = { clasificador:element.clasificador,                                        
-                                       nombre:element.nombre,
-                                       nombreEstado:element.nombreEstado,
-                                       fechaInicio:element.fechaInicio,
-                                       revisionId:element.revisionId,
-                                       solicitudId:element.solicitudId,
-                                       estadoTramiteId:element.estadoTramiteId,
-                                      };
-        i++;
-      });
+      if(resp == null)
+      { this.serviciosService.tramitesPendientes = 0; }
+      else
+      {
+        this.serviciosService.tramitesPendientes = resp.length;
+      
+        let i = 0;
+        resp.forEach(element => {
+          this.tramitesPendientes[i] = { clasificador:element.clasificador,                                        
+                                        nombre:element.nombre,
+                                        nombreEstado:element.nombreEstado,
+                                        fechaInicio:element.fechaInicio,
+                                        revisionId:element.revisionId,
+                                        solicitudId:element.solicitudId,
+                                        estadoTramiteId:element.estadoTramiteId,
+                                        };
+          i++;
+        });
+      }  
     },err => { console.log(err) })
   }
 

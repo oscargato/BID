@@ -1,3 +1,4 @@
+import { delay } from 'rxjs/operators';
 import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TramitesFinalizadosService } from './tramites-finalizados.service'
 import { PageEvent } from '@angular/material/paginator';
 import * as FileSaver from 'file-saver';
-
+import Swal from 'sweetalert2';
 
 const main = {
   htmlCode: `
@@ -347,12 +348,24 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
     this.tramitesFinalizadosService.obtencionPermisoConstruccion(solicitudId).subscribe(resp =>{
       console.log('Respuesta',resp);
       let nombre = 'Permiso-'+ solicitudId + '-' + localStorage.getItem('nombre') + '.pdf'
-      FileSaver.saveAs(resp,nombre),
+      FileSaver.saveAs(resp,nombre);
+      
+      setTimeout(()=>{
+        this.archivoDescargado();        
+      },3000);
+
       error => console.error(error)
     });
   }
 
-
+  archivoDescargado(){
+    Swal.fire({ position: 'center',
+                icon: 'success',
+                title: 'Archivo Descargado Exitosamente',
+                showConfirmButton: false,
+                timer: 2500
+              })
+  }
 
 
   cambiarpagina(e:PageEvent){

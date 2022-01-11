@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { TramitesDisponiblesService } from '../../../app/pages/tramites-disponibles/tramites-disponibles.service';
 import { Router } from '@angular/router';
+import { TramitesPendientesService } from '../tramites-pendientes/tramites-pendientes.service';
+import { ServiciosService } from '../servicios/servicios.service';
 
 export interface UserData {
   id: string;
@@ -169,6 +171,8 @@ export class TramitesDisponiblesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {}
 
   constructor(private tramitesDisponiblesService:TramitesDisponiblesService,
+              private tramitesPendientesService:TramitesPendientesService,
+              private serviciosService:ServiciosService,
               private router: Router)
   { const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
     this.dataSource7 = new MatTableDataSource(users);
@@ -181,6 +185,7 @@ export class TramitesDisponiblesComponent implements OnInit, AfterViewInit {
     this.dataSource7.paginator = this.paginator7;
     this.dataSource7.sort = this.sort7;
     this.getTramitesDisponibles();
+    this.getTramitesPendientes();
   }
 
 
@@ -206,9 +211,19 @@ export class TramitesDisponiblesComponent implements OnInit, AfterViewInit {
   }
 
 
-  tramitesDisponibles(tramiteId:number){
-    //this.tramitesDisponiblesService.callback.emit(tramiteId);
-    this.router.navigate([`/form/f-disponibles/${tramiteId}`]);
 
+  getTramitesPendientes(){
+    this.tramitesPendientesService.getAllSubsanacionesBySolicitanteId(Number(localStorage.getItem('id'))).subscribe(resp=>{
+      console.log('Pendientes',resp)
+      if(resp == null)
+      { this.serviciosService.tramitesPendientes = 0; }
+      else
+      { this.serviciosService.tramitesPendientes = resp.length; }
+    }); 
+  }
+  
+   
+  tramitesDisponibles(tramiteId:number){
+    this.router.navigate([`/form/f-disponibles/${tramiteId}`]);
   }
 }
