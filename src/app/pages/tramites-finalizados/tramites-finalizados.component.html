@@ -1,30 +1,33 @@
 <h1>Trámites Finalizados</h1>
 
 <div class="example-preview">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Clasificador</th>
-        <th scope="col">Nombre Trámite</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Fecha Inicio</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-        <tr *ngFor="let item of tramitesFinalizados | slice:desde:hasta">            
-            <td>{{ item.clasificador }}</td>
-            <td>{{ item.nombre }}</td>
-            <td *ngIf="item.nombreEstado == 'Aprobado'">
-              <button class="btn btn-danger btn-sm" (click)="descargarPermiso(item.solicitudId)">
-                Aprobado <i class="fas fa-arrow-circle-down"></i>
-              </button>
-            </td>
-            <td *ngIf="item.nombreEstado !== 'Aprobado'">{{ item.nombreEstado }}</td>
-            <td>{{ item.fechaInicio }}</td>
-        </tr>         
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Clasificador</th>
+          <th scope="col">Nombre Trámite</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Fecha Inicio</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+          <tr *ngFor="let item of tramitesFinalizados | slice:desde:hasta">            
+              <td data-titulo="Clasificador: ">{{ item.clasificador }}</td>
+              <td data-titulo="Nombre Trámite: ">{{ item.nombre }}</td>
+              <td *ngIf="item.nombreEstado == 'Aprobado'" class="text-center">
+                <button class="btn btn-danger btn-sm" (click)="descargarPermiso(item.solicitudId)">
+                  Aprobado <i class="fas fa-arrow-circle-down"></i>
+                </button>
+              </td>
+              <td *ngIf="item.nombreEstado !== 'Aprobado'" data-titulo="Nombre: ">{{ item.nombreEstado }}</td>
+              <td data-titulo="Fecha Inicio: ">{{ item.fechaInicio }}</td>
+          </tr>         
+      </tbody>
+    </table>
+  </div>
+
 
   <mat-paginator [length]="tramitesFinalizados.length" 
                  [pageSize]="pageSize" 

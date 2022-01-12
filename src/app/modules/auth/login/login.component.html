@@ -1,5 +1,9 @@
 <div class="login-form login-signin">
-  <form class="form" [formGroup]="loginForm" novalidate="novalidate" id="kt_login_signin_form" (ngSubmit)="submit()">
+  <form class="form" 
+        [formGroup]="loginForm" 
+        novalidate="novalidate" 
+        id="kt_login_signin_form" 
+        (ngSubmit)="submit()">
     <div class="pb-13 pt-lg-0 pt-5">
       <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">
         Te damos la bienvenida
@@ -132,7 +136,7 @@
   <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
     <div class="fv-plugins-message-container">
       <div class="fv-help-block">
-        {{ message }}
+          {{ message }}
       </div>
     </div>
   </ng-container>

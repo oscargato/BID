@@ -100,86 +100,9 @@ function createNewUser(id: number): UserData {
   selector: 'app-tramites-tramites-pendientes',
   templateUrl: './tramites-pendientes.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  styles: [
-    `
-      .example-container {
-        display: flex;
-        flex-direction: column;
-        max-height: 500px;
-        min-width: 300px;
-        position: relative;
-      }
-
-      .mat-table {
-        overflow: auto;
-        max-height: 500px;
-      }
-
-      .mat-header-cell.mat-sort-header-sorted {
-        color: black;
-      }
-
-      .example-header {
-        min-height: 64px;
-        padding: 2px 2px 2px 2px;
-      }
-
-      .mat-form-field {
-        font-size: 14px;
-        width: 100%;
-      }
-
-      .mat-table {
-        overflow: auto;
-        max-height: 500px;
-      }
-      .mat-column-select {
-        overflow: initial;
-      }
-      .example-header {
-        min-height: 64px;
-        display: flex;
-        align-items: center;
-        padding-left: 100px;
-        font-size: 20px;
-      }
-
-      .example-table {
-        overflow: auto;
-        min-height: 300px;
-      }
-
-      .example-loading-shade {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 56px;
-        right: 0;
-        background: rgba(0, 0, 0, 0.15);
-        z-index: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .example-rate-limit-reached {
-        color: #980000;
-        max-width: 360px;
-        text-align: center;
-      }
-
-      /* Column Widths */
-      .mat-column-id,
-      .mat-column-tramite {
-        min-width: 160px;
-      }
-
-      .mat-column-created {
-        max-width: 250px;
-      }
-    `,
-  ],
+  styleUrls: ['./tramites-pendientes.component.scss'],
 })
+
 export class TramitesPendientesComponent implements OnInit, AfterViewInit {
   exampleMain;
   displayedColumns7: string[] = ['id', 'tramite', 'fcreacion', 'estado'];

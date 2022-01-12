@@ -1,6 +1,7 @@
 <h1>Mis Trámites</h1>
 
 <div class="example-preview">
+  <div class="table-responsive">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -13,13 +14,14 @@
       
       <tbody>
           <tr *ngFor="let item of misTramites | slice:desde:hasta">
-              <td>{{ item.clasificador }}</td>
-              <td>{{ item.nombreTramite }}</td>
-              <td>{{ item.nombre }}</td>
-              <td>{{ item.fechaInicio }}</td>
+              <td data-titulo="Clasificador: ">{{ item.clasificador }}</td>
+              <td data-titulo="Nombre Trámite: ">{{ item.nombreTramite }}</td>
+              <td data-titulo="Nombre: ">{{ item.nombre }}</td>
+              <td data-titulo="Fecha Inicio: ">{{ item.fechaInicio }}</td>
           </tr>         
       </tbody>
     </table>
+  </div>
 
     <mat-paginator [length]="misTramites.length" [pageSize]="pageSize" (page)="cambiarpagina($event)">
     </mat-paginator>

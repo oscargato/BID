@@ -2,8 +2,7 @@ import {
   Component,
   OnInit,
   ViewChild,
-  AfterViewInit,
-  ChangeDetectionStrategy,
+  AfterViewInit
 } from '@angular/core';
 import { HistoricoTramitesService } from './historico-tramites.service';
 import { MatPaginator } from '@angular/material/paginator';

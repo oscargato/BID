@@ -1,34 +1,40 @@
 <h1>Trámites a Revisar</h1>
 
 <div class="example-preview">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Solicitante</th>
-        <th scope="col">ID Trámites</th>
-        <th scope="col">Trámite</th>
-        <th scope="col">Estado</th>
-        <th scope="col">Fecha Creación</th>
-        <th scope="col">Acción</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-        <tr *ngFor="let item of tramitesRevisar | slice:desde:hasta">
-            <td>{{ item.nombreSolicitante }}</td>
-            <td>{{ item.clasificador }}</td>
-            <td>{{ item.nombre }}</td>
-            <td>{{ item.nombreEstado }}</td>
-            <td>{{ item.fechaInicio }}</td>
-            <td>
-              <button (click)="revisarTramite(item.estadoTramiteId, item.revisionId, item.solicitudId)" class="btn btn-primary font-weight-bold text-uppercase px-4 py-2">
-                Revisar
-              </button>
-            </td>
-        </tr>         
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Solicitante</th>
+          <th scope="col">ID Trámites</th>
+          <th scope="col">Trámite</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Fecha Creación</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+          <tr *ngFor="let item of tramitesRevisar | slice:desde:hasta">
+              <td data-titulo="Solicitante: ">{{ item.nombreSolicitante }}</td>
+              <td data-titulo="ID Trámites: ">{{ item.clasificador }}</td>
+              <td data-titulo="Trámite: ">{{ item.nombre }}</td>
+              <td data-titulo="Estado: ">{{ item.nombreEstado }}</td>
+              <td data-titulo="Fecha Creación:  ">{{ item.fechaInicio }}</td>
+              <td data-titulo="Acción">
+                <button (click)="revisarTramite(item.estadoTramiteId, item.revisionId, item.solicitudId)" 
+                                      class="btn btn-primary font-weight-bold text-uppercase px-4 py-2">
+                        Revisar
+                </button>
+              </td>
+          </tr>         
+      </tbody>
+    </table>
+  </div>
 
-  <mat-paginator [length]="tramitesRevisar.length" [pageSize]="pageSize" (page)="cambiarpagina($event)">
+
+  <mat-paginator [length]="tramitesRevisar.length" 
+                 [pageSize]="pageSize" 
+                 (page)="cambiarpagina($event)">
   </mat-paginator>  
 </div>

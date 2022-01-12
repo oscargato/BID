@@ -1,32 +1,38 @@
 <h1>Trámites Pendientes</h1>
 
 <div class="example-preview">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Clasificador</th>
-        <th scope="col">Nombre Trámite</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Fecha</th>
-        <th scope="col">Acción</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-        <tr *ngFor="let item of tramitesPendientes | slice:desde:hasta">            
-            <td>{{ item.clasificador }}</td>
-            <td>{{ item.nombre }}</td>
-            <td>{{ item.nombreEstado }}</td>
-            <td>{{ item.fechaInicio }}</td>
-            <td>
-              <button (click)="revisarTramite(item.estadoTramiteId, item.revisionId, item.solicitudId)" class="btn btn-primary font-weight-bold text-uppercase px-4 py-2">
-                Revisar
-              </button>
-            </td>
-        </tr>         
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Clasificador</th>
+          <th scope="col">Nombre Trámite</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+          <tr *ngFor="let item of tramitesPendientes | slice:desde:hasta">            
+              <td data-titulo="Clasificador: ">{{ item.clasificador }}</td>
+              <td data-titulo="Nombre Trámite: ">{{ item.nombre }}</td>
+              <td data-titulo="Nombre: ">{{ item.nombreEstado }}</td>
+              <td data-titulo="Fecha: ">{{ item.fechaInicio }}</td>
+              <td data-titulo="Acción: ">
+                <button (click)="revisarTramite(item.estadoTramiteId, item.revisionId, item.solicitudId)" 
+                                 class="btn btn-primary font-weight-bold text-uppercase px-4 py-2">
+                        Revisar
+                </button>
+              </td>
+          </tr>         
+      </tbody>
+    </table>
+  </div>
 
-  <mat-paginator [length]="tramitesPendientes.length" [pageSize]="pageSize" (page)="cambiarpagina($event)">
+
+  <mat-paginator [length]="tramitesPendientes.length" 
+                 [pageSize]="pageSize" 
+                 (page)="cambiarpagina($event)">
   </mat-paginator>  
 </div>

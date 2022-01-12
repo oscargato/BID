@@ -1,6 +1,7 @@
 <h1>Histórico de Trámites</h1>
 
-<div class="example-preview">    
+<div class="example-preview">
+  <div class="table-responsive">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -14,14 +15,15 @@
       
       <tbody>
           <tr *ngFor="let item of historicoTramites | slice:desde:hasta">
-              <td>{{ item.clasificador }} </td>
-              <td>{{ item.nombreSolicitante }}</td>
-              <td>{{ item.nombreTramite }}</td>
-              <td>{{ item.nombre }}</td>
-              <td>{{ item.fechaInicio }}</td>
+              <td data-titulo="Clasificador: ">{{ item.clasificador }} </td>
+              <td data-titulo="Nombre Solicitante: ">{{ item.nombreSolicitante }}</td>
+              <td data-titulo="Nombre Trámite: ">{{ item.nombreTramite }}</td>
+              <td data-titulo="Estado Actual: ">{{ item.nombre }}</td>
+              <td data-titulo="Fecha Inicio: ">{{ item.fechaInicio }}</td>
           </tr>         
       </tbody>
     </table>
+  </div>    
 
     <mat-paginator [length]="historicoTramites.length" [pageSize]="pageSize" (page)="cambiarpagina($event)">
     </mat-paginator>
