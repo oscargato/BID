@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { LayoutService } from '../../../../_metronic/core';
+import { ServiciosService } from '../../../servicios/servicios.service';
 
 @Component({
   selector: 'app-header-mobile',
@@ -12,7 +13,7 @@ export class HeaderMobileComponent implements OnInit, AfterViewInit {
   headerMenuSelfDisplay = true;
   headerMobileClasses = '';
   headerMobileAttributes = {};
-  constructor(private layout: LayoutService) {}
+  constructor(private layout: LayoutService, public serviciosService:ServiciosService) {}
 
   ngOnInit(): void {
     // build view by layout config settings

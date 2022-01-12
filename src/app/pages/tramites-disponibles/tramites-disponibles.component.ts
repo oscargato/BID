@@ -218,7 +218,7 @@ export class TramitesDisponiblesComponent implements OnInit, AfterViewInit {
       if(resp == null)
       { this.serviciosService.tramitesPendientes = 0; }
       else
-      { this.serviciosService.tramitesPendientes = resp.length; }
+      { this.serviciosService.tramitesPendientes = resp.length; }      
     }); 
   }
   
