@@ -102,6 +102,7 @@ import { TramitesARevisarComponent } from './tramites-a-revisar/tramites-a-revis
 import { HistoricoTramitesComponent } from './historico-tramites/historico-tramites.component'
 import { UsuariosComponent } from './usuarios/usuarios.component'
 
+
 const routes: Routes = [
   {
     path: '',

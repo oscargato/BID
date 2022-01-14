@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  AfterViewInit,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +6,7 @@ import { MisTramitesService } from './mis-tramites.service';
 import { MisTramites } from './mis-tramites';
 import { PageEvent } from '@angular/material/paginator';
 
-//Tramites Disponibles
+
 const main = {
 
   htmlCode: `
@@ -202,9 +196,10 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
   public desde:number = 0;
   public hasta:number = 10;
   public pageSize = 10;
+  public dataSource: MatTableDataSource<MisTramites>;
 
   exampleMain;
-  displayedColumns7: string[] = ['id', 'tramite', 'estado','fcreacion'];
+  displayedColumns7: string[] = ['clasificador', 'nombreTramite', 'nombre','fechaInicio'];
   dataSource7: MatTableDataSource<UserData>;
   resultsLength = 0;
   isLoadingResults = true;
@@ -231,6 +226,8 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
 
   getTramitesSolicitante(){
     this.misTramitesService.getTramitesSolicitante(Number(localStorage.getItem('id'))).subscribe(resp =>{
+      console.log('Mis Trámites',resp);
+      
       let i = 0;
       resp.forEach(element => {
         this.misTramites[i] = { clasificador:element.clasificador, 

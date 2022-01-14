@@ -5,6 +5,39 @@
     <table class="table table-hover">
       <thead>
         <tr>
+          <th data-sortable="true" scope="col">Clasificador</th>
+          <th data-sortable="true" scope="col">Nombre Trámite</th>
+          <th data-sortable="true" scope="col">Nombre</th>
+          <th data-sortable="true" scope="col">Fecha Inicio</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+          <tr *ngFor="let item of misTramites | slice:desde:hasta">
+              <td data-titulo="Clasificador: ">{{ item.clasificador }}</td>
+              <td data-titulo="Nombre Trámite: ">{{ item.nombreTramite }}</td>
+              <td data-titulo="Nombre: ">{{ item.nombre }}</td>
+              <td data-titulo="Fecha Inicio: ">{{ item.fechaInicio }}</td>
+          </tr>         
+      </tbody>
+    </table>
+  </div>
+
+  <mat-paginator [length]="misTramites.length" [pageSize]="pageSize" (page)="cambiarpagina($event)">
+  </mat-paginator>
+</div>
+
+
+
+
+
+
+<!--
+<div class="example-preview">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
           <th scope="col">Clasificador</th>
           <th scope="col">Nombre Trámite</th>
           <th scope="col">Nombre</th>
@@ -23,6 +56,7 @@
     </table>
   </div>
 
-    <mat-paginator [length]="misTramites.length" [pageSize]="pageSize" (page)="cambiarpagina($event)">
-    </mat-paginator>
-  </div>
+  <mat-paginator [length]="misTramites.length" [pageSize]="pageSize" (page)="cambiarpagina($event)">
+  </mat-paginator>
+</div>
+-->
