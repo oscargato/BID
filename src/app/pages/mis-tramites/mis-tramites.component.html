@@ -1,41 +1,46 @@
 <h1>Mis Trámites</h1>
 
-<div class="example-preview">
-  <div class="table-responsive">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th data-sortable="true" scope="col">Clasificador</th>
-          <th data-sortable="true" scope="col">Nombre Trámite</th>
-          <th data-sortable="true" scope="col">Nombre</th>
-          <th data-sortable="true" scope="col">Fecha Inicio</th>
-        </tr>
-      </thead>
-      
-      <tbody>
-          <tr *ngFor="let item of misTramites | slice:desde:hasta">
-              <td data-titulo="Clasificador: ">{{ item.clasificador }}</td>
-              <td data-titulo="Nombre Trámite: ">{{ item.nombreTramite }}</td>
-              <td data-titulo="Nombre: ">{{ item.nombre }}</td>
-              <td data-titulo="Fecha Inicio: ">{{ item.fechaInicio }}</td>
-          </tr>         
-      </tbody>
-    </table>
-  </div>
-
-  <mat-paginator [length]="misTramites.length" [pageSize]="pageSize" (page)="cambiarpagina($event)">
-  </mat-paginator>
-</div>
-
-
-
-
-
-
 <!--
+<table mat-table [dataSource]="dataSource7" matSort (matSortChange)="announceSortChange($event)"
+    class="mat-elevation-z8">
+  
+  <ng-container matColumnDef="clasificador">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+      Clasificador
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.clasificador}} </td>
+  </ng-container>
+  
+  <ng-container matColumnDef="nombreTramite">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+      Nombre Trámite
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombreTramite}} </td>
+  </ng-container>
+  
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+      Nombre
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="fechaInicio">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by symbol">
+      Fecha Inicio
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.fechaInicio}} </td>
+  </ng-container>
+  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns7"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns7;"></tr>
+</table>
+-->
+
+
 <div class="example-preview">
   <div class="table-responsive">
-    <table class="table table-hover">
+    <table id="miTabla" class="table table-hover">
       <thead>
         <tr>
           <th scope="col">Clasificador</th>
@@ -56,7 +61,41 @@
     </table>
   </div>
 
-  <mat-paginator [length]="misTramites.length" [pageSize]="pageSize" (page)="cambiarpagina($event)">
+  <mat-paginator [length]="misTramites.length" 
+                 [pageSize]="pageSize" 
+                 (page)="cambiarpagina($event)">
   </mat-paginator>
 </div>
+
+
+<!--
+<table #dataTable class="display" style="width:100%">
+  <thead>
+    <tr>
+      <th>Clasificador</th>
+      <th>Nombre Trámite</th>
+      <th>Nombre</th>
+      <th>Fecha Inicio</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Edinburgh</td><td>61</td><td>2011/04/25</td><td>$320,800</td>
+    </tr>
+    <tr>
+      <td>Tokyo</td><td>63</td><td>2011/07/25</td><td>$170,750</td>
+    </tr>
+    <tr>
+      <td>San Francisco</td><td>66</td><td>2009/01/12</td><td>$86,000</td>
+    </tr>
+    <tr>
+      <td>London</td><td>30</td><td>2008/12/19</td><td>$90,560</td>
+    </tr>
+    <tr>
+      <td>Singapore</td><td>28</td><td>2010/11/14</td><td>$357,650</td>
+    </tr>
+  </tbody>
+</table>
 -->
+

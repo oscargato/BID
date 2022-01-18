@@ -10,17 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../../../src/app/_metronic/core';
 import { GeneralModule } from '../../../src/app/_metronic/partials/content/general/general.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {
-  MatRippleModule,
-  MatNativeDateModule,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import { MatRippleModule, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
-
 
 // Form controls
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -156,7 +150,6 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    // material modules
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,

@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MisTramitesService } from './mis-tramites.service';
 import { MisTramites } from './mis-tramites';
 import { PageEvent } from '@angular/material/paginator';
-
+import { LiveAnnouncer} from '@angular/cdk/a11y';
+//declare const $:any;
 
 const main = {
 
@@ -190,6 +191,7 @@ function createNewUser(id: number): UserData {
   changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./mis-tramites.component.scss']
 })
+
 export class MisTramitesComponent implements OnInit, AfterViewInit {
 
   public misTramites: Array<MisTramites>;
@@ -200,26 +202,31 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
 
   exampleMain;
   displayedColumns7: string[] = ['clasificador', 'nombreTramite', 'nombre','fechaInicio'];
-  dataSource7: MatTableDataSource<UserData>;
+  dataSource7: MatTableDataSource<MisTramites>;
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
 
   @ViewChild('matPaginator7', { static: true }) paginator7: MatPaginator;
   @ViewChild('sort7', { static: true }) sort7: MatSort;
+  //@ViewChild('miTabla',{ static: false }) table: any;
 
-  ngAfterViewInit() {}
+  ngAfterViewInit(){
+    //this.dataSource7.sort = this.sort7;
+    //this.table = $(this.table.nativeElement);
+    //this.table.tablesorter();
+  }
 
-  constructor(private misTramitesService:MisTramitesService){
-    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
-    this.dataSource7 = new MatTableDataSource(users);
+  constructor(private misTramitesService:MisTramitesService, private liveAnnouncer:LiveAnnouncer)
+  { const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
+    //this.dataSource7 = new MatTableDataSource(users);
     this.misTramites = [];
   }
 
-  ngOnInit() {
-    this.exampleMain = main;
-    this.dataSource7.paginator = this.paginator7;
-    this.dataSource7.sort = this.sort7;
+  ngOnInit(){
+    //this.exampleMain = main;
+    //this.dataSource7.paginator = this.paginator7;
+    //this.dataSource7.sort = this.sort7;
     this.getTramitesSolicitante()
   }
 
@@ -237,8 +244,20 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
                               };
         i++;
       });
+      this.dataSource7 = new MatTableDataSource(this.misTramites);
     })
   }
+
+
+
+
+  announceSortChange(sortState: Sort){     
+    if (sortState.direction) 
+    { this.liveAnnouncer.announce(`Sorted ${sortState.direction} ending`); } 
+    else 
+    { this.liveAnnouncer.announce('Sorting cleared'); }
+  }
+
 
 
   cambiarpagina(e:PageEvent){

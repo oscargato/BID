@@ -23,7 +23,6 @@ import { AsideDynamicComponent } from './_layout/components/aside-dynamic/aside-
 import { HeaderMenuDynamicComponent } from './_layout/components/header/header-menu-dynamic/header-menu-dynamic.component';
 
 
-
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -48,7 +47,7 @@ import { HeaderMenuDynamicComponent } from './_layout/components/header/header-m
     NgbDropdownModule,
     NgbProgressbarModule,
     CoreModule,
-    SubheaderModule,
+    SubheaderModule
   ],
 })
 export class LayoutModule { }
