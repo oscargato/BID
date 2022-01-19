@@ -6,6 +6,7 @@ import { MisTramitesService } from './mis-tramites.service';
 import { MisTramites } from './mis-tramites';
 import { PageEvent } from '@angular/material/paginator';
 import { LiveAnnouncer} from '@angular/cdk/a11y';
+
 //declare const $:any;
 
 const main = {

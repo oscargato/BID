@@ -97,6 +97,7 @@ import { HistoricoTramitesComponent } from './historico-tramites/historico-trami
 import { UsuariosComponent } from './usuarios/usuarios.component'
 
 
+
 const routes: Routes = [
   {
     path: '',
@@ -192,6 +193,8 @@ const routes: Routes = [
     InlineSVGModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    
+    
   ],
   exports: [RouterModule],
   entryComponents: [
