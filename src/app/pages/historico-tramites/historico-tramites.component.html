@@ -25,6 +25,9 @@
     </table>
   </div>    
 
-    <mat-paginator [length]="historicoTramites.length" [pageSize]="pageSize" (page)="cambiarpagina($event)">
+    <mat-paginator [length]="historicoTramites.length" 
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="[5, 10, 25, 100]" 
+                   (page)="cambiarpagina($event)">
     </mat-paginator>
   </div>

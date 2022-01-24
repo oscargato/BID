@@ -30,7 +30,8 @@
 
 
   <mat-paginator [length]="tramitesFinalizados.length" 
-                 [pageSize]="pageSize" 
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 100]"  
                  (page)="cambiarpagina($event)">
   </mat-paginator>  
 </div>

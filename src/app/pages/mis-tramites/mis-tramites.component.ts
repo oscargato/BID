@@ -5,7 +5,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MisTramitesService } from './mis-tramites.service';
 import { MisTramites } from './mis-tramites';
 import { PageEvent } from '@angular/material/paginator';
-import { LiveAnnouncer} from '@angular/cdk/a11y';
+
 
 //declare const $:any;
 
@@ -201,6 +201,12 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
   public pageSize = 10;
   public dataSource: MatTableDataSource<MisTramites>;
 
+  public first:number = 0;
+  public rows:number = 10;
+  public last:number;
+  public totalRecords:number;
+  public loading: boolean = true;
+
   exampleMain;
   displayedColumns7: string[] = ['clasificador', 'nombreTramite', 'nombre','fechaInicio'];
   dataSource7: MatTableDataSource<MisTramites>;
@@ -218,7 +224,7 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
     //this.table.tablesorter();
   }
 
-  constructor(private misTramitesService:MisTramitesService, private liveAnnouncer:LiveAnnouncer)
+  constructor(private misTramitesService:MisTramitesService)
   { const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
     //this.dataSource7 = new MatTableDataSource(users);
     this.misTramites = [];
@@ -229,6 +235,10 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
     //this.dataSource7.paginator = this.paginator7;
     //this.dataSource7.sort = this.sort7;
     this.getTramitesSolicitante()
+    this.first = 1;
+    this.last = 10;
+    this.totalRecords = 200;
+    this.loading = false;
   }
 
 
@@ -245,18 +255,7 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
                               };
         i++;
       });
-      this.dataSource7 = new MatTableDataSource(this.misTramites);
     })
-  }
-
-
-
-
-  announceSortChange(sortState: Sort){     
-    if (sortState.direction) 
-    { this.liveAnnouncer.announce(`Sorted ${sortState.direction} ending`); } 
-    else 
-    { this.liveAnnouncer.announce('Sorting cleared'); }
   }
 
 

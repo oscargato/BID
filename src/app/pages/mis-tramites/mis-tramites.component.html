@@ -1,10 +1,8 @@
-<h1>Mis Trámites</h1>
+<h1 class="pb-3">Mis Trámites</h1>
 
-
-<!--
 <div class="example-preview">
   <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-sortable table-hover">
       <thead>
         <tr>
           <th scope="col">Clasificador</th>
@@ -26,8 +24,8 @@
   </div>
 
   <mat-paginator [length]="misTramites.length" 
-                 [pageSize]="pageSize" 
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 100]" 
                  (page)="cambiarpagina($event)">
   </mat-paginator>
 </div>
--->
