@@ -2,13 +2,29 @@
 
 <div class="example-preview">
   <div class="table-responsive">
-    <table class="table table-sortable table-hover">
+    <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Clasificador</th>
-          <th scope="col">Nombre Trámite</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Fecha Inicio</th>
+          <th scope="col" (click)="sortClasificador('clasificador')">            
+            Clasificador
+            <i *ngIf="!orderClasificador" class="fas fa-sort-up"></i>
+            <i *ngIf="orderClasificador" class="fas fa-sort-down"></i>
+          </th>
+          <th scope="col" (click)="sortNombreTramite('nombreTramite')">
+            Nombre Trámite
+            <i *ngIf="!orderNombreTramite" class="fas fa-sort-up"></i>
+            <i *ngIf="orderNombreTramite" class="fas fa-sort-down"></i>
+          </th>
+          <th scope="col" (click)="sortNombre('nombre')">
+            Nombre
+            <i *ngIf="!orderNombre" class="fas fa-sort-up"></i>
+            <i *ngIf="orderNombre" class="fas fa-sort-down"></i>
+          </th>
+          <th scope="col" (click)="sortFechaInicio('fechaInicio')">
+            Fecha Inicio
+            <i *ngIf="!orderFechaInicio" class="fas fa-sort-up"></i>
+            <i *ngIf="orderFechaInicio" class="fas fa-sort-down"></i>
+          </th>
         </tr>
       </thead>
       

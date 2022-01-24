@@ -6,9 +6,6 @@ import { MisTramitesService } from './mis-tramites.service';
 import { MisTramites } from './mis-tramites';
 import { PageEvent } from '@angular/material/paginator';
 
-
-//declare const $:any;
-
 const main = {
 
   htmlCode: `
@@ -206,6 +203,10 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
   public last:number;
   public totalRecords:number;
   public loading: boolean = true;
+  public orderClasificador:boolean = false;
+  public orderNombreTramite:boolean = false;
+  public orderNombre:boolean = false;
+  public orderFechaInicio:boolean = false;
 
   exampleMain;
   displayedColumns7: string[] = ['clasificador', 'nombreTramite', 'nombre','fechaInicio'];
@@ -259,6 +260,57 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
   }
 
 
+  sortClasificador(clasificador:string){
+    this.orderClasificador = !this.orderClasificador;
+    
+    let direccion = this.orderClasificador ? 1: -1;
+    this.misTramites.sort(function(a,b){
+      if(a[clasificador] < b[clasificador]){
+        return -1 * direccion;
+      }else if(a[clasificador] > b[clasificador]){
+        return 1 * direccion;
+      }
+    })
+  }
+
+  sortNombreTramite(nombreTramite:string){
+    this.orderNombreTramite = !this.orderNombreTramite;
+    
+    let direccion = this.orderNombreTramite ? 1: -1;
+    this.misTramites.sort(function(a,b){
+      if(a[nombreTramite] < b[nombreTramite]){
+        return -1 * direccion;
+      }else if(a[nombreTramite] > b[nombreTramite]){
+        return 1 * direccion;
+      }
+    })
+  }
+
+  sortNombre(nombre:string){
+    this.orderNombre = !this.orderNombre;
+    
+    let direccion = this.orderNombre ? 1: -1;
+    this.misTramites.sort(function(a,b){
+      if(a[nombre] < b[nombre]){
+        return -1 * direccion;
+      }else if(a[nombre] > b[nombre]){
+        return 1 * direccion;
+      }
+    })
+  }
+
+  sortFechaInicio(fechaInicio:string){
+    this.orderFechaInicio = !this.orderFechaInicio;
+    
+    let direccion = this.orderFechaInicio ? 1: -1;
+    this.misTramites.sort(function(a,b){
+      if(a[fechaInicio] < b[fechaInicio]){
+        return -1 * direccion;
+      }else if(a[fechaInicio] > b[fechaInicio]){
+        return 1 * direccion;
+      }
+    })
+  }
 
   cambiarpagina(e:PageEvent){
     this.desde = e.pageIndex * e.pageSize;
