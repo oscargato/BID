@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MisTramitesService } from './mis-tramites.service';
 import { MisTramites } from './mis-tramites';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+
 
 const main = {
 
@@ -207,6 +208,7 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
   public orderNombreTramite:boolean = false;
   public orderNombre:boolean = false;
   public orderFechaInicio:boolean = false;
+  public step:number = 0;
 
   exampleMain;
   displayedColumns7: string[] = ['clasificador', 'nombreTramite', 'nombre','fechaInicio'];
@@ -225,9 +227,11 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
     //this.table.tablesorter();
   }
 
-  constructor(private misTramitesService:MisTramitesService)
+  constructor(private misTramitesService:MisTramitesService, 
+              private MatPaginatorIntl:MatPaginatorIntl)
   { const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
     //this.dataSource7 = new MatTableDataSource(users);
+    this.MatPaginatorIntl.itemsPerPageLabel = "Registros por página";
     this.misTramites = [];
   }
 
@@ -239,7 +243,7 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
     this.first = 1;
     this.last = 10;
     this.totalRecords = 200;
-    this.loading = false;
+    this.loading = false;    
   }
 
 
@@ -271,6 +275,7 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
         return 1 * direccion;
       }
     })
+    this.step = 1;
   }
 
   sortNombreTramite(nombreTramite:string){
@@ -284,6 +289,7 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
         return 1 * direccion;
       }
     })
+    this.step = 2;
   }
 
   sortNombre(nombre:string){
@@ -297,6 +303,7 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
         return 1 * direccion;
       }
     })
+    this.step = 3;
   }
 
   sortFechaInicio(fechaInicio:string){
@@ -310,6 +317,7 @@ export class MisTramitesComponent implements OnInit, AfterViewInit {
         return 1 * direccion;
       }
     })
+    this.step = 4;
   }
 
   cambiarpagina(e:PageEvent){

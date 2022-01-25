@@ -96,10 +96,6 @@ import { TramitesARevisarComponent } from './tramites-a-revisar/tramites-a-revis
 import { HistoricoTramitesComponent } from './historico-tramites/historico-tramites.component'
 import { UsuariosComponent } from './usuarios/usuarios.component'
 
-import { PaginatorModule } from "primeng/paginator";
-import {TableModule} from 'primeng/table';
-import {ButtonModule} from 'primeng/button';
-
 
 const routes: Routes = [
   {
@@ -195,10 +191,7 @@ const routes: Routes = [
     FormsModule,
     InlineSVGModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes),
-    TableModule,
-    ButtonModule,
-    PaginatorModule    
+    RouterModule.forChild(routes)
   ],
   exports: [RouterModule],
   entryComponents: [

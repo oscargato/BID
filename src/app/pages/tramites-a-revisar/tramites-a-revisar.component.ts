@@ -22,7 +22,7 @@ export interface DataRevisar {
   clasificador: string;
   nombre:string;
   nombreEstado: string;
-  fechaInicio: number;
+  fechaInicio: string;
   revisionId:number;
   solicitudId:number;
   estadoTramiteId:number;
@@ -128,6 +128,13 @@ export class TramitesARevisarComponent implements OnInit {
   public desde:number =0;
   public hasta:number =10;
   public pageSize = 10;
+
+  public orderSolicitante:boolean = false;
+  public orderID:boolean = false;
+  public orderTramite:boolean = false;
+  public orderEstado:boolean = false;
+  public orderFecha:boolean = false;  
+  public step:number = 0;
 
 
   displayedColumns7: string[] = ['solicitante', 'idtramite', 'tramite', 'estado','fcreacion','accion'];
@@ -282,11 +289,81 @@ export class TramitesARevisarComponent implements OnInit {
   }
 
 
+  sortSolicitante(nombreSolicitante:string){
+    this.orderSolicitante = !this.orderSolicitante;
+    
+    let direccion = this.orderSolicitante ? 1: -1;
+    this.tramitesRevisar.sort(function(a,b){
+      if(a[nombreSolicitante] < b[nombreSolicitante]){
+        return -1 * direccion;
+      }else if(a[nombreSolicitante] > b[nombreSolicitante]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 1;
+  }
+
+  sortID(clasificador:string){
+    this.orderID = !this.orderID;
+    
+    let direccion = this.orderID ? 1: -1;
+    this.tramitesRevisar.sort(function(a,b){
+      if(a[clasificador] < b[clasificador]){
+        return -1 * direccion;
+      }else if(a[clasificador] > b[clasificador]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 2;
+  }
+
+  sortTramite(nombre:string){
+    this.orderTramite = !this.orderTramite;
+    
+    let direccion = this.orderTramite ? 1: -1;
+    this.tramitesRevisar.sort(function(a,b){
+      if(a[nombre] < b[nombre]){
+        return -1 * direccion;
+      }else if(a[nombre] > b[nombre]){
+        return 1 * direccion;
+      }
+    })    
+    this.step = 3;
+  }
+
+  sortEstado(nombreEstado:string){
+    this.orderEstado = !this.orderEstado;
+    
+    let direccion = this.orderEstado ? 1: -1;
+    this.tramitesRevisar.sort(function(a,b){
+      if(a[nombreEstado] < b[nombreEstado]){
+        return -1 * direccion;
+      }else if(a[nombreEstado] > b[nombreEstado]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 4;
+  }
+
+  sortFecha(fechaInicio:string){
+    this.orderFecha = !this.orderFecha;
+    
+    let direccion = this.orderFecha ? 1: -1;
+    this.tramitesRevisar.sort(function(a,b){
+      if(a[fechaInicio] < b[fechaInicio]){
+        return -1 * direccion;
+      }else if(a[fechaInicio] > b[fechaInicio]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 5;
+  }
+
+
   cambiarpagina(e:PageEvent)
   { this.desde = e.pageIndex * e.pageSize;
     this.hasta = this.desde + e.pageSize;
   }
-
 
   applyFilter7(filterValue: string) 
   { this.dataSource7.filter = filterValue.trim().toLowerCase();

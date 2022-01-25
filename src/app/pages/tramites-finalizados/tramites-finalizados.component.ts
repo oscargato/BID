@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { TramitesFinalizadosService } from './tramites-finalizados.service'
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import * as FileSaver from 'file-saver';
 import Swal from 'sweetalert2';
 
@@ -162,7 +162,7 @@ interface TramitesFinalizados {
   clasificador:string; 
   nombre:string;
   nombreEstado:string; 
-  fechaInicio:number;
+  fechaInicio:string;
   solicitudId:number;
 }
 
@@ -230,6 +230,11 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
   public desde:number =0;
   public hasta:number =10;
   public pageSize = 10;
+  public orderClasificador:boolean = false;
+  public orderNombreTramite:boolean = false;
+  public orderNombre:boolean = false;
+  public orderFechaInicio:boolean = false;
+  public step:number = 0;  
 
   @ViewChild('matPaginator7', { static: true }) paginator7: MatPaginator;
   @ViewChild('sort7', { static: true }) sort7: MatSort;
@@ -237,10 +242,12 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {}
 
   constructor(private tramitesFinalizadosService:TramitesFinalizadosService,
-              private activatedRoute:ActivatedRoute) 
+              private activatedRoute:ActivatedRoute,
+              private MatPaginatorIntl:MatPaginatorIntl) 
               { const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
                 this.dataSource7 = new MatTableDataSource(users);
                 this.tramitesFinalizados = [];
+                this.MatPaginatorIntl.itemsPerPageLabel = "Registros por página";
               }
 
   ngOnInit(){
@@ -265,8 +272,6 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
   }
 
 
-  revisarTramite(){}
-
   descargarPermiso(solicitudId:number){
     this.tramitesFinalizadosService.obtencionPermisoConstruccion(solicitudId).subscribe(resp =>{
       console.log('Respuesta',resp);
@@ -288,6 +293,66 @@ export class TramitesFinalizadosComponent implements OnInit, AfterViewInit {
                 showConfirmButton: false,
                 timer: 2500
               })
+  }
+
+
+
+
+
+  sortClasificador(clasificador:string){
+    this.orderClasificador = !this.orderClasificador;
+    
+    let direccion = this.orderClasificador ? 1: -1;
+    this.tramitesFinalizados.sort(function(a,b){
+      if(a[clasificador] < b[clasificador]){
+        return -1 * direccion;
+      }else if(a[clasificador] > b[clasificador]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 1;
+  }
+
+  sortNombreTramite(nombre:string){
+    this.orderNombreTramite = !this.orderNombreTramite;
+    
+    let direccion = this.orderNombreTramite ? 1: -1;
+    this.tramitesFinalizados.sort(function(a,b){
+      if(a[nombre] < b[nombre]){
+        return -1 * direccion;
+      }else if(a[nombre] > b[nombre]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 2;
+  }
+
+  sortNombre(nombreEstado:string){
+    this.orderNombre = !this.orderNombre;
+    
+    let direccion = this.orderNombre ? 1: -1;
+    this.tramitesFinalizados.sort(function(a,b){
+      if(a[nombreEstado] < b[nombreEstado]){
+        return -1 * direccion;
+      }else if(a[nombreEstado] > b[nombreEstado]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 3;
+  }
+
+  sortFechaInicio(fechaInicio:string){
+    this.orderFechaInicio = !this.orderFechaInicio;
+    
+    let direccion = this.orderFechaInicio ? 1: -1;
+    this.tramitesFinalizados.sort(function(a,b){
+      if(a[fechaInicio] < b[fechaInicio]){
+        return -1 * direccion;
+      }else if(a[fechaInicio] > b[fechaInicio]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 4;
   }
 
 

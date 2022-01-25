@@ -19,7 +19,7 @@ interface TramitesPendientes {
   clasificador:string; 
   nombre:string;
   nombreEstado:string; 
-  fechaInicio:number;
+  fechaInicio:string;
   revisionId:number;
   solicitudId:number;
   estadoTramiteId:number;  
@@ -115,6 +115,12 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
   public desde:number =0;
   public hasta:number =10;
   public pageSize = 10;
+
+  public orderClasificador:boolean = false;
+  public orderNombreTramite:boolean = false;
+  public orderNombre:boolean = false;
+  public orderFechaInicio:boolean = false;
+  public step:number = 0;
 
   @ViewChild('matPaginator7', { static: true }) paginator7: MatPaginator;
   @ViewChild('sort7', { static: true }) sort7: MatSort;
@@ -213,6 +219,61 @@ export class TramitesPendientesComponent implements OnInit, AfterViewInit {
     }
   }
 
+  sortClasificador(clasificador:string){
+    this.orderClasificador = !this.orderClasificador;
+    
+    let direccion = this.orderClasificador ? 1: -1;
+    this.tramitesPendientes.sort(function(a,b){
+      if(a[clasificador] < b[clasificador]){
+        return -1 * direccion;
+      }else if(a[clasificador] > b[clasificador]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 1;
+  }
+
+  sortNombreTramite(nombre:string){
+    this.orderNombreTramite = !this.orderNombreTramite;
+    
+    let direccion = this.orderNombreTramite ? 1: -1;
+    this.tramitesPendientes.sort(function(a,b){
+      if(a[nombre] < b[nombre]){
+        return -1 * direccion;
+      }else if(a[nombre] > b[nombre]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 2;
+  }
+
+  sortNombre(nombreEstado:string){
+    this.orderNombre = !this.orderNombre;
+    
+    let direccion = this.orderNombre ? 1: -1;
+    this.tramitesPendientes.sort(function(a,b){
+      if(a[nombreEstado] < b[nombreEstado]){
+        return -1 * direccion;
+      }else if(a[nombreEstado] > b[nombreEstado]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 3;
+  }
+
+  sortFechaInicio(fechaInicio:string){
+    this.orderFechaInicio = !this.orderFechaInicio;
+    
+    let direccion = this.orderFechaInicio ? 1: -1;
+    this.tramitesPendientes.sort(function(a,b){
+      if(a[fechaInicio] < b[fechaInicio]){
+        return -1 * direccion;
+      }else if(a[fechaInicio] > b[fechaInicio]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 4;
+  }
 
   cambiarpagina(e:PageEvent){
     this.desde = e.pageIndex * e.pageSize;

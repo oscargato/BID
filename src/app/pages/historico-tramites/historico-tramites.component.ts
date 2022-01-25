@@ -62,6 +62,12 @@ export class HistoricoTramitesComponent implements OnInit, AfterViewInit {
   public desde:number =0;
   public hasta:number =10;
   public pageSize = 10;
+  public orderClasificador:boolean = false;
+  public orderNombreSolicitante:boolean = false;
+  public orderNombreTramite:boolean = false;
+  public orderEstadoActual:boolean = false;
+  public orderFechaInicio:boolean = false;
+  public step:number = 0;
 
   exampleMain;
   displayedColumns7: string[] = ['id', 'solicitante', 'tramite', 'estado','fcreacion'];
@@ -101,21 +107,79 @@ export class HistoricoTramitesComponent implements OnInit, AfterViewInit {
           };
           i++;
         });
-/*         this.historicoTramites[0] = { clasificador:1, 
-          nombreTramite:'nombre 1',
-          nombre:'nombre 1',
-          fechaInicio:'20-20-21',
-        };
-        this.historicoTramites[1] = { clasificador:1, 
-          nombreTramite:'nombre 1',
-          nombre:'nombre 1',
-          fechaInicio:'20-20-21',
-        }; */
-        
-
     })
   }
 
+
+  sortClasificador(clasificador:string){
+    this.orderClasificador = !this.orderClasificador;
+    
+    let direccion = this.orderClasificador ? 1: -1;
+    this.historicoTramites.sort(function(a,b){
+      if(a[clasificador] < b[clasificador]){
+        return -1 * direccion;
+      }else if(a[clasificador] > b[clasificador]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 1;    
+  }
+
+  sortSolicitante(nombreSolicitante:string){
+    this.orderNombreSolicitante = !this.orderNombreSolicitante;
+    
+    let direccion = this.orderNombreSolicitante ? 1: -1;
+    this.historicoTramites.sort(function(a,b){
+      if(a[nombreSolicitante] < b[nombreSolicitante]){
+        return -1 * direccion;
+      }else if(a[nombreSolicitante] > b[nombreSolicitante]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 2;    
+  }
+  
+  sortNombreTramite(nombreTramite:string){
+    this.orderNombreTramite = !this.orderNombreTramite;
+    
+    let direccion = this.orderNombreTramite ? 1: -1;
+    this.historicoTramites.sort(function(a,b){
+      if(a[nombreTramite] < b[nombreTramite]){
+        return -1 * direccion;
+      }else if(a[nombreTramite] > b[nombreTramite]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 3;    
+  }
+  
+  sortEstadoActual(nombre:string){
+    this.orderEstadoActual = !this.orderEstadoActual;
+    
+    let direccion = this.orderEstadoActual ? 1: -1;
+    this.historicoTramites.sort(function(a,b){
+      if(a[nombre] < b[nombre]){
+        return -1 * direccion;
+      }else if(a[nombre] > b[nombre]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 4;    
+  }
+  
+  sortFechaInicio(fechaInicio:string){
+    this.orderFechaInicio = !this.orderFechaInicio;
+    
+    let direccion = this.orderFechaInicio ? 1: -1;
+    this.historicoTramites.sort(function(a,b){
+      if(a[fechaInicio] < b[fechaInicio]){
+        return -1 * direccion;
+      }else if(a[fechaInicio] > b[fechaInicio]){
+        return 1 * direccion;
+      }
+    })
+    this.step = 5;    
+  }
 
   cambiarpagina(e:PageEvent){
     this.desde = e.pageIndex * e.pageSize;

@@ -5,22 +5,25 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col" (click)="sortClasificador('clasificador')">            
+          <th [ngClass]="{'fondo':step === 1}" scope="col" (click)="sortClasificador('clasificador')">            
             Clasificador
             <i *ngIf="!orderClasificador" class="fas fa-sort-up"></i>
             <i *ngIf="orderClasificador" class="fas fa-sort-down"></i>
           </th>
-          <th scope="col" (click)="sortNombreTramite('nombreTramite')">
+
+          <th [ngClass]="{'fondo':step === 2}" scope="col" (click)="sortNombreTramite('nombreTramite')">
             Nombre Trámite
             <i *ngIf="!orderNombreTramite" class="fas fa-sort-up"></i>
             <i *ngIf="orderNombreTramite" class="fas fa-sort-down"></i>
           </th>
-          <th scope="col" (click)="sortNombre('nombre')">
+
+          <th [ngClass]="{'fondo':step === 3}" scope="col" (click)="sortNombre('nombre')">
             Nombre
             <i *ngIf="!orderNombre" class="fas fa-sort-up"></i>
             <i *ngIf="orderNombre" class="fas fa-sort-down"></i>
           </th>
-          <th scope="col" (click)="sortFechaInicio('fechaInicio')">
+          
+          <th [ngClass]="{'fondo':step === 4}" scope="col" (click)="sortFechaInicio('fechaInicio')">
             Fecha Inicio
             <i *ngIf="!orderFechaInicio" class="fas fa-sort-up"></i>
             <i *ngIf="orderFechaInicio" class="fas fa-sort-down"></i>
