@@ -175,7 +175,7 @@ export class TramitesARevisarComponent implements OnInit {
 
 
   getPendientesInspector(){
-    this.tramitesRevisarService.getPendientesInspector(Number(localStorage.getItem('id'))).subscribe(resp =>{
+    this.tramitesRevisarService.getPendientesInspector(Number(localStorage.getItem('idFunc'))).subscribe(resp =>{
       console.log('Inspector',resp);
       let i = 0;
       resp.forEach(element => {
@@ -195,7 +195,7 @@ export class TramitesARevisarComponent implements OnInit {
 
 
   getPendientesArquitecto(){
-    this.tramitesRevisarService.getPendientesArquitecto(Number(localStorage.getItem('id'))).subscribe(resp =>{
+    this.tramitesRevisarService.getPendientesArquitecto(Number(localStorage.getItem('idFunc'))).subscribe(resp =>{
       console.log('Arquitecto',resp);
       let i = 0;
       resp.forEach(element => {
@@ -215,7 +215,7 @@ export class TramitesARevisarComponent implements OnInit {
 
 
   getPendienteSecretariaMunicipal(){
-    this.tramitesRevisarService.getPendienteSecretariaMunicipal(Number(localStorage.getItem('id'))).subscribe(resp =>{      
+    this.tramitesRevisarService.getPendienteSecretariaMunicipal(Number(localStorage.getItem('idFunc'))).subscribe(resp =>{      
       let i = 0;
       resp.forEach(element => {
         this.tramitesRevisar[i] = { nombreSolicitante:element.nombreSolicitante, 

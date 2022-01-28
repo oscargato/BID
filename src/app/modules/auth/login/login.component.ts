@@ -86,6 +86,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (user) {
           let us:any;
           us = user;
+          console.log('Aqui',us);
           if(user.codigo === 0)
           { let token = 'autenticado'
             localStorage.setItem("token", token);
@@ -98,6 +99,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             else
             { if(us.objeto.rol === 'REV')
               { localStorage.setItem("id", us.objeto.revisor.tipoRevisorId.tipoRevisorId);
+                localStorage.setItem("idFunc", us.objeto.revisor.revisorId);
                 this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']); }     
             }
           }else if(user.codigo === 1)
