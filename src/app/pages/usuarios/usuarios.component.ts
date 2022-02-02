@@ -21,7 +21,8 @@ export class UsuariosComponent implements OnInit {
   public corregimientos:Array<any> = [];
   public provincia:string;
   public distrito:string;
-  public corregimiento:string; 
+  public corregimiento:string;
+  public rol:string; 
   
   constructor(private formBuilder:FormBuilder, private router:Router){}
 
@@ -45,6 +46,7 @@ export class UsuariosComponent implements OnInit {
     this.provincias = [];
     this.distritos = [];
     this.corregimientos = [];
+    this.rol = localStorage.getItem('rol');
   }
 
   getCargaDistritos(idProvincia:number){

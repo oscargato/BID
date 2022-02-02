@@ -96,6 +96,11 @@ import { TramitesARevisarComponent } from './tramites-a-revisar/tramites-a-revis
 import { HistoricoTramitesComponent } from './historico-tramites/historico-tramites.component'
 import { UsuariosComponent } from './usuarios/usuarios.component'
 
+import { TramitesAdmComponent } from './tramites-adm/tramites-adm.component';
+import { ActivarFuncionarioComponent } from './activar-funcionario/activar-funcionario.component';
+import { ListUsuariosComponent } from './list-usuarios/list-usuarios.component';
+import { AdministradorComponent } from './administrador/administrador.component';
+import { AltaFuncionarioComponent } from './alta-funcionario/alta-funcionario.component';
 
 const routes: Routes = [
   {
@@ -133,6 +138,13 @@ const routes: Routes = [
       {
         path: 'user/:id', component: UsuariosComponent,
       },
+
+      { path: 'tramites-adm/tramites-adm', component: TramitesAdmComponent },
+      { path: 'act-funcionario/act-funcionario', component: ActivarFuncionarioComponent },
+      { path: 'list-usuarios/list-usuarios', component: ListUsuariosComponent },
+      { path: 'administrador/administrador', component: AdministradorComponent },
+      { path: 'alta-Funcionario/alta-Funcionario', component: AltaFuncionarioComponent },
+
       {
         path: 'data-table/table',
         component: MaterialTableComponent,
@@ -249,7 +261,12 @@ const routes: Routes = [
       MisTramitesComponent,
       TramitesARevisarComponent,
       HistoricoTramitesComponent,
-      UsuariosComponent
+      UsuariosComponent,
+      TramitesAdmComponent,
+      ActivarFuncionarioComponent,
+      ListUsuariosComponent,
+      AdministradorComponent,
+      AltaFuncionarioComponent
   ],
 })
 export class TramitesModule {}

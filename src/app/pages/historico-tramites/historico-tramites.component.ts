@@ -8,7 +8,7 @@ import { HistoricoTramitesService } from './historico-tramites.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 
 const COLORS: string[] = [
 
@@ -81,7 +81,8 @@ export class HistoricoTramitesComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {}
 
-  constructor(private historicoTramitesService:HistoricoTramitesService) {
+  constructor(private historicoTramitesService:HistoricoTramitesService, 
+              private matPaginatorIntl:MatPaginatorIntl) {
     const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
     this.dataSource7 = new MatTableDataSource(users);
     this.historicoTramites = [];
@@ -90,12 +91,13 @@ export class HistoricoTramitesComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dataSource7.paginator = this.paginator7;
     this.dataSource7.sort = this.sort7;
+    this.matPaginatorIntl.itemsPerPageLabel = "Registros por página";
     this.getHistoricoTramites()
   }
 
 
   getHistoricoTramites(){
-    this.historicoTramitesService.getHistoricoTramite(Number(localStorage.getItem('id'))).subscribe(resp =>{
+    this.historicoTramitesService.getHistoricoTramite(Number(localStorage.getItem('idFunc'))).subscribe(resp =>{
         let i = 0;
         resp.forEach(element => {
           this.historicoTramites[i] = { 

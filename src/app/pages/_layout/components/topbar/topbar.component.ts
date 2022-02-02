@@ -12,12 +12,14 @@ import KTLayoutQuickUser from '../../../../../assets/js/layout/extended/quick-us
 import KTLayoutHeaderTopbar from '../../../../../assets/js/layout/base/header-topbar';
 import { KTUtil } from '../../../../../assets/js/components/util';
 import { Router } from '@angular/router';
+import { ServiciosService } from '../../../../pages/servicios/servicios.service';
 
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss'],
 })
+
 export class TopbarComponent implements OnInit, AfterViewInit {
   user$: Observable<UserModel>;
   // tobbar extras
@@ -33,11 +35,13 @@ export class TopbarComponent implements OnInit, AfterViewInit {
   extrasLanguagesDisplay: boolean;
   extrasUserDisplay: boolean;
   extrasUserLayout: 'offcanvas' | 'dropdown';
-  public nombre:string 
+  public nombre:string
+  public datos:any;
 
   constructor(private layout: LayoutService, 
               private auth: AuthService, 
-              private router:Router) {
+              private router:Router,
+              private serviciosService:ServiciosService) {
     this.user$ = this.auth.currentUserSubject.asObservable();
   }
 
@@ -68,6 +72,9 @@ export class TopbarComponent implements OnInit, AfterViewInit {
     this.extrasQuickPanelDisplay = this.layout.getProp(
       'extras.quickPanel.display'
     );
+
+    this.datos = this.serviciosService.getDatos();
+    console.log('Rol',this.datos.rol);    
   }
 
   ngAfterViewInit(): void {
@@ -126,6 +133,9 @@ export class TopbarComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('id')
     localStorage.removeItem('rol')
     localStorage.removeItem('nombre')
+    localStorage.removeItem('idFunc')
+
+    localStorage.removeItem('datos')
     this.router.navigate(['/auth/login'], { queryParams: {}, });
   }
 }

@@ -128,7 +128,6 @@ export class TramitesARevisarComponent implements OnInit {
   public desde:number =0;
   public hasta:number =10;
   public pageSize = 10;
-
   public orderSolicitante:boolean = false;
   public orderID:boolean = false;
   public orderTramite:boolean = false;

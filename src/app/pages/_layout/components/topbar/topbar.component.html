@@ -25,7 +25,7 @@
       </div>
       
       <div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu">        
-        <li>
+        <li *ngIf="datos.rol === 'SOL'"> 
           <button class="dropdown-item" (click)="perfilUsuario()">
             <i class="fas fa-user"></i><b>  Perfil</b> 
           </button>

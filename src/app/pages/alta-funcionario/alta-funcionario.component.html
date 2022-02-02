@@ -1,0 +1,149 @@
+<h1>Alta de Funcionario</h1>
+
+<div class="card card-custom gutter-b">
+    <div class="card-header py-3">
+      
+      <div class="card-title align-items-start flex-column">
+        <h3 class="card-label font-weight-bolder text-dark"></h3>
+        <span class="text-muted font-weight-bold font-size-sm mt-1"></span>
+      </div>
+
+      <div class="card-toolbar">
+        <a routerLink="/tramites/tramites-adm/tramites-adm"
+           class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" 
+           style="float:right">
+        Cancelar
+        </a>
+      </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="wizard-body ">
+          
+          <div class="row">
+            <div class="offset-xxl-2 col-xxl-8">
+              <form [formGroup]="" class="form" id="kt_form">
+                <h5 class="mb-4 font-weight-bold text-dark">Datos del Funcionario</h5>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="font-weight-bolder">Tipo de Funcionario</label>
+                        <select name="tipoFuncinario"
+                                formControlName="tipoFuncinario"
+                                class="form-control"                                
+                                #mySelectCorr>
+                                <option selected value="-1">Seleccione una opción</option>                              
+                                <option>
+                                    A
+                                </option>                      
+                        </select>
+                    </div> 
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="font-weight-bolder">Provincia</label>
+                      <select name="tipoFuncinario"
+                                formControlName="tipoFuncinario"
+                                class="form-control"                                
+                                #mySelectCorr>
+                                <option selected value="-1">Seleccione una opción</option>                              
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>                                                                 
+                      </select>
+                    </div>
+                  </div>                
+                </div>
+
+        
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          <label class="font-weight-bolder">Nombre Completo</label>
+                          <input type="text"
+                                 class="form-control"
+                                 name="nombre"
+                                 formControlName="nombre"
+                                 placeholder="Nombre Completo"/>                           
+                      </div> 
+                    </div>
+                    
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-weight-bolder">Correo Electrónico</label>
+                        <input  class="form-control"
+                                type="email"
+                                name="email"
+                                placeholder="correo@correo.com"
+                                formControlName="email"
+                                autocomplete="off"/>                        
+                      </div>
+                    </div>                
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          <label class="font-weight-bolder">Contraseña</label>
+
+                          <input class="form-control"
+                                 type="password"
+                                 maxlength="20"                                 
+                                 placeholder="Confirmar contraseña"
+                                 name="cPassword"                
+                                 formControlName="cPassword"
+                                 autocomplete="off"/>
+                          
+
+                      </div> 
+                    </div>                                                   
+                </div>
+
+
+
+                <div class="py-10" data-wizard-type="step-content">
+                  <h5 class="mb-4 font-weight-bold text-dark">Instituciones y Trámites</h5>
+                  <div class="row">
+                  <div class="col-xl-6">
+                  <div class="form-group">
+                    <label class="font-weight-bolder">Instituciones</label>
+                    <select name="tipoFuncinario"
+                            formControlName="tipoFuncinario"
+                            class="form-control"                            
+                            #mySelectCorr>
+                            <option selected value="-1">Seleccione una opción</option>                              
+                            <option>AIG</option>
+                            <option>MUPA</option>
+                            <option>MOP</option>                       
+                    </select>                                                      
+                  </div>
+                </div>
+                
+                <div class="col-xl-6">
+                  <div class="form-group">
+                    
+                                                                          
+                  </div>
+                </div>
+              </div>              
+        </div>
+        
+        <div class="d-flex justify-content-between border-top pt-10">
+          <div class="mr-2"></div>
+          <div>
+            <button (click)="newCrearFuncionario()"
+                    class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                    data-wizard-type="action-submit">
+                    Crear Funcionario
+            </button>
+          </div>
+        </div>
+      </form>
+    
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  

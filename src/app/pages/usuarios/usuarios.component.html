@@ -6,10 +6,22 @@
         </div>
         
         <div class="card-toolbar">
-            <a routerLink="/tramites/tramites-disponibles/tramites-disponibles"
-                class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" 
-                style="float:right">
-                Cancelar
+            <a *ngIf="rol === 'ADM'" routerLink="/tramites/tramites-adm/tramites-adm"
+               class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" 
+               style="float:right">
+                 Cancelar
+            </a>
+
+            <a *ngIf="rol === 'SOL'" routerLink="/tramites/tramites-disponibles/tramites-disponibles"
+               class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" 
+               style="float:right">
+                 Cancelar
+            </a>
+
+            <a *ngIf="rol === 'REV'" routerLink="/tramites/tramites-a-revisar/tramites-a-revisar"
+               class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" 
+               style="float:right">
+               Cancelar
             </a>
         </div>
     </div>

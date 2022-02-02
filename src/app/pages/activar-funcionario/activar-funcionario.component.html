@@ -1,0 +1,48 @@
+<h1>Listado de Funcionarios</h1>
+
+<div class="example-preview">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>        
+        <tr>
+          <th [ngClass]="{'fondo':step === 1}" scope="col" (click)="sortNombre('nombre')">
+            Nombre Completo
+            <i *ngIf="!orderNombre" class="fas fa-sort-up"></i>
+            <i *ngIf="orderNombre" class="fas fa-sort-down"></i>
+          </th>
+
+          <th [ngClass]="{'fondo':step === 2}" scope="col" (click)="sortCorreo('correo')">
+            Correo Electrónico
+            <i *ngIf="!orderCorreo" class="fas fa-sort-up"></i>
+            <i *ngIf="orderCorreo" class="fas fa-sort-down"></i>
+          </th>
+
+          <th [ngClass]="{'fondo':step === 3}" scope="col" (click)="sortRevisor('nombreTramite')">
+            Tipo de Revisor
+            <i *ngIf="!orderRevisor" class="fas fa-sort-up"></i>
+            <i *ngIf="orderRevisor" class="fas fa-sort-down"></i>
+          </th>
+
+          <th scope="col">
+            ¿Activo?            
+          </th>          
+        </tr>
+      </thead>
+      
+      <tbody>
+          <tr *ngFor="let item of Funcionarios | slice:desde:hasta">
+              <td data-titulo="Nombre Completo: ">{{ item.clasificador }} </td>
+              <td data-titulo="Correo Electrónico: ">{{ item.nombreSolicitante }}</td>
+              <td data-titulo="Tipo de Revisor: ">{{ item.nombreTramite }}</td>
+              <td data-titulo="¿Activo? : ">{{ item.nombre }}</td>              
+          </tr>         
+      </tbody>
+    </table>
+  </div>    
+
+  <mat-paginator [length]="Funcionarios.length" 
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 100]" 
+                 (page)="cambiarpagina($event)">
+  </mat-paginator>
+</div>

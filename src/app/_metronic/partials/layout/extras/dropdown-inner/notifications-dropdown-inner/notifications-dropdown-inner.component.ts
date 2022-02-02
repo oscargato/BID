@@ -43,6 +43,7 @@ export class NotificationsDropdownInnerComponent implements OnInit {
     localStorage.removeItem('id')
     localStorage.removeItem('rol')
     localStorage.removeItem('nombre')
+    localStorage.removeItem('idFunc')
     this.router.navigate(['/auth/login'], { queryParams: {}, });
   }
 }

@@ -6,7 +6,7 @@ import { UserModel } from '../_models/user.model';
 import { AuthService } from '../_services/auth.service';
 import { AuthHTTPService } from '../_services/auth-http';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Usuario } from '../../../pages/models/usuario';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +35,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   private unsubscribe: Subscription[]=[];
+
+  public usuario = {
+    'token':'',
+    'nombreCompleto': '',
+    'email': '',
+    'rol':'',
+    'id': 0,
+    'idFunc': 0,
+  };
 
   constructor(  private fb: FormBuilder, 
                 private authService: AuthService, 
@@ -87,6 +96,14 @@ export class LoginComponent implements OnInit, OnDestroy {
           let us:any;
           us = user;
           console.log('Aqui',us);
+
+
+          this.usuario.token = us.objeto.rol;
+          this.usuario.nombreCompleto = us.objeto.nombreCompleto;
+          this.usuario.email = us.objeto.email;
+          this.usuario.rol = us.objeto.rol;
+          localStorage.setItem('datos', JSON.stringify(this.usuario));
+
           if(user.codigo === 0)
           { let token = 'autenticado'
             localStorage.setItem("token", token);
@@ -100,7 +117,15 @@ export class LoginComponent implements OnInit, OnDestroy {
             { if(us.objeto.rol === 'REV')
               { localStorage.setItem("id", us.objeto.revisor.tipoRevisorId.tipoRevisorId);
                 localStorage.setItem("idFunc", us.objeto.revisor.revisorId);
-                this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']); }     
+                this.router.navigate(['/tramites/tramites-a-revisar/tramites-a-revisar']); 
+              }
+              else
+              { if(us.objeto.rol === 'ADM')
+                { localStorage.setItem("id", us.objeto.revisor.tipoRevisorId.tipoRevisorId);
+                  localStorage.setItem("idFunc", us.objeto.revisor.revisorId);
+                  this.router.navigate(['/tramites/tramites-adm/tramites-adm']);                  
+                }
+              }     
             }
           }else if(user.codigo === 1)
                 { 
