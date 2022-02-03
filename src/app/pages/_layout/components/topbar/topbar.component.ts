@@ -74,7 +74,6 @@ export class TopbarComponent implements OnInit, AfterViewInit {
     );
 
     this.datos = this.serviciosService.getDatos();
-    console.log('Rol',this.datos.rol);    
   }
 
   ngAfterViewInit(): void {

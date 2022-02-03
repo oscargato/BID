@@ -198,8 +198,6 @@ export class TramitesDisponiblesComponent implements OnInit, AfterViewInit {
 
   getTramitesDisponibles(){
     this.tramitesDisponiblesService.tramitesDisponibles().subscribe(resp => {
-      
-      console.log('Tramites',resp);
       let i = 0;
       resp.forEach(element => {
         this.tramites[i] = { nombre:element.nombre, tramiteId:element.tramiteId } ;
@@ -213,8 +211,7 @@ export class TramitesDisponiblesComponent implements OnInit, AfterViewInit {
 
 
   getTramitesPendientes(){
-    this.tramitesPendientesService.getAllSubsanacionesBySolicitanteId(Number(localStorage.getItem('id'))).subscribe(resp=>{
-      console.log('Pendientes',resp)
+    this.tramitesPendientesService.getAllSubsanacionesBySolicitanteId(Number(localStorage.getItem('id'))).subscribe(resp=>{      
       if(resp == null)
       { this.serviciosService.tramitesPendientes = 0; }
       else

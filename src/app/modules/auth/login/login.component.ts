@@ -39,10 +39,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   public usuario = {
     'token':'',
     'nombreCompleto': '',
+    'cedula':'',
+    'telefono':'',
     'email': '',
     'rol':'',
     'id': 0,
     'idFunc': 0,
+    'usuarioId':0,
   };
 
   constructor(  private fb: FormBuilder, 
@@ -100,8 +103,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
           this.usuario.token = us.objeto.rol;
           this.usuario.nombreCompleto = us.objeto.nombreCompleto;
+          this.usuario.cedula = us.objeto.solicitante.cedula;
+          this.usuario.telefono = us.objeto.solicitante.celular;
           this.usuario.email = us.objeto.email;
           this.usuario.rol = us.objeto.rol;
+          this.usuario.usuarioId = us.objeto.solicitante.usuarioId.usuarioId;
           localStorage.setItem('datos', JSON.stringify(this.usuario));
 
           if(user.codigo === 0)

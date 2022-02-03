@@ -64,11 +64,16 @@
                                               [(ngModel)]="indexProv"
                                               #mySelectProv
                                               (change)='getCargaDistritos(mySelectProv.value)'>
-                                              <option selected value="-1">Seleccione una opción</option>
-                                              <option   [value]="i" *ngFor="let item of provincias;let i = index">
+                                              <option disabled selected value="-1">Seleccione una opción</option>
+                                              <option   [value]="i" *ngFor="let item of provincias; let i = index">
                                                         {{ item.nomProvincia }}
                                               </option>
                                       </select>
+                                    </div>
+                                    <div *ngIf="formulario.controls['provincia'].invalid && (formulario.controls['provincia'].dirty || formulario.controls['provincia'].touched)">
+                                      <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                        <span>Se requiere la Provincia</span> 
+                                      </div>
                                     </div> 
                                 </div>
                               </div>
@@ -83,6 +88,11 @@
                                            formControlName="residencia"
                                            placeholder="Residencia"
                                            value=""/>
+                                           <div *ngIf="formulario.controls['residencia'].invalid && (formulario.controls['residencia'].dirty || formulario.controls['residencia'].touched)">
+                                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                              <span>Se requiere la Residencia</span> 
+                                            </div>
+                                          </div>
                                   </div> 
                               </div>
                               </div>
@@ -155,7 +165,7 @@
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label class="font-weight-bolder">Número de Contacto</label>
-                                    <input type="number"
+                                    <input type="text"
                                            min="0"
                                            autocomplete="off"
                                            oninput="validity.valid || (value='');"
@@ -166,11 +176,11 @@
                                            formControlName="phone"
                                            placeholder="Número de Contacto"
                                            value=""/>
-                                      <div *ngIf="formulario.controls['phone'].invalid && (formulario.controls['phone'].dirty || formulario.controls['phone'].touched)">
-                                        <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                          <span>Se requiere el Número de Contacto</span> 
-                                        </div>
-                                      </div>         
+                                            <div *ngIf="formulario.controls['phone'].invalid && (formulario.controls['phone'].dirty || formulario.controls['phone'].touched)">
+                                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                                <span>Se requiere el Número de Contacto</span> 
+                                              </div>
+                                            </div>         
                                   </div> 
                                 </div>
 
@@ -186,6 +196,11 @@
                                            autocomplete="off"
                                            placeholder="Dirección"
                                            value=""/>
+                                           <div *ngIf="formulario.controls['direccion'].invalid && (formulario.controls['direccion'].dirty || formulario.controls['direccion'].touched)">
+                                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                              <span>Se requiere la Dirección</span> 
+                                            </div>
+                                          </div>
                                   </div>
                                 </div>
                               </div>
@@ -200,12 +215,18 @@
                                             [(ngModel)]="indexDist"
                                             #mySelectDist
                                             (change)='getCargaCorregimientos(mySelectDist.value)'>
-                                        <option selected value="-1">Seleccione una opción</option>
+                                        <option disabled selected value="-1">Seleccione una opción</option>
                                         <option [value]="i" *ngFor="let item of distritos;let i = index">
                                             {{ item.nomDistrito }}
                                         </option>                      
                                     </select>
-                                  </div> 
+                                  </div>
+                                  <div *ngIf="formulario.controls['distrito'].invalid && (formulario.controls['distrito'].dirty || formulario.controls['distrito'].touched)">
+                                    <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                      <span>Se requiere el Distrito</span> 
+                                    </div>
+                                  </div>
+                                  
                                 </div>
                                 
                                 <div class="col-md-6">
@@ -217,11 +238,16 @@
                                             [(ngModel)]="indexCorr"
                                             #mySelectCorr
                                             (change)='getCarga(mySelectCorr.value)'>
-                                        <option selected value="-1">Seleccione una opción</option>
+                                        <option disabled selected value="-1">Seleccione una opción</option>
                                         <option [value]="i" *ngFor="let item of corregimientos;let i = index">
                                             {{ item.nomCorregimiento }}
                                         </option>                      
                                     </select>
+                                  </div>
+                                  <div *ngIf="formulario.controls['corregimiento'].invalid && (formulario.controls['corregimiento'].dirty || formulario.controls['corregimiento'].touched)">
+                                    <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                      <span>Se requiere el Distrito</span> 
+                                    </div>
                                   </div>
                                 </div>                                                                                    
                               </div>
@@ -236,6 +262,11 @@
                                            formControlName="calle"
                                            placeholder="Calle/Avenida"
                                            value=""/>
+                                           <div *ngIf="formulario.controls['calle'].invalid && (formulario.controls['calle'].dirty || formulario.controls['calle'].touched)">
+                                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                              <span>Se requiere Calle/Avenida</span> 
+                                            </div>
+                                          </div>
                                   </div> 
                                 </div>
                                 
@@ -248,6 +279,11 @@
                                            formControlName="casa"                                       
                                            placeholder="Casa/Apto"
                                            value=""/>
+                                           <div *ngIf="formulario.controls['casa'].invalid && (formulario.controls['casa'].dirty || formulario.controls['casa'].touched)">
+                                            <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                              <span>Se requiere Casa/Apto</span> 
+                                            </div>
+                                          </div>
                                   </div>
                                 </div>
                               </div>
@@ -293,8 +329,9 @@
                             <div>
                               <button (click)="editarUsuario()"
                                       class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                                      [disabled]="formulario.invalid"
                                       data-wizard-type="action-submit">
-                                      Enviar
+                                      Editar
                               </button>                                                      
                             </div>
                         </div>
