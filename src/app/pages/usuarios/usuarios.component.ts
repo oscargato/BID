@@ -11,7 +11,6 @@ import { UsuariosService } from './usuarios.service';
   styleUrls: ['./usuarios.component.scss']
 })
 
-
 export class UsuariosComponent implements OnInit {
   public formulario:FormGroup;
   public indexProv:number=-1;
@@ -25,6 +24,7 @@ export class UsuariosComponent implements OnInit {
   public corregimiento:string;
   public rol:string;
   public datos:any;
+  public currentImage:string;
   
   constructor(private formBuilder:FormBuilder, 
               private router:Router,
@@ -34,6 +34,7 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void{
     this.formulario = this.formBuilder.group({
+      photo:['', Validators.compose([Validators.required,]),],
       nombre:['', Validators.compose([Validators.required,]),],
       numeroID:['', Validators.compose([Validators.required,]),],
       password:['', Validators.compose([Validators.required,]),],
@@ -46,113 +47,158 @@ export class UsuariosComponent implements OnInit {
       residencia:['', Validators.compose([Validators.required,]),],
       calle:['', Validators.compose([Validators.required,]),],
       casa:['', Validators.compose([Validators.required,]),],
-    }); 
+    });
+    
+    this.currentImage = '../../../assets/avatar.png'
     
     this.provincias = [];
     this.distritos = [];
     this.corregimientos = [];
     this.rol = localStorage.getItem('rol');
     
-    this.formulario.controls['nombre'].setValue(this.datos.nombreCompleto);
-    this.formulario.controls['numeroID'].setValue(this.datos.cedula);
-    this.formulario.controls['password'].setValue('**********');
-    this.formulario.controls['email'].setValue(this.datos.email);
-    this.formulario.controls['phone'].setValue(this.datos.telefono);
-
     this.getDatosPerfil();
   }
 
   getDatosPerfil(){
+    this.formulario.controls['nombre'].setValue(this.datos.nombreCompleto);
+    this.formulario.controls['numeroID'].setValue(this.datos.cedula);
+    this.formulario.controls['password'].setValue('**********');
+    this.formulario.controls['email'].setValue(this.datos.email);
+    
     this.usuariosService.getDatosPerfil(this.datos.usuarioId).subscribe(resp=>{
       console.log('getDatosPerfil',resp);
+      this.formulario.controls['phone'].setValue(resp.celular);
+      this.formulario.controls['direccion'].setValue(resp.direccion);
+      this.formulario.controls['residencia'].setValue(resp.residencia);
+      this.formulario.controls['calle'].setValue(resp.calle);
+      this.formulario.controls['casa'].setValue(resp.numCasa);
+
       let i = 0;
       resp.lstProvincias.forEach(element => {
         this.provincias[i] = element;
         i++;
       });
+
+
+      if(resp.provincia !== null && resp.distrito !== null && resp.corregimiento !== null)
+      { 
+        this.getCargaCombo(resp.provincia.nomProvincia,
+                           resp.distrito.nomDistrito,
+                           resp.corregimiento.nomCorregimiento)         
+      }
     })
+  }
+
+  getCargaCombo(nomProvincia:string, nomDistrito:string, nomCorregimiento:string){
+    const posProvincias = this.provincias.findIndex(resp => resp.nomProvincia === nomProvincia);
+    this.indexProv = posProvincias;
+    if(this.indexProv >= 0){
+      this.distritos = [];
+      this.corregimientos = [];
+      const id = this.provincias[this.indexProv].provinciaId
+      this.provincia = this.provincias[this.indexProv].nomProvincia
+      this.usuariosService.getDistritos(id).subscribe(resp=>{
+        let i = 0;
+        resp.forEach(element => {
+          this.distritos[i] = element;
+          i++;
+        });
+        const posDistritos = this.distritos.findIndex(resp => resp.nomDistrito === nomDistrito);
+        this.indexDist = posDistritos;
+         if(this.indexDist >= 0){
+          this.corregimientos = [];
+          const id2 = this.distritos[this.indexDist].distritoId
+          this.distrito = this.distritos[this.indexDist].nomDistrito
+          this.usuariosService.getCorregimientos(id2).subscribe(respuesta=>{
+            let j = 0;
+            respuesta.forEach(elemento => {
+              this.corregimientos[j] = elemento;
+              j++;
+            });
+            const posCorregimiento = this.corregimientos.findIndex(resp => resp.nomCorregimiento === nomCorregimiento);
+            this.indexCorr = posCorregimiento;
+          })
+        }  
+      })
+    }
   }
 
 
   editarUsuario(){
+    
     const data = {
+        "solicitantes": { "solicitanteId": this.datos.id  },
+        "pass": "Felino1980.",
+        "celular": this.formulario.controls['phone'].value,
+        "direccion": this.formulario.controls['direccion'].value,
+        "emailAlt": this.formulario.controls['email'].value,
+        "numCasa": this.formulario.controls['casa'].value, 
+        "residencia": this.formulario.controls['residencia'].value,
+        "calle": this.formulario.controls['calle'].value,
 
-        "solicitantes": { "solicitanteId": 2  },
-        "pass": "May17782404*.",
-        "celular": "3196776180",
-        "direccion": "Carrera 11",
-        "emailAlt": "mayra@gmail.com",
-        "numCasa": "59-7411", 
-        "residencia": "Terragrata 2",
-        "calle": "11",
-         "provincia":{
-               "provinciaId": 4,
-                "regionId": {
-                    "regionId": 1,
-                    "codRegion": 1,
-                    "nomRegion": "CHIRIQUÍ"
-                },
-                "codProvincia": 4,
-                "nomProvincia": "CHIRIQUÍ"
+        "provincia":{
+            "provinciaId": this.provincias[this.indexProv].provinciaId,
+            "regionId": {
+                "regionId": this.provincias[this.indexProv].regionId.regionId,
+                "codRegion": this.provincias[this.indexProv].regionId.codRegion,
+                "nomRegion": this.provincias[this.indexProv].regionId.nomRegion,
             },
-            "distrito":{
-                "distritoId": 6,
-                "provinciaId": {
-                    "provinciaId": 4,
+            "codProvincia": this.provincias[this.indexProv].codProvincia,
+            "nomProvincia": this.provincias[this.indexProv].nomProvincia,
+        },
+
+        "distrito":{
+            "distritoId": this.distritos[this.indexDist].distritoId,
+            "provinciaId": {
+                "provinciaId": this.distritos[this.indexDist].provinciaId.provinciaId,
                     "regionId": {
-                        "regionId": 1,
-                        "codRegion": 1,
-                        "nomRegion": "CHIRIQUÍ"
+                        "regionId": this.distritos[this.indexDist].provinciaId.regionId.regionId,
+                        "codRegion": this.distritos[this.indexDist].provinciaId.regionId.codRegion,
+                        "nomRegion": this.distritos[this.indexDist].provinciaId.regionId.nomRegion,
                     },
-                    "codProvincia": 4,
-                    "nomProvincia": "CHIRIQUÍ"
+                    "codProvincia": this.distritos[this.indexDist].provinciaId.codProvincia,
+                    "nomProvincia": this.distritos[this.indexDist].provinciaId.nomProvincia,
                 },
-                "codDistrito": 3,
-                "nomDistrito": "BOQUERÓN"
-            },
-            "corregimiento":{
-                "corregimientoId": 29,
+                "codDistrito": this.distritos[this.indexDist].codDistrito,
+                "nomDistrito": this.distritos[this.indexDist].nomDistrito,
+        },
+
+        "corregimiento":{
+                "corregimientoId": this.corregimientos[this.indexCorr].corregimientoId,
                 "distritoId": {
-                    "distritoId": 6,
+                    "distritoId": this.corregimientos[this.indexCorr].distritoId.distritoId,
                     "provinciaId": {
-                        "provinciaId": 4,
+                        "provinciaId": this.corregimientos[this.indexCorr].distritoId.provinciaId.provinciaId,
                         "regionId": {
-                            "regionId": 1,
-                            "codRegion": 1,
-                            "nomRegion": "CHIRIQUÍ"
+                            "regionId": this.corregimientos[this.indexCorr].distritoId.provinciaId.regionId.regionId,
+                            "codRegion": this.corregimientos[this.indexCorr].distritoId.provinciaId.regionId.codRegion,
+                            "nomRegion": this.corregimientos[this.indexCorr].distritoId.provinciaId.regionId.nomRegion,
                         },
-                        "codProvincia": 4,
-                        "nomProvincia": "CHIRIQUÍ"
+                        "codProvincia": this.corregimientos[this.indexCorr].distritoId.provinciaId.codProvincia,
+                        "nomProvincia": this.corregimientos[this.indexCorr].distritoId.provinciaId.nomProvincia,
                     },
-                    "codDistrito": 3,
-                    "nomDistrito": "BOQUERÓN"
+                    "codDistrito": this.corregimientos[this.indexCorr].distritoId.codDistrito,
+                    "nomDistrito": this.corregimientos[this.indexCorr].distritoId.nomDistrito,
                 },
-                "codCorregimiento": 3,
-                "nomCorregimiento": "CORDILLERA"
-            },
+                "codCorregimiento": this.corregimientos[this.indexCorr].codCorregimiento,
+                "nomCorregimiento": this.corregimientos[this.indexCorr].nomCorregimiento,
+        },
+
         "adjuntos":[{
-            "tipoDocumentoId": { 
-                "tipoDocumentoId": 8 
-            },
-            "solicitanteId": {
-                "solicitanteId": 2
-            },
-            "nombre": "Foto",
-            "urlAdjunto": "foto.pdf"
+          "tipoDocumentoId": { "tipoDocumentoId": 8 },
+          "solicitanteId": {  "solicitanteId": this.datos.id  },
+          "nombre": "Foto",
+          "urlAdjunto": "foto.pdf"
         }]
     };
-    
-    this.usuariosService.guardarPerfil(data).subscribe(resp=>{
+
+    this.usuariosService.guardarPerfil(data).subscribe(resp=>{      
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failRegister();  }
-    })
+    });
   }
-
-
-
-
 
 
   getCargaDistritos(idProvincia:number){
@@ -191,8 +237,9 @@ export class UsuariosComponent implements OnInit {
     this.corregimiento = this.corregimientos[idCorregimiento].nomCorregimiento
   }
 
-  subirAvatar(){
-
+  cambiarAvatar(event:any){
+    console.log(event)
+    this.currentImage = ''
     this.archivoCargado();
   }
 

@@ -18,14 +18,7 @@ import { Usuario } from '../../../pages/models/usuario';
 export class LoginComponent implements OnInit, OnDestroy {
 
   defaultAuth: any = {
-    //email: 'siliceContribuyente1@hotmail.com',
-    //email: 'siliceContribuyente2@hotmail.com',
-    //email: 'siliceContribuyente3@hotmail.com',
-    //email: 'siliceContribuyente4@hotmail.com',
-    //email: 'secretariaMunicipio@gmail.com',
-    //email: 'arquitectoMunicipio@gmail.com',
-    //email: 'inspectorMunicio@gmail.com',
-    //password:'Silice2021*',
+
   };
 
   loginForm: FormGroup;
@@ -40,7 +33,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     'token':'',
     'nombreCompleto': '',
     'cedula':'',
-    'telefono':'',
     'email': '',
     'rol':'',
     'id': 0,
@@ -100,15 +92,12 @@ export class LoginComponent implements OnInit, OnDestroy {
           us = user;
           console.log('Aqui',us);
 
-
-          this.usuario.token = us.objeto.rol;
+          this.usuario.token = 'autenticado';
           this.usuario.nombreCompleto = us.objeto.nombreCompleto;
-          this.usuario.cedula = us.objeto.solicitante.cedula;
-          this.usuario.telefono = us.objeto.solicitante.celular;
+          this.usuario.cedula = us.objeto.solicitante.cedula;          
           this.usuario.email = us.objeto.email;
           this.usuario.rol = us.objeto.rol;
-          this.usuario.usuarioId = us.objeto.solicitante.usuarioId.usuarioId;
-          localStorage.setItem('datos', JSON.stringify(this.usuario));
+          this.usuario.usuarioId = us.objeto.solicitante.usuarioId.usuarioId;                    
 
           if(user.codigo === 0)
           { let token = 'autenticado'
@@ -116,7 +105,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             localStorage.setItem("rol", us.objeto.rol);
             localStorage.setItem("nombre", us.objeto.nombreCompleto);
             if(us.objeto.rol === 'SOL')
-            { localStorage.setItem("id", us.objeto.solicitante.solicitanteId);              
+            { localStorage.setItem("id", us.objeto.solicitante.solicitanteId);
+              this.usuario.id = us.objeto.solicitante.solicitanteId;              
               this.router.navigate(['/tramites/tramites-disponibles/tramites-disponibles']); 
             }
             else
@@ -138,8 +128,12 @@ export class LoginComponent implements OnInit, OnDestroy {
                   this.errores = true;
           }else if(user.codigo === 2)
                 { this.errores = true; }
-          }else 
-              { this.errores = true; }
+
+          localStorage.setItem('datos', JSON.stringify(this.usuario));
+        }else 
+            { this.errores = true; }
+
+             
       });
     this.unsubscribe.push(loginSubscr);
   }

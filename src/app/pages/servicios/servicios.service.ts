@@ -14,6 +14,7 @@ export class ServiciosService {
   getDatos(){
     if(localStorage.getItem('datos') != null)
     { this.datos = JSON.parse(localStorage.getItem('datos')); }
+    
   	return this.datos;
   }
 }

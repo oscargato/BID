@@ -42,17 +42,20 @@
                                     <img width="150" height="150"
                                          name="avatar" id="avatar" 
                                          class="img-responsive rounded-circle" 
-                                         src="../../../assets/avatar.png">
+                                         [src]="currentImage">
                                   </p>
                                 </div>
   
                                 <div class="mt-5 d-flex align-items-center justify-content-center">
-                                  <button class="btn btn-primary btn-sm"
-                                        (click)="subirAvatar()">    
-                                        Foto <i class="fas fa-arrow-circle-up"></i>
-                                  </button>
+                                  <label class="btn btn-primary custom-file-upload">
+                                    <input type="file"/>
+                                    <i class="fas fa-arrow-circle-up"></i>
+                                    Foto
+                                  </label>                                  
                                 </div>
                               </div>                              
+
+                              
 
                               <div class="row mt-12">
                                 <div class="col-md-12">
@@ -329,7 +332,10 @@
                             <div>
                               <button (click)="editarUsuario()"
                                       class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-                                      [disabled]="formulario.invalid"
+                                      [disabled]="formulario.invalid || 
+                                                  formulario.controls['provincia'].value === -1 || 
+                                                  formulario.controls['distrito'].value === -1 || 
+                                                  formulario.controls['corregimiento'].value === -1"
                                       data-wizard-type="action-submit">
                                       Editar
                               </button>                                                      
