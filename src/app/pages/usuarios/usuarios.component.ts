@@ -5,6 +5,10 @@ import Swal from 'sweetalert2';
 import { ServiciosService } from '../../pages/servicios/servicios.service';
 import { UsuariosService } from './usuarios.service';
 
+interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
+
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
@@ -24,7 +28,11 @@ export class UsuariosComponent implements OnInit {
   public corregimiento:string;
   public rol:string;
   public datos:any;
-  public currentImage:string;
+  public file:File;
+  public photoSelected: string | ArrayBuffer;
+  public cambiarFoto:boolean;
+  public urlFoto:string;
+  public nombreFoto:string;
   
   constructor(private formBuilder:FormBuilder, 
               private router:Router,
@@ -33,7 +41,7 @@ export class UsuariosComponent implements OnInit {
               {  this.datos = this.serviciosService.getDatos();  }
 
   ngOnInit(): void{
-    this.formulario = this.formBuilder.group({
+    this.formulario = this.formBuilder.group({      
       photo:['', Validators.compose([Validators.required,]),],
       nombre:['', Validators.compose([Validators.required,]),],
       numeroID:['', Validators.compose([Validators.required,]),],
@@ -49,12 +57,12 @@ export class UsuariosComponent implements OnInit {
       casa:['', Validators.compose([Validators.required,]),],
     });
     
-    this.currentImage = '../../../assets/avatar.png'
     
     this.provincias = [];
     this.distritos = [];
     this.corregimientos = [];
     this.rol = localStorage.getItem('rol');
+    this.cambiarFoto = false;
     
     this.getDatosPerfil();
   }
@@ -81,8 +89,7 @@ export class UsuariosComponent implements OnInit {
 
 
       if(resp.provincia !== null && resp.distrito !== null && resp.corregimiento !== null)
-      { 
-        this.getCargaCombo(resp.provincia.nomProvincia,
+      { this.getCargaCombo(resp.provincia.nomProvincia,
                            resp.distrito.nomDistrito,
                            resp.corregimiento.nomCorregimiento)         
       }
@@ -125,7 +132,7 @@ export class UsuariosComponent implements OnInit {
 
 
   editarUsuario(){
-    
+        
     const data = {
         "solicitantes": { "solicitanteId": this.datos.id  },
         "pass": "Felino1980.",
@@ -187,10 +194,12 @@ export class UsuariosComponent implements OnInit {
         "adjuntos":[{
           "tipoDocumentoId": { "tipoDocumentoId": 8 },
           "solicitanteId": {  "solicitanteId": this.datos.id  },
-          "nombre": "Foto",
-          "urlAdjunto": "foto.pdf"
+          "nombre": this.nombreFoto,
+          "urlAdjunto": this.urlFoto,
         }]
     };
+
+    console.log('data',data);      
 
     this.usuariosService.guardarPerfil(data).subscribe(resp=>{      
       if(resp.codigo === 0)
@@ -237,11 +246,48 @@ export class UsuariosComponent implements OnInit {
     this.corregimiento = this.corregimientos[idCorregimiento].nomCorregimiento
   }
 
-  cambiarAvatar(event:any){
-    console.log(event)
-    this.currentImage = ''
-    this.archivoCargado();
+  cambiarAvatar(event: HTMLInputEvent):void{
+    if(event.target.files && event.target.files[0]){
+      this.file = <File>event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.photoSelected = reader.result;
+      reader.readAsDataURL(this.file);
+      this.cambiarFoto = true;
+
+
+      const formData = new FormData();
+      formData.append('file', this.file);
+      this.usuariosService.uploadArchivo(formData,this.datos.id).subscribe(resp =>{
+        console.log('CarFot',resp);
+        this.urlFoto = resp.name;
+        let adjunto = this.formulario.controls['photo'].value
+        this.nombreFoto = adjunto.substring(adjunto.indexOf("h",10) + 2)
+      })
+    }
   }
+
+
+
+
+/*   fileUploadFoto(){
+    if(this.cambiarFoto){
+
+
+      const formData = new FormData();
+      formData.append('file', this.file);
+      this.usuariosService.uploadArchivo(formData,this.datos.id).subscribe(resp =>{
+        console.log('CarFot',resp);
+        this.urlFoto = resp.name;
+        this.nombreFoto = '';
+      })
+
+
+    }
+  } */
+
+
+
+
 
   registerAlert(){  
     Swal.fire(  

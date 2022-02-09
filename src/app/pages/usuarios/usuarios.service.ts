@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 const API_USERS_URL = `${environment.apiUrl}`;
+const API_FILE_URL = `${environment.apiFILE}`;
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,9 @@ export class UsuariosService {
 
   getCorregimientos(id:number):Observable<any>{
     return this.httpClient.get<any>(`${API_USERS_URL}/corregimientos/getByDistritoId/${id}`).pipe(map(resp => resp.objeto));    
+  }
+
+  uploadArchivo(formData:FormData,id:number): Observable<any>{
+    return this.httpClient.post<any>(`${API_FILE_URL}/fileManager/upload/${id}`, formData);
   }
 }

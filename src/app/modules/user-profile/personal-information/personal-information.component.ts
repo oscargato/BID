@@ -9,6 +9,7 @@ import { AuthService, UserModel, ConfirmPasswordValidator } from '../../auth';
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.scss']
 })
+
 export class PersonalInformationComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   user: UserModel;

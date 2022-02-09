@@ -353,7 +353,7 @@ export class FPermisoConstruccionComponent implements OnInit, AfterViewInit {
         "incorrecto": incorrecto,
           "t01_Rev_PermisoConstruccionMun": {
               "codUbicacion": this.formulario.controls['checkboxCodigoUbicacion'].value,
-              "comentarios": "string",
+              "comentarios": this.formulario.controls['observaciones'].value,
               "comentariosCierre": "string",
               "comentariosInternos": "string",
               "comprobacionNegada": true,

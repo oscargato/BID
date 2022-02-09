@@ -94,10 +94,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
           this.usuario.token = 'autenticado';
           this.usuario.nombreCompleto = us.objeto.nombreCompleto;
-          this.usuario.cedula = us.objeto.solicitante.cedula;          
+          //this.usuario.cedula = us.objeto.solicitante.cedula;          
           this.usuario.email = us.objeto.email;
           this.usuario.rol = us.objeto.rol;
-          this.usuario.usuarioId = us.objeto.solicitante.usuarioId.usuarioId;                    
+                              
 
           if(user.codigo === 0)
           { let token = 'autenticado'
@@ -106,6 +106,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             localStorage.setItem("nombre", us.objeto.nombreCompleto);
             if(us.objeto.rol === 'SOL')
             { localStorage.setItem("id", us.objeto.solicitante.solicitanteId);
+              this.usuario.cedula = us.objeto.solicitante.cedula;
+              this.usuario.usuarioId = us.objeto.solicitante.usuarioId.usuarioId;          
               this.usuario.id = us.objeto.solicitante.solicitanteId;              
               this.router.navigate(['/tramites/tramites-disponibles/tramites-disponibles']); 
             }

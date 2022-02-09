@@ -39,19 +39,28 @@
                               <div class="mt-10">
                                 <div class="d-flex align-items-center justify-content-center">
                                   <p>
-                                    <img width="150" height="150"
-                                         name="avatar" id="avatar" 
+                                    <img width="150" 
+                                         height="150"
+                                         name="avatar" 
+                                         id="avatar" 
                                          class="img-responsive rounded-circle" 
-                                         [src]="currentImage">
+                                         [src]="photoSelected || '../../../assets/avatar.png'">
                                   </p>
                                 </div>
   
                                 <div class="mt-5 d-flex align-items-center justify-content-center">
-                                  <label class="btn btn-primary custom-file-upload">
-                                    <input type="file"/>
-                                    <i class="fas fa-arrow-circle-up"></i>
-                                    Foto
-                                  </label>                                  
+                                    <button class="btn btn-primary btn-sm" (click)="photoInput.click()">
+                                      <i class="fas fa-arrow-circle-up"></i>
+                                      Foto
+                                    </button>
+
+                                    <input type="file"                                            
+                                           class="form-control"
+                                           formControlName="photo"
+                                           name="photo"
+                                           #photoInput                                            
+                                           accept=".png, .jpg, .jpeg, .gif"
+                                           (change)="cambiarAvatar($event)"/>                                                                                                             
                                 </div>
                               </div>                              
 

@@ -337,7 +337,7 @@ export class FPermisoConstruccionPlanosComponent implements OnInit, AfterViewIni
         "incorrecto": incorrecto,
         "t01_Rev_PermisoConstruccionMun": {
             "codUbicacion": this.formulario.controls['checkboxCodigoUbicacion'].value,
-            "comentarios": "string",
+            "comentarios": this.formulario.controls['observaciones'].value,
             "comentariosCierre": "string", //obviar
             "comentariosInternos": "string", //obviar
             "comprobacionNegada": true, //obviar
