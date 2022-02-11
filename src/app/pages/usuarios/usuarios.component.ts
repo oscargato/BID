@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ServiciosService } from '../../pages/servicios/servicios.service';
 import { UsuariosService } from './usuarios.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { NgxSpinnerService } from "ngx-spinner";
+
 
 interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
@@ -29,15 +32,21 @@ export class UsuariosComponent implements OnInit {
   public rol:string;
   public datos:any;
   public file:File;
-  public photoSelected: string | ArrayBuffer;
+  public photoSelected: any;//string | ArrayBuffer;
   public cambiarFoto:boolean;
   public urlFoto:string;
   public nombreFoto:string;
-  
+  public image: SafeUrl | null = null;
+  public adjuntoId:number
+  public spinnerType:string;
+  public spinnerName:string;
+
   constructor(private formBuilder:FormBuilder, 
               private router:Router,
               private serviciosService:ServiciosService,
-              private usuariosService:UsuariosService)
+              private usuariosService:UsuariosService,
+              private domSanitizer:DomSanitizer,
+              private ngxSpinnerService:NgxSpinnerService)
               {  this.datos = this.serviciosService.getDatos();  }
 
   ngOnInit(): void{
@@ -63,8 +72,10 @@ export class UsuariosComponent implements OnInit {
     this.corregimientos = [];
     this.rol = localStorage.getItem('rol');
     this.cambiarFoto = false;
-    
+
     this.getDatosPerfil();
+
+    this.getSpinner();
   }
 
   getDatosPerfil(){
@@ -93,8 +104,22 @@ export class UsuariosComponent implements OnInit {
                            resp.distrito.nomDistrito,
                            resp.corregimiento.nomCorregimiento)         
       }
+
+       if(resp.foto !== null){        
+        this.usuariosService.getDownloadFile(this.datos.id,resp.foto.urlAdjunto).subscribe(resp=>{
+          console.log('IMG',resp);
+
+          const unsafeImg = URL.createObjectURL(resp);
+          this.photoSelected = this.domSanitizer.bypassSecurityTrustUrl(unsafeImg);
+                
+          error => console.error(error)
+        });
+
+        this.adjuntoId = resp.foto.adjuntoId;
+      }      
     })
   }
+
 
   getCargaCombo(nomProvincia:string, nomDistrito:string, nomCorregimiento:string){
     const posProvincias = this.provincias.findIndex(resp => resp.nomProvincia === nomProvincia);
@@ -134,8 +159,7 @@ export class UsuariosComponent implements OnInit {
   editarUsuario(){
         
     const data = {
-        "solicitantes": { "solicitanteId": this.datos.id  },
-        "pass": "Felino1980.",
+        "solicitantes": { "solicitanteId": this.datos.id  },        
         "celular": this.formulario.controls['phone'].value,
         "direccion": this.formulario.controls['direccion'].value,
         "emailAlt": this.formulario.controls['email'].value,
@@ -192,6 +216,7 @@ export class UsuariosComponent implements OnInit {
         },
 
         "adjuntos":[{
+          "adjuntoId": this.adjuntoId,
           "tipoDocumentoId": { "tipoDocumentoId": 8 },
           "solicitanteId": {  "solicitanteId": this.datos.id  },
           "nombre": this.nombreFoto,
@@ -254,7 +279,6 @@ export class UsuariosComponent implements OnInit {
       reader.readAsDataURL(this.file);
       this.cambiarFoto = true;
 
-
       const formData = new FormData();
       formData.append('file', this.file);
       this.usuariosService.uploadArchivo(formData,this.datos.id).subscribe(resp =>{
@@ -267,26 +291,15 @@ export class UsuariosComponent implements OnInit {
   }
 
 
+  getSpinner(){
+    this.spinnerName = 'sp3';
+    this.spinnerType = 'ball-spin-clockwise';
+    this.ngxSpinnerService.show(this.spinnerName);
 
-
-/*   fileUploadFoto(){
-    if(this.cambiarFoto){
-
-
-      const formData = new FormData();
-      formData.append('file', this.file);
-      this.usuariosService.uploadArchivo(formData,this.datos.id).subscribe(resp =>{
-        console.log('CarFot',resp);
-        this.urlFoto = resp.name;
-        this.nombreFoto = '';
-      })
-
-
-    }
-  } */
-
-
-
+    setTimeout(()=>{
+      this.ngxSpinnerService.hide(this.spinnerName);
+    },3000);
+  }
 
 
   registerAlert(){  

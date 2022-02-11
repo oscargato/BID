@@ -5,6 +5,8 @@
             <h3 class="card-label font-weight-bolder text-dark">Perfil del Usuario</h3>            
         </div>
         
+        <ngx-spinner [name]="spinnerName" [type]="spinnerType"></ngx-spinner>
+                        
         <div class="card-toolbar">
             <a *ngIf="rol === 'ADM'" routerLink="/tramites/tramites-adm/tramites-adm"
                class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" 

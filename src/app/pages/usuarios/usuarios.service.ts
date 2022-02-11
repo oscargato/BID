@@ -34,4 +34,8 @@ export class UsuariosService {
   uploadArchivo(formData:FormData,id:number): Observable<any>{
     return this.httpClient.post<any>(`${API_FILE_URL}/fileManager/upload/${id}`, formData);
   }
+
+  getDownloadFile(idSolicitante:number, nameFile:string):Observable<Blob>{
+    return this.httpClient.get(`${API_FILE_URL}/fileManager/download/${idSolicitante}/${nameFile}`,{responseType: 'blob'});
+  }  
 }

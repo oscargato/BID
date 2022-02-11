@@ -1,5 +1,5 @@
 import { MatRadioModule } from '@angular/material/radio';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { InlineSVGModule } from 'ng-inline-svg';
@@ -101,6 +101,8 @@ import { ActivarFuncionarioComponent } from './activar-funcionario/activar-funci
 import { ListUsuariosComponent } from './list-usuarios/list-usuarios.component';
 import { AdministradorComponent } from './administrador/administrador.component';
 import { AltaFuncionarioComponent } from './alta-funcionario/alta-funcionario.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 const routes: Routes = [
   {
@@ -203,7 +205,8 @@ const routes: Routes = [
     FormsModule,
     InlineSVGModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgxSpinnerModule
   ],
   exports: [RouterModule],
   entryComponents: [
@@ -268,5 +271,6 @@ const routes: Routes = [
       AdministradorComponent,
       AltaFuncionarioComponent
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TramitesModule {}
