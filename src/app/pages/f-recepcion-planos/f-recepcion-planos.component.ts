@@ -174,7 +174,7 @@ export class FRecepcionPlanosComponent implements OnInit, AfterViewInit, OnDestr
          "fechaInspeccion":this.formulario.controls['fechaInspeccion'].value,
          "t01_Rev_PermisoConstruccionMun": {
              "codUbicacion": true,
-             "comentarios": "",
+             "comentarios": this.formulario.controls['observaciones'].value,
              "comentariosCierre": "",
              "comentariosInternos": "",
              "comprobacionNegada": true,

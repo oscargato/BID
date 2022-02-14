@@ -33,130 +33,88 @@
         <div class="wizard-body">
             <div class="row">
                 <div class="offset-xxl-2 col-xxl-8">
+
                     <form [formGroup]="formulario" class="form" id="kt_form">
 
                         <div class="row">
-
-                            <div class="col-md-4">
-                              <div class="mt-10">
-                                <div class="d-flex align-items-center justify-content-center">
-                                  <p>
-                                    <img width="150" 
-                                         height="150"
-                                         name="avatar" 
-                                         id="avatar" 
-                                         class="img-responsive rounded-circle" 
-                                         [src]="photoSelected || '../../../assets/avatar.png'">
-                                  </p>
-                                </div>
-  
-                                <div class="mt-5 d-flex align-items-center justify-content-center">
-                                    <button class="btn btn-primary btn-sm" (click)="photoInput.click()">
-                                      <i class="fas fa-arrow-circle-up"></i>
-                                      Foto
-                                    </button>
-
-                                    <input type="file"                                            
-                                           class="form-control"
-                                           formControlName="photo"
-                                           name="photo"
-                                           #photoInput                                            
-                                           accept=".png, .jpg, .jpeg, .gif"
-                                           (change)="cambiarAvatar($event)"/>                                                                                                             
-                                </div>
-                              </div>                              
-
-                              
-
-                              <div class="row mt-12">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                      <label class="font-weight-bolder">Provincia</label>
-                                      <select name="provincia"
-                                              formControlName="provincia"
+                          <div class="col-md-4">
+                            <div class="row box">
+                              <div class="col-md-4">
+                                <div class="mt-10">
+                                  <div class="d-flex align-items-center justify-content-center">
+                                    <p>
+                                      <img width="180" 
+                                            height="180"
+                                            name="avatar" 
+                                            id="avatar" 
+                                            class="img-responsive rounded-circle" 
+                                            [src]="photoSelected || '../../../assets/avatar.png'">
+                                    </p>
+                                  </div>
+    
+                                  <div class="mt-5 d-flex align-items-center justify-content-center">
+                                      <button class="btn btn-primary btn-sm" (click)="photoInput.click()">
+                                        <i class="fas fa-arrow-circle-up"></i>
+                                        Foto
+                                      </button>
+    
+                                      <input type="file"                                            
                                               class="form-control"
-                                              [(ngModel)]="indexProv"
-                                              #mySelectProv
-                                              (change)='getCargaDistritos(mySelectProv.value)'>
-                                              <option disabled selected value="-1">Seleccione una opción</option>
-                                              <option   [value]="i" *ngFor="let item of provincias; let i = index">
-                                                        {{ item.nomProvincia }}
-                                              </option>
-                                      </select>
-                                    </div>
-                                    <div *ngIf="formulario.controls['provincia'].invalid && (formulario.controls['provincia'].dirty || formulario.controls['provincia'].touched)">
-                                      <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                        <span>Se requiere la Provincia</span> 
-                                      </div>
-                                    </div> 
-                                </div>
+                                              formControlName="photo"
+                                              name="photo"
+                                              #photoInput                                            
+                                              accept=".png, .jpg, .jpeg, .gif"
+                                              (change)="cambiarAvatar($event)"/>                                                                                                             
+                                  </div>
+                                </div>                                                                                                          
                               </div>
-
-                              <div class="row"> 
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label class="font-weight-bolder">Residencia</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           name="residencia"
-                                           formControlName="residencia"
-                                           placeholder="Residencia"
-                                           value=""/>
-                                           <div *ngIf="formulario.controls['residencia'].invalid && (formulario.controls['residencia'].dirty || formulario.controls['residencia'].touched)">
-                                            <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                              <span>Se requiere la Residencia</span> 
-                                            </div>
-                                          </div>
-                                  </div> 
-                              </div>
-                              </div>
-
                             </div>
+                          </div>
 
 
+                          <div class="col-md-8">
 
-
-
-                            <div class="col-md-8">
+                            <div class="">
                               <div class="row">
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label class="font-weight-bolder">Nombre Completo</label>
                                     <input type="text"
-                                           class="form-control"
-                                           name="nombre"
-                                           formControlName="nombre"
-                                           placeholder="Nombre Completo"
-                                           value=""
-                                           readonly/>
+                                            class="form-control"
+                                            name="nombre"
+                                            formControlName="nombre"
+                                            placeholder="Nombre Completo"
+                                            value=""
+                                            readonly/>
                                   </div> 
                                 </div>
-
+    
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label class="font-weight-bolder">Número de Identificación</label>
                                     <input type="text"
-                                           class="form-control"
-                                           name="numeroID"
-                                           formControlName="numeroID"
-                                           placeholder="Número de Identificación"
-                                           value=""
-                                           readonly/>
+                                            class="form-control"
+                                            name="numeroID"
+                                            formControlName="numeroID"
+                                            placeholder="Número de Identificación"
+                                            value=""
+                                            readonly/>
                                   </div>
                                 </div>
                               </div>
-
+    
+    
                               <div class="row">
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label class="font-weight-bolder">Contraseña</label>
                                     <input type="text"
-                                           class="form-control"
-                                           name="password"
-                                           formControlName="password"
-                                           placeholder="Contraseña"
-                                           value=""
-                                           readonly/>
+                                            class="form-control"
+                                            name="password"
+                                            formControlName="password"
+                                            placeholder="Contraseña"
+                                            value=""
+                                            readonly/>
                                   </div> 
                                 </div>
                                 
@@ -164,32 +122,32 @@
                                   <div class="form-group">
                                     <label class="font-weight-bolder">Correo Electrónico</label>
                                     <input type="text"
-                                           class="form-control"
-                                           name="email"
-                                           formControlName="email"
-                                           placeholder="Correo Electrónico"
-                                           value=""
-                                           readonly/>
+                                            class="form-control"
+                                            name="email"
+                                            formControlName="email"
+                                            placeholder="Correo Electrónico"
+                                            value=""
+                                            readonly/>
                                   </div>
                                 </div>
                               </div>
-
-
+    
+    
                               <div class="row" >
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label class="font-weight-bolder">Número de Contacto</label>
                                     <input type="text"
-                                           min="0"
-                                           autocomplete="off"
-                                           oninput="validity.valid || (value='');"
-                                           onKeyPress="if(this.value.length == 15) return false;"
-                                           placeholder="1234567890"
-                                           class="form-control"
-                                           name="phone"
-                                           formControlName="phone"
-                                           placeholder="Número de Contacto"
-                                           value=""/>
+                                            min="0"
+                                            autocomplete="off"
+                                            oninput="validity.valid || (value='');"
+                                            onKeyPress="if(this.value.length == 15) return false;"
+                                            placeholder="1234567890"
+                                            class="form-control"
+                                            name="phone"
+                                            formControlName="phone"
+                                            placeholder="Número de Contacto"
+                                            value=""/>
                                             <div *ngIf="formulario.controls['phone'].invalid && (formulario.controls['phone'].dirty || formulario.controls['phone'].touched)">
                                               <div class="d-flex justify-content-end" style="color:#FF0000;">
                                                 <span>Se requiere el Número de Contacto</span> 
@@ -197,20 +155,20 @@
                                             </div>         
                                   </div> 
                                 </div>
-
+    
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <label class="font-weight-bolder">Dirección</label>
                                     <input type="text"
-                                           minlength="1"
-                                           maxlength="100"
-                                           class="form-control"
-                                           name="direccion"
-                                           formControlName="direccion"
-                                           autocomplete="off"
-                                           placeholder="Dirección"
-                                           value=""/>
-                                           <div *ngIf="formulario.controls['direccion'].invalid && (formulario.controls['direccion'].dirty || formulario.controls['direccion'].touched)">
+                                            minlength="1"
+                                            maxlength="100"
+                                            class="form-control"
+                                            name="direccion"
+                                            formControlName="direccion"
+                                            autocomplete="off"
+                                            placeholder="Dirección"
+                                            value=""/>
+                                            <div *ngIf="formulario.controls['direccion'].invalid && (formulario.controls['direccion'].dirty || formulario.controls['direccion'].touched)">
                                             <div class="d-flex justify-content-end" style="color:#FF0000;">
                                               <span>Se requiere la Dirección</span> 
                                             </div>
@@ -218,127 +176,132 @@
                                   </div>
                                 </div>
                               </div>
+                            </div>                          
 
-                              <div class="row">                            
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label class="font-weight-bolder">Distrito</label>
-                                    <select name="distrito"
-                                            formControlName="distrito"
+                          </div>
+                        </div>
+
+                        <div class="row">                                                                                              
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                  <label class="font-weight-bolder">Provincia</label>
+                                  <select name="provincia"
+                                            formControlName="provincia"
                                             class="form-control"
-                                            [(ngModel)]="indexDist"
-                                            #mySelectDist
-                                            (change)='getCargaCorregimientos(mySelectDist.value)'>
-                                        <option disabled selected value="-1">Seleccione una opción</option>
-                                        <option [value]="i" *ngFor="let item of distritos;let i = index">
-                                            {{ item.nomDistrito }}
-                                        </option>                      
+                                            [(ngModel)]="indexProv"
+                                            #mySelectProv
+                                            (change)='getCargaDistritos(mySelectProv.value)'>
+                                            <option disabled selected value="-1">Seleccione una opción</option>
+                                            <option   [value]="i" *ngFor="let item of provincias; let i = index">
+                                                    {{ item.nomProvincia }}
+                                            </option>
                                     </select>
-                                  </div>
-                                  <div *ngIf="formulario.controls['distrito'].invalid && (formulario.controls['distrito'].dirty || formulario.controls['distrito'].touched)">
-                                    <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                      <span>Se requiere el Distrito</span> 
-                                    </div>
-                                  </div>
-                                  
                                 </div>
-                                
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label class="font-weight-bolder">Corregimiento</label>
-                                    <select name="corregimiento"
-                                            formControlName="corregimiento"
-                                            class="form-control"
-                                            [(ngModel)]="indexCorr"
-                                            #mySelectCorr
-                                            (change)='getCarga(mySelectCorr.value)'>
-                                        <option disabled selected value="-1">Seleccione una opción</option>
-                                        <option [value]="i" *ngFor="let item of corregimientos;let i = index">
-                                            {{ item.nomCorregimiento }}
-                                        </option>                      
-                                    </select>
+                                <div *ngIf="formulario.controls['provincia'].invalid && (formulario.controls['provincia'].dirty || formulario.controls['provincia'].touched)">
+                                  <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                    <span>Se requiere la Provincia</span> 
                                   </div>
-                                  <div *ngIf="formulario.controls['corregimiento'].invalid && (formulario.controls['corregimiento'].dirty || formulario.controls['corregimiento'].touched)">
-                                    <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                      <span>Se requiere el Distrito</span> 
-                                    </div>
-                                  </div>
-                                </div>                                                                                    
+                                </div> 
+                            </div>                                
+
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label class="font-weight-bolder">Distrito</label>
+                                <select name="distrito"
+                                        formControlName="distrito"
+                                        class="form-control"
+                                        [(ngModel)]="indexDist"
+                                        #mySelectDist
+                                        (change)='getCargaCorregimientos(mySelectDist.value)'>
+                                    <option disabled selected value="-1">Seleccione una opción</option>
+                                    <option [value]="i" *ngFor="let item of distritos;let i = index">
+                                        {{ item.nomDistrito }}
+                                    </option>                      
+                                </select>
                               </div>
-
-                              <div class="row" >
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label class="font-weight-bolder">Calle/Avenida</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           name="calle"
-                                           formControlName="calle"
-                                           placeholder="Calle/Avenida"
-                                           value=""/>
-                                           <div *ngIf="formulario.controls['calle'].invalid && (formulario.controls['calle'].dirty || formulario.controls['calle'].touched)">
-                                            <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                              <span>Se requiere Calle/Avenida</span> 
-                                            </div>
-                                          </div>
-                                  </div> 
+                              <div *ngIf="formulario.controls['distrito'].invalid && (formulario.controls['distrito'].dirty || formulario.controls['distrito'].touched)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Se requiere el Distrito</span> 
                                 </div>
-                                
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label class="font-weight-bolder">Casa/Apto</label>
-                                    <input type="text"                                                                              
-                                           class="form-control"
-                                           name="casa"
-                                           formControlName="casa"                                       
-                                           placeholder="Casa/Apto"
-                                           value=""/>
-                                           <div *ngIf="formulario.controls['casa'].invalid && (formulario.controls['casa'].dirty || formulario.controls['casa'].touched)">
-                                            <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                              <span>Se requiere Casa/Apto</span> 
-                                            </div>
-                                          </div>
-                                  </div>
+                              </div>                                  
+                            </div>
+                          
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label class="font-weight-bolder">Corregimiento</label>
+                                <select name="corregimiento"
+                                        formControlName="corregimiento"
+                                        class="form-control"
+                                        [(ngModel)]="indexCorr"
+                                        #mySelectCorr
+                                        (change)='getCarga(mySelectCorr.value)'>
+                                    <option disabled selected value="-1">Seleccione una opción</option>
+                                    <option [value]="i" *ngFor="let item of corregimientos;let i = index">
+                                        {{ item.nomCorregimiento }}
+                                    </option>                      
+                                </select>
+                              </div>
+                              <div *ngIf="formulario.controls['corregimiento'].invalid && (formulario.controls['corregimiento'].dirty || formulario.controls['corregimiento'].touched)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Se requiere el Distrito</span> 
                                 </div>
                               </div>
+                            </div>                                                                                    
+                        </div>
+                                                            
+                        <div class="row" >
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label class="font-weight-bolder">Residencia</label>
+                              <input type="text"
+                                      class="form-control"
+                                      name="residencia"
+                                      formControlName="residencia"
+                                      placeholder="Residencia"
+                                      value=""/>
+                                      <div *ngIf="formulario.controls['residencia'].invalid && (formulario.controls['residencia'].dirty || formulario.controls['residencia'].touched)">
+                                      <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                        <span>Se requiere la Residencia</span> 
+                                      </div>
+                                    </div>
+                            </div> 
+                          </div>
+
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label class="font-weight-bolder">Calle/Avenida</label>
+                              <input type="text"
+                                      class="form-control"
+                                      name="calle"
+                                      formControlName="calle"
+                                      placeholder="Calle/Avenida"
+                                      value=""/>
+                                      <div *ngIf="formulario.controls['calle'].invalid && (formulario.controls['calle'].dirty || formulario.controls['calle'].touched)">
+                                      <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                        <span>Se requiere Calle/Avenida</span> 
+                                      </div>
+                                    </div>
+                            </div> 
+                          </div>
+                          
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label class="font-weight-bolder">Casa/Apto</label>
+                              <input type="text"                                                                              
+                                      class="form-control"
+                                      name="casa"
+                                      formControlName="casa"                                       
+                                      placeholder="Casa/Apto"
+                                      value=""/>
+                                      <div *ngIf="formulario.controls['casa'].invalid && (formulario.controls['casa'].dirty || formulario.controls['casa'].touched)">
+                                      <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                        <span>Se requiere Casa/Apto</span> 
+                                      </div>
+                                    </div>
                             </div>
-
-                            
-
-                            
-                            
-                                            
-                        </div>
-
-
-
-                        
-                        
-                        <div class="row">
-                            <div class="col-md-4">                                
-                            </div>
-
-                            
-                            
-                                            
-                        </div>
-
-
-                        <div class="row">
-                            
-
-                            
-                            
-                                            
-                        </div>
-
-
-                        <div class="row">
-                            
-
-                
-                        </div>
-
+                          </div>
+                        </div>                                                                                                                                                          
+                                                                                                                                                                                                                                        
                         <div class="d-flex justify-content-end border-top pt-10 pr-5">
                             <div>
                               <button (click)="editarUsuario()"
@@ -352,8 +315,8 @@
                               </button>                                                      
                             </div>
                         </div>
-
                     </form>
+
                 </div>    
             </div>
         </div>
