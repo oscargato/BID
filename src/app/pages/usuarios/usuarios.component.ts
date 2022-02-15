@@ -51,17 +51,16 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void{
     this.formulario = this.formBuilder.group({      
-      photo:['', Validators.compose([Validators.required,]),],
+      photo:[''],
       nombre:['', Validators.compose([Validators.required,]),],
       numeroID:['', Validators.compose([Validators.required,]),],
       password:['', Validators.compose([Validators.required,]),],
       email:['', Validators.compose([Validators.required,]),],
-      phone:['', Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(15)]),],
-      direccion:['', Validators.compose([Validators.required,]),],
+      phone:['', Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(15)]),],      
       provincia:['', Validators.compose([Validators.required,]),],
       distrito:['', Validators.compose([Validators.required,]),],
       corregimiento:['', Validators.compose([Validators.required,]),],
-      residencia:['', Validators.compose([Validators.required,]),],
+      residencia:[''],
       calle:['', Validators.compose([Validators.required,]),],
       casa:['', Validators.compose([Validators.required,]),],
     });
@@ -86,8 +85,7 @@ export class UsuariosComponent implements OnInit {
     
     this.usuariosService.getDatosPerfil(this.datos.usuarioId).subscribe(resp=>{
       console.log('getDatosPerfil',resp);
-      this.formulario.controls['phone'].setValue(resp.celular);
-      this.formulario.controls['direccion'].setValue(resp.direccion);
+      this.formulario.controls['phone'].setValue(resp.celular);      
       this.formulario.controls['residencia'].setValue(resp.residencia);
       this.formulario.controls['calle'].setValue(resp.calle);
       this.formulario.controls['casa'].setValue(resp.numCasa);
@@ -108,14 +106,14 @@ export class UsuariosComponent implements OnInit {
        if(resp.foto !== null){        
         this.usuariosService.getDownloadFile(this.datos.id,resp.foto.urlAdjunto).subscribe(resp=>{
           console.log('IMG',resp);
-
           const unsafeImg = URL.createObjectURL(resp);
-          this.photoSelected = this.domSanitizer.bypassSecurityTrustUrl(unsafeImg);
-                
+          this.photoSelected = this.domSanitizer.bypassSecurityTrustUrl(unsafeImg);                
           error => console.error(error)
         });
 
         this.adjuntoId = resp.foto.adjuntoId;
+        this.nombreFoto = resp.foto.nombre;
+        this.urlFoto = resp.foto.urlAdjunto;
       }      
     })
   }
@@ -160,8 +158,7 @@ export class UsuariosComponent implements OnInit {
         
     const data = {
         "solicitantes": { "solicitanteId": this.datos.id  },        
-        "celular": this.formulario.controls['phone'].value,
-        "direccion": this.formulario.controls['direccion'].value,
+        "celular": this.formulario.controls['phone'].value,        
         "emailAlt": this.formulario.controls['email'].value,
         "numCasa": this.formulario.controls['casa'].value, 
         "residencia": this.formulario.controls['residencia'].value,
@@ -224,7 +221,8 @@ export class UsuariosComponent implements OnInit {
         }]
     };
 
-    console.log('data',data);      
+    console.log('data',data);
+    console.log('form',this.formulario)      
 
     this.usuariosService.guardarPerfil(data).subscribe(resp=>{      
       if(resp.codigo === 0)

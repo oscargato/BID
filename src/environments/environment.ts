@@ -8,7 +8,7 @@ export const environment = {
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: true,
   apiUrl: 'http://3.23.158.94:8080/BIDBack/rest/bid',
-  apiFILE: 'http://3.23.158.94:8080/BIDBack',
+  apiFILE:'http://3.23.158.94:8080/BIDBack',
 };
 
 /*

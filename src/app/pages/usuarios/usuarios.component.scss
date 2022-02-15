@@ -9,11 +9,12 @@ input[type="file"] {
     cursor: pointer;
 }
 
-.prueba{
-    background-color: red;
-}
 .box {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .prueba{
+    background-size: cover;
   }
