@@ -1,5 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { ActivarFuncionarioService } from './activar-funcionario.service';
+
+interface Funcionarios {
+  nombreCompleto:string; 
+  email:string;
+  tipoRevisor:string; 
+  activo:boolean;
+  revisorId:number;
+  tipoRevisorId:number;
+  usuarioId:number;
+}
 
 @Component({
   selector: 'app-activar-funcionario',
@@ -8,8 +19,7 @@ import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 })
 
 export class ActivarFuncionarioComponent implements OnInit {
-
-  public Funcionarios: Array<any>;
+  public Funcionarios: Array<Funcionarios>;
   public desde:number = 0;
   public hasta:number = 10;
   public pageSize = 10;
@@ -18,12 +28,64 @@ export class ActivarFuncionarioComponent implements OnInit {
   public orderNombre:boolean = false;
   public step:number = 0;
 
-  constructor(private matPaginatorIntl:MatPaginatorIntl){
+  constructor(private matPaginatorIntl:MatPaginatorIntl, 
+              private activarFuncionarioService:ActivarFuncionarioService){
     this.matPaginatorIntl.itemsPerPageLabel = "Registros por página";
     this.Funcionarios = [];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAllListadoRevisores();
+  }
+
+  getAllListadoRevisores(){
+    this.activarFuncionarioService.getAllListadoRevisores().subscribe(resp=>{
+      console.log('resp',resp)
+      let i = 0;
+      resp.forEach(element =>{
+        this.Funcionarios[i] = {
+            nombreCompleto:element.nombreCompleto,
+            email:element.email,
+            tipoRevisor:element.tipoRevisor.descripcion, 
+            activo:element.activo,
+            revisorId:element.revisorId,
+            tipoRevisorId:element.tipoRevisor.tipoRevisorId,
+            usuarioId:element.usuarioId,
+        };
+        i++; 
+      });
+      console.log('Arreglo',this.Funcionarios);
+    })
+  }
+
+  status(usuarioId:number,activo:boolean,indice:number,funcionario:Funcionarios){
+    if(activo)
+    { this.activarFuncionarioService.activarRevisor(usuarioId).subscribe(resp=>{        
+        this.Funcionarios[indice] = {  
+          nombreCompleto:funcionario.nombreCompleto,
+          email:funcionario.email,
+          tipoRevisor:funcionario.tipoRevisor, 
+          activo:true,
+          revisorId:funcionario.revisorId,
+          tipoRevisorId:funcionario.tipoRevisorId,
+          usuarioId:funcionario.usuarioId,
+        }
+      });
+    }
+    else
+    { this.activarFuncionarioService.desactivarRevisor(usuarioId).subscribe(resp=>{      
+        this.Funcionarios[indice] = {  
+          nombreCompleto:funcionario.nombreCompleto,
+          email:funcionario.email,
+          tipoRevisor:funcionario.tipoRevisor, 
+          activo:false,
+          revisorId:funcionario.revisorId,
+          tipoRevisorId:funcionario.tipoRevisorId,
+          usuarioId:funcionario.usuarioId,
+        }
+      });
+    }
+  }
 
   sortNombre(nombre:string){
     this.orderNombre = !this.orderNombre;
@@ -66,7 +128,6 @@ export class ActivarFuncionarioComponent implements OnInit {
     })
     this.step = 3;
   }
-
 
   cambiarpagina(e:PageEvent){
     this.desde = e.pageIndex * e.pageSize;
