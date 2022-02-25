@@ -18,13 +18,11 @@ export class ActivarFuncionarioService {
     return this.httpClient.get<any>(`${API_USERS_URL}/revisores/getAllListadoRevisores`).pipe(map(resp => resp.objeto));
   }
 
-  activarRevisor(usuarioId:number):Observable<any>{
-    console.log('Activar');
+  activarRevisor(usuarioId:number):Observable<any>{    
     return this.httpClient.post<any>(`${API_USERS_URL}/usuarios/activarRevisor/${usuarioId}`,{});
   }
 
-  desactivarRevisor(usuarioId:number):Observable<any>{
-    console.log('Desactivar');
+  desactivarRevisor(usuarioId:number):Observable<any>{    
     return this.httpClient.post<any>(`${API_USERS_URL}/usuarios/desactivarRevisor/${usuarioId}`,{});
   }
 }
