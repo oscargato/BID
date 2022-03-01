@@ -27,7 +27,7 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
   public distritos:Array<any> = [];
   public corregimientos:Array<any> = [];
   public tipoPropiedad:Array<DatosI> = [];
-  public tipoProp:number = 0;
+  public tipoProp:number =-1;
   public indexProv:number=-1;
   public indexDist:number=-1;
   public indexCorr:number=-1;
@@ -60,39 +60,12 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
 
   ngOnInit(){
     this.formulario = this.formBuilder.group({
-  		nombre:['', Validators.compose([
-                  Validators.required,
-                  Validators.minLength(2),
-                  Validators.maxLength(100)
-                ]),
-              ],
-  		
-      descripcion:['', Validators.compose([
-                       Validators.required, 
-                       Validators.minLength(5),
-                       Validators.maxLength(500)
-                    ]),  
-                  ],
-                       
-      provincia:['', Validators.compose([
-                     Validators.required
-                  ]),    
-                ],                        
- 
-      distrito:['', Validators.compose([
-                    Validators.required
-                  ]),
-               ],
-                       
-      corregimiento:['', Validators.compose([
-                         Validators.required
-                      ]),  
-                    ],                 
-
-      tipoPropiedad:['', Validators.compose([
-                         Validators.required
-                        ]),  
-                    ],
+  		nombre:['', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(100)]),],  		
+      descripcion:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(500)]),],                       
+      provincia:['', Validators.compose([Validators.required]),],                        
+      distrito:['', Validators.compose([Validators.required]),],                       
+      corregimiento:['', Validators.compose([Validators.required]),],                 
+      tipoPropiedad:['', Validators.compose([Validators.required]),],
 
       codigoUbicacion:['', Validators.compose([
                            Validators.required, 
@@ -312,7 +285,9 @@ export class FDisponiblesComponent implements OnInit, AfterViewInit
  
   getTipoPropiedad(){
     console.log('tipoProp',this.tipoProp)
-    this.tipoP = this.tipoPropiedad[this.tipoProp].nombre;
+    if(this.tipoProp > -1){
+      this.tipoP = this.tipoPropiedad[this.tipoProp].nombre;
+    }
   }
 
   onRegistrar(){

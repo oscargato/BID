@@ -22,62 +22,59 @@
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: -->
               <form [formGroup]="formulario" class="form" id="kt_form">
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="font-weight-bolder">Nombre del Proyecto</label>
-                    <input type="text"
-                          class="form-control"
-                          name="nombre"
-                          formControlName="nombre"
-                          placeholder="Nombre del Proyecto"
-                          value="" 
-                          readonly/>
-                  </div> 
-                </div>
-                
-                <div class="col-md-6">
-                  <div class="form-group">
-                    
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="font-weight-bolder">Nombre del Proyecto</label>
+                      <input type="text"
+                             class="form-control"
+                             name="nombre"
+                             formControlName="nombre"
+                             placeholder="Nombre del Proyecto"
+                             value="" 
+                             readonly/>
+                     </div> 
                   </div>
-                </div>                
-              </div>
+                  
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      
+                    </div>
+                  </div>                
+                </div>
 
-        <!--begin: Form -->
-        <div class="py-5" data-wizard-type="step-content">
+                <!--begin: Form -->
+                <div class="py-5" data-wizard-type="step-content">
                   <h4 class="mb-5 font-weight-bold border-bottom py-2 text-dark">
                     Impuesto a Pagar
                   </h4>
-              <div class="row">
-                <div class="col-xl-6">
-                  <div class="form-group">
-                    <label >Ingrese el monto que debe pagar el contribuyente</label><br>
-                    <input  type="number"
-                            min="0"
-                            oninput="validity.valid || (value='');"
-                            onKeyPress="if(this.value.length == 10) return false;"
-                            class="form-control"
-                            name="impuesto"
-                            formControlName="impuesto"
-                            placeholder="1234567890"/>
-                            <div *ngIf="formulario.controls['impuesto'].invalid && (formulario.controls['impuesto'].dirty || formulario.controls['impuesto'].touched)">
-                              <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                <span>Se requiere el monto</span> 
+                <div class="row">
+                  <div class="col-xl-6">
+                    <div class="form-group">
+                      <label >Ingrese el monto que debe pagar el contribuyente</label><br>
+                      <input  type="number"
+                              min="0"
+                              oninput="validity.valid || (value='');"
+                              onKeyPress="if(this.value.length == 10) return false;"
+                              class="form-control"
+                              name="impuesto"
+                              formControlName="impuesto"
+                              placeholder="1234567890"/>
+                              <div *ngIf="formulario.controls['impuesto'].invalid && (formulario.controls['impuesto'].dirty || formulario.controls['impuesto'].touched)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Se requiere el monto</span> 
+                                </div>
                               </div>
-                            </div>
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-xl-6">
-                  <div class="form-group">
-                    <label ></label>
-    
+                  <div class="col-xl-6">
+                    <div class="form-group">
+                      <label ></label>
+      
+                    </div>
                   </div>
-                </div>
-
-              </div> 
-
+                </div> 
         </div>
                 <!--end: Form -->
     <!--begin: Form Actions -->

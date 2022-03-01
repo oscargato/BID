@@ -14,7 +14,6 @@
       </div>
     </div>
 
-
     <div class="card-body">
       <div #wizard class="wizard wizard-2" id="kt_wizard_v2" data-wizard-state="step-first">
         <div class="wizard-nav border-right px-8 px-lg-10">
@@ -29,8 +28,8 @@
                 <div class="wizard-icon">
                   <span
                     class="svg-icon svg-icon-primary svg-icon-3x"
-                    [inlineSVG]="'../../../assets/media/svg/icons/General/User.svg'"
-                  ></span>
+                    [inlineSVG]="'../../../assets/media/svg/icons/General/User.svg'">
+                  </span>
                 </div>
                 <div class="wizard-label">
                   <div class="wizard-title">Información del Proyecto</div>
@@ -121,9 +120,6 @@
             <div class="offset-xxl-2 col-xxl-8">
               <!--begin: Form Wizard Form-->
 
-
-
-
               <form [formGroup]="formulario" class="form" id="kt_form" novalidate>
                 <!--begin: Form Wizard Step 1-->
                 <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
@@ -133,7 +129,6 @@
                   <div class="kt-form__section kt-form__section--first">
                     <div class="kt-wizard-v2__form">
 
-
                       <div class="form-group">
                         <label>Nombre del Proyecto</label>
                         <input type="text"
@@ -141,11 +136,11 @@
                                name="nombre"
                                formControlName="nombre"
                                placeholder="Nombre del Proyecto"/>                        
-                        <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].dirty || formulario.controls['nombre'].touched)">
-                          <div class="d-flex justify-content-end" style="color:#FF0000;">
-                            <span>Se requiere Nombre del Proyecto</span> 
-                          </div>
-                        </div>
+                              <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].dirty || formulario.controls['nombre'].touched)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Se requiere Nombre del Proyecto</span> 
+                                </div>
+                              </div>
                       </div>
 
 
@@ -163,8 +158,6 @@
                                 <span>Se requiere Descripción del Proyecto</span> 
                               </div>
                             </div>
-
-
                           </div>
                         </div>
                       </div>
@@ -195,7 +188,7 @@
                           </option>
                         </select>
                       </div>
-                      <div *ngIf="formulario.controls['provincia'].invalid && (formulario.controls['provincia'].dirty || formulario.controls['provincia'].touched)">
+                      <div *ngIf="formulario.controls['provincia'].value == -1 && (formulario.controls['provincia'].dirty || formulario.controls['provincia'].touched)">
                         <div class="d-flex justify-content-end" style="color:#FF0000;">
                           <span>Se requiere la Provincia</span> 
                         </div>
@@ -214,13 +207,13 @@
                                 [(ngModel)]="indexDist"
                                 #mySelectDist
                                 (change)='getCargaCorregimientos(mySelectDist.value)'>
-                            <option selected value="-1">Seleccione una opción</option>
-                            <option [value]="i" *ngFor="let item of distritos;let i = index">
-                              {{ item.nomDistrito }}
-                            </option>                      
+                                <option selected value="-1">Seleccione una opción</option>
+                                <option [value]="i" *ngFor="let item of distritos;let i = index">
+                                  {{ item.nomDistrito }}
+                                </option>                      
                         </select>
                       </div>
-                      <div *ngIf="formulario.controls['distrito'].invalid && (formulario.controls['distrito'].dirty || formulario.controls['distrito'].touched)">
+                      <div *ngIf="formulario.controls['distrito'].value == -1 && (formulario.controls['distrito'].dirty || formulario.controls['distrito'].touched)">
                         <div class="d-flex justify-content-end" style="color:#FF0000;">
                           <span>Se requiere el Distrito</span> 
                         </div>
@@ -237,15 +230,15 @@
                                 [(ngModel)]="indexCorr"
                                 #mySelectCorr
                                 (change)='getCarga(mySelectCorr.value)'>
-                            <option selected value="-1">Seleccione una opción</option>
-                            <option [value]="i" *ngFor="let item of corregimientos;let i = index">
-                              {{ item.nomCorregimiento }}
-                            </option>                      
+                                <option selected value="-1">Seleccione una opción</option>
+                                <option [value]="i" *ngFor="let item of corregimientos;let i = index">
+                                  {{ item.nomCorregimiento }}
+                                </option>                      
                         </select>
                       </div>
-                      <div *ngIf="formulario.controls['corregimiento'].invalid && (formulario.controls['corregimiento'].dirty || formulario.controls['corregimiento'].touched)">
+                      <div *ngIf="formulario.controls['corregimiento'].value == -1 && (formulario.controls['corregimiento'].dirty || formulario.controls['corregimiento'].touched)">
                         <div class="d-flex justify-content-end" style="color:#FF0000;">
-                          <span>Se requiere el Distrito</span> 
+                          <span>Se requiere el Corregimiento</span> 
                         </div>
                       </div>
                     </div>
@@ -257,46 +250,46 @@
                   <h4 class="mb-10 font-weight-bold text-dark">
                     Información del Lote o Terreno
                   </h4>
-              <div class="row">
-                <div class="col-xl-6">
-                  <div class="form-group">
-                    <label>Tipo de Propiedad</label>
-                    <select formControlName="tipoPropiedad"
-                            name="tipoPropiedad"
-                            class="form-control"                            
-                            [(ngModel)]="tipoProp"
-                            (change)='getTipoPropiedad()'>
-                      <option selected value="0">Seleccione una opción</option>
-                      <option [value]="i" *ngFor="let item of tipoPropiedad; let i = index">
-                          {{ item.nombre }}
-                      </option> 
-                    </select>
-                  </div>
-                  <div *ngIf="formulario.controls['tipoPropiedad'].invalid && (formulario.controls['tipoPropiedad'].dirty || formulario.controls['tipoPropiedad'].touched)">
-                    <div class="d-flex justify-content-end" style="color:#FF0000;">
-                      <span>Se requiere el Tipo de Propiedad</span> 
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label>Tipo de Propiedad</label>
+                        <select formControlName="tipoPropiedad"
+                                name="tipoPropiedad"
+                                class="form-control"                            
+                                [(ngModel)]="tipoProp"
+                                (change)='getTipoPropiedad()'>
+                          <option selected value="-1">Seleccione una opción</option>
+                          <option [value]="i" *ngFor="let item of tipoPropiedad; let i = index">
+                              {{ item.nombre }}
+                          </option> 
+                        </select>
+                      </div>
+                      <div *ngIf="formulario.controls['tipoPropiedad'].value == -1 && (formulario.controls['tipoPropiedad'].dirty || formulario.controls['tipoPropiedad'].touched)">
+                        <div class="d-flex justify-content-end" style="color:#FF0000;">
+                          <span>Se requiere el Tipo de Propiedad</span> 
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div class="col-xl-6">
-                  <div class="form-group">
-                    <label>Código de Ubicación</label>
-                    <input  type="number"
-                            min="0"
-                            oninput="validity.valid || (value='');"
-                            onKeyPress="if(this.value.length == 10) return false;"
-                            class="form-control"
-                            formControlName="codigoUbicacion"
-                            name="codigoUbicacion"
-                            placeholder="1234567890"/>
-                            <div *ngIf="formulario.controls['codigoUbicacion'].invalid && (formulario.controls['codigoUbicacion'].dirty || formulario.controls['codigoUbicacion'].touched)">
-                              <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                <span>Se requiere el Código de Ubicación</span> 
-                              </div>
-                            </div>                          
-                  </div>
-                </div>
-              </div> 
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label>Código de Ubicación</label>
+                        <input  type="number"
+                                min="0"
+                                oninput="validity.valid || (value='');"
+                                onKeyPress="if(this.value.length == 10) return false;"
+                                class="form-control"
+                                formControlName="codigoUbicacion"
+                                name="codigoUbicacion"
+                                placeholder="1234567890"/>
+                                <div *ngIf="formulario.controls['codigoUbicacion'].invalid && (formulario.controls['codigoUbicacion'].dirty || formulario.controls['codigoUbicacion'].touched)">
+                                  <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                    <span>Se requiere el Código de Ubicación</span> 
+                                  </div>
+                                </div>                          
+                      </div>
+                    </div>
+                  </div> 
 
               <div class="row">
                 <div class="col-xl-6">
@@ -629,12 +622,6 @@
                 -->    
                 </div>
                 
-
-
-
-
-
-
                 <div class="pb-5" data-wizard-type="step-content">
                   <h4 class="mb-10 font-weight-bold text-dark">
                     Revise sus detalles y envíe
@@ -705,20 +692,7 @@
                     </div>
                   </div>
                 </div>
-               
-
-
-
-
-
-
-
-
-
-
-
-
-
+              
                 <div class="d-flex justify-content-between border-top pt-10">
                   <div class="mr-2">
                     <div class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
@@ -731,19 +705,20 @@
                     <button (click)="onRegistrar()"
                             class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
                             data-wizard-type="action-submit"
-                            [disabled]="formulario.invalid">
+                            [disabled]="formulario.invalid || 
+                                        formulario.controls['provincia'].value == -1 ||
+                                        formulario.controls['distrito'].value == -1 ||
+                                        formulario.controls['corregimiento'].value == -1 ||
+                                        formulario.controls['tipoPropiedad'].value == -1">
                             Enviar
                     </button>
                     
-
                     <div class="btn btn-primary font-weight-bold text-uppercase px-9 py-4"
                          data-wizard-type="action-next">
                          Siguiente
                     </div>
                   </div>
                 </div>
-
-
                 <!--end: Form Actions -->
               </form>
               <!--end: Form Wizard Form-->

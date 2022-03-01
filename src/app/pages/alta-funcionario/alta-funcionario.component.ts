@@ -3,12 +3,10 @@ import { AltaFuncionarioService } from './alta-funcionario.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
 interface TipoFuncionario{
   id:number;
   nombre:string;
 }
-
 @Component({
   selector: 'app-alta-funcionario',
   templateUrl: './alta-funcionario.component.html',
@@ -19,12 +17,14 @@ export class AltaFuncionarioComponent implements OnInit {
   public TiposFuncionarios: Array<TipoFuncionario> = [];
   public provincias:Array<any> = [];
   public formulario:FormGroup;
-  public indexProv:number=-1;
   public indexFunc:number=-1;
+  public indexProv:number=-1;  
+  public Funcionario:TipoFuncionario;
 
   constructor(private altaFuncionarioService:AltaFuncionarioService,
               private formBuilder:FormBuilder,
-              private router:Router){}
+              private router:Router){                
+              }
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
@@ -33,18 +33,10 @@ export class AltaFuncionarioComponent implements OnInit {
       nombre:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(60)]),],
       email: ['',Validators.compose([Validators.required,Validators.email,Validators.minLength(3),Validators.maxLength(360), ]),],
       password: ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100),]),],
+      //instituciones:['', Validators.compose([Validators.required]),],
     });
 
     this.getDatosFuncionarios();
-  }
-   
-
-  changeProvincia(provincia:any){
-    console.log(provincia);
-  }
-
-  tipoFuncionario(tipo:any){
-    console.log(tipo);
   }
   
   getDatosFuncionarios(){
@@ -67,22 +59,35 @@ export class AltaFuncionarioComponent implements OnInit {
       });      
     })
   }
+  
+
+  tipoFuncionario(tipo:any){
+    console.log(this.formulario.controls);
+    //this.Funcionario.id = tipo;//this.TiposFuncionarios[tipo].id;
+    //this.Funcionario.nombre = this.TiposFuncionarios[tipo].nombre;
+  }
+
+
+  changeProvincia(provincia:any){
+    console.log(provincia);
+  }
+
 
   crearRevisor(){
     const data = 
     { "nombre": this.formulario.controls['nombre'].value,
       "password": this.formulario.controls['password'].value,
-      "tiposRevisores":{  "tipoRevisorId": 2,
-                          "descripcion": "Secretaria Municipio"
+      "tiposRevisores":{  "tipoRevisorId": this.TiposFuncionarios[this.indexFunc].id,
+                          "descripcion": this.TiposFuncionarios[this.indexFunc].nombre,
                        },
       "provinciaId":{
-          "provinciaId": 1,
-          "regionId": { "regionId": 9,
-                        "codRegion": 9,
-                        "nomRegion": "BOCAS DEL TORO"
+          "provinciaId": this.provincias[this.indexProv].provinciaId,
+          "regionId": { "regionId": this.provincias[this.indexProv].regionId.regionId,
+                        "codRegion": this.provincias[this.indexProv].regionId.codRegion,
+                        "nomRegion": this.provincias[this.indexProv].regionId.nomRegion,
                       },
-          "codProvincia": 1,
-          "nomProvincia": "BOCAS DEL TORO"
+          "codProvincia": this.provincias[this.indexProv].codProvincia,
+          "nomProvincia": this.provincias[this.indexProv].nomProvincia,
       },
       "email": this.formulario.controls['email'].value,
       "distritoId": {
@@ -131,15 +136,17 @@ export class AltaFuncionarioComponent implements OnInit {
                                       }
                     }]
     }
-
-    this.altaFuncionarioService.crearRevisor(data).subscribe(resp=>{
+    console.log('Objeto',data);
+/*     this.altaFuncionarioService.crearRevisor(data).subscribe(resp=>{
       console.log(resp)
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failSubsanar() }      
-    })
+    }) */
+
   }
+
 
   registerAlert(){  
     Swal.fire(  
@@ -150,6 +157,7 @@ export class AltaFuncionarioComponent implements OnInit {
       this.router.navigate(['/tramites/tramites-adm/tramites-adm']);
     });  
   }
+
 
   failSubsanar(){
     Swal.fire({

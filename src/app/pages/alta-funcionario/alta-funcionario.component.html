@@ -11,17 +11,16 @@
         <a routerLink="/tramites/tramites-adm/tramites-adm"
            class="btn btn-light-danger font-weight-bold mr-2 text-uppercase px-9 py-4" 
            style="float:right">
-        Cancelar
+           Cancelar
         </a>
       </div>
     </div>
     
     <div class="card-body">
-        <div class="wizard-body ">
-          
+        <div class="wizard-body ">          
           <div class="row">
             <div class="offset-xxl-2 col-xxl-8">
-              <form [formGroup]="" class="form" id="kt_form">
+              <form [formGroup]="formulario" class="form" id="kt_form">
                 <h5 class="mb-4 font-weight-bold text-dark">Datos del Funcionario</h5>
                 <div class="row">
                   <div class="col-md-6">
@@ -33,13 +32,13 @@
                                 [(ngModel)]="indexFunc"                                
                                 #tipoFuncinario
                                 (change)='tipoFuncionario(tipoFuncinario.value)'>
-                                <option selected value="0">Seleccione una opción</option>                              
-                                <option [value]="i" *ngFor="let item of TiposFuncionarios;let i = index">
+                                <option selected value="-1">Seleccione una opción</option>                              
+                                <option [value]="i" *ngFor="let item of TiposFuncionarios; let i = index">
                                     {{ item.nombre }}
                                 </option>                      
                         </select>
                     </div>
-                    <div *ngIf="formulario.controls['tipoFuncinario'].invalid && (formulario.controls['tipoFuncinario'].dirty || formulario.controls['tipoFuncinario'].touched)">
+                    <div *ngIf="formulario.controls['tipoFuncinario'].value == -1 && (formulario.controls['tipoFuncinario'].dirty || formulario.controls['tipoFuncinario'].touched)">
                       <div class="d-flex justify-content-end" style="color:#FF0000;">
                         <span>Se requiere el Tipo de Funcionario</span> 
                       </div>
@@ -56,19 +55,18 @@
                               #valorProvincia
                               (change)='changeProvincia(valorProvincia.value)'>
                           <option selected value="-1">Seleccione una opción</option>                              
-                          <option [ngValue]="i" *ngFor="let item of provincias; let i = index">
+                          <option [value]="i" *ngFor="let item of provincias; let i = index">
                                   {{ item.nomProvincia }}
                           </option>                                                                                                                       
                       </select>
                     </div>
-                    <div *ngIf="formulario.controls['provincia'].invalid && (formulario.controls['provincia'].dirty || formulario.controls['provincia'].touched)">
+                    <div *ngIf="formulario.controls['provincia'].value == -1 && (formulario.controls['provincia'].dirty || formulario.controls['provincia'].touched)">
                       <div class="d-flex justify-content-end" style="color:#FF0000;">
                         <span>Se requiere la Provincia</span> 
                       </div>
                     </div>
                   </div>                
                 </div>
-
         
                 <div class="row">
                     <div class="col-md-6">
@@ -95,7 +93,12 @@
                                 name="email"
                                 placeholder="correo@correo.com"
                                 formControlName="email"
-                                autocomplete="off"/>                        
+                                autocomplete="off"/>
+                                <div *ngIf="formulario.controls['email'].invalid && (formulario.controls['email'].dirty || formulario.controls['email'].touched)">
+                                  <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                    <span>Se requiere el Correo Electrónico</span> 
+                                  </div>
+                                </div>                        
                       </div>
                     </div>                
                 </div>
@@ -109,55 +112,55 @@
                                  type="password"
                                  maxlength="20"                                 
                                  placeholder="Confirmar contraseña"
-                                 name="cPassword"                
-                                 formControlName="cPassword"
+                                 name="password"                
+                                 formControlName="password"
                                  autocomplete="off"/>
-                          
+                                 <div *ngIf="formulario.controls['password'].invalid && (formulario.controls['password'].dirty || formulario.controls['password'].touched)">
+                                  <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                    <span>Se requiere la Contraseña</span> 
+                                  </div>
+                                </div>
 
                       </div> 
                     </div>                                                   
                 </div>
-
-
-
+                
                 <div class="py-10" data-wizard-type="step-content">
                   <h5 class="mb-4 font-weight-bold text-dark">Instituciones y Trámites</h5>
-                  <div class="row">
-                  <div class="col-xl-6">
-                  <div class="form-group">
-                    <label class="font-weight-bolder">Instituciones</label>
-                    <select name="tipoFuncinario"
-                            formControlName="tipoFuncinario"
-                            class="form-control"                            
-                            #mySelectCorr>
-                            <option selected value="-1">Seleccione una opción</option>                              
-                            <option>AIG</option>
-                            <option>MUPA</option>
-                            <option>MOP</option>                       
-                    </select>                                                      
-                  </div>
+
+                  <!--div class="row">
+                    <div class="col-xl-6">
+                      <div class="form-group">
+                        <label class="font-weight-bolder">Instituciones</label>
+                        <select name="instituciones"
+                                formControlName="instituciones"
+                                class="form-control"                            
+                                #mySelectCorr>
+                                <option selected value="-1">Seleccione una opción</option>                              
+                                <option>AIG</option>
+                                <option>MUPA</option>
+                                <option>MOP</option>                       
+                        </select>                                                      
+                      </div>
+                    </div>                                
+                  </div-->
+
                 </div>
-                
-                <div class="col-xl-6">
-                  <div class="form-group">
-                    
-                                                                          
-                  </div>
-                </div>
-              </div>              
-        </div>
         
-        <div class="d-flex justify-content-between border-top pt-10">
-          <div class="mr-2"></div>
-          <div>
-            <button (click)="crearRevisor()"
-                    class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
-                    data-wizard-type="action-submit">
-                    Crear Funcionario
-            </button>
-          </div>
-        </div>
-      </form>
+                <div class="d-flex justify-content-between border-top pt-10">
+                    <div class="mr-2"></div>
+                    <div>
+                      <button (click)="crearRevisor()"
+                              class="btn btn-success font-weight-bold text-uppercase px-9 py-4"
+                              data-wizard-type="action-submit"
+                              [disabled]="formulario.invalid || 
+                                          formulario.controls['tipoFuncinario'].value == -1 ||
+                                          formulario.controls['provincia'].value == -1">
+                              Crear Funcionario
+                      </button>
+                    </div>
+                </div>
+              </form>
     
             </div>
           </div>
