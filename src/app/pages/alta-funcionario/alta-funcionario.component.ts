@@ -19,6 +19,8 @@ export class AltaFuncionarioComponent implements OnInit {
   public TiposFuncionarios: Array<TipoFuncionario> = [];
   public provincias:Array<any> = [];
   public formulario:FormGroup;
+  public indexProv:number=-1;
+  public indexFunc:number=-1;
 
   constructor(private altaFuncionarioService:AltaFuncionarioService,
               private formBuilder:FormBuilder,
@@ -36,6 +38,14 @@ export class AltaFuncionarioComponent implements OnInit {
     this.getDatosFuncionarios();
   }
    
+
+  changeProvincia(provincia:any){
+    console.log(provincia);
+  }
+
+  tipoFuncionario(tipo:any){
+    console.log(tipo);
+  }
   
   getDatosFuncionarios(){
     this.altaFuncionarioService.getDatosFuncionarios().subscribe(resp=>{
@@ -57,7 +67,6 @@ export class AltaFuncionarioComponent implements OnInit {
       });      
     })
   }
-
 
   crearRevisor(){
     const data = 

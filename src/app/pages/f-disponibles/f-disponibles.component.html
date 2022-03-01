@@ -190,7 +190,7 @@
                                 #mySelectProv
                                 (change)='getCargaDistritos(mySelectProv.value)'>
                           <option selected value="-1">Seleccione una opción</option>
-                          <option   [value]="i" *ngFor="let item of provincias;let i = index">
+                          <option [value]="i" *ngFor="let item of provincias;let i = index">
                                   {{ item.nomProvincia }}
                           </option>
                         </select>

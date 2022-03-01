@@ -29,10 +29,12 @@
                         <label class="font-weight-bolder">Tipo de Funcionario</label>
                         <select name="tipoFuncinario"
                                 formControlName="tipoFuncinario"
-                                class="form-control"                                
-                                #mySelectCorr>
+                                class="form-control"
+                                [(ngModel)]="indexFunc"                                
+                                #tipoFuncinario
+                                (change)='tipoFuncionario(tipoFuncinario.value)'>
                                 <option selected value="0">Seleccione una opción</option>                              
-                                <option *ngFor="let item of TiposFuncionarios;let i = index">
+                                <option [value]="i" *ngFor="let item of TiposFuncionarios;let i = index">
                                     {{ item.nombre }}
                                 </option>                      
                         </select>
@@ -49,11 +51,14 @@
                       <label class="font-weight-bolder">Provincia</label>
                       <select name="provincia"
                               formControlName="provincia"
-                              class="form-control">
-                              <option selected value="0">Seleccione una opción</option>                              
-                              <option *ngFor="let item of provincias;let i = index">
-                                    {{ item.nomProvincia }}
-                              </option>                                                                                                                       
+                              class="form-control"
+                              [(ngModel)]="indexProv"
+                              #valorProvincia
+                              (change)='changeProvincia(valorProvincia.value)'>
+                          <option selected value="-1">Seleccione una opción</option>                              
+                          <option [ngValue]="i" *ngFor="let item of provincias; let i = index">
+                                  {{ item.nomProvincia }}
+                          </option>                                                                                                                       
                       </select>
                     </div>
                     <div *ngIf="formulario.controls['provincia'].invalid && (formulario.controls['provincia'].dirty || formulario.controls['provincia'].touched)">
