@@ -53,7 +53,7 @@
                               class="form-control"
                               [(ngModel)]="indexProv"
                               #valorProvincia
-                              (change)='changeProvincia(valorProvincia.value)'>
+                              (change)='getCargaDistritos(valorProvincia.value)'>
                           <option selected value="-1">Seleccione una opción</option>                              
                           <option [value]="i" *ngFor="let item of provincias; let i = index">
                                   {{ item.nomProvincia }}
@@ -127,24 +127,27 @@
                 
                 <div class="py-10" data-wizard-type="step-content">
                   <h5 class="mb-4 font-weight-bold text-dark">Instituciones y Trámites</h5>
-
-                  <!--div class="row">
-                    <div class="col-xl-6">
-                      <div class="form-group">
-                        <label class="font-weight-bolder">Instituciones</label>
-                        <select name="instituciones"
-                                formControlName="instituciones"
-                                class="form-control"                            
-                                #mySelectCorr>
-                                <option selected value="-1">Seleccione una opción</option>                              
-                                <option>AIG</option>
-                                <option>MUPA</option>
-                                <option>MOP</option>                       
-                        </select>                                                      
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="font-weight-bolder">Distrito</label>
+                      <select name="distrito"
+                              formControlName="distrito"
+                              class="form-control"
+                              [(ngModel)]="indexDist"
+                              #valorDistrito
+                              (change)='changeDistrito(valorDistrito.value)'>
+                          <option selected value="-1">Seleccione una opción</option>                              
+                          <option [value]="i" *ngFor="let item of dist; let i = index">
+                                  {{ item.nomDistrito }}
+                          </option>                                                                                                                       
+                      </select>
+                    </div>
+                    <div *ngIf="formulario.controls['distrito'].value == -1 && (formulario.controls['distrito'].dirty || formulario.controls['distrito'].touched)">
+                      <div class="d-flex justify-content-end" style="color:#FF0000;">
+                        <span>Se requiere el Distrito</span> 
                       </div>
-                    </div>                                
-                  </div-->
-
+                    </div>
+                  </div>                  
                 </div>
         
                 <div class="d-flex justify-content-between border-top pt-10">
@@ -155,7 +158,8 @@
                               data-wizard-type="action-submit"
                               [disabled]="formulario.invalid || 
                                           formulario.controls['tipoFuncinario'].value == -1 ||
-                                          formulario.controls['provincia'].value == -1">
+                                          formulario.controls['provincia'].value == -1 ||
+                                          formulario.controls['distrito'].value == -1">
                               Crear Funcionario
                       </button>
                     </div>

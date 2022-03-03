@@ -16,9 +16,13 @@ interface TipoFuncionario{
 export class AltaFuncionarioComponent implements OnInit {
   public TiposFuncionarios: Array<TipoFuncionario> = [];
   public provincias:Array<any> = [];
+  public distritos:Array<any> = [];
+  public dist:Array<any> = [];
+  public provincia:string;
   public formulario:FormGroup;
   public indexFunc:number=-1;
-  public indexProv:number=-1;  
+  public indexProv:number=-1;
+  public indexDist:number=-1;  
   public Funcionario:TipoFuncionario;
 
   constructor(private altaFuncionarioService:AltaFuncionarioService,
@@ -33,7 +37,7 @@ export class AltaFuncionarioComponent implements OnInit {
       nombre:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(60)]),],
       email: ['',Validators.compose([Validators.required,Validators.email,Validators.minLength(3),Validators.maxLength(360), ]),],
       password: ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100),]),],
-      //instituciones:['', Validators.compose([Validators.required]),],
+      distrito:['', Validators.compose([Validators.required]),],
     });
 
     this.getDatosFuncionarios();
@@ -56,6 +60,12 @@ export class AltaFuncionarioComponent implements OnInit {
       resp.lstProvincias.forEach(element => {
         this.provincias[j] = element;
         j++;
+      });
+      
+      let k = 0;
+      resp.lstDistritos.forEach(element => {
+        this.distritos[k] = element;
+        k++;
       });      
     })
   }
@@ -68,10 +78,22 @@ export class AltaFuncionarioComponent implements OnInit {
   }
 
 
-  changeProvincia(provincia:any){
-    console.log(provincia);
+  getCargaDistritos(idProvincia:number){
+    if(idProvincia >= 0){
+      const id = this.provincias[idProvincia].provinciaId      
+      this.dist = this.distritos.filter(resp => resp.provinciaId.provinciaId == id);            
+    }
   }
 
+  changeDistrito(idDistrito:number){
+    console.log('idDistrito',idDistrito)    
+    console.log('indexDist',this.indexDist)
+    console.log('idDistrito',this.dist[idDistrito])
+
+/*     this.altaFuncionarioService.getTramitesByDistritoId(this.dist[idDistrito].distritoId).subscribe(resp=>{
+      console.log(resp);
+    }) */
+  }
 
   crearRevisor(){
     const data = 
@@ -91,17 +113,17 @@ export class AltaFuncionarioComponent implements OnInit {
       },
       "email": this.formulario.controls['email'].value,
       "distritoId": {
-          "distritoId": 1,
-          "provinciaId": {  "provinciaId": 1,
-                            "regionId": { "regionId": 9,
-                                          "codRegion": 9,
-                                          "nomRegion": "BOCAS DEL TORO"
+          "distritoId": this.dist[this.indexDist].distritoId,
+          "provinciaId": {  "provinciaId": this.dist[this.indexDist].provinciaId.provinciaId,
+                            "regionId": { "regionId": this.dist[this.indexDist].provinciaId.regionId.regionId,
+                                          "codRegion": this.dist[this.indexDist].provinciaId.regionId.codRegion,
+                                          "nomRegion": this.dist[this.indexDist].provinciaId.regionId.nomRegion,
                                         },
-                            "codProvincia": 1,
-                            "nomProvincia": "BOCAS DEL TORO"
+                            "codProvincia": this.dist[this.indexDist].provinciaId.codProvincia,
+                            "nomProvincia": this.dist[this.indexDist].provinciaId.nomProvincia,
           },
-          "codDistrito": 1,
-          "nomDistrito": "BOCAS DEL TORO"
+          "codDistrito": this.dist[this.indexDist].codDistrito,
+          "nomDistrito": this.dist[this.indexDist].nomDistrito,
       },
       "lstTramites":[{  "tramiteId": 3,
                         "nombre": "Solicitud de Obtención Permiso de Construcción Municipio de Bocas del Toro",

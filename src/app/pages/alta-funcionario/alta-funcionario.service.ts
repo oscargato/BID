@@ -20,5 +20,9 @@ export class AltaFuncionarioService {
 
   crearRevisor(data: any):Observable<any>{
     return this.httpClient.post<any>(`${API_USERS_URL}/revisores/crearRevisor`,data);
+  }
+
+  getTramitesByDistritoId(id:number){
+    return this.httpClient.get<any>(`${API_USERS_URL}/tramites/getTramitesByDistritoId/${id}`).pipe(map(resp => resp.objeto));
   }   
 }
