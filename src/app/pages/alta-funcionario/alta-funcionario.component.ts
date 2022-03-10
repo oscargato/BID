@@ -3,9 +3,15 @@ import { AltaFuncionarioService } from './alta-funcionario.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+
 interface TipoFuncionario{
   id:number;
   nombre:string;
+}
+
+interface Tramite{
+  obj:any;
+  seleccionado:boolean;
 }
 @Component({
   selector: 'app-alta-funcionario',
@@ -18,17 +24,18 @@ export class AltaFuncionarioComponent implements OnInit {
   public provincias:Array<any> = [];
   public distritos:Array<any> = [];
   public dist:Array<any> = [];
+  public tramites:Array<Tramite> = [];
   public provincia:string;
   public formulario:FormGroup;
   public indexFunc:number=-1;
   public indexProv:number=-1;
   public indexDist:number=-1;  
   public Funcionario:TipoFuncionario;
+  public tram:Array<any> = [];
 
   constructor(private altaFuncionarioService:AltaFuncionarioService,
               private formBuilder:FormBuilder,
-              private router:Router){                
-              }
+              private router:Router){}
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
@@ -46,35 +53,25 @@ export class AltaFuncionarioComponent implements OnInit {
   getDatosFuncionarios(){
     this.altaFuncionarioService.getDatosFuncionarios().subscribe(resp=>{
       console.log('respu',resp);
-
-      let i = 0;
-      resp.lstTiposRevisores.forEach(element => {
-        this.TiposFuncionarios[i] = {
-          id:element.tipoRevisorId,
-          nombre:element.descripcion,
-        };
-        i++;
-      });
-
-      let j = 0;
-      resp.lstProvincias.forEach(element => {
-        this.provincias[j] = element;
-        j++;
-      });
       
-      let k = 0;
+      resp.lstTiposRevisores.forEach(element => {
+        const data = { id:element.tipoRevisorId, nombre:element.descripcion };
+        this.TiposFuncionarios.push(data);        
+      });      
+      
+      resp.lstProvincias.forEach(element => {
+        this.provincias.push(element);        
+      });
+            
       resp.lstDistritos.forEach(element => {
-        this.distritos[k] = element;
-        k++;
+        this.distritos.push(element);  
       });      
     })
   }
   
 
   tipoFuncionario(tipo:any){
-    console.log(this.formulario.controls);
-    //this.Funcionario.id = tipo;//this.TiposFuncionarios[tipo].id;
-    //this.Funcionario.nombre = this.TiposFuncionarios[tipo].nombre;
+    console.log('tipo',tipo);
   }
 
 
@@ -86,16 +83,28 @@ export class AltaFuncionarioComponent implements OnInit {
   }
 
   changeDistrito(idDistrito:number){
-    console.log('idDistrito',idDistrito)    
-    console.log('indexDist',this.indexDist)
-    console.log('idDistrito',this.dist[idDistrito])
+    this.altaFuncionarioService.getTramitesByDistritoId(this.dist[idDistrito].distritoId).subscribe(resp=>{
+      console.log('resp',resp);
+      this.tramites = [];
+      resp.forEach(element =>{
+        const obj = {   obj:element, seleccionado:false }
+        this.tramites.push(obj);
+      })
+      console.log('tramites',this.tramites);
+    })
+  }
 
-/*     this.altaFuncionarioService.getTramitesByDistritoId(this.dist[idDistrito].distritoId).subscribe(resp=>{
-      console.log(resp);
-    }) */
+  seleccionar(indice:number){
+    this.tramites[indice].seleccionado = !this.tramites[indice].seleccionado;    
   }
 
   crearRevisor(){
+    this.tram = [];
+    for (let i = 0; i < this.tramites.length; i++)
+    { if(this.tramites[i].seleccionado)
+      { this.tram.push(this.tramites[i].obj);  }
+    }
+
     const data = 
     { "nombre": this.formulario.controls['nombre'].value,
       "password": this.formulario.controls['password'].value,
@@ -125,48 +134,18 @@ export class AltaFuncionarioComponent implements OnInit {
           "codDistrito": this.dist[this.indexDist].codDistrito,
           "nomDistrito": this.dist[this.indexDist].nomDistrito,
       },
-      "lstTramites":[{  "tramiteId": 3,
-                        "nombre": "Solicitud de Obtención Permiso de Construcción Municipio de Bocas del Toro",
-                        "descripcion": "Descripción - Obtención Permiso de Construcción",
-                        "fechaBaja": null,
-                        "institucionId": {  "institucionId": 1,
-                                            "nombre": "BID",
-                                          "fechaBaja": null
-                                         },
-                        "rutaProceso": "obtencionPermisoConstruccion",
-                        "nombreProceso": "T01_Sol_PermisoConstruccionMun",
-                        "codigo": "T01",
-                        "siglas": "OPC",
-                        "flujoId": {  "flujoId": 1,
-                                      "nombre": "Flujo Complejo"
-                                   },
-                        "reglasVisibilidad": null,
-                        "emailJuridico": false,
-                        "tablaSolicitud": "T01_Sol_PermisoConstruccionMun",
-                        "tablaRevision": "T01_Rev_PermisoConstruccionMun",
-                        "distritoId": { "distritoId": 1,
-                                        "provinciaId": {  "provinciaId": 1,
-                                                          "regionId": { "regionId": 9,
-                                                                        "codRegion": 9,
-                                                                        "nomRegion": "BOCAS DEL TORO"
-                                                                      },
-                                                          "codProvincia": 1,
-                                                          "nomProvincia": "BOCAS DEL TORO"
-                                                       },
-                                        "codDistrito": 1,
-                                        "nomDistrito": "BOCAS DEL TORO"
-                                      }
-                    }]
+      "lstTramites":this.tram,
     }
+
     console.log('Objeto',data);
-/*     this.altaFuncionarioService.crearRevisor(data).subscribe(resp=>{
+
+    this.altaFuncionarioService.crearRevisor(data).subscribe(resp=>{
       console.log(resp)
       if(resp.codigo === 0)
       { this.registerAlert(); }
       else
       { this.failSubsanar() }      
-    }) */
-
+    })
   }
 
 

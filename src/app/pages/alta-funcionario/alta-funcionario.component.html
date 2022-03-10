@@ -25,18 +25,18 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                        <label class="font-weight-bolder">Tipo de Funcionario</label>
-                        <select name="tipoFuncinario"
-                                formControlName="tipoFuncinario"
-                                class="form-control"
-                                [(ngModel)]="indexFunc"                                
-                                #tipoFuncinario
-                                (change)='tipoFuncionario(tipoFuncinario.value)'>
-                                <option selected value="-1">Seleccione una opción</option>                              
-                                <option [value]="i" *ngFor="let item of TiposFuncionarios; let i = index">
-                                    {{ item.nombre }}
-                                </option>                      
-                        </select>
+                      <label class="font-weight-bolder">Tipo de Funcionario</label>
+                      <select name="tipoFuncinario"
+                              formControlName="tipoFuncinario"
+                              class="form-control"
+                              [(ngModel)]="indexFunc"                                
+                              #tipoFuncinario
+                              (change)='tipoFuncionario(tipoFuncinario.value)'>
+                              <option selected value="-1">Seleccione una opción</option>                              
+                              <option [value]="i" *ngFor="let item of TiposFuncionarios; let i = index">
+                                {{ item.nombre }}
+                              </option>                      
+                      </select>
                     </div>
                     <div *ngIf="formulario.controls['tipoFuncinario'].value == -1 && (formulario.controls['tipoFuncinario'].dirty || formulario.controls['tipoFuncinario'].touched)">
                       <div class="d-flex justify-content-end" style="color:#FF0000;">
@@ -69,57 +69,57 @@
                 </div>
         
                 <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                          <label class="font-weight-bolder">Nombre Completo</label>
-                          <input type="text"
-                                 class="form-control"
-                                 name="nombre"
-                                 formControlName="nombre"
-                                 placeholder="Nombre Completo"/>
-                                 <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].dirty || formulario.controls['nombre'].touched)">
-                                  <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                    <span>Se requiere el Nombre Completo</span> 
-                                  </div>
-                                </div>                                                            
-                      </div>                       
-                    </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="font-weight-bolder">Nombre Completo</label>
+                      <input type="text"
+                             class="form-control"
+                             name="nombre"
+                             formControlName="nombre"
+                             placeholder="Nombre Completo"/>
+                             <div *ngIf="formulario.controls['nombre'].invalid && (formulario.controls['nombre'].dirty || formulario.controls['nombre'].touched)">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Se requiere el Nombre Completo</span> 
+                              </div>
+                             </div>                                                            
+                    </div>                       
+                  </div>
                     
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label class="font-weight-bolder">Correo Electrónico</label>
-                        <input  class="form-control"
-                                type="email"
-                                name="email"
-                                placeholder="correo@correo.com"
-                                formControlName="email"
-                                autocomplete="off"/>
-                                <div *ngIf="formulario.controls['email'].invalid && (formulario.controls['email'].dirty || formulario.controls['email'].touched)">
-                                  <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                    <span>Se requiere el Correo Electrónico</span> 
-                                  </div>
-                                </div>                        
-                      </div>
-                    </div>                
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="font-weight-bolder">Correo Electrónico</label>
+                      <input  class="form-control"
+                              type="email"
+                              name="email"
+                              placeholder="correo@correo.com"
+                              formControlName="email"
+                              autocomplete="off"/>
+                              <div *ngIf="formulario.controls['email'].invalid && (formulario.controls['email'].dirty || formulario.controls['email'].touched)">
+                                <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                  <span>Se requiere el Correo Electrónico</span> 
+                                </div>
+                              </div>                        
+                    </div>
+                  </div>                
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                          <label class="font-weight-bolder">Contraseña</label>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="font-weight-bolder">Contraseña</label>
 
-                          <input class="form-control"
-                                 type="password"
-                                 maxlength="20"                                 
-                                 placeholder="Confirmar contraseña"
-                                 name="password"                
-                                 formControlName="password"
-                                 autocomplete="off"/>
-                                 <div *ngIf="formulario.controls['password'].invalid && (formulario.controls['password'].dirty || formulario.controls['password'].touched)">
-                                  <div class="d-flex justify-content-end" style="color:#FF0000;">
-                                    <span>Se requiere la Contraseña</span> 
-                                  </div>
-                                </div>
+                      <input class="form-control"
+                             type="password"
+                             maxlength="20"                                 
+                             placeholder="Confirmar contraseña"
+                             name="password"                
+                             formControlName="password"
+                             autocomplete="off"/>
+                             <div *ngIf="formulario.controls['password'].invalid && (formulario.controls['password'].dirty || formulario.controls['password'].touched)">
+                              <div class="d-flex justify-content-end" style="color:#FF0000;">
+                                <span>Se requiere la Contraseña</span> 
+                              </div>
+                             </div>
 
                       </div> 
                     </div>                                                   
@@ -127,29 +127,56 @@
                 
                 <div class="py-10" data-wizard-type="step-content">
                   <h5 class="mb-4 font-weight-bold text-dark">Instituciones y Trámites</h5>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label class="font-weight-bolder">Distrito</label>
-                      <select name="distrito"
-                              formControlName="distrito"
-                              class="form-control"
-                              [(ngModel)]="indexDist"
-                              #valorDistrito
-                              (change)='changeDistrito(valorDistrito.value)'>
-                          <option selected value="-1">Seleccione una opción</option>                              
-                          <option [value]="i" *ngFor="let item of dist; let i = index">
-                                  {{ item.nomDistrito }}
-                          </option>                                                                                                                       
-                      </select>
-                    </div>
-                    <div *ngIf="formulario.controls['distrito'].value == -1 && (formulario.controls['distrito'].dirty || formulario.controls['distrito'].touched)">
-                      <div class="d-flex justify-content-end" style="color:#FF0000;">
-                        <span>Se requiere el Distrito</span> 
+
+
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-weight-bolder">Distrito</label>
+                        <select name="distrito"
+                                formControlName="distrito"
+                                class="form-control"
+                                [(ngModel)]="indexDist"
+                                #valorDistrito
+                                (change)='changeDistrito(valorDistrito.value)'>
+                            <option selected value="-1">Seleccione una opción</option>                              
+                            <option [value]="i" *ngFor="let item of dist; let i = index">
+                                    {{ item.nomDistrito }}
+                            </option>                                                                                                                       
+                        </select>                           
                       </div>
+                      <div *ngIf="formulario.controls['distrito'].value == -1 && (formulario.controls['distrito'].dirty || formulario.controls['distrito'].touched)">
+                        <div class="d-flex justify-content-end" style="color:#FF0000;">
+                          <span>Se requiere el Distrito</span> 
+                        </div>
+                      </div>                       
                     </div>
-                  </div>                  
-                </div>
-        
+                      
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-weight-bolder">Seleccionar Tramites</label>                        
+                        <div class="table-responsive">
+                          <table class="table table-hover">
+                            <thead>        
+                              <tr>
+                                <th>Nombre</th>
+                                <th class="text-center">Seleccionar</th>                                                                                                                                                        
+                              </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <tr *ngFor="let item of tramites let indice=index">
+                                    <td>{{ item.obj.nombre }}</td>
+                                    <td class="text-center"><input type="checkbox" (click)="seleccionar(indice)"></td>                                    
+                                </tr>         
+                            </tbody>
+                          </table>
+                        </div>                     
+                      </div>
+                    </div>                
+                  </div>                                                               
+                </div>        
                 <div class="d-flex justify-content-between border-top pt-10">
                     <div class="mr-2"></div>
                     <div>
@@ -164,8 +191,7 @@
                       </button>
                     </div>
                 </div>
-              </form>
-    
+              </form>    
             </div>
           </div>
         </div>
