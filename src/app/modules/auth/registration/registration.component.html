@@ -278,7 +278,8 @@
     <div class="form-group d-flex flex-wrap pb-lg-0 pb-3">
         <button type="submit"
                 id="kt_login_signup_submit"
-                [disabled]="registrationForm.invalid"
+                [disabled]="registrationForm.invalid ||
+                            passValido == false"
                 class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-4">
                 Registrar
         </button>

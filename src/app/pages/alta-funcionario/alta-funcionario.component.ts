@@ -13,6 +13,7 @@ interface Tramite{
   obj:any;
   seleccionado:boolean;
 }
+
 @Component({
   selector: 'app-alta-funcionario',
   templateUrl: './alta-funcionario.component.html',
@@ -25,6 +26,7 @@ export class AltaFuncionarioComponent implements OnInit {
   public distritos:Array<any> = [];
   public dist:Array<any> = [];
   public tramites:Array<Tramite> = [];
+  public trm: boolean = false;
   public provincia:string;
   public formulario:FormGroup;
   public indexFunc:number=-1;
@@ -32,6 +34,15 @@ export class AltaFuncionarioComponent implements OnInit {
   public indexDist:number=-1;  
   public Funcionario:TipoFuncionario;
   public tram:Array<any> = [];
+  public ver:boolean = false;
+  public letraMayuscula:boolean = false;
+  public letraMinuscula:boolean = false;
+  public unNumero:boolean = false;
+  public unCaracter:boolean = false;
+  public minimoCaracteres:boolean = false;
+  public maximoCaracteres:boolean = false;
+  public passValido:boolean = false;
+  public clave:string = '';
 
   constructor(private altaFuncionarioService:AltaFuncionarioService,
               private formBuilder:FormBuilder,
@@ -43,7 +54,7 @@ export class AltaFuncionarioComponent implements OnInit {
       provincia:['', Validators.compose([Validators.required]),],
       nombre:['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(60)]),],
       email: ['',Validators.compose([Validators.required,Validators.email,Validators.minLength(3),Validators.maxLength(360), ]),],
-      password: ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100),]),],
+      password: ['',Validators.compose([Validators.required]),],
       distrito:['', Validators.compose([Validators.required]),],
     });
 
@@ -95,8 +106,72 @@ export class AltaFuncionarioComponent implements OnInit {
   }
 
   seleccionar(indice:number){
-    this.tramites[indice].seleccionado = !this.tramites[indice].seleccionado;    
+    this.tramites[indice].seleccionado = !this.tramites[indice].seleccionado;
+    
+    const filt = this.tramites.filter(resp => resp.seleccionado == true);
+    console.log(filt)    
+    if(filt.length > 0)
+    { this.trm = filt[0].seleccionado }
+    else
+    { this.trm = false }
+    console.log(this.trm)
   }
+
+
+  verRequerimientos(){
+    this.ver = !this.ver;
+  }  
+
+  validatePassword(){    
+    if(this.clave.length < 8)
+    { this.minimoCaracteres = false; }
+    else
+    { this.minimoCaracteres = true; }
+    
+
+    if(this.clave.length >=1 && this.clave.length <= 20)
+    { this.maximoCaracteres = true; }
+    else
+    { this.maximoCaracteres = false; }    
+
+
+    const numero = /\d/; 
+    if(numero.test(this.clave))
+    { this.unNumero = true; }
+    else
+    { this.unNumero = false; }
+
+
+    const mayuscula = /[A-Z]/; 
+    if(mayuscula.test(this.clave))
+    { this.letraMayuscula = true; }
+    else
+    { this.letraMayuscula = false; }
+
+
+    const minuscula = /[a-z]/; 
+    if(minuscula.test(this.clave))
+    { this.letraMinuscula = true; }
+    else
+    { this.letraMinuscula = false; }
+
+
+    const caracter = /[${}"><@&%#!¡¿?()|+*-/:;_.,=]/
+    if(caracter.test(this.clave))
+    { this.unCaracter = true; }
+    else
+    { this.unCaracter = false; }
+    
+
+    if(this.letraMayuscula && this.letraMinuscula && this.unNumero && this.unCaracter && this.minimoCaracteres && this.maximoCaracteres){
+      this.passValido = true;
+    }else{
+      this.passValido = false;
+    }
+  }
+
+
+
 
   crearRevisor(){
     this.tram = [];

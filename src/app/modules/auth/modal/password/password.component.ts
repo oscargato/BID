@@ -23,6 +23,7 @@ export class PasswordComponent implements OnInit {
   public iguales:boolean = false;
   public clave:string = '';
   public cclave:string = '';
+  public passValido:boolean = false;
   
   constructor(private formBuilder:FormBuilder, 
               private authHTTPService:AuthHTTPService,
@@ -50,8 +51,6 @@ export class PasswordComponent implements OnInit {
   verRequerimientos(){
     this.ver = !this.ver ;
   }  
-
-
 
 
   validatePassword(){    
@@ -98,6 +97,13 @@ export class PasswordComponent implements OnInit {
     { this.iguales = true; }
     else
     { this.iguales = false; }    
+
+
+    if(this.letraMayuscula && this.letraMinuscula && this.unNumero && this.unCaracter && this.minimoCaracteres && this.maximoCaracteres && this.iguales){
+      this.passValido = true;
+    }else{
+      this.passValido = false;
+    }    
   }
 
   validateConfirmPassword(){
@@ -105,5 +111,11 @@ export class PasswordComponent implements OnInit {
     { this.iguales = true; }
     else
     { this.iguales = false; }
+
+    if(this.letraMayuscula && this.letraMinuscula && this.unNumero && this.unCaracter && this.minimoCaracteres && this.maximoCaracteres && this.iguales){
+      this.passValido = true;
+    }else{
+      this.passValido = false;
+    }
   }
 }

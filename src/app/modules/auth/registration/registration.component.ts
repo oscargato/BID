@@ -31,6 +31,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   public iguales:boolean = false;
   public clave:string = '';
   public cclave:string = '';
+  public passValido:boolean = false;
 
   constructor( private fb: FormBuilder, 
                private authService: AuthService, 
@@ -132,7 +133,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if(this.clave == this.cclave)
     { this.iguales = true; }
     else
-    { this.iguales = false; }    
+    { this.iguales = false; }
+    
+    if(this.letraMayuscula && this.letraMinuscula && this.unNumero && this.unCaracter && this.minimoCaracteres && this.maximoCaracteres && this.iguales){
+      this.passValido = true;
+    }else{
+      this.passValido = false;
+    }
   }
 
 
@@ -141,6 +148,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     { this.iguales = true; }
     else
     { this.iguales = false; }
+
+
+    if(this.letraMayuscula && this.letraMinuscula && this.unNumero && this.unCaracter && this.minimoCaracteres && this.maximoCaracteres && this.iguales){
+      this.passValido = true;
+    }else{
+      this.passValido = false;
+    }
   }
 
 
