@@ -198,6 +198,7 @@ export class TramitesDisponiblesComponent implements OnInit, AfterViewInit {
 
   getTramitesDisponibles(){
     this.tramitesDisponiblesService.tramitesDisponibles().subscribe(resp => {
+      console.log('TD',resp)
       let i = 0;
       resp.forEach(element => {
         this.tramites[i] = { nombre:element.nombre, tramiteId:element.tramiteId } ;
