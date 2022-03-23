@@ -93,7 +93,7 @@ export class PasswordComponent implements OnInit {
     else
     { this.unCaracter = false; }
 
-    if(this.clave == this.cclave)
+    if(this.clave == this.cclave && this.clave !== '')
     { this.iguales = true; }
     else
     { this.iguales = false; }    
@@ -103,11 +103,11 @@ export class PasswordComponent implements OnInit {
       this.passValido = true;
     }else{
       this.passValido = false;
-    }    
+    } 
   }
 
   validateConfirmPassword(){
-    if(this.clave === this.cclave)
+    if(this.clave == this.cclave)
     { this.iguales = true; }
     else
     { this.iguales = false; }

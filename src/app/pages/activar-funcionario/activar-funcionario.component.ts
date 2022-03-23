@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { ActivarFuncionarioService } from './activar-funcionario.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 interface Funcionarios {
   nombreCompleto:string; 
@@ -28,7 +30,8 @@ export class ActivarFuncionarioComponent implements OnInit {
   public orderNombre:boolean = false;
   public step:number = 0;
 
-  constructor(private matPaginatorIntl:MatPaginatorIntl, 
+  constructor(private matPaginatorIntl:MatPaginatorIntl,
+              private router: Router,  
               private activarFuncionarioService:ActivarFuncionarioService){
     this.matPaginatorIntl.itemsPerPageLabel = "Registros por página";
     this.Funcionarios = [];
@@ -85,6 +88,8 @@ export class ActivarFuncionarioComponent implements OnInit {
         }
       });
     }
+
+    this.cambioExitoso()
   }
 
   sortNombre(nombre:string){
@@ -132,5 +137,15 @@ export class ActivarFuncionarioComponent implements OnInit {
   cambiarpagina(e:PageEvent){
     this.desde = e.pageIndex * e.pageSize;
     this.hasta = this.desde + e.pageSize;
+  }
+
+  cambioExitoso(){  
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Su estatus se cambio exitosamente',
+      showConfirmButton: false,
+      timer: 2500
+    })  
   }
 }
